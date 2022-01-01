@@ -1,149 +1,78 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css';
 import './index.css';
+import {Layout, Menu, Breadcrumb} from 'antd';
+import {AudioOutlined, BarsOutlined, FireOutlined} from "@ant-design/icons";
 
-function Square(props) {
-    return (
-        <button className="square" onClick={props.onClick}>
-            {props.value}
-        </button>
-    );
-}
+const {Header, Content, Footer, Sider} = Layout;
 
-class Board extends React.Component {
-    renderSquare(i) {
-        return (
-            <Square
-                value={this.props.squares[i]}
-                onClick={() => this.props.onClick(i)}
-            />
-        );
-    }
+class SiderDemo extends React.Component {
+    state = {
+        collapsed: false,
+        choice: "list",
+    };
 
-    render() {
-        return (
-            <div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
-            </div>
-        );
-    }
-}
+    onCollapse = collapsed => {
+        this.setState({collapsed});
+    };
 
-class Game extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            history: [
-                {
-                    squares: Array(9).fill(null)
-                }
-            ],
-            stepNumber: 0,
-            xIsNext: true
-        };
-    }
-
-    handleClick(i) {
-        const history = this.state.history.slice(0, this.state.stepNumber + 1);
-        const current = history[history.length - 1];
-        const squares = current.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
+    handleClick = e => {
+        if (e.key === "title") {
             return;
         }
-        squares[i] = this.state.xIsNext ? "X" : "O";
-        this.setState({
-            history: history.concat([
-                {
-                    squares: squares
-                }
-            ]),
-            stepNumber: history.length,
-            xIsNext: !this.state.xIsNext
-        });
-    }
-
-    jumpTo(step) {
-        this.setState({
-            stepNumber: step,
-            xIsNext: (step % 2) === 0
-        });
-    }
+        if (e.key === "list") {
+            this.setState({
+                choice: "list"
+            })
+        } else if (e.key === "noise") {
+            this.setState({
+                choice: "noise"
+            })
+        } else if (e.key === "evaluation") {
+            this.setState({
+                choice: "evaluation"
+            })
+        }
+    };
 
     render() {
-        const history = this.state.history;
-        const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.squares);
-
-        const moves = history.map((step, move) => {
-            console.log("step:" + step + " move:" + move)
-            const desc = move ?
-                'Go to move #' + move :
-                'Go to game start';
-            return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
-                </li>
-            );
-        });
-
-        let status;
-        if (winner) {
-            status = "Winner: " + winner;
-        } else {
-            status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-        }
-
+        const {collapsed} = this.state;
         return (
-            <div className="game">
-                <div className="game-board">
-                    <Board
-                        squares={current.squares}
-                        onClick={i => this.handleClick(i)}
-                    />
-                </div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <ol>{moves}</ol>
-                </div>
-            </div>
+            <Layout style={{minHeight: '100vh'}}>
+                <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+                    <Menu theme="dark" className="menu" onClick={this.handleClick} defaultSelectedKeys={["list"]}
+                          mode="inline">
+                        <Menu.Item className="title" key="title">
+                            音频数据集系统
+                        </Menu.Item>
+                        <Menu.Item key="list" icon={<BarsOutlined/>}>
+                            音频列表
+                        </Menu.Item>
+                        <Menu.Item key="noise" icon={<AudioOutlined/>}>
+                            音频扰动
+                        </Menu.Item>
+                        <Menu.Item key="evaluation" icon={<FireOutlined/>}>
+                            质量分析
+                        </Menu.Item>
+                    </Menu>
+                </Sider>
+                <Layout className="site-layout">
+                    <Header className="site-layout-background" style={{padding: 0}}/>
+                    <Content style={{margin: '0 16px'}}>
+                        <Breadcrumb style={{margin: '16px 0'}}>
+                            <Breadcrumb.Item>User</Breadcrumb.Item>
+                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                            {this.state.choice}
+                        </div>
+                    </Content>
+                    <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+                </Layout>
+            </Layout>
         );
     }
 }
 
-// ========================================
-
-ReactDOM.render(<Game/>, document.getElementById("root"));
-
-function calculateWinner(squares) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
-    for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
-        }
-    }
-    return null;
-}
+ReactDOM.render(<SiderDemo/>, document.getElementById("root"));
