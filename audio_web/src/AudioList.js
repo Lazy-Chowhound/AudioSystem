@@ -4,6 +4,7 @@ import './index.css';
 
 
 import {Modal, Table} from 'antd';
+import AudioDetail from "./AudioDetail";
 
 class AudioList extends React.Component {
     constructor(props) {
@@ -19,6 +20,11 @@ class AudioList extends React.Component {
             title: '音频',
             dataIndex: 'name',
             key: 'name',
+        },
+        {
+            title: '语言',
+            dataIndex: 'language',
+            key: 'language',
         },
         {
             title: '大小',
@@ -60,6 +66,7 @@ class AudioList extends React.Component {
             {
                 key: "1",
                 name: "Chinese",
+                language: "Chinese",
                 size: "3GB",
                 hour: 86,
                 people: 3792,
@@ -70,6 +77,7 @@ class AudioList extends React.Component {
             {
                 key: '2',
                 name: "Japanese",
+                language: "Japanese",
                 size: "628MB",
                 hour: 42,
                 people: 1234,
@@ -80,6 +88,7 @@ class AudioList extends React.Component {
             {
                 key: '3',
                 name: "English",
+                language: "English",
                 size: "65GB",
                 hour: 145,
                 people: 15676,
@@ -111,8 +120,8 @@ class AudioList extends React.Component {
             <div>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
                 <Modal title="Basic Modal" visible={this.state.isModalVisible} footer={null}
-                       onCancel={this.handleCancel}>
-                    <p>to be continued</p>
+                       onCancel={this.handleCancel} width={700}>
+                    <AudioDetail/>
                 </Modal>
             </div>
         )
