@@ -2,8 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './index.css';
-import {Layout, Menu, Breadcrumb} from 'antd';
+import {Breadcrumb, Layout, Menu} from 'antd';
 import {AudioOutlined, BarsOutlined, FireOutlined} from "@ant-design/icons";
+import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
+import AudioList from "./AudioList";
+import Perturbation from "./Perturbation";
+import Validation from "./Validation";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -23,15 +27,15 @@ class SiderDemo extends React.Component {
         }
         if (e.key === "list") {
             this.setState({
-                choice: "list"
+                choice: "音频列表"
             })
         } else if (e.key === "noise") {
             this.setState({
-                choice: "noise"
+                choice: "音频扰动"
             })
         } else if (e.key === "evaluation") {
             this.setState({
-                choice: "evaluation"
+                choice: "质量分析"
             })
         }
     };
@@ -39,38 +43,45 @@ class SiderDemo extends React.Component {
     render() {
         const {collapsed} = this.state;
         return (
-            <Layout style={{minHeight: '100vh'}}>
-                <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-                    <Menu theme="dark" className="menu" onClick={this.handleClick} defaultSelectedKeys={["list"]}
-                          mode="inline">
-                        <Menu.Item className="title" key="title">
-                            音频数据集系统
-                        </Menu.Item>
-                        <Menu.Item key="list" icon={<BarsOutlined/>}>
-                            音频列表
-                        </Menu.Item>
-                        <Menu.Item key="noise" icon={<AudioOutlined/>}>
-                            音频扰动
-                        </Menu.Item>
-                        <Menu.Item key="evaluation" icon={<FireOutlined/>}>
-                            质量分析
-                        </Menu.Item>
-                    </Menu>
-                </Sider>
-                <Layout className="site-layout">
-                    <Header className="site-layout-background" style={{padding: 0}}/>
-                    <Content style={{margin: '0 16px'}}>
-                        <Breadcrumb style={{margin: '16px 0'}}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
-                            {this.state.choice}
-                        </div>
-                    </Content>
-                    <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Router>
+                <Layout style={{minHeight: '100vh'}}>
+                    <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+                        <Menu theme="dark" className="menu" onClick={this.handleClick} defaultSelectedKeys={["list"]}
+                              mode="inline">
+                            <Menu.Item className="title" key="title">
+                                音频数据集系统
+                            </Menu.Item>
+                            <Menu.Item key="list" icon={<BarsOutlined/>}>
+                                <Link to={"/list"}>音频列表</Link>
+                            </Menu.Item>
+                            <Menu.Item key="noise" icon={<AudioOutlined/>}>
+                                <Link to={"/perturbation"}>音频扰动</Link>
+                            </Menu.Item>
+                            <Menu.Item key="evaluation" icon={<FireOutlined/>}>
+                                <Link to={"/validation"}>质量分析</Link>
+                            </Menu.Item>
+                        </Menu>
+
+                    </Sider>
+                    <Layout className="site-layout">
+                        <Header className="site-layout-background" style={{padding: 0}}/>
+                        <Content style={{margin: '0 16px'}}>
+                            <Breadcrumb style={{margin: '16px 0'}}>
+                                <Breadcrumb.Item>音频数据集系统 </Breadcrumb.Item>
+                                <Breadcrumb.Item>{this.state.choice}</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                                <Routes>
+                                    <Route exact path="/list" element={<AudioList/>}/>
+                                    <Route exact path="/perturbation" element={<Perturbation/>}/>
+                                    <Route exact path="/validation" element={<Validation/>}/>
+                                </Routes>
+                            </div>
+                        </Content>
+                        <Footer style={{textAlign: 'center'}}>Audio System ©2022 Created by Nakano Miku</Footer>
+                    </Layout>
                 </Layout>
-            </Layout>
+            </Router>
         );
     }
 }
