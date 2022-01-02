@@ -14,7 +14,7 @@ const {Header, Content, Footer, Sider} = Layout;
 class SiderDemo extends React.Component {
     state = {
         collapsed: false,
-        choice: "list",
+        choice: "音频列表",
     };
 
     onCollapse = collapsed => {
@@ -72,6 +72,7 @@ class SiderDemo extends React.Component {
                             </Breadcrumb>
                             <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
                                 <Routes>
+                                    <Route exact path="/" element={<AudioList/>}/>
                                     <Route exact path="/list" element={<AudioList/>}/>
                                     <Route exact path="/perturbation" element={<Perturbation/>}/>
                                     <Route exact path="/validation" element={<Validation/>}/>

@@ -3,13 +3,14 @@ import 'antd/dist/antd.css';
 import './index.css';
 
 
-import {Table} from 'antd';
+import {Modal, Table} from 'antd';
 
 class AudioList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             dataSource: [],
+            isModalVisible: false
         };
     }
 
@@ -47,7 +48,10 @@ class AudioList extends React.Component {
         {
             title: '音频列表',
             key: 'list',
-            render: url => <a href={url}>查看详细音频列表</a>,
+            render: item => <button type="primary"
+                                    onClick={() => {
+                                        this.showDetail(item)
+                                    }}>查看详细音频列表</button>,
         },
     ];
 
@@ -85,13 +89,32 @@ class AudioList extends React.Component {
             },
         ];
         this.setState({
-            dataSource: data
+            dataSource: data,
+        })
+    }
+
+    showDetail = (item) => {
+        console.log(item.name)
+        this.setState({
+            isModalVisible: true
+        })
+    }
+
+    handleCancel = () => {
+        this.setState({
+            isModalVisible: false
         })
     }
 
     render() {
         return (
-            <Table columns={this.columns} dataSource={this.state.dataSource}/>
+            <div>
+                <Table columns={this.columns} dataSource={this.state.dataSource}/>
+                <Modal title="Basic Modal" visible={this.state.isModalVisible} footer={null}
+                       onCancel={this.handleCancel}>
+                    <p>to be continued</p>
+                </Modal>
+            </div>
         )
     }
 }
