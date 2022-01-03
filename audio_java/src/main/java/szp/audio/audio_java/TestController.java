@@ -14,11 +14,6 @@ public class TestController {
     @Autowired
     private RpcUtil rpcUtil;
 
-    @RequestMapping("/test")
-    public Result test() {
-        return Result.success(StatusCode.SUCCESS.getStatus(), 1);
-    }
-
     @RequestMapping("/rpc")
     public Result get() {
         try {
