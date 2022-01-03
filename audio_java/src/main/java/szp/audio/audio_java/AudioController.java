@@ -14,10 +14,12 @@ public class AudioController {
     @Autowired
     private RpcUtil rpcUtil;
 
+    /**
+     * 获取音频数据集属性
+     */
     @RequestMapping("/audioSetDescription")
     public Result getAudioSetDescription() {
         try {
-            System.out.println(rpcUtil.sendRequest("getAudioSet"));
             return Result.success(StatusCode.SUCCESS.getStatus(), rpcUtil.sendRequest("getAudioSet"));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
