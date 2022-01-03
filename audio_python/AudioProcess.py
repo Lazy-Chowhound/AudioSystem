@@ -7,6 +7,7 @@ from pydub import AudioSegment
 
 
 # 获取指定音频的详情
+# path形如D:/AudioSystem/Audio/cv-corpus-chinese/
 def getAudioDetail(path, audioName):
     files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
     detail = {}
@@ -18,7 +19,7 @@ def getAudioDetail(path, audioName):
                 for item in row.items():
                     detail[item[0]] = item[1]
                 break
-    return json.dumps(detail, ensure_ascii=False)
+    return detail
 
 
 # 波形图、振幅
@@ -61,9 +62,15 @@ def getDuration(path, audioName):
     return librosa.get_duration(sig, sr)
 
 
-# 声道和位深
+# 声道
 def getChannels(path, audioName):
     audio = path + audioName
     song = AudioSegment.from_mp3(audio)
-    print(song.channels)
-    print(song.sample_width * 8)
+    return song.channels
+
+
+# 位深
+def getBitDepth(path, audioName):
+    audio = path + audioName
+    song = AudioSegment.from_mp3(audio)
+    return song.sample_width * 8
