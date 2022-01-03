@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 
 
-import {Modal, Table} from 'antd';
+import {Button, Modal, Table} from 'antd';
 import AudioDetail from "./AudioDetail";
 
 class AudioList extends React.Component {
@@ -17,47 +17,55 @@ class AudioList extends React.Component {
 
     columns = [
         {
-            title: '音频',
+            title: '音频数据集',
             dataIndex: 'name',
             key: 'name',
+            align: "center"
         },
         {
             title: '语言',
             dataIndex: 'language',
             key: 'language',
+            align: "center"
         },
         {
             title: '大小',
             dataIndex: 'size',
             key: 'size',
+            align: "center"
         },
         {
             title: '总小时数',
             dataIndex: 'hour',
             key: 'hour',
+            align: "center"
         },
         {
             title: '录音人数',
             key: 'people',
             dataIndex: 'people',
+            align: "center"
         },
         {
             title: '格式',
             key: 'format',
             dataIndex: 'format',
+            align: "center"
         },
         {
             title: "分布",
             key: 'distribution',
             dataIndex: 'distribution',
+            align: "center"
         },
         {
             title: '音频列表',
             key: 'list',
-            render: item => <button type="primary"
-                                    onClick={() => {
-                                        this.showDetail(item)
-                                    }}>查看详细音频列表</button>,
+            render: item =>
+                <Button type={"primary"} size={"small"} onClick={() => {
+                    this.showDetail(item)
+                }}>详细音频列表</Button>,
+            align: "center"
         },
     ];
 

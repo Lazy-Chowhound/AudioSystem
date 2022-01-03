@@ -1,5 +1,5 @@
 import React from "react";
-import {Table} from "antd";
+import {Button, Table} from "antd";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -14,37 +14,43 @@ class AudioDetail extends React.Component {
             title: '音频名称',
             dataIndex: 'name',
             key: 'name',
+            align: "center"
         },
         {
             title: '大小',
             dataIndex: 'size',
             key: 'size',
+            align: "center"
         },
         {
             title: '单/双声道',
             dataIndex: 'channel',
             key: 'channel',
+            align: "center"
         },
         {
             title: '采样率',
             key: 'sampleRate',
             dataIndex: 'sampleRate',
+            align: "center"
         },
         {
             title: "波形图",
             key: 'distribution',
-            render: item => <button type="primary"
-                                    onClick={() => {
-                                        this.showDetail(item)
-                                    }}>波形图</button>,
+            render: item =>
+                <Button type={"primary"} size={"small"} onClick={() => {
+                    this.showDetail(item)
+                }}>查看波形图</Button>,
+            align: "center"
         },
         {
             title: '频谱图',
             key: 'list',
-            render: item => <button type="primary"
-                                    onClick={() => {
-                                        this.showDetail(item)
-                                    }}>查看频谱图</button>,
+            render: item =>
+                <Button type={"primary"} size={"small"} onClick={() => {
+                    this.showDetail(item)
+                }}>查看频谱图</Button>,
+            align: "center"
         },
     ];
 
