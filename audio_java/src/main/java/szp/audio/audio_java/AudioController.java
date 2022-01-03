@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Nakano Miku
  */
 @RestController
-public class TestController {
+public class AudioController {
 
     @Autowired
     private RpcUtil rpcUtil;
 
-    @RequestMapping("/rpc")
-    public Result get() {
+    @RequestMapping("/audioSetDescription")
+    public Result getAudioSetDescription() {
         try {
-            return Result.success(StatusCode.SUCCESS.getStatus(), rpcUtil.sendRequest("getTSum", "5", "6", "7"));
+            System.out.println(rpcUtil.sendRequest("getAudioSet"));
+            return Result.success(StatusCode.SUCCESS.getStatus(), rpcUtil.sendRequest("getAudioSet"));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
