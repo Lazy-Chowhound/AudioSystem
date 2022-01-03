@@ -11,7 +11,8 @@ class AudioList extends React.Component {
         super(props);
         this.state = {
             dataSource: [],
-            isModalVisible: false
+            isModalVisible: false,
+            choice: null
         };
     }
 
@@ -74,7 +75,6 @@ class AudioList extends React.Component {
             .then(
                 (response) => {
                     const data = JSON.parse(response.data.data)
-                    console.log(data)
                     this.setState({
                         dataSource: data
                     })
@@ -85,13 +85,12 @@ class AudioList extends React.Component {
                     message.error(error)
                 }
             )
-
     }
 
     showDetail = (item) => {
-        console.log(item.name)
         this.setState({
-            isModalVisible: true
+            isModalVisible: true,
+            choice: item.name
         })
     }
 
@@ -105,9 +104,9 @@ class AudioList extends React.Component {
         return (
             <div style={{whiteSpace: "pre"}}>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
-                <Modal title="Basic Modal" visible={this.state.isModalVisible} footer={null}
-                       onCancel={this.handleCancel} width={700}>
-                    <AudioDetail/>
+                <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
+                       onCancel={this.handleCancel} width={950}>
+                    <AudioDetail choice={this.state.choice}/>
                 </Modal>
             </div>
         )

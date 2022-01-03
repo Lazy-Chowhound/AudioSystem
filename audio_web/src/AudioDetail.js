@@ -1,5 +1,6 @@
 import React from "react";
-import {Button, Table} from "antd";
+import {Button, message, Table} from "antd";
+import axios from "axios";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -17,9 +18,21 @@ class AudioDetail extends React.Component {
             align: "center"
         },
         {
-            title: '大小',
+            title: '时长',
             dataIndex: 'size',
             key: 'size',
+            align: "center"
+        },
+        {
+            title: '性别',
+            dataIndex: 'gender',
+            key: 'gender',
+            align: "center"
+        },
+        {
+            title: '年龄',
+            dataIndex: 'age',
+            key: 'age',
             align: "center"
         },
         {
@@ -32,6 +45,18 @@ class AudioDetail extends React.Component {
             title: '采样率',
             key: 'sampleRate',
             dataIndex: 'sampleRate',
+            align: "center"
+        },
+        {
+            title: '位深(bit)',
+            key: 'bitDepth',
+            dataIndex: 'bitDepth',
+            align: "center"
+        },
+        {
+            title: '内容',
+            key: 'content',
+            dataIndex: 'content',
             align: "center"
         },
         {
@@ -78,6 +103,23 @@ class AudioDetail extends React.Component {
                 sampleRate: "100Hz"
             },
         ];
+        // const url = "http://localhost:8080/audioSetDescription"
+        // axios.get(url)
+        //     .then(
+        //         (response) => {
+        //             const data = JSON.parse(response.data.data)
+        //             console.log(data)
+        //             this.setState({
+        //                 dataSource: data
+        //             })
+        //
+        //         }
+        //     )
+        //     .catch((error) => {
+        //             message.error(error)
+        //         }
+        //     )
+        console.log(this.props.choice)
         this.setState({
             dataSource: data,
         })
