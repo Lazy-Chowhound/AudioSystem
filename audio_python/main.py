@@ -1,6 +1,7 @@
-from AudioProperty import *
+from AudioSetProperty import *
 from Server import RPCServer
 
 if __name__ == '__main__':
     rpcServer = RPCServer("localhost", 8081)
-    rpcServer.start([])
+    print("-------rpc sever start-------")
+    rpcServer.start([getAudioSet])
