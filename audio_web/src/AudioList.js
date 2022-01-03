@@ -1,9 +1,9 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-
-
-import {Button, Modal, Table} from 'antd';
+import axios from 'axios';
+import './AudioList.css';
+import {Button, Modal, Table, message} from 'antd';
 import AudioDetail from "./AudioDetail";
 
 class AudioList extends React.Component {
@@ -48,21 +48,20 @@ class AudioList extends React.Component {
         },
         {
             title: '格式',
-            key: 'format',
-            dataIndex: 'format',
+            key: 'form',
+            dataIndex: 'form',
             align: "center"
         },
         {
             title: "分布",
             key: 'distribution',
             dataIndex: 'distribution',
-            align: "center"
         },
         {
             title: '音频列表',
             key: 'list',
             render: item =>
-                <Button type={"primary"} size={"small"} onClick={() => {
+                <Button type={"primary"} onClick={() => {
                     this.showDetail(item)
                 }}>详细音频列表</Button>,
             align: "center"
@@ -70,44 +69,23 @@ class AudioList extends React.Component {
     ];
 
     componentDidMount() {
-        const data = [
-            {
-                key: "1",
-                name: "Chinese",
-                language: "Chinese",
-                size: "3GB",
-                hour: 86,
-                people: 3792,
-                format: "MP3",
-                distribution: "年龄 37% 19 - 29；12% 30 - 39；9% < 19；3% 40 - 49\n 51% 男；10% 女",
-                url: "www.baidu.com"
-            },
-            {
-                key: '2',
-                name: "Japanese",
-                language: "Japanese",
-                size: "628MB",
-                hour: 42,
-                people: 1234,
-                format: "MP3",
-                distribution: "年龄 37% 19 - 29；12% 30 - 39；9% < 19；3% 40 - 49\n 51% 男；10% 女",
-                url: "www.baidu.com"
-            },
-            {
-                key: '3',
-                name: "English",
-                language: "English",
-                size: "65GB",
-                hour: 145,
-                people: 15676,
-                format: "MP3",
-                distribution: "年龄 37% 19 - 29；12% 30 - 39；9% < 19；3% 40 - 49\n 51% 男；10% 女",
-                url: "www.baidu.com"
-            },
-        ];
-        this.setState({
-            dataSource: data,
-        })
+        const url = "http://localhost:8080/audioSetDescription"
+        axios.get(url)
+            .then(
+                (response) => {
+                    const data = JSON.parse(response.data.data)
+                    console.log(data)
+                    this.setState({
+                        dataSource: data
+                    })
+
+                }
+            )
+            .catch((error) => {
+                    message.error(error)
+                }
+            )
+
     }
 
     showDetail = (item) => {
@@ -125,7 +103,7 @@ class AudioList extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{whiteSpace: "pre"}}>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
                 <Modal title="Basic Modal" visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={700}>

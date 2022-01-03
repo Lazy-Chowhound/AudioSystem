@@ -38,7 +38,7 @@ class AudioDetail extends React.Component {
             title: "波形图",
             key: 'distribution',
             render: item =>
-                <Button type={"primary"} size={"small"} onClick={() => {
+                <Button type={"link"} size={"small"} onClick={() => {
                     this.showDetail(item)
                 }}>查看波形图</Button>,
             align: "center"
@@ -47,7 +47,7 @@ class AudioDetail extends React.Component {
             title: '频谱图',
             key: 'list',
             render: item =>
-                <Button type={"primary"} size={"small"} onClick={() => {
+                <Button type={"link"} size={"small"} onClick={() => {
                     this.showDetail(item)
                 }}>查看频谱图</Button>,
             align: "center"
