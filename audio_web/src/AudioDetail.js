@@ -1,12 +1,17 @@
 import React from "react";
-import {Button, message, Table} from "antd";
+import {Button, message, Modal, Table} from "antd";
 import axios from "axios";
+import ImageArea from "./ImageArea";
 
 class AudioDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             dataSource: [],
+            isModalVisible: false,
+            ImageType: null,
+            AbsoluteUrl: null,
+            ImageUrl: null
         };
     }
 
@@ -23,20 +28,20 @@ class AudioDetail extends React.Component {
             key: 'size',
             align: "center"
         },
+        // {
+        //     title: '性别',
+        //     dataIndex: 'gender',
+        //     key: 'gender',
+        //     align: "center"
+        // },
+        // {
+        //     title: '年龄',
+        //     dataIndex: 'age',
+        //     key: 'age',
+        //     align: "center"
+        // },
         {
-            title: '性别',
-            dataIndex: 'gender',
-            key: 'gender',
-            align: "center"
-        },
-        {
-            title: '年龄',
-            dataIndex: 'age',
-            key: 'age',
-            align: "center"
-        },
-        {
-            title: '单/双声道',
+            title: '声道',
             dataIndex: 'channel',
             key: 'channel',
             align: "center"
@@ -48,7 +53,7 @@ class AudioDetail extends React.Component {
             align: "center"
         },
         {
-            title: '位深(bit)',
+            title: '位深',
             key: 'bitDepth',
             dataIndex: 'bitDepth',
             align: "center"
@@ -64,7 +69,7 @@ class AudioDetail extends React.Component {
             key: 'distribution',
             render: item =>
                 <Button type={"link"} size={"small"} onClick={() => {
-                    this.showDetail(item)
+                    this.showWaveForm(item)
                 }}>查看波形图</Button>,
             align: "center"
         },
@@ -73,61 +78,106 @@ class AudioDetail extends React.Component {
             key: 'list',
             render: item =>
                 <Button type={"link"} size={"small"} onClick={() => {
-                    this.showDetail(item)
+                    this.showMelSpectrum(item)
                 }}>查看频谱图</Button>,
             align: "center"
         },
     ];
 
     componentDidMount() {
-        const data = [
-            {
-                key: "1",
-                name: "1.mp3",
-                size: "17s",
-                channel: "单",
-                sampleRate: "100Hz"
-            },
-            {
-                key: '2',
-                name: "2.mp3",
-                size: "8s",
-                channel: "双",
-                sampleRate: "90Hz"
-            },
-            {
-                key: '3',
-                name: "3.mp3",
-                size: "10s",
-                channel: "单",
-                sampleRate: "100Hz"
-            },
-        ];
-        // const url = "http://localhost:8080/audioSetDescription"
-        // axios.get(url)
-        //     .then(
-        //         (response) => {
-        //             const data = JSON.parse(response.data.data)
-        //             console.log(data)
-        //             this.setState({
-        //                 dataSource: data
-        //             })
-        //
-        //         }
-        //     )
-        //     .catch((error) => {
-        //             message.error(error)
-        //         }
-        //     )
-        console.log(this.props.choice)
+        const url = "http://localhost:8080/audioDescription"
+        axios.get(url, {
+            params: {
+                audioSet: this.props.choice,
+                page: 1,
+                pageSize: 1
+            }
+        }).then(
+            (response) => {
+                this.setState({
+                    dataSource: JSON.parse(response.data.data)
+                })
+            }
+        ).catch((error) => {
+                message.error(error)
+            }
+        )
+    }
+
+    showWaveForm = (item) => {
+        const url = "http://localhost:8080/getWaveForm"
+        axios.get(url, {
+            params: {
+                audioSet: this.props.choice,
+                audioName: item.name
+            }
+        }).then(
+            (response) => {
+                const path = response.data.data
+                this.setState({
+                    ImageType: "波形图",
+                    isModalVisible: true,
+                    AbsoluteUrl: path,
+                    ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static/", "http://localhost:8080/")
+                })
+
+            }
+        ).catch((error) => {
+                message.error(error)
+            }
+        )
+    }
+
+    showMelSpectrum = (item) => {
+        const url = "http://localhost:8080/getMelSpectrum"
+        axios.get(url, {
+            params: {
+                audioSet: this.props.choice,
+                audioName: item.name
+            }
+        }).then(
+            (response) => {
+                const path = response.data.data
+                this.setState({
+                    ImageType: "Mel频谱图",
+                    isModalVisible: true,
+                    AbsoluteUrl: path,
+                    ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static/", "http://localhost:8080/")
+                })
+
+            }
+        ).catch((error) => {
+                message.error(error)
+            }
+        )
+    }
+
+    handleCancel = () => {
         this.setState({
-            dataSource: data,
+            isModalVisible: false
         })
+        const url = "http://localhost:8080/removeImage"
+        axios.get(url, {
+            params: {
+                path: this.state.AbsoluteUrl
+            }
+        }).then(() => {
+            }
+        ).catch((error) => {
+                message.error(error)
+            }
+        )
     }
 
     render() {
         return (
-            <Table columns={this.columns} dataSource={this.state.dataSource}/>
+            <div>
+                <Table columns={this.columns} dataSource={this.state.dataSource}/>
+                <Modal title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
+                       onCancel={this.handleCancel} width={500}>
+                    <ImageArea src={this.state.ImageUrl}/>
+                </Modal>
+            </div>
         )
     }
 }

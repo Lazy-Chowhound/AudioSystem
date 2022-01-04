@@ -74,11 +74,9 @@ class AudioList extends React.Component {
         axios.get(url)
             .then(
                 (response) => {
-                    const data = JSON.parse(response.data.data)
                     this.setState({
-                        dataSource: data
+                        dataSource: JSON.parse(response.data.data)
                     })
-
                 }
             )
             .catch((error) => {
@@ -105,7 +103,7 @@ class AudioList extends React.Component {
             <div style={{whiteSpace: "pre"}}>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
                 <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
-                       onCancel={this.handleCancel} width={950}>
+                       onCancel={this.handleCancel} width={1000}>
                     <AudioDetail choice={this.state.choice}/>
                 </Modal>
             </div>

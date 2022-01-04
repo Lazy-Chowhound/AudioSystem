@@ -1,9 +1,21 @@
+import json
 import os
 import librosa.display
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from pydub import AudioSegment
+
+
+def getAudio(AudioSetName, page, pageSize):
+    Audio = []
+    path = "D:/AudioSystem/Audio/" + AudioSetName + "/"
+    AudioList = getAudioList(path)
+    for i in range((int(page) - 1) * int(pageSize), int(page) * int(pageSize)):
+        AudioProperty = getAudioProperty(path, AudioList[i])
+        AudioProperty['key'] = i + 1
+        Audio.append(AudioProperty)
+    return json.dumps(Audio, ensure_ascii=False)
 
 
 # 获取音频所有属性
@@ -14,8 +26,8 @@ def getAudioProperty(path, audioName):
     detail = getAudioDetail(path, audioName)
     audioProperty['name'] = audioName
     audioProperty['size'] = str(getDuration(audio)) + "秒"
-    audioProperty['gender'] = detail['gender']
-    audioProperty['age'] = detail['age']
+    audioProperty['gender'] = "" if np.isnan(detail['gender']) else detail['gender']
+    audioProperty['age'] = "" if np.isnan(detail['age']) else detail['age']
     audioProperty['channel'] = "单" if getChannels(audio) == 1 else "双"
     audioProperty['sampleRate'] = str(getSamplingRate(audio)) + "Hz"
     audioProperty['bitDepth'] = str(getBitDepth(audio)) + "bit"
@@ -24,7 +36,9 @@ def getAudioProperty(path, audioName):
 
 
 # 获取目录下所有音频文件名
+# path形如D:/AudioSystem/Audio/cv-corpus-arabic/
 def getAudioList(path):
+    path += "clips/"
     audioList = []
     for root, dirs, files in os.walk(path):
         for file in files:
@@ -50,22 +64,23 @@ def getAudioDetail(path, audioName):
 
 
 # 波形图、振幅
-# path形如D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-def getWaveForm(path, audioName):
-    audio = path + audioName
+def getWaveForm(audioSetName, audioName):
+    path = "D:/AudioSystem/Audio/" + audioSetName + "/"
+    audio = path + "clips/" + audioName
     sig, sr = librosa.load(audio, sr=None)
     plt.figure(figsize=(8, 5))
     librosa.display.waveshow(sig, sr=sr)
     plt.ylabel('Amplitude')
-    savingPath = "WaveImage/" + audioName + ".jpg"
+    savingPath = "D:/AudioSystem/audio_java/src/main/resources/static/WaveImage/" + audioName + ".jpg"
     plt.savefig(savingPath)
-    return os.getcwd() + "/" + savingPath
+    return savingPath
 
 
 # Mel频谱图
-# path形如D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-def getSpectrum(path, audioName):
-    audio = path + audioName
+# path形如D:/AudioSystem/Audio/cv-corpus-chinese/
+def getMelSpectrum(audioSetName, audioName):
+    path = "D:/AudioSystem/Audio/" + audioSetName + "/"
+    audio = path + "clips/" + audioName
     sig, sr = librosa.load(audio, sr=None)
     S = librosa.feature.melspectrogram(y=sig, sr=sr)
     plt.figure(figsize=(8, 5))
@@ -74,9 +89,9 @@ def getSpectrum(path, audioName):
     plt.colorbar(format='%+2.0f dB')
     plt.title('Mel spectrogram')
     plt.tight_layout()
-    savingPath = "SpectrumImage/" + audioName + ".jpg"
+    savingPath = "D:/AudioSystem/audio_java/src/main/resources/static/SpectrumImage/" + audioName + ".jpg"
     plt.savefig(savingPath)
-    return os.getcwd() + "/" + savingPath
+    return savingPath
 
 
 # 音频的采样率
@@ -106,9 +121,8 @@ def getBitDepth(audio):
 # 删除图片
 def removeImage(path):
     os.remove(path)
+    return "Image removed"
 
 
 if __name__ == '__main__':
-    path = getWaveForm("D:/AudioSystem/Audio/cv-corpus-chinese/clips/", "common_voice_zh-CN_18524189.mp3")
-    print(path)
-    removeImage(path)
+    print(getAudio("cv-corpus-chinese", 1, 1))
