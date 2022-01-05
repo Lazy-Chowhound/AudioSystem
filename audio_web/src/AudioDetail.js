@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, message, Modal, Table} from "antd";
+import {Button, message, Modal, Table, Tooltip} from "antd";
 import axios from "axios";
 import ImageArea from "./ImageArea";
 
@@ -15,6 +15,7 @@ class AudioDetail extends React.Component {
             currentPage: 1,
             total: null,
             pageSize: 6,
+            loading: true
         };
     }
 
@@ -65,7 +66,15 @@ class AudioDetail extends React.Component {
             title: '内容',
             key: 'content',
             dataIndex: 'content',
-            align: "center"
+            align: "center",
+            ellipsis: {
+                showTitle: false,
+            },
+            render: address => (
+                <Tooltip placement="topLeft" title={address}>
+                    {address}
+                </Tooltip>
+            ),
         },
         {
             title: "波形图",
@@ -172,6 +181,7 @@ class AudioDetail extends React.Component {
     getPage = () => {
         this.setState({
             dataSource: [],
+            loading: true
         })
         const url = "http://localhost:8080/audioDescription"
         axios.get(url, {
@@ -187,7 +197,8 @@ class AudioDetail extends React.Component {
                 delete data[0]
                 this.setState({
                     dataSource: data,
-                    total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize
+                    total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize,
+                    loading: false
                 })
             }
         ).catch((error) => {
@@ -199,7 +210,7 @@ class AudioDetail extends React.Component {
     render() {
         return (
             <div>
-                <Table columns={this.columns} dataSource={this.state.dataSource}
+                <Table loading={this.state.loading} columns={this.columns} dataSource={this.state.dataSource}
                        pagination={{
                            pageSize: this.state.pageSize,
                            total: this.state.total,

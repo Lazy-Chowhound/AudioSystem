@@ -103,7 +103,7 @@ class AudioList extends React.Component {
             <div style={{whiteSpace: "pre"}}>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
                 <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
-                       onCancel={this.handleCancel} width={1300}>
+                       onCancel={this.handleCancel} width={1200}>
                     <AudioDetail key={this.state.choice} choice={this.state.choice}/>
                 </Modal>
             </div>

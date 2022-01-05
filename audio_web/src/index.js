@@ -70,7 +70,7 @@ class SiderDemo extends React.Component {
                                 <Breadcrumb.Item>音频数据集系统 </Breadcrumb.Item>
                                 <Breadcrumb.Item>{this.state.choice}</Breadcrumb.Item>
                             </Breadcrumb>
-                            <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                            <div className="site-layout-background" style={{minHeight:300}}>
                                 <Routes>
                                     <Route exact path="/" element={<AudioList/>}/>
                                     <Route exact path="/list" element={<AudioList/>}/>
