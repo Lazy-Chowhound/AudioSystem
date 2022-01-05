@@ -91,6 +91,11 @@ class AudioDetail extends React.Component {
         this.getPage()
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+    }
+
+
     showWaveForm = (item) => {
         const url = "http://localhost:8080/getWaveForm"
         axios.get(url, {
