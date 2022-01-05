@@ -105,7 +105,7 @@ def getSamplingRate(audio):
 # 音频时长
 def getDuration(audio):
     sig, sr = librosa.load(audio, sr=None)
-    return librosa.get_duration(sig, sr)
+    return round(librosa.get_duration(sig, sr), 2)
 
 
 # 声道
