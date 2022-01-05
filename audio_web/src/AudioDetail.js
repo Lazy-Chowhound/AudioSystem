@@ -11,7 +11,10 @@ class AudioDetail extends React.Component {
             isModalVisible: false,
             ImageType: null,
             AbsoluteUrl: null,
-            ImageUrl: null
+            ImageUrl: null,
+            currentPage: 1,
+            total: null,
+            pageSize: 6,
         };
     }
 
@@ -28,18 +31,18 @@ class AudioDetail extends React.Component {
             key: 'size',
             align: "center"
         },
-        // {
-        //     title: '性别',
-        //     dataIndex: 'gender',
-        //     key: 'gender',
-        //     align: "center"
-        // },
-        // {
-        //     title: '年龄',
-        //     dataIndex: 'age',
-        //     key: 'age',
-        //     align: "center"
-        // },
+        {
+            title: '性别',
+            dataIndex: 'gender',
+            key: 'gender',
+            align: "center"
+        },
+        {
+            title: '年龄',
+            dataIndex: 'age',
+            key: 'age',
+            align: "center"
+        },
         {
             title: '声道',
             dataIndex: 'channel',
@@ -85,23 +88,7 @@ class AudioDetail extends React.Component {
     ];
 
     componentDidMount() {
-        const url = "http://localhost:8080/audioDescription"
-        axios.get(url, {
-            params: {
-                audioSet: this.props.choice,
-                page: 1,
-                pageSize: 1
-            }
-        }).then(
-            (response) => {
-                this.setState({
-                    dataSource: JSON.parse(response.data.data)
-                })
-            }
-        ).catch((error) => {
-                message.error(error)
-            }
-        )
+        this.getPage()
     }
 
     showWaveForm = (item) => {
@@ -169,12 +156,53 @@ class AudioDetail extends React.Component {
         )
     }
 
+    onChange = (page) => {
+        this.setState({
+            currentPage: page.current
+        }, () => {
+            this.getPage()
+        })
+    }
+
+    getPage = () => {
+        this.setState({
+            dataSource: [],
+        })
+        const url = "http://localhost:8080/audioDescription"
+        axios.get(url, {
+            params: {
+                audioSet: this.props.choice,
+                page: this.state.currentPage,
+                pageSize: this.state.pageSize
+            }
+        }).then(
+            (response) => {
+                const data = JSON.parse(response.data.data)
+                const totalLen = data[0].total
+                delete data[0]
+                this.setState({
+                    dataSource: data,
+                    total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize
+                })
+            }
+        ).catch((error) => {
+                message.error(error)
+            }
+        )
+    }
+
     render() {
         return (
             <div>
-                <Table columns={this.columns} dataSource={this.state.dataSource}/>
+                <Table columns={this.columns} dataSource={this.state.dataSource}
+                       pagination={{
+                           pageSize: this.state.pageSize,
+                           total: this.state.total,
+                           showQuickJumper: true,
+                           showSizeChanger: false
+                       }} showQuickJumper onChange={this.onChange}/>
                 <Modal title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
-                       onCancel={this.handleCancel} width={500}>
+                       onCancel={this.handleCancel} width={600}>
                     <ImageArea src={this.state.ImageUrl}/>
                 </Modal>
             </div>
