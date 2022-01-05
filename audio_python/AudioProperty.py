@@ -11,7 +11,9 @@ def getAudio(AudioSetName, page, pageSize):
     Audio = []
     path = "D:/AudioSystem/Audio/" + AudioSetName + "/"
     AudioList = getAudioList(path)
-    for i in range((int(page) - 1) * int(pageSize), int(page) * int(pageSize)):
+    Audio.append({'total': len(AudioList)})
+    for i in range((int(page) - 1) * int(pageSize) - int(page) + 1,
+                   min(int(page) * int(pageSize) - int(page), len(AudioList))):
         AudioProperty = getAudioProperty(path, AudioList[i])
         AudioProperty['key'] = i + 1
         Audio.append(AudioProperty)
@@ -26,8 +28,8 @@ def getAudioProperty(path, audioName):
     detail = getAudioDetail(path, audioName)
     audioProperty['name'] = audioName
     audioProperty['size'] = str(getDuration(audio)) + "秒"
-    audioProperty['gender'] = "" if np.isnan(detail['gender']) else detail['gender']
-    audioProperty['age'] = "" if np.isnan(detail['age']) else detail['age']
+    audioProperty['gender'] = "" if type(detail['gender']) == float else detail['gender']
+    audioProperty['age'] = "" if type(detail['age']) == float else detail['age']
     audioProperty['channel'] = "单" if getChannels(audio) == 1 else "双"
     audioProperty['sampleRate'] = str(getSamplingRate(audio)) + "Hz"
     audioProperty['bitDepth'] = str(getBitDepth(audio)) + "bit"
@@ -125,4 +127,4 @@ def removeImage(path):
 
 
 if __name__ == '__main__':
-    print(getAudio("cv-corpus-chinese", 1, 1))
+    print(getAudio("cv-corpus-japanese", 1, 6))
