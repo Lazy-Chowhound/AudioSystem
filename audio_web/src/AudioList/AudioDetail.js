@@ -1,7 +1,8 @@
 import React from "react";
 import {Button, message, Modal, Table, Tooltip} from "antd";
-import axios from "axios";
 import ImageDisplay from "./ImageDisplay";
+import sendGet from "../Util/axios";
+import baseUrl from "../Util/url";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -100,54 +101,41 @@ class AudioDetail extends React.Component {
         this.getPage()
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-    }
-
-
     showWaveForm = (item) => {
-        const url = "http://localhost:8080/getWaveForm"
-        axios.get(url, {
+        sendGet("/getWaveForm", {
             params: {
                 audioSet: this.props.choice,
                 audioName: item.name
             }
-        }).then(
-            (response) => {
-                const path = response.data.data
-                this.setState({
-                    ImageType: "波形图",
-                    isModalVisible: true,
-                    AbsoluteUrl: path,
-                    ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static/", "http://localhost:8080/")
-                })
-
-            }
-        ).catch((error) => {
-                message.error(error)
+        }).then(res => {
+            const path = res.data.data
+            this.setState({
+                ImageType: "波形图",
+                isModalVisible: true,
+                AbsoluteUrl: path,
+                ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static", baseUrl)
+            })
+        }).catch(error => {
+                message.error(error).then(r => console.log(r))
             }
         )
     }
 
     showMelSpectrum = (item) => {
-        const url = "http://localhost:8080/getMelSpectrum"
-        axios.get(url, {
+        sendGet("/getMelSpectrum", {
             params: {
                 audioSet: this.props.choice,
                 audioName: item.name
             }
-        }).then(
-            (response) => {
-                const path = response.data.data
-                this.setState({
-                    ImageType: "Mel频谱图",
-                    isModalVisible: true,
-                    AbsoluteUrl: path,
-                    ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static/", "http://localhost:8080/")
-                })
-
-            }
-        ).catch((error) => {
+        }).then(res => {
+            const path = res.data.data
+            this.setState({
+                ImageType: "Mel频谱图",
+                isModalVisible: true,
+                AbsoluteUrl: path,
+                ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static", baseUrl)
+            })
+        }).catch(error => {
                 message.error(error).then(r => console.log(r))
             }
         )
@@ -157,17 +145,13 @@ class AudioDetail extends React.Component {
         this.setState({
             isModalVisible: false
         })
-        const url = "http://localhost:8080/removeImage"
-        axios.get(url, {
+        sendGet("/removeImage", {
             params: {
                 path: this.state.AbsoluteUrl
             }
-        }).then(() => {
-            }
-        ).catch((error) => {
-                message.error(error).then(r => console.log(r))
-            }
-        )
+        }).catch(error => {
+            message.error(error).then(r => console.log(r))
+        })
     }
 
     onChange = (page) => {
@@ -183,28 +167,24 @@ class AudioDetail extends React.Component {
             dataSource: [],
             loading: true
         })
-        const url = "http://localhost:8080/audioDescription"
-        axios.get(url, {
+        sendGet("/audioDescription", {
             params: {
                 audioSet: this.props.choice,
                 page: this.state.currentPage,
                 pageSize: this.state.pageSize
             }
-        }).then(
-            (response) => {
-                const data = JSON.parse(response.data.data)
-                const totalLen = data[0].total
-                delete data[0]
-                this.setState({
-                    dataSource: data,
-                    total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize,
-                    loading: false
-                })
-            }
-        ).catch((error) => {
-                message.error(error).then(r => console.log(r))
-            }
-        )
+        }).then(res => {
+            const data = JSON.parse(res.data.data)
+            const totalLen = data[0].total
+            delete data[0]
+            this.setState({
+                dataSource: data,
+                total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize,
+                loading: false
+            })
+        }).catch(error => {
+            message.error(error).then(r => console.log(r))
+        })
     }
 
     render() {

@@ -1,9 +1,9 @@
 import React from "react";
-import axios from "axios";
 import {Button, Modal, Table, message} from "antd";
 import AudioDetail from "./AudioDetail";
 import "antd/dist/antd.css";
 import "../css/AudioList.css";
+import sendGet from "../Util/axios";
 
 class AudioList extends React.Component {
     constructor(props) {
@@ -69,19 +69,13 @@ class AudioList extends React.Component {
     ];
 
     componentDidMount() {
-        const url = "http://localhost:8080/audioSetDescription"
-        axios.get(url)
-            .then(
-                (response) => {
-                    this.setState({
-                        dataSource: JSON.parse(response.data.data)
-                    })
-                }
-            )
-            .catch((error) => {
-                    message.error(error)
-                }
-            )
+        sendGet("/audioSetDescription").then(res => {
+            this.setState({
+                dataSource: JSON.parse(res.data.data)
+            })
+        }).catch(error =>
+            message.error(error)
+        )
     }
 
     showDetail = (item) => {
