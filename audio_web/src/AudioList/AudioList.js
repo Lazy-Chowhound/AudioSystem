@@ -1,9 +1,9 @@
-import React from 'react';
-import axios from 'axios';
-import {Button, Modal, Table, message} from 'antd';
+import React from "react";
+import axios from "axios";
+import {Button, Modal, Table, message} from "antd";
 import AudioDetail from "./AudioDetail";
-import 'antd/dist/antd.css';
-import '../css/AudioList.css';
+import "antd/dist/antd.css";
+import "../css/AudioList.css";
 
 class AudioList extends React.Component {
     constructor(props) {
@@ -17,49 +17,49 @@ class AudioList extends React.Component {
 
     columns = [
         {
-            title: '音频数据集',
-            dataIndex: 'name',
-            key: 'name',
+            title: "音频数据集",
+            dataIndex: "name",
+            key: "name",
             align: "center"
         },
         {
-            title: '语言',
-            dataIndex: 'language',
-            key: 'language',
+            title: "语言",
+            dataIndex: "language",
+            key: "language",
             align: "center"
         },
         {
-            title: '大小',
-            dataIndex: 'size',
-            key: 'size',
+            title: "大小",
+            dataIndex: "size",
+            key: "size",
             align: "center"
         },
         {
-            title: '总小时数',
-            dataIndex: 'hour',
-            key: 'hour',
+            title: "总小时数",
+            dataIndex: "hour",
+            key: "hour",
             align: "center"
         },
         {
-            title: '录音人数',
-            key: 'people',
-            dataIndex: 'people',
+            title: "录音人数",
+            key: "people",
+            dataIndex: "people",
             align: "center"
         },
         {
-            title: '格式',
-            key: 'form',
-            dataIndex: 'form',
+            title: "格式",
+            key: "form",
+            dataIndex: "form",
             align: "center"
         },
         {
             title: "分布",
-            key: 'distribution',
-            dataIndex: 'distribution',
+            key: "distribution",
+            dataIndex: "distribution",
         },
         {
-            title: '音频列表',
-            key: 'list',
+            title: "音频列表",
+            key: "list",
             render: item =>
                 <Button type={"primary"} onClick={() => {
                     this.showDetail(item)

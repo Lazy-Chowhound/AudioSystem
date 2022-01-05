@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Breadcrumb, Layout, Menu} from 'antd';
+import React from "react";
+import ReactDOM from "react-dom";
+import {Breadcrumb, Layout, Menu} from "antd";
 import {AudioOutlined, BarsOutlined, FireOutlined} from "@ant-design/icons";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 import AudioList from "./AudioList/AudioList";
 import Perturbation from "./AudioPerturbation/Perturbation";
 import Validation from "./AudioValidation/Validation";
-import 'antd/dist/antd.css';
-import './css/index.css';
+import "antd/dist/antd.css";
+import "./css/index.css";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -35,7 +35,7 @@ class SiderDemo extends React.Component {
         const {collapsed} = this.state;
         return (
             <Router>
-                <Layout style={{minHeight: '100vh'}}>
+                <Layout style={{minHeight: "100vh"}}>
                     <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
                         <Menu theme="dark" className="menu" onClick={this.handleClick} defaultSelectedKeys={["list"]}
                               mode="inline">
@@ -55,8 +55,8 @@ class SiderDemo extends React.Component {
                     </Sider>
                     <Layout className="site-layout">
                         <Header className="site-layout-background" style={{padding: 0}}/>
-                        <Content style={{margin: '0 16px'}}>
-                            <Breadcrumb style={{margin: '16px 0'}}>
+                        <Content style={{margin: "0 16px"}}>
+                            <Breadcrumb style={{margin: "16px 0"}}>
                                 <Breadcrumb.Item>音频数据集系统 </Breadcrumb.Item>
                                 <Breadcrumb.Item>{this.state.choice}</Breadcrumb.Item>
                             </Breadcrumb>
@@ -69,7 +69,7 @@ class SiderDemo extends React.Component {
                                 </Routes>
                             </div>
                         </Content>
-                        <Footer style={{textAlign: 'center'}}>Audio System ©2022 Created by Nakano Miku</Footer>
+                        <Footer style={{textAlign: "center"}}>Audio System ©2022 Created by Nakano Miku</Footer>
                     </Layout>
                 </Layout>
             </Router>

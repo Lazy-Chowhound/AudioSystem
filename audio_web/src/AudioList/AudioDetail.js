@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, message, Modal, Table, Tooltip} from "antd";
 import axios from "axios";
-import ImageArea from "./ImageArea";
+import ImageDisplay from "./ImageDisplay";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -21,51 +21,51 @@ class AudioDetail extends React.Component {
 
     columns = [
         {
-            title: '音频名称',
-            dataIndex: 'name',
-            key: 'name',
+            title: "音频名称",
+            dataIndex: "name",
+            key: "name",
             align: "center"
         },
         {
-            title: '时长',
-            dataIndex: 'size',
-            key: 'size',
+            title: "时长",
+            dataIndex: "size",
+            key: "size",
             align: "center"
         },
         {
-            title: '性别',
-            dataIndex: 'gender',
-            key: 'gender',
+            title: "性别",
+            dataIndex: "gender",
+            key: "gender",
             align: "center"
         },
         {
-            title: '年龄',
-            dataIndex: 'age',
-            key: 'age',
+            title: "年龄",
+            dataIndex: "age",
+            key: "age",
             align: "center"
         },
         {
-            title: '声道',
-            dataIndex: 'channel',
-            key: 'channel',
+            title: "声道",
+            dataIndex: "channel",
+            key: "channel",
             align: "center"
         },
         {
-            title: '采样率',
-            key: 'sampleRate',
-            dataIndex: 'sampleRate',
+            title: "采样率",
+            key: "sampleRate",
+            dataIndex: "sampleRate",
             align: "center"
         },
         {
-            title: '位深',
-            key: 'bitDepth',
-            dataIndex: 'bitDepth',
+            title: "位深",
+            key: "bitDepth",
+            dataIndex: "bitDepth",
             align: "center"
         },
         {
-            title: '内容',
-            key: 'content',
-            dataIndex: 'content',
+            title: "内容",
+            key: "content",
+            dataIndex: "content",
             align: "center",
             ellipsis: {
                 showTitle: false,
@@ -78,7 +78,7 @@ class AudioDetail extends React.Component {
         },
         {
             title: "波形图",
-            key: 'distribution',
+            key: "distribution",
             render: item =>
                 <Button type={"link"} size={"small"} onClick={() => {
                     this.showWaveForm(item)
@@ -86,8 +86,8 @@ class AudioDetail extends React.Component {
             align: "center"
         },
         {
-            title: '频谱图',
-            key: 'list',
+            title: "频谱图",
+            key: "list",
             render: item =>
                 <Button type={"link"} size={"small"} onClick={() => {
                     this.showMelSpectrum(item)
@@ -148,7 +148,7 @@ class AudioDetail extends React.Component {
 
             }
         ).catch((error) => {
-                message.error(error)
+                message.error(error).then(r => console.log(r))
             }
         )
     }
@@ -165,7 +165,7 @@ class AudioDetail extends React.Component {
         }).then(() => {
             }
         ).catch((error) => {
-                message.error(error)
+                message.error(error).then(r => console.log(r))
             }
         )
     }
@@ -202,7 +202,7 @@ class AudioDetail extends React.Component {
                 })
             }
         ).catch((error) => {
-                message.error(error)
+                message.error(error).then(r => console.log(r))
             }
         )
     }
@@ -219,7 +219,7 @@ class AudioDetail extends React.Component {
                        }} showQuickJumper onChange={this.onChange}/>
                 <Modal title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={600}>
-                    <ImageArea src={this.state.ImageUrl}/>
+                    <ImageDisplay src={this.state.ImageUrl}/>
                 </Modal>
             </div>
         )
