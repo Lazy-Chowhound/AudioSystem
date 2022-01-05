@@ -9,9 +9,14 @@ class AudioList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            audioSet: [],
             dataSource: [],
             isModalVisible: false,
-            choice: null
+            choice: null,
+            total: null,
+            page: 1,
+            pageSize: 4,
+            loading: true,
         };
     }
 
@@ -70,8 +75,12 @@ class AudioList extends React.Component {
 
     componentDidMount() {
         sendGet("/audioSetDescription").then(res => {
+            const data = JSON.parse(res.data.data)
             this.setState({
-                dataSource: JSON.parse(res.data.data)
+                audioSet: data,
+                total: Math.ceil(data.length / (this.state.pageSize - 1)) * this.state.pageSize,
+                dataSource: data.slice(0, this.state.pageSize - 1),
+                loading: false
             })
         }).catch(error =>
             message.error(error)
@@ -91,10 +100,25 @@ class AudioList extends React.Component {
         })
     }
 
+    onChange = (page) => {
+        this.setState({
+            currentPage: page.current
+        }, () => {
+            this.setState({
+                dataSource: this.state.audioSet.slice((this.state.currentPage - 1) * (this.state.pageSize - 1),
+                    Math.min(this.state.currentPage * this.state.pageSize - this.state.currentPage, this.state.total))
+            })
+        })
+    }
+
     render() {
         return (
             <div style={{whiteSpace: "pre"}}>
-                <Table columns={this.columns} dataSource={this.state.dataSource}/>
+                <Table loading={this.state.loading} columns={this.columns} dataSource={this.state.dataSource}
+                       pagination={{
+                           pageSize: this.state.pageSize, total: this.state.total,
+                           showSizeChanger: false
+                       }} onChange={this.onChange}/>
                 <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={1200}>
                     <AudioDetail key={this.state.choice} choice={this.state.choice}/>

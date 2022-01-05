@@ -192,11 +192,9 @@ class AudioDetail extends React.Component {
             <div>
                 <Table loading={this.state.loading} columns={this.columns} dataSource={this.state.dataSource}
                        pagination={{
-                           pageSize: this.state.pageSize,
-                           total: this.state.total,
-                           showQuickJumper: true,
-                           showSizeChanger: false
-                       }} showQuickJumper onChange={this.onChange}/>
+                           pageSize: this.state.pageSize, total: this.state.total,
+                           showQuickJumper: true, showSizeChanger: false
+                       }} onChange={this.onChange}/>
                 <Modal title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={600}>
                     <ImageDisplay src={this.state.ImageUrl}/>
