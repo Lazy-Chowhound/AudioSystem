@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
-import './index.css';
 import {Breadcrumb, Layout, Menu} from 'antd';
 import {AudioOutlined, BarsOutlined, FireOutlined} from "@ant-design/icons";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
-import AudioList from "./AudioList";
-import Perturbation from "./Perturbation";
-import Validation from "./Validation";
+import AudioList from "./AudioList/AudioList";
+import Perturbation from "./AudioPerturbation/Perturbation";
+import Validation from "./AudioValidation/Validation";
+import 'antd/dist/antd.css';
+import './css/index.css';
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -25,19 +25,10 @@ class SiderDemo extends React.Component {
         if (e.key === "title") {
             return;
         }
-        if (e.key === "list") {
-            this.setState({
-                choice: "音频列表"
-            })
-        } else if (e.key === "noise") {
-            this.setState({
-                choice: "音频扰动"
-            })
-        } else if (e.key === "evaluation") {
-            this.setState({
-                choice: "质量分析"
-            })
-        }
+        const map = new Map([["list", "音频列表"], ["noise", "音频扰动"], ["evaluation", "质量分析"]]);
+        this.setState({
+            choice: map.get(e.key)
+        })
     };
 
     render() {
@@ -61,7 +52,6 @@ class SiderDemo extends React.Component {
                                 <Link to={"/validation"}>质量分析</Link>
                             </Menu.Item>
                         </Menu>
-
                     </Sider>
                     <Layout className="site-layout">
                         <Header className="site-layout-background" style={{padding: 0}}/>

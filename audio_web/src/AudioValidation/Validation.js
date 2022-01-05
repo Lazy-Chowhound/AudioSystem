@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import './index.css';
+import '../css/index.css';
 
 class Validation extends React.Component {
     render() {

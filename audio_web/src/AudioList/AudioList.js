@@ -1,10 +1,9 @@
 import React from 'react';
-import 'antd/dist/antd.css';
-import './index.css';
 import axios from 'axios';
-import './AudioList.css';
 import {Button, Modal, Table, message} from 'antd';
 import AudioDetail from "./AudioDetail";
+import 'antd/dist/antd.css';
+import '../css/AudioList.css';
 
 class AudioList extends React.Component {
     constructor(props) {
