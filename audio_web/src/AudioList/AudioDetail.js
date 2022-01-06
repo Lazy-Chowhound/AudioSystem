@@ -3,6 +3,7 @@ import {Button, message, Modal, Table, Tooltip} from "antd";
 import ImageDisplay from "./ImageDisplay";
 import sendGet from "../Util/axios";
 import baseUrl from "../Util/url";
+import AudioPlay from "./AudioPlay";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -22,27 +23,18 @@ class AudioDetail extends React.Component {
 
     columns = [
         {
-            title: "音频名称",
+            title: "音频",
             dataIndex: "name",
             key: "name",
-            align: "center"
+            align: "center",
+            width: 320,
+            render: item => <AudioPlay name={item}
+                                       src={baseUrl + "/Audio/" + this.props.choice + "/clips/" + item}/>
         },
         {
             title: "时长",
             dataIndex: "size",
             key: "size",
-            align: "center"
-        },
-        {
-            title: "性别",
-            dataIndex: "gender",
-            key: "gender",
-            align: "center"
-        },
-        {
-            title: "年龄",
-            dataIndex: "age",
-            key: "age",
             align: "center"
         },
         {
@@ -113,7 +105,7 @@ class AudioDetail extends React.Component {
                 ImageType: "波形图",
                 isModalVisible: true,
                 AbsoluteUrl: path,
-                ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static", baseUrl)
+                ImageUrl: path.replace("D:/AudioSystem", baseUrl)
             })
         }).catch(error => {
                 message.error(error).then(r => console.log(r))
@@ -133,7 +125,7 @@ class AudioDetail extends React.Component {
                 ImageType: "Mel频谱图",
                 isModalVisible: true,
                 AbsoluteUrl: path,
-                ImageUrl: path.replace("D:/AudioSystem/audio_java/src/main/resources/static", baseUrl)
+                ImageUrl: path.replace("D:/AudioSystem", baseUrl)
             })
         }).catch(error => {
                 message.error(error).then(r => console.log(r))
@@ -195,7 +187,7 @@ class AudioDetail extends React.Component {
                            pageSize: this.state.pageSize, total: this.state.total,
                            showQuickJumper: true, showSizeChanger: false
                        }} onChange={this.onChange}/>
-                <Modal title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
+                <Modal style={{marginTop:30}} title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={600}>
                     <ImageDisplay src={this.state.ImageUrl}/>
                 </Modal>
