@@ -10,7 +10,7 @@ function sendGet(url, params = {}) {
         axiosInstance.get(url, params).then(res => {
             resolve(res);
         }).catch(error => {
-            reject(error.data)
+            reject(error.toString())
         })
     });
 }

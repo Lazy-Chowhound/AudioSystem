@@ -82,8 +82,12 @@ class AudioList extends React.Component {
                 dataSource: data.slice(0, this.state.pageSize - 1),
                 loading: false
             })
-        }).catch(error =>
-            message.error(error)
+        }).catch(error => {
+                message.error(error).then(r => console.log(r))
+                this.setState({
+                    loading: false
+                })
+            }
         )
     }
 
