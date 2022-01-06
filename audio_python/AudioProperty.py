@@ -28,8 +28,6 @@ def getAudioProperty(path, audioName):
     detail = getAudioDetail(path, audioName)
     audioProperty['name'] = audioName
     audioProperty['size'] = str(getDuration(audio)) + "秒"
-    audioProperty['gender'] = "" if type(detail['gender']) == float else detail['gender']
-    audioProperty['age'] = "" if type(detail['age']) == float else detail['age']
     audioProperty['channel'] = "单" if getChannels(audio) == 1 else "双"
     audioProperty['sampleRate'] = str(getSamplingRate(audio)) + "Hz"
     audioProperty['bitDepth'] = str(getBitDepth(audio)) + "bit"
@@ -73,7 +71,7 @@ def getWaveForm(audioSetName, audioName):
     plt.figure(figsize=(8, 5))
     librosa.display.waveshow(sig, sr=sr)
     plt.ylabel('Amplitude')
-    savingPath = "D:/AudioSystem/audio_java/src/main/resources/static/WaveImage/" + audioName + ".jpg"
+    savingPath = "D:/AudioSystem/WaveImage/" + audioName + ".jpg"
     plt.savefig(savingPath)
     return savingPath
 
@@ -91,7 +89,7 @@ def getMelSpectrum(audioSetName, audioName):
     plt.colorbar(format='%+2.0f dB')
     plt.title('Mel spectrogram')
     plt.tight_layout()
-    savingPath = "D:/AudioSystem/audio_java/src/main/resources/static/SpectrumImage/" + audioName + ".jpg"
+    savingPath = "D:/AudioSystem/SpectrumImage/" + audioName + ".jpg"
     plt.savefig(savingPath)
     return savingPath
 
