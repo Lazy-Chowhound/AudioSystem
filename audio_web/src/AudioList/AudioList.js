@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Modal, Table, message} from "antd";
+import {Button, message, Modal, Table} from "antd";
 import AudioDetail from "./AudioDetail";
 import "antd/dist/antd.css";
 import "../css/AudioList.css";

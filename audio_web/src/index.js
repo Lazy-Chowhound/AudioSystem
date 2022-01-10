@@ -11,7 +11,7 @@ import "./css/index.css";
 
 const {Header, Content, Footer, Sider} = Layout;
 
-class SiderDemo extends React.Component {
+class Index extends React.Component {
     state = {
         collapsed: false,
         choice: "音频列表",
@@ -60,7 +60,7 @@ class SiderDemo extends React.Component {
                                 <Breadcrumb.Item>音频数据集系统 </Breadcrumb.Item>
                                 <Breadcrumb.Item>{this.state.choice}</Breadcrumb.Item>
                             </Breadcrumb>
-                            <div className="site-layout-background" style={{minHeight:300}}>
+                            <div className="site-layout-background" style={{minHeight: 400}}>
                                 <Routes>
                                     <Route exact path="/" element={<AudioList/>}/>
                                     <Route exact path="/list" element={<AudioList/>}/>
@@ -77,4 +77,4 @@ class SiderDemo extends React.Component {
     }
 }
 
-ReactDOM.render(<SiderDemo/>, document.getElementById("root"));
+ReactDOM.render(<Index/>, document.getElementById("root"));
