@@ -3,7 +3,7 @@ import random
 import librosa
 import numpy as np
 import soundfile
-from util import *
+from Util.util import *
 
 
 def normalize(waveData):

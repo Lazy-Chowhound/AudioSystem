@@ -1,7 +1,7 @@
-from AudioProperty import *
-from AudioSetProperty import *
+from Audio.AudioProperty import *
+from Audio.AudioSetProperty import *
 from Server import RPCServer
-from NoisePatternSummary import *
+from Perturbation.NoisePatternSummary import *
 
 if __name__ == '__main__':
     rpcServer = RPCServer("localhost", 8081)
