@@ -1,6 +1,5 @@
 import React from "react";
 import ReactEcharts from 'echarts-for-react'
-import {Card} from 'antd'
 
 class NoisePatternDetail extends React.Component {
     constructor(props) {
