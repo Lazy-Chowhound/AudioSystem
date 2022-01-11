@@ -42,6 +42,9 @@ public class AudioController {
         }
     }
 
+    /**
+     * 获取波形图
+     */
     @RequestMapping("/getWaveForm")
     public Result getAudioWaveForm(@RequestParam(value = "audioSet") String audioSet,
                                    @RequestParam(value = "audioName") String audioName) {
@@ -53,6 +56,9 @@ public class AudioController {
         }
     }
 
+    /**
+     * 获取 Mel 频谱图
+     */
     @RequestMapping("/getMelSpectrum")
     public Result getMelSpectrum(@RequestParam(value = "audioSet") String audioSet,
                                  @RequestParam(value = "audioName") String audioName) {
