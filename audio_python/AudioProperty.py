@@ -1,6 +1,5 @@
 import json
 import os
-
 import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,9 +20,13 @@ def getAudio(AudioSetName, page, pageSize):
     return json.dumps(Audio, ensure_ascii=False)
 
 
-# 获取音频所有属性
-# path形如D:/AudioSystem/Audio/cv-corpus-chinese/
 def getAudioProperty(path, audioName):
+    """
+    获取音频所有属性
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
+    :param audioName:
+    :return:
+    """
     audio = path + "clips/" + audioName
     audioProperty = {}
     detail = getAudioDetail(path, audioName)
@@ -36,9 +39,12 @@ def getAudioProperty(path, audioName):
     return audioProperty
 
 
-# 获取目录下所有音频文件名
-# path形如D:/AudioSystem/Audio/cv-corpus-arabic/
 def getAudioList(path):
+    """
+    获取目录下所有音频文件名
+    :param path:D:/AudioSystem/Audio/cv-corpus-arabic/
+    :return:
+    """
     path += "clips/"
     audioList = []
     for root, dirs, files in os.walk(path):
@@ -48,9 +54,13 @@ def getAudioList(path):
     return audioList
 
 
-# 获取指定音频的详情
-# path形如D:/AudioSystem/Audio/cv-corpus-chinese/
 def getAudioDetail(path, audioName):
+    """
+    获取指定音频的详情
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
+    :param audioName:
+    :return:
+    """
     files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
     detail = {}
     for file in files:
@@ -78,7 +88,6 @@ def getWaveForm(audioSetName, audioName):
 
 
 # Mel频谱图
-# path形如D:/AudioSystem/Audio/cv-corpus-chinese/
 def getMelSpectrum(audioSetName, audioName):
     path = "D:/AudioSystem/Audio/" + audioSetName + "/"
     audio = path + "clips/" + audioName
