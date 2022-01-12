@@ -132,7 +132,3 @@ def getBitDepth(audio):
 def removeImage(path):
     os.remove(path)
     return "Image removed"
-
-
-if __name__ == '__main__':
-    print(getAudio("cv-corpus-japanese", 1, 6))

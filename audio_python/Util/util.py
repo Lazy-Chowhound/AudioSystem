@@ -45,7 +45,3 @@ def addTag(name, tag):
 
 def removeAudio(path, audioName):
     os.remove(path + audioName)
-
-
-if __name__ == '__main__':
-    pass
