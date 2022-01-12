@@ -2,7 +2,7 @@ import json
 import os
 
 patterns = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
-            "animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",
+            "Animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",
             "Natural Sounds": "natural_sounds", "Sound of things": "sound_of_things",
             "Human Sounds": "human_sounds", "Music": "music"}
 
@@ -18,6 +18,7 @@ def getNoisePatternSummary(dataset):
                 else:
                     summary[key] = 1
                 break
+    sorted(summary)
     return json.dumps(summary, ensure_ascii=False)
 
 
@@ -37,6 +38,7 @@ def getNoisePatternDetail(dataset, patternType):
                 summaryDetail[pattern] = summaryDetail[pattern] + 1
             else:
                 summaryDetail[pattern] = 1
+    sorted(summaryDetail)
     return json.dumps(summaryDetail, ensure_ascii=False)
 
 
