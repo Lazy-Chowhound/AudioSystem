@@ -5,26 +5,51 @@ import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/markPoint'
 import ReactEcharts from 'echarts-for-react'
+import sendGet from "../Util/axios";
+import {message} from "antd";
 
 
 class NoisePatternChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            series: []
+            columns: ['Animal', 'Gaussian noise', 'Human Sounds', 'Music', 'Natural Sounds',
+                'Source-ambiguous\nsounds', 'Sound level', 'Sound of things'],
+            data: []
         }
     }
 
     componentDidMount() {
-        this.setState({
-            series: [
-                {
-                    name: '扰动数目',
-                    type: 'bar',
-                    barWidth: '20%',
-                    data: [800, 1300, 2000, 2300, 1800, 1100, 500, 700]
+        sendGet("/noisePatternSummary", {
+            params: {
+                dataset: this.props.dataset
+            }
+        }).then(res => {
+            const rawData = JSON.parse(res.data.data)
+            const info = []
+            for (let i = 0; i < this.state.columns.length; i++) {
+                if (typeof rawData[this.state.columns[i]] == "undefined") {
+                    info.push(0)
+                } else {
+                    info.push(rawData[this.state.columns[i]])
                 }
-            ]
+            }
+            this.setState({
+                data: info
+            }, () => {
+                this.setState({
+                    series: [
+                        {
+                            name: '扰动数目',
+                            type: 'bar',
+                            barWidth: '25%',
+                            data: this.state.data
+                        }
+                    ]
+                })
+            })
+        }).catch(error => {
+            message.error(error).then(r => console.log(r))
         })
     }
 
@@ -41,8 +66,7 @@ class NoisePatternChart extends Component {
                 data: ['A']
             },
             xAxis: {
-                data: ['Gaussian noise', 'Sound level', 'Animal', 'Source-ambiguous\nsounds', 'Natural Sounds',
-                    'Sound of things', 'Human Sounds', 'Music'],
+                data: this.state.columns,
                 "axisLabel": {
                     interval: 0,
                 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import '../css/index.css';
 import NoisePatternChart from "./NoisePatternChart";
 import {Option} from "antd/es/mentions";
 import {Button, Modal, Select} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import NoisePatternDetail from "./NoisePatternDetail";
+import "../css/Perturbation.css"
 
 class Perturbation extends React.Component {
     constructor(props) {
@@ -33,8 +33,8 @@ class Perturbation extends React.Component {
             <div className="content" style={{padding: 10}}>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <div>
-                        <span>选择数据集:</span>
-                        <Select defaultValue="cv-corpus-arabic" className={"select"} bordered={false}
+                        <span>数据集:</span>
+                        <Select defaultValue="cv-corpus-arabic" bordered={false}
                                 size={"large"} onChange={this.handleChange}>
                             <Option value="cv-corpus-arabic">cv-corpus-arabic</Option>
                             <Option value="cv-corpus-chinese">cv-corpus-chinese</Option>
@@ -52,9 +52,9 @@ class Perturbation extends React.Component {
                         查看详情
                     </Button>
                 </div>
-                <NoisePatternChart key={this.state.dataset}/>
+                <NoisePatternChart key={this.state.dataset} dataset={this.state.dataset}/>
                 <Modal style={{marginTop: 30}} title={this.state.dataset} visible={this.state.visible}
-                       footer={null} onCancel={this.handleCancel} width={650}>
+                       footer={null} onCancel={this.handleCancel} width={750}>
                     <NoisePatternDetail dataset={this.state.dataset}/>
                 </Modal>
             </div>
