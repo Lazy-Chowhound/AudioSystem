@@ -44,7 +44,3 @@ def getAudioDescription(AudioSetName):
     cursor.close()
     connect.close()
     return description
-
-
-if __name__ == '__main__':
-    print(getAudioSet())
