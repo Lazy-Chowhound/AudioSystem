@@ -1,19 +1,39 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import NoisePatternChart from "./NoisePatternChart";
-import {Option} from "antd/es/mentions";
-import {Button, Modal, Select} from "antd";
+import {Button, message, Modal, Select} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import NoisePatternDetail from "./NoisePatternDetail";
 import "../css/Perturbation.css"
+import sendGet from "../Util/axios";
 
 class Perturbation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             dataset: "cv-corpus-arabic",
-            visible: false
+            visible: false,
+            options: []
         }
+    }
+
+    componentDidMount() {
+        sendGet("/audioSetList", {
+            params: {
+                path: "D:/AudioSystem/Audio/"
+            }
+        }).then(res => {
+            const audioList = JSON.parse(res.data.data)
+            const ops = []
+            for (let i = 0; i < audioList.length; i++) {
+                ops.push(audioList[i])
+            }
+            this.setState({
+                options: ops
+            })
+        }).catch(error => {
+            message.error(error).then(r => console.log(r))
+        })
     }
 
     handleChange = (e) => {
@@ -36,12 +56,7 @@ class Perturbation extends React.Component {
                         <span>数据集:</span>
                         <Select defaultValue="cv-corpus-arabic" bordered={false}
                                 size={"large"} onChange={this.handleChange}>
-                            <Option value="cv-corpus-arabic">cv-corpus-arabic</Option>
-                            <Option value="cv-corpus-chinese">cv-corpus-chinese</Option>
-                            <Option value="cv-corpus-french">cv-corpus-french</Option>
-                            <Option value="cv-corpus-german">cv-corpus-german</Option>
-                            <Option value="cv-corpus-japanese">cv-corpus-japanese</Option>
-                            <Option value="cv-corpus-russian">cv-corpus-russian</Option>
+                            {this.state.options.map(val => <option value={val}>{val}</option>)}
                         </Select>
                     </div>
                     <Button type="primary" icon={<BarChartOutlined/>} onClick={() => {
