@@ -55,7 +55,6 @@ class NoisePatternDetail extends React.Component {
             }
         }).then(res => {
             const rawData = JSON.parse(res.data.data)
-            console.log(rawData)
             const legend = []
             const info = []
             for (const key in rawData) {
