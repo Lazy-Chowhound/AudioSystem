@@ -7,8 +7,8 @@ import pymysql.cursors
 # 获取所有音频数据集及其所有属性
 def getAudioSet():
     AudioSet = []
-    path = r"D:\AudioSystem\Audio"
-    for audio in getAudioSetList(path):
+    path = "D:/AudioSystem/Audio"
+    for audio in json.loads(getAudioSetList(path)):
         audioProperty = {}
         description = getAudioDescription(audio)
         audioProperty['key'] = description[0]
@@ -30,7 +30,7 @@ def getAudioSetList(path):
         filePath = os.path.join(path, file)
         if os.path.isdir(filePath):
             audioSetList.append(file)
-    return audioSetList
+    return json.dumps(audioSetList, ensure_ascii=False)
 
 
 # 从数据库获取数据集属性
