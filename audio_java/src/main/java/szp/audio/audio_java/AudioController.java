@@ -16,6 +16,18 @@ public class AudioController {
     private RpcUtil rpcUtil;
 
     /**
+     * 获取音频数据集列表
+     */
+    @RequestMapping("/audioSetList")
+    public Result getAudioSetList(@RequestParam(value = "path") String path) {
+        try {
+            return Result.success(StatusCode.SUCCESS.getStatus(), rpcUtil.sendRequest("getAudioSetList", path));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    /**
      * 获取音频数据集属性
      */
     @RequestMapping("/audioSetDescription")
