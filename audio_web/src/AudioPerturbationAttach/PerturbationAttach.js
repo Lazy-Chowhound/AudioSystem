@@ -16,20 +16,21 @@ class PerturbationAttach extends React.Component {
         {
             title: "音频名称",
             dataIndex: "name",
-            align: "center"
+            align: "center",
+            width:320
         },
         {
             title: "扰动类型",
             dataIndex: "pattern",
-            align: "center"
+            align: "center",
         },
         {
             title: "具体扰动",
             dataIndex: "patternType",
-            align: "center"
+            align: "center",
         },
         {
-            title: "更改扰动",
+            title: "添加/更改扰动",
             dataIndex: "choicePattern",
             render: () => <CascaderBox/>,
             align: "center"
@@ -42,8 +43,8 @@ class PerturbationAttach extends React.Component {
             d.push({
                 key: i,
                 name: "mp3 " + i,
-                pattern: "Sound level",
-                patternType: "louder",
+                pattern: "Sounds of things",
+                patternType: "Miscellaneous sources",
             });
         }
         this.setState({
@@ -78,7 +79,7 @@ class PerturbationAttach extends React.Component {
                                    <Table.Summary.Cell index={0}>Summary</Table.Summary.Cell>
                                    <Table.Summary.Cell
                                        index={1}>{selectedRowKeys.length >= 10 ? `Selected ${selectedRowKeys.length} items` :
-                                       `Selected 0${selectedRowKeys.length} items`}</Table.Summary.Cell>
+                                       `Selected  ${selectedRowKeys.length} items`}</Table.Summary.Cell>
                                </Table.Summary.Row>
                            </Table.Summary>
                        )}/>

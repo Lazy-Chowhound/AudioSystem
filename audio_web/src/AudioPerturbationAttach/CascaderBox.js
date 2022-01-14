@@ -4,37 +4,219 @@ import {Cascader} from "antd";
 class CascaderBox extends React.Component {
     options = [
         {
-            value: 'zhejiang',
-            label: 'Zhejiang',
+            value: "Animal",
+            label: "Animal",
             children: [
                 {
-                    value: 'hangzhou',
-                    label: 'Hangzhou',
-                    children: [
-                        {
-                            value: 'xihu',
-                            label: 'West Lake',
-                        },
-                    ],
+                    value: "pets",
+                    label: "pets",
+                },
+                {
+                    value: "Livestock",
+                    label: "Livestock",
+                },
+                {
+                    value: "Wild animals",
+                    label: "pets",
+                }
+            ],
+        },
+        {
+            value: "Gaussian noise",
+            label: "Gaussian noise",
+        },
+        {
+            value: "Human sounds",
+            label: "Human sounds",
+            children: [
+                {
+                    value: "Human voice",
+                    label: "Human voice",
+                },
+                {
+                    value: "Whistling",
+                    label: "Whistling",
+                },
+                {
+                    value: "Respiratory sounds",
+                    label: "Respiratory sounds",
+                },
+                {
+                    value: "Human locomotion",
+                    label: "Human locomotion",
+                },
+                {
+                    value: "Digestive",
+                    label: "Digestive",
+                },
+                {
+                    value: "Hands",
+                    label: "Hands",
+                },
+                {
+                    value: "Heartbeat",
+                    label: "Heartbeat",
+                },
+                {
+                    value: "Otoacoustic emission",
+                    label: "Otoacoustic emission",
+                },
+                {
+                    value: "Human group actions",
+                    label: "Human group actions",
+                }
+            ],
+        },
+        {
+            value: "Music",
+            label: "Music",
+            children: [
+                {
+                    value: "Music instrument",
+                    label: "Music instrument",
+                },
+                {
+                    value: "Music genre",
+                    label: "Music genre",
+                },
+                {
+                    value: "Music concepts",
+                    label: "Music concepts",
+                },
+                {
+                    value: "Music role",
+                    label: "Music role",
+                },
+                {
+                    value: "Music mood",
+                    label: "Music mood",
+                }
+            ],
+        },
+        {
+            value: "Natural sounds",
+            label: "Natural sounds",
+            children: [
+                {
+                    value: "Wind",
+                    label: "Wind",
+                },
+                {
+                    value: "ThunderStorm",
+                    label: "ThunderStorm",
+                },
+                {
+                    value: "Fire",
+                    label: "Fire",
+                },
+                {
+                    value: "Water",
+                    label: "Water",
                 },
             ],
         },
         {
-            value: 'jiangsu',
-            label: 'Jiangsu',
+            value: "Sound level",
+            label: "Sound level",
             children: [
                 {
-                    value: 'nanjing',
-                    label: 'Nanjing',
-                    children: [
-                        {
-                            value: 'zhonghuamen',
-                            label: 'Zhong Hua Men',
-                        },
-                    ],
+                    value: "louder",
+                    label: "louder",
+                },
+                {
+                    value: "quieter",
+                    label: "quieter",
+                },
+                {
+                    value: "pitch",
+                    label: "pitch",
+                },
+                {
+                    value: "faster",
+                    label: "faster",
                 },
             ],
         },
+        {
+            value: "Sounds of things",
+            label: "Sounds of things",
+            children: [
+                {
+                    value: "Vehicle",
+                    label: "Vehicle",
+                },
+                {
+                    value: "Engine",
+                    label: "Engine",
+                },
+                {
+                    value: "Domestic sounds",
+                    label: "Domestic sounds",
+                },
+                {
+                    value: "Bell",
+                    label: "Bell",
+                },
+                {
+                    value: "Alarm",
+                    label: "Alarm",
+                },
+                {
+                    value: "Mechanisms",
+                    label: "Mechanisms",
+                },
+                {
+                    value: "Tools",
+                    label: "Tools",
+                },
+                {
+                    value: "Explosion",
+                    label: "Explosion",
+                },
+                {
+                    value: "Wood",
+                    label: "Wood",
+                },
+                {
+                    value: "Glass",
+                    label: "Glass",
+                },
+                {
+                    value: "Liquid",
+                    label: "Liquid",
+                },
+                {
+                    value: "Miscellaneous sources",
+                    label: "Miscellaneous sources",
+                },
+                {
+                    value: "Specific impact sounds",
+                    label: "Specific impact sounds",
+                },
+            ],
+        },
+        {
+            value: "Source-ambiguous sounds",
+            label: "Source-ambiguous sounds",
+            children: [
+                {
+                    value: "Generic impact sounds",
+                    label: "Generic impact sounds",
+                },
+                {
+                    value: "Surface contact",
+                    label: "Surface contact",
+                },
+                {
+                    value: "Deformable shell",
+                    label: "Deformable shell",
+                },
+                {
+                    value: "Onomatopoeia",
+                    label: "Onomatopoeia",
+                },
+            ],
+        }
     ];
 
     onChange = (value) => {
@@ -43,7 +225,8 @@ class CascaderBox extends React.Component {
 
     render() {
         return (
-            <Cascader options={this.options} onChange={this.onChange} placeholder="Please select"/>
+            <Cascader style={{width: 330}} expandTrigger={"hover"} options={this.options} onChange={this.onChange}
+                      placeholder="select the noise pattern"/>
         )
     }
 }
