@@ -7,7 +7,7 @@ import NoisePatternDetail from "./NoisePatternDetail";
 import "../css/Perturbation.css"
 import sendGet from "../Util/axios";
 
-class Perturbation extends React.Component {
+class PerturbationDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,7 +54,7 @@ class Perturbation extends React.Component {
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <div>
                         <span>数据集:</span>
-                        <Select defaultValue="cv-corpus-arabic" bordered={false}
+                        <Select defaultValue="cv-corpus-chinese" bordered={false}
                                 size={"large"} onChange={this.handleChange}>
                             {this.state.options.map(val => <option value={val}>{val}</option>)}
                         </Select>
@@ -77,4 +77,4 @@ class Perturbation extends React.Component {
     }
 }
 
-export default Perturbation
+export default PerturbationDisplay
