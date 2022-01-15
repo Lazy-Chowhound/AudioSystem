@@ -25,7 +25,7 @@ def getAudioProperty(path, audioName):
     """
     获取音频所有属性
     :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
-    :param audioName:
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
     :return:
     """
     audio = path + "clips/" + audioName
