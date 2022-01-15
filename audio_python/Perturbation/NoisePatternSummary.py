@@ -3,8 +3,8 @@ import os
 
 patternTypes = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
                 "Animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",
-                "Natural Sounds": "natural_sounds", "Sound of things": "sound_of_things",
-                "Human Sounds": "human_sounds", "Music": "music"}
+                "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
+                "Human sounds": "human_sounds", "Music": "music"}
 
 
 def getNoisePatternSummary(dataset):
