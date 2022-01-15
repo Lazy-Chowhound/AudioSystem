@@ -4,7 +4,7 @@ import NoisePatternChart from "./NoisePatternChart";
 import {Button, message, Modal, Select} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import NoisePatternDetail from "./NoisePatternDetail";
-import "../css/Perturbation.css"
+import "../css/PerturbationDisplay.css"
 import sendGet from "../Util/axios";
 
 class PerturbationDisplay extends React.Component {

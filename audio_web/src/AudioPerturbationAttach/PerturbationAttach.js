@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Modal, Table} from "antd";
+import {Button, Modal, Progress, Table} from "antd";
 import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
-
+import "../css/PerturbationAttach.css"
 
 class PerturbationAttach extends React.Component {
     constructor(props) {
@@ -10,7 +10,9 @@ class PerturbationAttach extends React.Component {
         this.state = {
             selectedRowKeys: [],
             dataSource: [],
-            patternChoices: []
+            patternChoices: [],
+            percent: 30,
+            visible: false
         };
     }
 
@@ -94,9 +96,19 @@ class PerturbationAttach extends React.Component {
                 }
             }
             if (count === selectedKeys.length) {
-                alert("ok");
+                this.setState({
+                    visible: true
+                })
+                // todo 发送ajax setstate
             }
         }
+
+    }
+
+    handleCancel = () => {
+        this.setState({
+            visible: false
+        })
     }
 
     render() {
@@ -137,6 +149,12 @@ class PerturbationAttach extends React.Component {
                            </Table.Summary>
                        )}
                 />
+                <Modal title={"处理中......"} visible={this.state.visible} footer={null}
+                       width={400}
+                       onCancel={this.handleCancel}>
+                    <div style={{textAlign: "center"}}>
+                        <Progress type="circle" percent={this.state.percent}/></div>
+                </Modal>
             </div>
         );
     }

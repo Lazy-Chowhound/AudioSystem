@@ -2,6 +2,6 @@
     text-align: center;
 }
 
-.ant-modal{
+.audioList > .ant-modal {
     margin-top: -90px;
 }
