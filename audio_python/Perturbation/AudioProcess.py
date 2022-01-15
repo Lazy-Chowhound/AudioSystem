@@ -1,9 +1,8 @@
+import math
 import random
 
 import librosa
 import numpy as np
-import soundfile
-from Util.util import *
 
 
 def normalize(waveData):
@@ -64,33 +63,13 @@ def changePitch(wavData, sr):
     return noiseAudio
 
 
-def addNoisePattern(path, audioName, pattern):
-    wavePath, waveName = trans_mp3_to_wav(path, audioName)
-    sig, sr = librosa.load(wavePath + waveName, sr=None)
-
-    noiseAudio = sig
-    noiseWaveName = None
-    if pattern == "gaussian_white_noise":
-        noiseAudio = gaussian_white_noise(sig, snr=5)
-        noiseWaveName = addTag(waveName, "gaussian_white_noise")
-    elif pattern == "louder":
-        noiseAudio = louder(sig)
-        noiseWaveName = addTag(waveName, "sound_level_louder")
-    elif pattern == "quieter":
-        noiseAudio = quieter(sig)
-        noiseWaveName = addTag(waveName, "sound_level_quieter")
-    elif pattern == "pitch":
-        noiseAudio = changePitch(sig, sr)
-        noiseWaveName = addTag(waveName, "sound_level_pitch")
-    elif pattern == "speed":
-        sr = sr * 2
-        noiseWaveName = addTag(waveName, "sound_level_speed")
-    soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
-    trans_wav_to_mp3(wavePath, noiseWaveName)
-    removeAudio(wavePath, waveName)
-    removeAudio(wavePath, noiseWaveName)
-
-
-if __name__ == '__main__':
-    addNoisePattern("D:/AudioSystem/Audio/cv-corpus-chinese/clips/",
-                    "common_voice_zh-CN_18524189.mp3", "speed")
+def addNoise(waveData, noiseData):
+    audioLength = len(waveData)
+    if len(waveData) > len(noiseData):
+        noiseData = np.tile(noiseData, math.ceil(len(waveData) / len(noiseData)))
+    # 如果本来噪音就长 或者 经过上步加长后比声音长
+    if len(waveData) < len(noiseData):
+        noiseData = noiseData[:audioLength]
+    exp = max(waveData) / max(noiseData)
+    noiseData = noiseData * exp
+    return waveData + noiseData
