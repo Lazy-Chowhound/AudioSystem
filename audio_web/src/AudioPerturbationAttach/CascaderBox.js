@@ -220,7 +220,10 @@ class CascaderBox extends React.Component {
     ];
 
     onChange = (value) => {
-        console.log(value);
+        const option = [];
+        option.push(this.props.row)
+        option.push(value)
+        this.props.parent.getChildren(this, option)
     }
 
     render() {

@@ -1,6 +1,7 @@
 import React from "react";
-import {Table} from "antd";
+import {Button, Modal, Table} from "antd";
 import CascaderBox from "./CascaderBox";
+import {CloudUploadOutlined} from "@ant-design/icons";
 
 
 class PerturbationAttach extends React.Component {
@@ -8,7 +9,8 @@ class PerturbationAttach extends React.Component {
         super(props);
         this.state = {
             selectedRowKeys: [],
-            dataSource: []
+            dataSource: [],
+            patternChoices: []
         };
     }
 
@@ -16,8 +18,9 @@ class PerturbationAttach extends React.Component {
         {
             title: "音频名称",
             dataIndex: "name",
+            key: "name",
             align: "center",
-            width:320
+            width: 320
         },
         {
             title: "扰动类型",
@@ -31,8 +34,7 @@ class PerturbationAttach extends React.Component {
         },
         {
             title: "添加/更改扰动",
-            dataIndex: "choicePattern",
-            render: () => <CascaderBox/>,
+            render: (item) => <CascaderBox parent={this} row={item.key}/>,
             align: "center"
         }
     ];
@@ -52,11 +54,50 @@ class PerturbationAttach extends React.Component {
         })
     }
 
+    getChildren = (children, option) => {
+        const choices = this.state.patternChoices
+        choices.push(option)
+        this.setState({
+            patternChoices: choices
+        })
+    }
+
     onSelectChange = (selectedRowKeys) => {
         this.setState({
             selectedRowKeys: selectedRowKeys
         });
     };
+
+    handleClick = () => {
+        const choices = this.state.patternChoices
+        const selectedKeys = this.state.selectedRowKeys
+        if (selectedKeys.length === 0) {
+            Modal.warning({
+                title: "警告",
+                content: "您尚未选择任何音频",
+            });
+        } else {
+            let count = 0;
+            for (let i = 0; i < selectedKeys.length; i++) {
+                for (let j = 0; j < choices.length; j++) {
+                    if (choices[j][0] === selectedKeys[i]) {
+                        count++;
+                        break;
+                    }
+                }
+                if (count !== i + 1) {
+                    Modal.error({
+                        title: "警告",
+                        content: "选中行的 添加/更改扰动 为必选项",
+                    });
+                    break;
+                }
+            }
+            if (count === selectedKeys.length) {
+                alert("ok");
+            }
+        }
+    }
 
     render() {
         const {selectedRowKeys} = this.state;
@@ -77,12 +118,25 @@ class PerturbationAttach extends React.Component {
                            <Table.Summary fixed>
                                <Table.Summary.Row>
                                    <Table.Summary.Cell index={0}>Summary</Table.Summary.Cell>
-                                   <Table.Summary.Cell
-                                       index={1}>{selectedRowKeys.length >= 10 ? `Selected ${selectedRowKeys.length} items` :
-                                       `Selected  ${selectedRowKeys.length} items`}</Table.Summary.Cell>
+                                   <Table.Summary.Cell index={1}>
+                                       <div style={{textAlign: "center"}}>{selectedRowKeys.length >= 10 ?
+                                           `${selectedRowKeys.length} items selected / total ${this.state.dataSource.length} items` :
+                                           `${selectedRowKeys.length} items selected / total ${this.state.dataSource.length} items`}
+                                       </div>
+                                   </Table.Summary.Cell>
+                                   <Table.Summary.Cell index={2}>
+                                       <div style={{textAlign: "center"}}>
+                                           <Button type="primary" shape="round" icon={<CloudUploadOutlined/>}
+                                                   onClick={() => {
+                                                       this.handleClick()
+                                                   }}>
+                                               确认提交
+                                           </Button></div>
+                                   </Table.Summary.Cell>
                                </Table.Summary.Row>
                            </Table.Summary>
-                       )}/>
+                       )}
+                />
             </div>
         );
     }
