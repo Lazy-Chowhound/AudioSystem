@@ -1,7 +1,7 @@
 import React from "react";
 import {Cascader} from "antd";
 
-class CascaderBox extends React.Component {
+class PatternDisplay extends React.Component {
     options = [
         {
             value: "Animal",
@@ -234,4 +234,4 @@ class CascaderBox extends React.Component {
     }
 }
 
-export default CascaderBox
+export default PatternDisplay

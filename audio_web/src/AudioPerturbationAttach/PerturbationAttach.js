@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Modal, Table} from "antd";
-import CascaderBox from "./CascaderBox";
+import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
 
 
@@ -34,7 +34,7 @@ class PerturbationAttach extends React.Component {
         },
         {
             title: "添加/更改扰动",
-            render: (item) => <CascaderBox parent={this} row={item.key}/>,
+            render: (item) => <PatternDisplay parent={this} row={item.key}/>,
             align: "center"
         }
     ];
