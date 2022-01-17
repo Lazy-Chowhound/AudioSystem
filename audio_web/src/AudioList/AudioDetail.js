@@ -100,13 +100,17 @@ class AudioDetail extends React.Component {
                 audioName: item.name
             }
         }).then(res => {
-            const path = res.data.data
-            this.setState({
-                ImageType: "波形图",
-                isModalVisible: true,
-                AbsoluteUrl: path,
-                ImageUrl: path.replace("D:/AudioSystem", baseUrl)
-            })
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const path = res.data.data
+                this.setState({
+                    ImageType: "波形图",
+                    isModalVisible: true,
+                    AbsoluteUrl: path,
+                    ImageUrl: path.replace("D:/AudioSystem", baseUrl)
+                })
+            }
         }).catch(error => {
                 message.error(error).then(r => console.log(r))
             }
@@ -120,13 +124,17 @@ class AudioDetail extends React.Component {
                 audioName: item.name
             }
         }).then(res => {
-            const path = res.data.data
-            this.setState({
-                ImageType: "Mel频谱图",
-                isModalVisible: true,
-                AbsoluteUrl: path,
-                ImageUrl: path.replace("D:/AudioSystem", baseUrl)
-            })
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const path = res.data.data
+                this.setState({
+                    ImageType: "Mel频谱图",
+                    isModalVisible: true,
+                    AbsoluteUrl: path,
+                    ImageUrl: path.replace("D:/AudioSystem", baseUrl)
+                })
+            }
         }).catch(error => {
                 message.error(error).then(r => console.log(r))
             }
@@ -166,14 +174,18 @@ class AudioDetail extends React.Component {
                 pageSize: this.state.pageSize
             }
         }).then(res => {
-            const data = JSON.parse(res.data.data)
-            const totalLen = data[0].total
-            delete data[0]
-            this.setState({
-                dataSource: data,
-                total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize,
-                loading: false
-            })
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const data = JSON.parse(res.data.data)
+                const totalLen = data[0].total
+                delete data[0]
+                this.setState({
+                    dataSource: data,
+                    total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize,
+                    loading: false
+                })
+            }
         }).catch(error => {
             message.error(error).then(r => console.log(r))
         })
@@ -187,7 +199,8 @@ class AudioDetail extends React.Component {
                            pageSize: this.state.pageSize, total: this.state.total,
                            showQuickJumper: true, showSizeChanger: false
                        }} onChange={this.onChange}/>
-                <Modal style={{marginTop:30}} title={this.state.ImageType} visible={this.state.isModalVisible} footer={null}
+                <Modal style={{marginTop: 30}} title={this.state.ImageType} visible={this.state.isModalVisible}
+                       footer={null}
                        onCancel={this.handleCancel} width={600}>
                     <ImageDisplay src={this.state.ImageUrl}/>
                 </Modal>

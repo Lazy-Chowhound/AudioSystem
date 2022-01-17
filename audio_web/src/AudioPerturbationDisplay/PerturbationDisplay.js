@@ -23,14 +23,18 @@ class PerturbationDisplay extends React.Component {
                 path: "D:/AudioSystem/Audio/"
             }
         }).then(res => {
-            const audioList = JSON.parse(res.data.data)
-            const ops = []
-            for (let i = 0; i < audioList.length; i++) {
-                ops.push(audioList[i])
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const audioList = JSON.parse(res.data.data)
+                const ops = []
+                for (let i = 0; i < audioList.length; i++) {
+                    ops.push(audioList[i])
+                }
+                this.setState({
+                    options: ops
+                })
             }
-            this.setState({
-                options: ops
-            })
         }).catch(error => {
             message.error(error).then(r => console.log(r))
         })

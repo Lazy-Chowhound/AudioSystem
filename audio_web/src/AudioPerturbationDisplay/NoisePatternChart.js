@@ -25,29 +25,33 @@ class NoisePatternChart extends Component {
                 dataset: this.props.dataset
             }
         }).then(res => {
-            const rawData = JSON.parse(res.data.data)
-            const info = []
-            for (let i = 0; i < this.state.columns.length; i++) {
-                if (typeof rawData[this.state.columns[i]] == "undefined") {
-                    info.push(0)
-                } else {
-                    info.push(rawData[this.state.columns[i]])
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const rawData = JSON.parse(res.data.data)
+                const info = []
+                for (let i = 0; i < this.state.columns.length; i++) {
+                    if (typeof rawData[this.state.columns[i]] == "undefined") {
+                        info.push(0)
+                    } else {
+                        info.push(rawData[this.state.columns[i]])
+                    }
                 }
-            }
-            this.setState({
-                data: info
-            }, () => {
                 this.setState({
-                    series: [
-                        {
-                            name: '扰动数目',
-                            type: 'bar',
-                            barWidth: '25%',
-                            data: this.state.data
-                        }
-                    ]
+                    data: info
+                }, () => {
+                    this.setState({
+                        series: [
+                            {
+                                name: '扰动数目',
+                                type: 'bar',
+                                barWidth: '25%',
+                                data: this.state.data
+                            }
+                        ]
+                    })
                 })
-            })
+            }
         }).catch(error => {
             message.error(error).then(r => console.log(r))
         })

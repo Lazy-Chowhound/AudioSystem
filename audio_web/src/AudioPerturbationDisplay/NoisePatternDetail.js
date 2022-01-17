@@ -54,29 +54,33 @@ class NoisePatternDetail extends React.Component {
                 patternType: this.state.patternType
             }
         }).then(res => {
-            const rawData = JSON.parse(res.data.data)
-            const legend = []
-            const info = []
-            for (const key in rawData) {
-                legend.push(key)
-                info.push({value: rawData[key], name: key})
-            }
-            this.setState({
-                    legend: legend,
-                    info: info
-                }, () => {
-                    this.setState({
-                        series: [
-                            {
-                                name: '扰动数目',
-                                type: 'pie',
-                                data: this.state.info,
-                                top: "20"
-                            }
-                        ]
-                    })
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const rawData = JSON.parse(res.data.data)
+                const legend = []
+                const info = []
+                for (const key in rawData) {
+                    legend.push(key)
+                    info.push({value: rawData[key], name: key})
                 }
-            )
+                this.setState({
+                        legend: legend,
+                        info: info
+                    }, () => {
+                        this.setState({
+                            series: [
+                                {
+                                    name: '扰动数目',
+                                    type: 'pie',
+                                    data: this.state.info,
+                                    top: "20"
+                                }
+                            ]
+                        })
+                    }
+                )
+            }
         }).catch(error => {
             message.error(error).then(r => console.log(r))
         })

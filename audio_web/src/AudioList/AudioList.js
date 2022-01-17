@@ -75,20 +75,23 @@ class AudioList extends React.Component {
 
     componentDidMount() {
         sendGet("/audioSetDescription").then(res => {
-            const data = JSON.parse(res.data.data)
-            this.setState({
-                audioSet: data,
-                total: Math.ceil(data.length / (this.state.pageSize - 1)) * this.state.pageSize,
-                dataSource: data.slice(0, this.state.pageSize - 1),
-                loading: false
-            })
-        }).catch(error => {
-                message.error(error).then(r => console.log(r))
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const data = JSON.parse(res.data.data)
                 this.setState({
-                    loading: false
+                    audioSet: data,
+                    total: Math.ceil(data.length / (this.state.pageSize - 1)) * this.state.pageSize,
+                    dataSource: data.slice(0, this.state.pageSize - 1),
                 })
             }
+        }).catch(error => {
+                message.error(error).then(r => console.log(r))
+            }
         )
+        this.setState({
+            loading: false
+        })
     }
 
     showDetail = (item) => {
