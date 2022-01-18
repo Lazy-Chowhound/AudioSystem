@@ -119,11 +119,9 @@ class PerturbationAttach extends React.Component {
                         if (res.data.code === 400) {
                             flag = false
                         } else {
-                            let percent = Math.min((this.state.percent +
-                                (this.state.selectedRowKeys.length === 0 ? 0 : 100 / this.state.selectedRowKeys.length)).toFixed(1), 99.9);
-                            this.setState({
-                                percent: percent
-                            })
+                            this.setState((state) => ({
+                                percent: Math.min((state.percent + 100 / state.selectedRowKeys.length).toFixed(1), 99.9)
+                            }));
                         }
                     }).catch(() => {
                         flag = false
@@ -133,9 +131,11 @@ class PerturbationAttach extends React.Component {
                     }
                 }
                 if (i !== this.state.selectedRowKeys.length) {
-                    this.setState({
-                        operationCancel: true
-                    })
+                    setTimeout(() => {
+                        this.setState({
+                            operationCancel: true
+                        })
+                    }, 1000)
                 } else {
                     setTimeout(() => {
                         this.setState({
@@ -158,7 +158,6 @@ class PerturbationAttach extends React.Component {
     showResult = () => {
         this.setState({
             operationDone: true,
-            title: "处理完成"
         })
     }
 
@@ -176,34 +175,32 @@ class PerturbationAttach extends React.Component {
 
         let content;
         if (this.state.operationDone) {
-            content = <Result status="success" title="Add Noise Pattern Successfully!"
-                              subTitle={`You have add or change ${this.state.selectedRowKeys.length} noise patterns`}
+            content = <Result status="success" title="成功添加/修改扰动!"
+                              subTitle={`成功添加或修改 ${this.state.selectedRowKeys.length} 个噪声扰动`}
                               extra={[
-                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>Add
-                                      Again</a></Button>,
-                                  <Button key="detail"><a href={"/perturbationDisplay"}>See Detail</a></Button>,
+                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>继续添加</a></Button>,
+                                  <Button key="detail"><a href={"/perturbationDisplay"}>查看详情</a></Button>,
                               ]}
             />
         } else if (this.state.operationCancel) {
             content = <Result status="warning"
-                              title="There are some problems with your operation."
+                              title="操作出现了未知错误"
                               extra={
-                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>Add
-                                      Again</a></Button>
+                                  <Button type="primary" key="reAdd"><a href={"/perturbationAttach"}>重新添加</a></Button>
                               }/>
         } else {
             content =
-                <div>
+                <div style={{whiteSpace: "pre"}}>
                     <Table rowSelection={rowSelection} columns={this.columns}
                            dataSource={this.state.dataSource} locale={locales}
                            summary={() => (
                                <Table.Summary fixed>
                                    <Table.Summary.Row>
-                                       <Table.Summary.Cell index={0}>Summary</Table.Summary.Cell>
+                                       <Table.Summary.Cell index={0}>总 计</Table.Summary.Cell>
                                        <Table.Summary.Cell index={1}>
                                            <div style={{textAlign: "center"}}>{selectedRowKeys.length >= 10 ?
-                                               `${selectedRowKeys.length} items selected / total ${this.state.dataSource.length} items` :
-                                               `${selectedRowKeys.length} items selected / total ${this.state.dataSource.length} items`}
+                                               `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项` :
+                                               `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项`}
                                            </div>
                                        </Table.Summary.Cell>
                                        <Table.Summary.Cell index={2}>
