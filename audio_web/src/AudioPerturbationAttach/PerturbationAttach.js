@@ -3,6 +3,7 @@ import {Button, Modal, Progress, Result, Table} from "antd";
 import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
 import "../css/PerturbationAttach.css"
+import sendGet from "../Util/axios";
 
 class PerturbationAttach extends React.Component {
     constructor(props) {
@@ -11,9 +12,12 @@ class PerturbationAttach extends React.Component {
             selectedRowKeys: [],
             dataSource: [],
             patternChoices: [],
-            percent: 30,
+            percent: 0,
             visible: false,
-            operationDone: false
+            operationDone: false,
+            operationCancel: false,
+            title: "处理中......",
+            disabled: true
         };
     }
 
@@ -43,6 +47,10 @@ class PerturbationAttach extends React.Component {
     ];
 
     componentDidMount() {
+        this.setState({
+            operationDone: false,
+            operationCancel: false,
+        })
         const d = []
         for (let i = 0; i < 46; i++) {
             d.push({
@@ -71,7 +79,10 @@ class PerturbationAttach extends React.Component {
         });
     };
 
-    handleClick = () => {
+    handleClick = async () => {
+        this.setState({
+            percent: 0
+        })
         const choices = this.state.patternChoices
         const selectedKeys = this.state.selectedRowKeys
         if (selectedKeys.length === 0) {
@@ -98,21 +109,56 @@ class PerturbationAttach extends React.Component {
             }
             if (count === selectedKeys.length) {
                 this.setState({
-                    visible: true
+                    visible: true,
+                    percent: 0
                 })
-                // todo 发送ajax setstate
-
-                this.setState({
-                    operationDone: true
-                })
+                let i = 0;
+                for (; i < this.state.selectedRowKeys.length; i++) {
+                    let flag = true;
+                    await sendGet("/test", {}).then((res) => {
+                        if (res.data.code === 400) {
+                            flag = false
+                        } else {
+                            let percent = Math.min((this.state.percent +
+                                (this.state.selectedRowKeys.length === 0 ? 0 : 100 / this.state.selectedRowKeys.length)).toFixed(1), 99.9);
+                            this.setState({
+                                percent: percent
+                            })
+                        }
+                    }).catch(() => {
+                        flag = false
+                    })
+                    if (!flag) {
+                        break;
+                    }
+                }
+                if (i !== this.state.selectedRowKeys.length) {
+                    this.setState({
+                        operationCancel: true
+                    })
+                } else {
+                    setTimeout(() => {
+                        this.setState({
+                            percent: 100,
+                            title: "处理完成",
+                            disabled: false
+                        })
+                    }, 1000)
+                }
             }
         }
-
     }
 
     handleCancel = () => {
         this.setState({
             visible: false
+        })
+    }
+
+    showResult = () => {
+        this.setState({
+            operationDone: true,
+            title: "处理完成"
         })
     }
 
@@ -130,13 +176,21 @@ class PerturbationAttach extends React.Component {
 
         let content;
         if (this.state.operationDone) {
-            content = <Result status="success" title="Add Noise pattern Successfully!"
+            content = <Result status="success" title="Add Noise Pattern Successfully!"
                               subTitle={`You have add or change ${this.state.selectedRowKeys.length} noise patterns`}
                               extra={[
-                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>Add Again</a></Button>,
+                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>Add
+                                      Again</a></Button>,
                                   <Button key="detail"><a href={"/perturbationDisplay"}>See Detail</a></Button>,
                               ]}
             />
+        } else if (this.state.operationCancel) {
+            content = <Result status="warning"
+                              title="There are some problems with your operation."
+                              extra={
+                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>Add
+                                      Again</a></Button>
+                              }/>
         } else {
             content =
                 <div>
@@ -156,7 +210,8 @@ class PerturbationAttach extends React.Component {
                                            <div style={{textAlign: "center"}}>
                                                <Button type="primary" shape="round" icon={<CloudUploadOutlined/>}
                                                        onClick={() => {
-                                                           this.handleClick()
+                                                           this.handleClick().then(() => {
+                                                           })
                                                        }}>
                                                    确认提交
                                                </Button>
@@ -166,11 +221,25 @@ class PerturbationAttach extends React.Component {
                                </Table.Summary>
                            )}
                     />
-                    <Modal title={"处理中......"} visible={this.state.visible} footer={null} width={400}
+                    <Modal title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
+                           width={400}
                            onCancel={this.handleCancel}>
-                        <div style={{textAlign: "center"}}>
-                            <Progress type="circle" percent={this.state.percent}/>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                        }}>
+                            <div style={{textAlign: "center"}}>
+                                <Progress type="circle" percent={this.state.percent}/>
+                            </div>
+                            <div style={{marginTop: 20, textAlign: "center"}}>
+                                <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
+                                        onClick={() => {
+                                            this.showResult()
+                                        }}>确认</Button>
+                            </div>
+
                         </div>
+
                     </Modal>
                 </div>
         }
