@@ -76,7 +76,7 @@ class AudioList extends React.Component {
     componentDidMount() {
         sendGet("/audioSetDescription").then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
+                message.error(res.data.data).then()
             } else {
                 const data = JSON.parse(res.data.data)
                 this.setState({
@@ -86,7 +86,7 @@ class AudioList extends React.Component {
                 })
             }
         }).catch(error => {
-                message.error(error).then(r => console.log(r))
+                message.error(error).then()
             }
         )
         this.setState({

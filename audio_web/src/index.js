@@ -9,6 +9,7 @@ import Validation from "./AudioValidation/Validation";
 import "antd/dist/antd.css";
 import "./css/index.css";
 import PerturbationAttach from "./AudioPerturbationAttach/PerturbationAttach";
+import 'default-passive-events'
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -68,7 +69,6 @@ class Index extends React.Component {
     }
 
     handleOpenChange = () => {
-        console.log(123)
         this.setState({
             openKeys: ["noise"]
         })

@@ -4,6 +4,7 @@ import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
 import "../css/PerturbationAttach.css"
 import sendGet from "../Util/axios";
+import getAudioSet from "../Util/AudioUtil";
 
 class PerturbationAttach extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class PerturbationAttach extends React.Component {
     ];
 
     componentDidMount() {
-        this.getAudiSet()
+        this.getAudioSet()
         this.getPatternDetail()
         this.setState({
             operationDone: false,
@@ -141,26 +142,13 @@ class PerturbationAttach extends React.Component {
         }
     }
 
-    getAudiSet = () => {
-        sendGet("/audioSetList", {
-            params: {
-                path: "D:/AudioSystem/Audio/"
-            }
-        }).then(res => {
-            if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
-            } else {
-                const audioList = JSON.parse(res.data.data)
-                const ops = []
-                for (let i = 0; i < audioList.length; i++) {
-                    ops.push(audioList[i])
-                }
-                this.setState({
-                    options: ops
-                })
-            }
+    getAudioSet = () => {
+        getAudioSet().then(res => {
+            this.setState({
+                options: res
+            })
         }).catch(error => {
-            message.error(error).then(r => console.log(r))
+            message.error(error).then()
         })
     }
 
@@ -188,7 +176,7 @@ class PerturbationAttach extends React.Component {
     datasetChange = (e) => {
         this.setState({
             dataset: e
-        },()=>{
+        }, () => {
             this.getPatternDetail()
         })
     }
@@ -236,7 +224,8 @@ class PerturbationAttach extends React.Component {
                                 <span>数据集:</span>
                                 <Select defaultValue="cv-corpus-arabic" bordered={false}
                                         onChange={this.datasetChange}>
-                                    {this.state.options.map(val => <option value={val}>{val}</option>)}
+                                    {this.state.options.map(val => <Select.Option key={val}
+                                                                                  value={val}>{val}</Select.Option>)}
                                 </Select>
                             </div>
                         )

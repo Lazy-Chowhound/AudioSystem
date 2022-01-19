@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/title'
-import 'echarts/lib/component/legend'
-import 'echarts/lib/component/markPoint'
-import ReactEcharts from 'echarts-for-react'
+import React, {Component} from "react"
+import "echarts/lib/chart/bar"
+import "echarts/lib/component/tooltip"
+import "echarts/lib/component/title"
+import "echarts/lib/component/legend"
+import "echarts/lib/component/markPoint"
+import ReactEcharts from "echarts-for-react"
 import sendGet from "../Util/axios";
 import {message} from "antd";
 
@@ -13,8 +13,8 @@ class NoisePatternChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            columns: ['Animal', 'Gaussian noise', 'Human Sounds', 'Music', 'Natural Sounds',
-                'Source-ambiguous\nsounds', 'Sound level', 'Sound of things'],
+            columns: ["Animal", "Gaussian noise", "Human Sounds", "Music", "Natural Sounds",
+                "Source-ambiguous\nsounds", "Sound level", "Sound of things"],
             data: []
         }
     }
@@ -26,7 +26,7 @@ class NoisePatternChart extends Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
+                message.error(res.data.data).then()
             } else {
                 const rawData = JSON.parse(res.data.data)
                 const info = []
@@ -43,9 +43,9 @@ class NoisePatternChart extends Component {
                     this.setState({
                         series: [
                             {
-                                name: '扰动数目',
-                                type: 'bar',
-                                barWidth: '25%',
+                                name: "扰动数目",
+                                type: "bar",
+                                barWidth: "25%",
                                 data: this.state.data
                             }
                         ]
@@ -53,21 +53,18 @@ class NoisePatternChart extends Component {
                 })
             }
         }).catch(error => {
-            message.error(error).then(r => console.log(r))
+            message.error(error).then()
         })
     }
 
     getOption = () => {
         return {
             title: {
-                text: '扰动数量',
+                text: "扰动数量",
                 left: "45%"
             },
             tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['A']
+                trigger: "axis"
             },
             xAxis: {
                 data: this.state.columns,
@@ -76,7 +73,7 @@ class NoisePatternChart extends Component {
                 }
             },
             yAxis: {
-                type: 'value'
+                type: "value"
             },
             series: this.state.series
         };

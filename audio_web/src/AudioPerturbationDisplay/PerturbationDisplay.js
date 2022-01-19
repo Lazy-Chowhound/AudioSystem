@@ -5,38 +5,25 @@ import {Button, message, Modal, Select} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import NoisePatternDetail from "./NoisePatternDetail";
 import "../css/PerturbationDisplay.css"
-import sendGet from "../Util/axios";
+import getAudioSet from "../Util/AudioUtil"
 
 class PerturbationDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataset: "cv-corpus-arabic",
+            dataset: "cv-corpus-chinese",
             visible: false,
             options: []
         }
     }
 
     componentDidMount() {
-        sendGet("/audioSetList", {
-            params: {
-                path: "D:/AudioSystem/Audio/"
-            }
-        }).then(res => {
-            if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
-            } else {
-                const audioList = JSON.parse(res.data.data)
-                const ops = []
-                for (let i = 0; i < audioList.length; i++) {
-                    ops.push(audioList[i])
-                }
-                this.setState({
-                    options: ops
-                })
-            }
+        getAudioSet().then(res => {
+            this.setState({
+                options: res
+            })
         }).catch(error => {
-            message.error(error).then(r => console.log(r))
+            message.error(error).then()
         })
     }
 
@@ -60,7 +47,7 @@ class PerturbationDisplay extends React.Component {
                         <span>数据集:</span>
                         <Select defaultValue="cv-corpus-chinese" bordered={false}
                                 size={"large"} onChange={this.handleChange}>
-                            {this.state.options.map(val => <option value={val}>{val}</option>)}
+                            {this.state.options.map(val => <Select.Option key={val} value={val}>{val}</Select.Option>)}
                         </Select>
                     </div>
                     <Button type="primary" icon={<BarChartOutlined/>} onClick={() => {

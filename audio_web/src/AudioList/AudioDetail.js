@@ -101,7 +101,7 @@ class AudioDetail extends React.Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
+                message.error(res.data.data).then()
             } else {
                 const path = res.data.data
                 this.setState({
@@ -112,7 +112,7 @@ class AudioDetail extends React.Component {
                 })
             }
         }).catch(error => {
-                message.error(error).then(r => console.log(r))
+                message.error(error).then()
             }
         )
     }
@@ -125,7 +125,7 @@ class AudioDetail extends React.Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
+                message.error(res.data.data).then()
             } else {
                 const path = res.data.data
                 this.setState({
@@ -136,7 +136,7 @@ class AudioDetail extends React.Component {
                 })
             }
         }).catch(error => {
-                message.error(error).then(r => console.log(r))
+                message.error(error).then()
             }
         )
     }
@@ -150,7 +150,7 @@ class AudioDetail extends React.Component {
                 path: this.state.AbsoluteUrl
             }
         }).catch(error => {
-            message.error(error).then(r => console.log(r))
+            message.error(error).then()
         })
     }
 
@@ -175,7 +175,7 @@ class AudioDetail extends React.Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
+                message.error(res.data.data).then()
             } else {
                 const data = JSON.parse(res.data.data)
                 const totalLen = data[0].total
@@ -187,7 +187,7 @@ class AudioDetail extends React.Component {
                 })
             }
         }).catch(error => {
-            message.error(error).then(r => console.log(r))
+            message.error(error).then()
         })
     }
 

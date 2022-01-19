@@ -55,7 +55,7 @@ class NoisePatternDetail extends React.Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then(r => console.log(r))
+                message.error(res.data.data).then()
             } else {
                 const rawData = JSON.parse(res.data.data)
                 const legend = []
@@ -82,7 +82,7 @@ class NoisePatternDetail extends React.Component {
                 )
             }
         }).catch(error => {
-            message.error(error).then(r => console.log(r))
+            message.error(error).then()
         })
     }
 
