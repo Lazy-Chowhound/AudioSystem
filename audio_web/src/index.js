@@ -53,10 +53,14 @@ class Index extends React.Component {
     changeSelectedKeys = () => {
         let curPath = []
         let path = new URL(window.location.href).pathname
-        if (path === "/perturbationAttach" || path === "/perturbationDisplay") {
-            curPath.push("noise")
+        if (path === "/") {
+            curPath.push("list")
+        } else {
+            if (path === "/perturbationAttach" || path === "/perturbationDisplay") {
+                curPath.push("noise")
+            }
+            curPath.push(path.substring(1))
         }
-        curPath.push(path.substring(1))
         this.setState({
             selectedPath: curPath,
             openKeys: curPath.length === 2 ? ["noise"] : []
