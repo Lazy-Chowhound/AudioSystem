@@ -16,15 +16,22 @@ const {SubMenu} = Menu;
 class Index extends React.Component {
     state = {
         collapsed: false,
+        selectedPath: ["list"],
         choice: "音频列表",
-        subChoice: ""
+        subChoice: "",
+        openKeys: [],
     };
 
-    onCollapse = collapsed => {
+    componentDidMount() {
+        this.changeSelectedKeys()
+    }
+
+    onCollapse = (collapsed) => {
         this.setState({collapsed});
     };
 
-    handleClick = e => {
+    handleClick = (e) => {
+        this.changeSelectedKeys()
         if (e.key === "title") {
             return;
         }
@@ -43,14 +50,36 @@ class Index extends React.Component {
         }
     };
 
+    changeSelectedKeys = () => {
+        let curPath = []
+        let path = new URL(window.location.href).pathname
+        if (path === "/perturbationAttach" || path === "/perturbationDisplay") {
+            curPath.push("noise")
+        }
+        curPath.push(path.substring(1))
+        this.setState({
+            selectedPath: curPath,
+            openKeys: curPath.length === 2 ? ["noise"] : []
+        })
+    }
+
+    handleOpenChange = () => {
+        console.log(123)
+        this.setState({
+            openKeys: ["noise"]
+        })
+    }
+
     render() {
         const {collapsed} = this.state;
         return (
             <Router>
                 <Layout style={{minHeight: "100vh"}}>
                     <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-                        <Menu theme="dark" onClick={this.handleClick} defaultSelectedKeys={["list"]}
-                              mode="inline">
+                        <Menu theme="dark" mode="inline" onClick={this.handleClick}
+                              selectedKeys={this.state.selectedPath}
+                              openKeys={this.state.openKeys}
+                              onOpenChange={this.handleOpenChange}>
                             <Menu.Item className="title" key="title">
                                 音频数据集系统
                             </Menu.Item>
