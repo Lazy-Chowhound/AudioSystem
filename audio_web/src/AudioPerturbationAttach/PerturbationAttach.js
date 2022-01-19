@@ -44,17 +44,14 @@ class PerturbationAttach extends React.Component {
         },
         {
             title: "添加/更改扰动",
-            render: (item) => <PatternDisplay parent={this} row={item.key}/>,
-            align: "center"
-        }
-    ];
+            render: (item) => <PatternDisplay parent={this} row={item.key}/>, align: "center"
+        }];
 
     componentDidMount() {
         this.getAudioSet()
         this.getPatternDetail()
         this.setState({
-            operationDone: false,
-            operationCancel: false,
+            operationDone: false, operationCancel: false,
         })
     }
 
@@ -80,8 +77,7 @@ class PerturbationAttach extends React.Component {
         const selectedKeys = this.state.selectedRowKeys
         if (selectedKeys.length === 0) {
             Modal.warning({
-                title: "警告",
-                content: "您尚未选择任何音频",
+                title: "警告", content: "您尚未选择任何音频",
             });
         } else {
             let count = 0;
@@ -94,16 +90,14 @@ class PerturbationAttach extends React.Component {
                 }
                 if (count !== i + 1) {
                     Modal.error({
-                        title: "警告",
-                        content: "选中行的 添加/更改扰动 为必选项",
+                        title: "警告", content: "选中行的 添加/更改扰动 为必选项",
                     });
                     break;
                 }
             }
             if (count === selectedKeys.length) {
                 this.setState({
-                    visible: true,
-                    percent: 0
+                    visible: true, percent: 0
                 })
                 let i = 0;
                 for (; i < this.state.selectedRowKeys.length; i++) {
@@ -132,9 +126,7 @@ class PerturbationAttach extends React.Component {
                 } else {
                     setTimeout(() => {
                         this.setState({
-                            percent: 100,
-                            title: "处理完成",
-                            disabled: false
+                            percent: 100, title: "处理完成", disabled: false
                         })
                     }, 1000)
                 }
@@ -191,97 +183,80 @@ class PerturbationAttach extends React.Component {
         const {selectedRowKeys} = this.state;
         const locales = {selectionAll: "全选", selectNone: "清空所有"}
         const rowSelection = {
-            selectedRowKeys,
-            onChange: this.onSelectChange,
-            selections: [
-                Table.SELECTION_ALL,
-                Table.SELECTION_NONE
-            ],
+            selectedRowKeys, onChange: this.onSelectChange, selections: [Table.SELECTION_ALL, Table.SELECTION_NONE],
         };
+
+        let summaryRow =
+            <Table.Summary fixed>
+                <Table.Summary.Row>
+                    <Table.Summary.Cell index={0}>总 计</Table.Summary.Cell>
+                    <Table.Summary.Cell index={1}>
+                        <div
+                            style={{textAlign: "center"}}>{selectedRowKeys.length >= 10 ? `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项` : `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项`}
+                        </div>
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={2}>
+                        <div style={{textAlign: "center"}}>
+                            <Button type="primary" shape="round" icon={<CloudUploadOutlined/>}
+                                    onClick={() => {
+                                        this.handleClick().then()
+                                    }}>
+                                确认提交
+                            </Button>
+                        </div>
+                    </Table.Summary.Cell>
+                </Table.Summary.Row>
+            </Table.Summary>
+
+        let select =
+            <div>
+                <span>数据集:</span>
+                <Select defaultValue="cv-corpus-arabic" bordered={false}
+                        onChange={this.datasetChange}>
+                    {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
+                </Select>
+            </div>
 
         let content;
         if (this.state.operationDone) {
             content = <Result status="success" title="成功添加/修改扰动!"
                               subTitle={`成功添加或修改 ${this.state.selectedRowKeys.length} 个噪声扰动`}
-                              extra={[
-                                  <Button type="primary" key="add"><a href={"/perturbationAttach"}>继续添加</a></Button>,
-                                  <Button key="detail"><a href={"/perturbationDisplay"}>查看详情</a></Button>,
-                              ]}
-            />
+                              extra={[<Button type="primary" key="add"><a
+                                  href={"/perturbationAttach"}>继续添加</a></Button>,
+                                  <Button key="detail"><a href={"/perturbationDisplay"}>查看详情</a></Button>,]}/>
         } else if (this.state.operationCancel) {
             content = <Result status="warning"
                               title="操作出现了未知错误"
-                              extra={
-                                  <Button type="primary" key="reAdd"><a href={"/perturbationAttach"}>重新添加</a></Button>
-                              }/>
+                              extra={<Button type="primary" key="reAdd"><a
+                                  href={"/perturbationAttach"}>重新添加</a></Button>}/>
         } else {
-            content =
-                <div style={{whiteSpace: "pre"}}>
-                    <Table rowSelection={rowSelection} columns={this.columns}
-                           dataSource={this.state.dataSource} locale={locales} title={() => {
-                        return (
-                            <div>
-                                <span>数据集:</span>
-                                <Select defaultValue="cv-corpus-arabic" bordered={false}
-                                        onChange={this.datasetChange}>
-                                    {this.state.options.map(val => <Select.Option key={val}
-                                                                                  value={val}>{val}</Select.Option>)}
-                                </Select>
-                            </div>
-                        )
-                    }}
-                           summary={() => (
-                               <Table.Summary fixed>
-                                   <Table.Summary.Row>
-                                       <Table.Summary.Cell index={0}>总 计</Table.Summary.Cell>
-                                       <Table.Summary.Cell index={1}>
-                                           <div style={{textAlign: "center"}}>{selectedRowKeys.length >= 10 ?
-                                               `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项` :
-                                               `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项`}
-                                           </div>
-                                       </Table.Summary.Cell>
-                                       <Table.Summary.Cell index={2}>
-                                           <div style={{textAlign: "center"}}>
-                                               <Button type="primary" shape="round" icon={<CloudUploadOutlined/>}
-                                                       onClick={() => {
-                                                           this.handleClick().then(() => {
-                                                           })
-                                                       }}>
-                                                   确认提交
-                                               </Button>
-                                           </div>
-                                       </Table.Summary.Cell>
-                                   </Table.Summary.Row>
-                               </Table.Summary>
-                           )}
-                    />
-                    <Modal title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
-                           width={400}
-                           onCancel={this.handleCancel}>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                        }}>
-                            <div style={{textAlign: "center"}}>
-                                <Progress type="circle" percent={this.state.percent}/>
-                            </div>
-                            <div style={{marginTop: 20, textAlign: "center"}}>
-                                <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
-                                        onClick={() => {
-                                            this.showResult()
-                                        }}>确认</Button>
-                            </div>
-
+            content = <div style={{whiteSpace: "pre"}}>
+                <Table rowSelection={rowSelection} columns={this.columns}
+                       dataSource={this.state.dataSource} locale={locales}
+                       title={() => {
+                           return (select)
+                       }}
+                       summary={() => (summaryRow)}
+                />
+                <Modal title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
+                       width={400} onCancel={this.handleCancel}>
+                    <div style={{display: "flex", flexDirection: "column"}}>
+                        <div style={{textAlign: "center"}}>
+                            <Progress type="circle" percent={this.state.percent}/>
                         </div>
-
-                    </Modal>
-                </div>
-        }
-        return (
-            <div>
-                {content}
+                        <div style={{marginTop: 20, textAlign: "center"}}>
+                            <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
+                                    onClick={() => {
+                                        this.showResult()
+                                    }}>确认</Button>
+                        </div>
+                    </div>
+                </Modal>
             </div>
-        );
+        }
+        return (<div>
+            {content}
+        </div>);
     }
 }
 

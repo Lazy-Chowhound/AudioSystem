@@ -1,5 +1,5 @@
-import React from 'react';
-import 'antd/dist/antd.css';
+import React from "react";
+import "antd/dist/antd.css";
 import NoisePatternChart from "./NoisePatternChart";
 import {Button, message, Modal, Select} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
@@ -47,7 +47,7 @@ class PerturbationDisplay extends React.Component {
                         <span>数据集:</span>
                         <Select defaultValue="cv-corpus-chinese" bordered={false}
                                 size={"large"} onChange={this.handleChange}>
-                            {this.state.options.map(val => <Select.Option key={val} value={val}>{val}</Select.Option>)}
+                            {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
                     <Button type="primary" icon={<BarChartOutlined/>} onClick={() => {

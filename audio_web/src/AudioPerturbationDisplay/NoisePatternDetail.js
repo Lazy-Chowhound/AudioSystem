@@ -1,5 +1,5 @@
 import React from "react";
-import ReactEcharts from 'echarts-for-react'
+import ReactEcharts from "echarts-for-react"
 import sendGet from "../Util/axios";
 import {message, Select} from "antd";
 import {Option} from "antd/es/mentions";
@@ -30,15 +30,15 @@ class NoisePatternDetail extends React.Component {
     getOption = () => {
         return {
             title: {
-                text: '扰动数量与种类',
-                x: 'center',
+                text: "扰动数量与种类",
+                x: "center",
             },
             tooltip: {
-                trigger: 'item',
+                trigger: "item",
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
             legend: {
-                orient: 'vertical',
+                orient: "vertical",
                 top: 10,
                 right: 5,
                 data: this.state.legend
@@ -71,8 +71,8 @@ class NoisePatternDetail extends React.Component {
                         this.setState({
                             series: [
                                 {
-                                    name: '扰动数目',
-                                    type: 'pie',
+                                    name: "扰动数目",
+                                    type: "pie",
                                     data: this.state.info,
                                     top: "20"
                                 }
