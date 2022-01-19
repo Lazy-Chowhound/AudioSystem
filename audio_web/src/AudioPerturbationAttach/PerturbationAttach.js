@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Modal, Progress, Result, Table} from "antd";
+import {Button, message, Modal, Progress, Result, Select, Table} from "antd";
 import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
 import "../css/PerturbationAttach.css"
@@ -17,7 +17,9 @@ class PerturbationAttach extends React.Component {
             operationDone: false,
             operationCancel: false,
             title: "处理中......",
-            disabled: true
+            disabled: true,
+            dataset: "cv-corpus-arabic",
+            options: []
         };
     }
 
@@ -47,21 +49,11 @@ class PerturbationAttach extends React.Component {
     ];
 
     componentDidMount() {
+        this.getAudiSet()
+        this.getPatternDetail()
         this.setState({
             operationDone: false,
             operationCancel: false,
-        })
-        const d = []
-        for (let i = 0; i < 46; i++) {
-            d.push({
-                key: i,
-                name: "mp3 " + i,
-                pattern: "Sounds of things",
-                patternType: "Miscellaneous sources",
-            });
-        }
-        this.setState({
-            dataSource: d
         })
     }
 
@@ -149,9 +141,55 @@ class PerturbationAttach extends React.Component {
         }
     }
 
+    getAudiSet = () => {
+        sendGet("/audioSetList", {
+            params: {
+                path: "D:/AudioSystem/Audio/"
+            }
+        }).then(res => {
+            if (res.data.code === 400) {
+                message.error(res.data.data).then(r => console.log(r))
+            } else {
+                const audioList = JSON.parse(res.data.data)
+                const ops = []
+                for (let i = 0; i < audioList.length; i++) {
+                    ops.push(audioList[i])
+                }
+                this.setState({
+                    options: ops
+                })
+            }
+        }).catch(error => {
+            message.error(error).then(r => console.log(r))
+        })
+    }
+
+    getPatternDetail = () => {
+        const d = []
+        for (let i = 0; i < 46; i++) {
+            d.push({
+                key: i,
+                name: "mp3 " + this.state.dataset,
+                pattern: "Sounds of things",
+                patternType: "Miscellaneous sources",
+            });
+        }
+        this.setState({
+            dataSource: d
+        })
+    }
+
     handleCancel = () => {
         this.setState({
             visible: false
+        })
+    }
+
+    datasetChange = (e) => {
+        this.setState({
+            dataset: e
+        },()=>{
+            this.getPatternDetail()
         })
     }
 
@@ -192,7 +230,17 @@ class PerturbationAttach extends React.Component {
             content =
                 <div style={{whiteSpace: "pre"}}>
                     <Table rowSelection={rowSelection} columns={this.columns}
-                           dataSource={this.state.dataSource} locale={locales}
+                           dataSource={this.state.dataSource} locale={locales} title={() => {
+                        return (
+                            <div>
+                                <span>数据集:</span>
+                                <Select defaultValue="cv-corpus-arabic" bordered={false}
+                                        onChange={this.datasetChange}>
+                                    {this.state.options.map(val => <option value={val}>{val}</option>)}
+                                </Select>
+                            </div>
+                        )
+                    }}
                            summary={() => (
                                <Table.Summary fixed>
                                    <Table.Summary.Row>
