@@ -163,6 +163,9 @@ class PerturbationAttach extends React.Component {
             }
         ).catch(err => {
             message.error(err).then()
+            this.setState({
+                loading: false
+            })
         })
     }
 
@@ -248,11 +251,13 @@ class PerturbationAttach extends React.Component {
                                return (select)
                            }}
                            pagination={{
-                               pageSize: this.state.pageSize, total: this.state.total,
+                               pageSize: this.state.pageSize,
+                               total: this.state.total,
                                showSizeChanger: false
                            }}
                     />
-                    <Modal style={{marginTop:80}} title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
+                    <Modal style={{marginTop: 80}} title={this.state.title} key={this.state.visible}
+                           visible={this.state.visible} footer={null}
                            width={400} onCancel={this.handleCancel}>
                         <div style={{display: "flex", flexDirection: "column"}}>
                             <div style={{textAlign: "center"}}>

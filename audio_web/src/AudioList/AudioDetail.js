@@ -176,6 +176,9 @@ class AudioDetail extends React.Component {
         }).then(res => {
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
+                this.setState({
+                    loading: false
+                })
             } else {
                 const data = JSON.parse(res.data.data)
                 const totalLen = data[0].total
@@ -188,6 +191,9 @@ class AudioDetail extends React.Component {
             }
         }).catch(error => {
             message.error(error).then()
+            this.setState({
+                loading: false
+            })
         })
     }
 
