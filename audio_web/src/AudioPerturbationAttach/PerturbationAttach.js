@@ -20,7 +20,9 @@ class PerturbationAttach extends React.Component {
             title: "处理中......",
             disabled: true,
             dataset: "cv-corpus-arabic",
-            options: []
+            options: [],
+            pageSize: 5,
+            total: 0,
         };
     }
 
@@ -48,7 +50,7 @@ class PerturbationAttach extends React.Component {
         }];
 
     componentDidMount() {
-        this.getAudioSet()
+        this.getAudioSetList()
         this.getPatternDetail()
         this.setState({
             operationDone: false,
@@ -136,7 +138,7 @@ class PerturbationAttach extends React.Component {
         }
     }
 
-    getAudioSet = () => {
+    getAudioSetList = () => {
         getAudioSet().then(res => {
             this.setState({
                 options: res
@@ -152,8 +154,10 @@ class PerturbationAttach extends React.Component {
                 dataset: this.state.dataset
             }
         }).then(r => {
+                const data = JSON.parse(r.data.data)
                 this.setState({
-                    dataSource: JSON.parse(r.data.data)
+                    dataSource: data,
+                    total: data.length
                 })
             }
         ).catch(err => {
@@ -221,40 +225,46 @@ class PerturbationAttach extends React.Component {
 
         let content;
         if (this.state.operationDone) {
-            content = <Result status="success" title="成功添加/修改扰动!"
-                              subTitle={`成功添加或修改 ${this.state.selectedRowKeys.length} 个噪声扰动`}
-                              extra={[<Button type="primary" key="add"><a
-                                  href={"/perturbationAttach"}>继续添加</a></Button>,
-                                  <Button key="detail"><a href={"/perturbationDisplay"}>查看详情</a></Button>,]}/>
+            content =
+                <Result status="success" title="成功添加/修改扰动!"
+                        subTitle={`成功添加或修改 ${this.state.selectedRowKeys.length} 个噪声扰动`}
+                        extra={[<Button type="primary" key="add"><a
+                            href={"/perturbationAttach"}>继续添加</a></Button>,
+                            <Button key="detail"><a href={"/perturbationDisplay"}>查看详情</a></Button>,]}/>
         } else if (this.state.operationCancel) {
-            content = <Result status="warning"
-                              title="操作出现了未知错误"
-                              extra={<Button type="primary" key="reAdd"><a
-                                  href={"/perturbationAttach"}>重新添加</a></Button>}/>
+            content =
+                <Result status="warning"
+                        title="操作出现了未知错误"
+                        extra={<Button type="primary" key="reAdd"><a
+                            href={"/perturbationAttach"}>重新添加</a></Button>}/>
         } else {
-            content = <div style={{whiteSpace: "pre"}}>
-                <Table rowSelection={rowSelection} columns={this.columns}
-                       dataSource={this.state.dataSource} locale={locales}
-                       title={() => {
-                           return (select)
-                       }}
-                       summary={() => (summaryRow)}
-                />
-                <Modal title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
-                       width={400} onCancel={this.handleCancel}>
-                    <div style={{display: "flex", flexDirection: "column"}}>
-                        <div style={{textAlign: "center"}}>
-                            <Progress type="circle" percent={this.state.percent}/>
+            content =
+                <div style={{whiteSpace: "pre"}}>
+                    <Table rowSelection={rowSelection} columns={this.columns} dataSource={this.state.dataSource}
+                           locale={locales} summary={() => (summaryRow)}
+                           title={() => {
+                               return (select)
+                           }}
+                           pagination={{
+                               pageSize: this.state.pageSize, total: this.state.total,
+                               showSizeChanger: false
+                           }}
+                    />
+                    <Modal title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
+                           width={400} onCancel={this.handleCancel}>
+                        <div style={{display: "flex", flexDirection: "column"}}>
+                            <div style={{textAlign: "center"}}>
+                                <Progress type="circle" percent={this.state.percent}/>
+                            </div>
+                            <div style={{marginTop: 20, textAlign: "center"}}>
+                                <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
+                                        onClick={() => {
+                                            this.showResult()
+                                        }}>确认</Button>
+                            </div>
                         </div>
-                        <div style={{marginTop: 20, textAlign: "center"}}>
-                            <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
-                                    onClick={() => {
-                                        this.showResult()
-                                    }}>确认</Button>
-                        </div>
-                    </div>
-                </Modal>
-            </div>
+                    </Modal>
+                </div>
         }
         return (<div>
             {content}
