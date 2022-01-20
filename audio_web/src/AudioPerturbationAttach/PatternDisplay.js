@@ -219,7 +219,7 @@ class PatternDisplay extends React.Component {
         }
     ];
 
-    changePage = (value) => {
+    onChange = (value) => {
         const option = [];
         option.push(this.props.row)
         option.push(value)
@@ -228,7 +228,7 @@ class PatternDisplay extends React.Component {
 
     render() {
         return (
-            <Cascader style={{width: 330}} expandTrigger={"hover"} options={this.options} onChange={this.changePage}
+            <Cascader style={{width: 330}} expandTrigger={"hover"} options={this.options} onChange={this.onChange}
                       placeholder="select the noise pattern"/>
         )
     }
