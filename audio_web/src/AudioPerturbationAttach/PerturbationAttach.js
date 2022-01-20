@@ -2,7 +2,6 @@ import React from "react";
 import {Button, message, Modal, Progress, Result, Select, Table} from "antd";
 import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
-import "../css/PerturbationAttach.css"
 import sendGet from "../Util/axios";
 import getAudioSet from "../Util/AudioUtil";
 
@@ -23,6 +22,7 @@ class PerturbationAttach extends React.Component {
             options: [],
             pageSize: 5,
             total: 0,
+            loading: true
         };
     }
 
@@ -157,7 +157,8 @@ class PerturbationAttach extends React.Component {
                 const data = JSON.parse(r.data.data)
                 this.setState({
                     dataSource: data,
-                    total: data.length
+                    total: data.length,
+                    loading: false
                 })
             }
         ).catch(err => {
@@ -173,7 +174,8 @@ class PerturbationAttach extends React.Component {
 
     datasetChange = (e) => {
         this.setState({
-            dataset: e
+            dataset: e,
+            loading: true
         }, () => {
             this.getPatternDetail()
         })
@@ -241,7 +243,7 @@ class PerturbationAttach extends React.Component {
             content =
                 <div style={{whiteSpace: "pre"}}>
                     <Table rowSelection={rowSelection} columns={this.columns} dataSource={this.state.dataSource}
-                           locale={locales} summary={() => (summaryRow)}
+                           locale={locales} summary={() => (summaryRow)} loading={this.state.loading}
                            title={() => {
                                return (select)
                            }}
@@ -250,7 +252,7 @@ class PerturbationAttach extends React.Component {
                                showSizeChanger: false
                            }}
                     />
-                    <Modal title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
+                    <Modal style={{marginTop:80}} title={this.state.title} key={this.state.visible} visible={this.state.visible} footer={null}
                            width={400} onCancel={this.handleCancel}>
                         <div style={{display: "flex", flexDirection: "column"}}>
                             <div style={{textAlign: "center"}}>
