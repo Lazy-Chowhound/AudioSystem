@@ -107,7 +107,7 @@ class AudioList extends React.Component {
         })
     }
 
-    onChange = (page) => {
+    changePage = (page) => {
         this.setState({
             currentPage: page.current
         }, () => {
@@ -125,7 +125,7 @@ class AudioList extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
-                       }} onChange={this.onChange}/>
+                       }} onChange={this.changePage}/>
                 <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={1200}>
                     <AudioDetail key={this.state.choice} choice={this.state.choice}/>
