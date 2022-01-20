@@ -51,7 +51,8 @@ class PerturbationAttach extends React.Component {
         this.getAudioSet()
         this.getPatternDetail()
         this.setState({
-            operationDone: false, operationCancel: false,
+            operationDone: false,
+            operationCancel: false,
         })
     }
 
@@ -97,7 +98,8 @@ class PerturbationAttach extends React.Component {
             }
             if (count === selectedKeys.length) {
                 this.setState({
-                    visible: true, percent: 0
+                    visible: true,
+                    percent: 0
                 })
                 let i = 0;
                 for (; i < this.state.selectedRowKeys.length; i++) {
@@ -145,17 +147,17 @@ class PerturbationAttach extends React.Component {
     }
 
     getPatternDetail = () => {
-        const d = []
-        for (let i = 0; i < 46; i++) {
-            d.push({
-                key: i,
-                name: "mp3 " + this.state.dataset,
-                pattern: "Sounds of things",
-                patternType: "Miscellaneous sources",
-            });
-        }
-        this.setState({
-            dataSource: d
+        sendGet("/audioSetPattern", {
+            params: {
+                dataset: this.state.dataset
+            }
+        }).then(r => {
+                this.setState({
+                    dataSource: JSON.parse(r.data.data)
+                })
+            }
+        ).catch(err => {
+            message.error(err).then()
         })
     }
 

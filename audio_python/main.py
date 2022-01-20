@@ -7,4 +7,4 @@ if __name__ == '__main__':
     rpcServer = RPCServer("localhost", 8081)
     print("-------rpc sever start-------")
     rpcServer.start([getAudioSet, getAudioSetList, getAudio, getWaveForm, getMelSpectrum, removeImage,
-                     getNoisePatternSummary, getNoisePatternDetail])
+                     getNoisePatternSummary, getNoisePatternDetail, getAudioSetPattern])

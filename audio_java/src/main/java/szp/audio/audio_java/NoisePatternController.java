@@ -42,6 +42,19 @@ public class NoisePatternController {
         }
     }
 
+    /**
+     * 获取某数据集所有音频扰动情况
+     */
+    @RequestMapping("/audioSetPattern")
+    public Result getAudioSetPattern(@RequestParam(value = "dataset") String dataset) {
+        try {
+            return Result.success(StatusCode.SUCCESS.getStatus(),
+                    rpcUtil.sendRequest("getAudioSetPattern", dataset));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
     @RequestMapping("/test")
     public Result test() throws InterruptedException {
         Thread.sleep(2000);
