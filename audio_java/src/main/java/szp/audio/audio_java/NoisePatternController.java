@@ -31,7 +31,7 @@ public class NoisePatternController {
     /**
      * 获取扰动详情
      */
-    @RequestMapping("/noisePatternDescription")
+    @RequestMapping("/noisePatternDetail")
     public Result getNoisePatternDetail(@RequestParam(value = "dataset") String dataset,
                                         @RequestParam(value = "patternType") String patternType) {
         try {
@@ -40,5 +40,11 @@ public class NoisePatternController {
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
+    }
+
+    @RequestMapping("/test")
+    public Result test() throws InterruptedException {
+        Thread.sleep(2000);
+        return Result.success(StatusCode.SUCCESS.getStatus(), "test");
     }
 }

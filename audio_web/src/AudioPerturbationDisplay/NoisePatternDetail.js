@@ -2,7 +2,6 @@ import React from "react";
 import ReactEcharts from "echarts-for-react"
 import sendGet from "../Util/axios";
 import {message, Select} from "antd";
-import {Option} from "antd/es/mentions";
 import "../css/NoisePatternDetail.css"
 
 class NoisePatternDetail extends React.Component {
@@ -47,7 +46,7 @@ class NoisePatternDetail extends React.Component {
     }
 
     getDetail = () => {
-        sendGet("/noisePatternDescription", {
+        sendGet("/noisePatternDetail", {
             params: {
                 dataset: this.props.dataset,
                 patternType: this.state.patternType
@@ -90,14 +89,14 @@ class NoisePatternDetail extends React.Component {
             <div>
                 <div style={{marginTop: -20}}>
                     <Select defaultValue="Sound level" bordered={false} onChange={this.handleChange}>
-                        <Option value="Sound level">Sound level</Option>
-                        <Option value="Gaussian noise">Gaussian noise</Option>
-                        <Option value="Animal">Animal</Option>
-                        <Option value="Source-ambiguous sounds">Source-ambiguous sounds</Option>
-                        <Option value="Natural Sounds">Natural Sounds</Option>
-                        <Option value="Sound of things">Sound of things</Option>
-                        <Option value="Human Sounds">Human Sounds</Option>
-                        <Option value="Music">Music</Option>
+                        <Select.Option value="Sound level">Sound level</Select.Option>
+                        <Select.Option value="Gaussian noise">Gaussian noise</Select.Option>
+                        <Select.Option value="Animal">Animal</Select.Option>
+                        <Select.Option value="Source-ambiguous sounds">Source-ambiguous sounds</Select.Option>
+                        <Select.Option value="Natural Sounds">Natural Sounds</Select.Option>
+                        <Select.Option value="Sound of things">Sound of things</Select.Option>
+                        <Select.Option value="Human Sounds">Human Sounds</Select.Option>
+                        <Select.Option value="Music">Music</Select.Option>
                     </Select>
                 </div>
                 <ReactEcharts option={this.getOption()}/>
