@@ -253,7 +253,8 @@ class PerturbationAttach extends React.Component {
                            pagination={{
                                pageSize: this.state.pageSize,
                                total: this.state.total,
-                               showSizeChanger: false
+                               showSizeChanger: false,
+                               showQuickJumper: true,
                            }}
                     />
                     <Modal style={{marginTop: 80}} title={this.state.title} key={this.state.visible}
