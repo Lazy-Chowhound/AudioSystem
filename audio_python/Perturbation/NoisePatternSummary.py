@@ -2,8 +2,6 @@ import json
 import os
 import re
 
-from Audio.AudioProperty import getAudioList
-
 patternTypes = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
                 "Animal": "animal", "Source-ambiguous/nsounds": "source_ambiguous_sounds",
                 "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
@@ -64,9 +62,11 @@ def getAudioSetPattern(dataset):
     """
     path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
     audioSetPattern = []
+    key = 1
     for root, dirs, files in os.walk(path):
         for file in files:
-            temp = {}
+            temp = {'key': key}
+            key += 1
             num = re.findall("\\d+", file)[0]
             temp["name"] = file[0:file.find(num) + len(num)] + ".mp3"
             if "gaussian_white_noise" in file:
