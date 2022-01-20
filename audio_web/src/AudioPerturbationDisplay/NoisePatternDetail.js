@@ -41,7 +41,6 @@ class NoisePatternDetail extends React.Component {
                 orient: "vertical",
                 top: 10,
                 right: 5,
-                data: this.state.legend
             },
             series: this.state.series
         };
@@ -90,8 +89,7 @@ class NoisePatternDetail extends React.Component {
         return (
             <div>
                 <div style={{marginTop: -20}}>
-                    <Select defaultValue="Sound level" className={"select"}
-                            bordered={false} onChange={this.handleChange}>
+                    <Select defaultValue="Sound level" bordered={false} onChange={this.handleChange}>
                         <Option value="Sound level">Sound level</Option>
                         <Option value="Gaussian noise">Gaussian noise</Option>
                         <Option value="Animal">Animal</Option>
