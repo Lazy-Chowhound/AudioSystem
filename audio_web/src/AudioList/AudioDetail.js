@@ -149,7 +149,7 @@ class AudioDetail extends React.Component {
         })
     }
 
-    onChange = (page) => {
+    changePage = (page) => {
         this.setState({
             currentPage: page.current
         }, () => {
@@ -200,7 +200,7 @@ class AudioDetail extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showQuickJumper: true, showSizeChanger: false
-                       }} onChange={this.onChange}/>
+                       }} onChange={this.changePage}/>
                 <Modal style={{marginTop: 30}} title={this.state.ImageType} visible={this.state.isModalVisible}
                        footer={null}
                        onCancel={this.handleCancel} width={600}>

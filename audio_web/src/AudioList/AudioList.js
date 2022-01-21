@@ -9,12 +9,11 @@ class AudioList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            audioSet: [],
             dataSource: [],
             isModalVisible: false,
             choice: null,
             total: null,
-            page: 1,
+            currentPage: 1,
             pageSize: 3,
             loading: true,
         };
@@ -75,7 +74,6 @@ class AudioList extends React.Component {
             } else {
                 const data = JSON.parse(res.data.data)
                 this.setState({
-                    audioSet: data,
                     total: data.length,
                     dataSource: data,
                     loading: false
