@@ -13,8 +13,8 @@ def getAudio(AudioSetName, page, pageSize):
     path = "D:/AudioSystem/Audio/" + AudioSetName + "/"
     AudioList = getAudioList(path)
     Audio.append({'total': len(AudioList)})
-    for i in range((int(page) - 1) * int(pageSize) - int(page) + 1,
-                   min(int(page) * int(pageSize) - int(page), len(AudioList))):
+    for i in range((int(page) - 1) * int(pageSize),
+                   min(int(page) * int(pageSize), len(AudioList))):
         AudioProperty = getAudioProperty(path, AudioList[i])
         AudioProperty['key'] = i + 1
         Audio.append(AudioProperty)

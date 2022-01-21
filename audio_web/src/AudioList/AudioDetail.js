@@ -16,7 +16,7 @@ class AudioDetail extends React.Component {
             ImageUrl: null,
             currentPage: 1,
             total: null,
-            pageSize: 6,
+            pageSize: 5,
             loading: true
         };
     }
@@ -34,30 +34,25 @@ class AudioDetail extends React.Component {
         {
             title: "时长",
             dataIndex: "size",
-            key: "size",
             align: "center"
         },
         {
             title: "声道",
             dataIndex: "channel",
-            key: "channel",
             align: "center"
         },
         {
             title: "采样率",
-            key: "sampleRate",
             dataIndex: "sampleRate",
             align: "center"
         },
         {
             title: "位深",
-            key: "bitDepth",
             dataIndex: "bitDepth",
             align: "center"
         },
         {
             title: "内容",
-            key: "content",
             dataIndex: "content",
             align: "center",
             ellipsis: {
@@ -71,7 +66,7 @@ class AudioDetail extends React.Component {
         },
         {
             title: "波形图",
-            key: "distribution",
+            dataIndex: "distribution",
             render: item =>
                 <Button type={"link"} size={"small"} onClick={() => {
                     this.showWaveForm(item)
@@ -80,7 +75,7 @@ class AudioDetail extends React.Component {
         },
         {
             title: "频谱图",
-            key: "list",
+            dataIndex: "list",
             render: item =>
                 <Button type={"link"} size={"small"} onClick={() => {
                     this.showMelSpectrum(item)
@@ -181,11 +176,12 @@ class AudioDetail extends React.Component {
                 })
             } else {
                 const data = JSON.parse(res.data.data)
-                const totalLen = data[0].total
-                delete data[0]
+                const totalLen = data.shift().total
+                console.log(totalLen)
+                console.log(data)
                 this.setState({
                     dataSource: data,
-                    total: Math.ceil(totalLen / (this.state.pageSize - 1)) * this.state.pageSize,
+                    total: totalLen,
                     loading: false
                 })
             }
