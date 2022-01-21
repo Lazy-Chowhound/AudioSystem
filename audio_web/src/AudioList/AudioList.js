@@ -15,7 +15,7 @@ class AudioList extends React.Component {
             choice: null,
             total: null,
             page: 1,
-            pageSize: 4,
+            pageSize: 3,
             loading: true,
         };
     }
@@ -24,47 +24,39 @@ class AudioList extends React.Component {
         {
             title: "音频数据集",
             dataIndex: "name",
-            key: "name",
             align: "center"
         },
         {
             title: "语言",
             dataIndex: "language",
-            key: "language",
             align: "center"
         },
         {
             title: "大小",
             dataIndex: "size",
-            key: "size",
             align: "center"
         },
         {
             title: "总小时数",
             dataIndex: "hour",
-            key: "hour",
             align: "center"
         },
         {
             title: "录音人数",
-            key: "people",
             dataIndex: "people",
             align: "center"
         },
         {
             title: "格式",
-            key: "form",
             dataIndex: "form",
             align: "center"
         },
         {
             title: "分布",
-            key: "distribution",
             dataIndex: "distribution",
         },
         {
             title: "音频列表",
-            key: "list",
             render: item =>
                 <Button type={"primary"} onClick={() => {
                     this.showDetail(item)
@@ -77,21 +69,25 @@ class AudioList extends React.Component {
         sendGet("/audioSetDescription").then(res => {
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
+                this.setState({
+                    loading: false
+                })
             } else {
                 const data = JSON.parse(res.data.data)
                 this.setState({
                     audioSet: data,
-                    total: Math.ceil(data.length / (this.state.pageSize - 1)) * this.state.pageSize,
-                    dataSource: data.slice(0, this.state.pageSize - 1),
+                    total: data.length,
+                    dataSource: data,
+                    loading: false
                 })
             }
         }).catch(error => {
                 message.error(error).then()
+                this.setState({
+                    loading: false
+                })
             }
         )
-        this.setState({
-            loading: false
-        })
     }
 
     showDetail = (item) => {
@@ -107,17 +103,6 @@ class AudioList extends React.Component {
         })
     }
 
-    changePage = (page) => {
-        this.setState({
-            currentPage: page.current
-        }, () => {
-            this.setState({
-                dataSource: this.state.audioSet.slice((this.state.currentPage - 1) * (this.state.pageSize - 1),
-                    Math.min(this.state.currentPage * this.state.pageSize - this.state.currentPage, this.state.total))
-            })
-        })
-    }
-
     render() {
         return (
             <div style={{whiteSpace: "pre"}}>
@@ -125,7 +110,7 @@ class AudioList extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
-                       }} onChange={this.changePage}/>
+                       }}/>
                 <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
                        onCancel={this.handleCancel} width={1200}>
                     <AudioDetail key={this.state.choice} choice={this.state.choice}/>
