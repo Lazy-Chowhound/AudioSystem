@@ -13,7 +13,7 @@ import szp.audio.audio_java.Util.StatusCode;
  * @author Nakano Miku
  */
 @RestController
-public class NoisePatternController {
+public class NoisePatternInfoController {
 
     @Autowired
     private RpcUtil rpcUtil;
@@ -56,11 +56,5 @@ public class NoisePatternController {
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
-    }
-
-    @RequestMapping("/test")
-    public Result test() throws InterruptedException {
-        Thread.sleep(2000);
-        return Result.success(StatusCode.SUCCESS.getStatus(), "test");
     }
 }
