@@ -1,4 +1,4 @@
-package szp.audio.audio_java;
+package szp.audio.audio_java.Rpc;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;

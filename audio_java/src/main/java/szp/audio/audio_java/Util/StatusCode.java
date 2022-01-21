@@ -1,4 +1,4 @@
-package szp.audio.audio_java;
+package szp.audio.audio_java.Util;
 
 /**
  * @author Nakano Miku
