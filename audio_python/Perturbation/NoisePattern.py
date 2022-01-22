@@ -1,6 +1,6 @@
 import soundfile
 
-from AudioProcess import *
+from Perturbation.AudioProcess import *
 from Util.util import *
 
 
@@ -19,6 +19,7 @@ def add_gaussian_noise(path, audioName):
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
+    return "success"
 
 
 def add_sound_level(path, audioName, specificPattern=None):
@@ -44,21 +45,32 @@ def add_sound_level(path, audioName, specificPattern=None):
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
+    return "success"
 
 
 def add_natural_sounds(path, audioName, specificPattern=None):
+    """
+    添加 natural sound 扰动
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param specificPattern:
+    :return:
+    """
     sig, sr = librosa.load(path + audioName, sr=None)
     noiseAudio = sig
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
     if specificPattern == "wind":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/winds.mp3", sr=sr, mono=True)
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/winds.mp3", sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     elif specificPattern == "thunderstorm":
-        noiseAudio = quieter(sig)
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/thunderstorm.mp3", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
     elif specificPattern == "water":
-        noiseAudio = changePitch(sig, sr)
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
     elif specificPattern == "fire":
-        sr = sr * 2
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/water.wav.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
     noiseWaveName = addTag(addTag(audioName, "natural_sounds"), specificPattern).replace(".mp3", ".wav")
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)

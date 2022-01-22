@@ -62,7 +62,7 @@ def getAudioSetPattern(dataset):
     """
     path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
     audioSetPattern = []
-    key = 1
+    key = 0
     for root, dirs, files in os.walk(path):
         for file in files:
             temp = {'key': key}
