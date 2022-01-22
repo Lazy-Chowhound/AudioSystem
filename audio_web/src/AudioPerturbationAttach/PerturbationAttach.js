@@ -83,7 +83,6 @@ class PerturbationAttach extends React.Component {
                 title: "警告", content: "您尚未选择任何音频",
             });
         } else {
-            let errorMsg = null
             let count = this.checkValid();
             if (count === selectedKeys.length) {
                 this.setState({
@@ -92,13 +91,13 @@ class PerturbationAttach extends React.Component {
                 })
                 let i = 0;
                 for (; i < selectedKeys.length; i++) {
+                    let errorMsg = null
                     const info = this.getSelectedRowInfo(selectedKeys[i])
                     let flag = true, url = info[0], audioName = info[1], parameters = null
                     parameters = {
                         dataset: this.state.dataset,
                         audioName: audioName
                     }
-                    console.log(info)
                     if (info[2][0] !== "Gaussian noise") {
                         parameters['specificPattern'] = info[2][1]
                     }
@@ -120,6 +119,9 @@ class PerturbationAttach extends React.Component {
                         errorMsg = error
                     })
                     if (!flag) {
+                        this.setState({
+                            errorMessage: errorMsg
+                        })
                         break;
                     }
                 }
@@ -127,7 +129,6 @@ class PerturbationAttach extends React.Component {
                     setTimeout(() => {
                         this.setState({
                             operationCancel: true,
-                            errorMessage: errorMsg
                         })
                     }, 1000)
                 } else {
