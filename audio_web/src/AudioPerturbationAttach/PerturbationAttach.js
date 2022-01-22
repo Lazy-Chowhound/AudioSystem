@@ -17,6 +17,7 @@ class PerturbationAttach extends React.Component {
             operationDone: false,
             operationCancel: false,
             title: "处理中......",
+            errorMessage: null,
             disabled: true,
             dataset: "cv-corpus-chinese",
             options: [],
@@ -82,6 +83,7 @@ class PerturbationAttach extends React.Component {
                 title: "警告", content: "您尚未选择任何音频",
             });
         } else {
+            let errorMsg = null
             let count = this.checkValid();
             if (count === selectedKeys.length) {
                 this.setState({
@@ -104,6 +106,7 @@ class PerturbationAttach extends React.Component {
                         params: parameters
                     }).then((res) => {
                         if (res.data.code === 400) {
+                            errorMsg = res.data.data
                             flag = false
                         } else {
                             this.setState((state) => ({
@@ -112,8 +115,9 @@ class PerturbationAttach extends React.Component {
                                 )
                             }));
                         }
-                    }).catch(() => {
+                    }).catch((error) => {
                         flag = false
+                        errorMsg = error
                     })
                     if (!flag) {
                         break;
@@ -122,7 +126,8 @@ class PerturbationAttach extends React.Component {
                 if (i !== this.state.selectedRowKeys.length) {
                     setTimeout(() => {
                         this.setState({
-                            operationCancel: true
+                            operationCancel: true,
+                            errorMessage: errorMsg
                         })
                     }, 1000)
                 } else {
@@ -282,6 +287,7 @@ class PerturbationAttach extends React.Component {
             content =
                 <Result status="warning"
                         title="操作出现了未知错误"
+                        subTitle={this.state.errorMessage}
                         extra={<Button type="primary" key="reAdd"><a
                             href={"/perturbationAttach"}>重新添加</a></Button>}/>
         } else {
