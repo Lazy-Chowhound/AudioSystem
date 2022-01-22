@@ -83,8 +83,7 @@ class PerturbationAttach extends React.Component {
                 title: "警告", content: "您尚未选择任何音频",
             });
         } else {
-            let count = this.checkValid();
-            if (count === selectedKeys.length) {
+            if (this.checkValid()) {
                 this.setState({
                     visible: true,
                     percent: 0
@@ -159,6 +158,7 @@ class PerturbationAttach extends React.Component {
             }
         }).then(r => {
                 const data = JSON.parse(r.data.data)
+                console.log(data)
                 this.setState({
                     dataSource: data,
                     total: data.length,
@@ -212,22 +212,35 @@ class PerturbationAttach extends React.Component {
     checkValid = () => {
         let selectedKeys = this.state.selectedRowKeys
         let choices = this.state.patternChoices
-        let count = 0;
+        let count = 0
+        let valid = true
         for (let i = 0; i < selectedKeys.length; i++) {
             for (let j = 0; j < choices.length; j++) {
                 if (choices[j][0] === selectedKeys[i]) {
+                    let pattern = choices[j][1][0];
+                    let patternType = choices[j][1].length === 2 ? choices[j][1][1] : null;
+                    if (pattern === this.state.dataSource[selectedKeys[i]].pattern) {
+                        if (patternType != null && patternType === this.state.dataSource[selectedKeys[i]].patternType) {
+                            Modal.error({
+                                title: "警告", content: "更改扰动不允许和之前一样",
+                            });
+                            valid = false;
+                            break;
+                        }
+                    }
                     count++;
                     break;
                 }
             }
-            if (count !== i + 1) {
+            if (count !== i + 1 && valid) {
+                valid = false;
                 Modal.error({
                     title: "警告", content: "选中行的 添加/更改扰动 为必选项",
                 });
                 break;
             }
         }
-        return count
+        return valid
     }
 
     showResult = () => {

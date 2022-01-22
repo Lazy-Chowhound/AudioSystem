@@ -109,8 +109,8 @@ class AudioList extends React.Component {
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
                        }}/>
-                <Modal title={this.state.choice} visible={this.state.isModalVisible} footer={null}
-                       onCancel={this.handleCancel} width={1200}>
+                <Modal style={{marginTop: -90}} title={this.state.choice} visible={this.state.isModalVisible}
+                       footer={null} onCancel={this.handleCancel} width={1200}>
                     <AudioDetail key={this.state.choice} choice={this.state.choice}/>
                 </Modal>
             </div>

@@ -8,8 +8,8 @@ class PatternDisplay extends React.Component {
             label: "Animal",
             children: [
                 {
-                    value: "pets",
-                    label: "pets",
+                    value: "Pets",
+                    label: "Pets",
                 },
                 {
                     value: "Livestock",
@@ -17,7 +17,7 @@ class PatternDisplay extends React.Component {
                 },
                 {
                     value: "Wild animals",
-                    label: "pets",
+                    label: "Wild animals",
                 }
             ],
         },
@@ -102,8 +102,8 @@ class PatternDisplay extends React.Component {
                     label: "Wind",
                 },
                 {
-                    value: "ThunderStorm",
-                    label: "ThunderStorm",
+                    value: "Thunderstorm",
+                    label: "Thunderstorm",
                 },
                 {
                     value: "Fire",
@@ -120,20 +120,20 @@ class PatternDisplay extends React.Component {
             label: "Sound level",
             children: [
                 {
-                    value: "louder",
-                    label: "louder",
+                    value: "Louder",
+                    label: "Louder",
                 },
                 {
-                    value: "quieter",
-                    label: "quieter",
+                    value: "Quieter",
+                    label: "Quieter",
                 },
                 {
-                    value: "pitch",
-                    label: "pitch",
+                    value: "Pitch",
+                    label: "Pitch",
                 },
                 {
-                    value: "faster",
-                    label: "faster",
+                    value: "Faster",
+                    label: "Faster",
                 },
             ],
         },
