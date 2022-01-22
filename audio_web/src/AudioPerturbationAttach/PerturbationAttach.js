@@ -18,7 +18,7 @@ class PerturbationAttach extends React.Component {
             operationCancel: false,
             title: "处理中......",
             disabled: true,
-            dataset: "cv-corpus-arabic",
+            dataset: "cv-corpus-chinese",
             options: [],
             pageSize: 5,
             total: 0,
@@ -76,42 +76,40 @@ class PerturbationAttach extends React.Component {
         this.setState({
             percent: 0
         })
-        const choices = this.state.patternChoices
         const selectedKeys = this.state.selectedRowKeys
         if (selectedKeys.length === 0) {
             Modal.warning({
                 title: "警告", content: "您尚未选择任何音频",
             });
         } else {
-            let count = 0;
-            for (let i = 0; i < selectedKeys.length; i++) {
-                for (let j = 0; j < choices.length; j++) {
-                    if (choices[j][0] === selectedKeys[i]) {
-                        count++;
-                        break;
-                    }
-                }
-                if (count !== i + 1) {
-                    Modal.error({
-                        title: "警告", content: "选中行的 添加/更改扰动 为必选项",
-                    });
-                    break;
-                }
-            }
+            let count = this.checkValid();
             if (count === selectedKeys.length) {
                 this.setState({
                     visible: true,
                     percent: 0
                 })
                 let i = 0;
-                for (; i < this.state.selectedRowKeys.length; i++) {
-                    let flag = true;
-                    await sendGet("/test", {}).then((res) => {
+                for (; i < selectedKeys.length; i++) {
+                    const info = this.getSelectedRowInfo(selectedKeys[i])
+                    let flag = true, url = info[0], audioName = info[1], parameters = null
+                    parameters = {
+                        dataset: this.state.dataset,
+                        audioName: audioName
+                    }
+                    console.log(info)
+                    if (info[2][0] !== "Gaussian noise") {
+                        parameters['specificPattern'] = info[2][1]
+                    }
+                    await sendGet(url, {
+                        params: parameters
+                    }).then((res) => {
                         if (res.data.code === 400) {
                             flag = false
                         } else {
                             this.setState((state) => ({
-                                percent: Math.min((state.percent + 100 / state.selectedRowKeys.length).toFixed(1), 99.9)
+                                percent: Math.min(
+                                    (state.percent + 100 / state.selectedRowKeys.length).toFixed(1), 99.9
+                                )
                             }));
                         }
                     }).catch(() => {
@@ -184,6 +182,48 @@ class PerturbationAttach extends React.Component {
         })
     }
 
+    getSelectedRowInfo = (selectedKey) => {
+        let urls = {"Gaussian noise": "/addGaussianNoise", "Sound level": "/addSoundLevel"}
+        let patternChoices = this.state.patternChoices
+        let audioName = this.state.dataSource[selectedKey].name
+        let key = this.state.dataSource[selectedKey].key
+        let pattern = []
+        let info = []
+        for (let items in patternChoices) {
+            if (patternChoices[items][0] === key) {
+                for (let i = 1; i < patternChoices[items].length; i++) {
+                    pattern.push(patternChoices[items][i])
+                }
+                break
+            }
+        }
+        info.push(urls[pattern])
+        info.push(audioName)
+        info.push(pattern)
+        return info
+    }
+
+    checkValid = () => {
+        let selectedKeys = this.state.selectedRowKeys
+        let choices = this.state.patternChoices
+        let count = 0;
+        for (let i = 0; i < selectedKeys.length; i++) {
+            for (let j = 0; j < choices.length; j++) {
+                if (choices[j][0] === selectedKeys[i]) {
+                    count++;
+                    break;
+                }
+            }
+            if (count !== i + 1) {
+                Modal.error({
+                    title: "警告", content: "选中行的 添加/更改扰动 为必选项",
+                });
+                break;
+            }
+        }
+        return count
+    }
+
     showResult = () => {
         this.setState({
             operationDone: true,
@@ -194,7 +234,9 @@ class PerturbationAttach extends React.Component {
         const {selectedRowKeys} = this.state;
         const locales = {selectionAll: "全选", selectNone: "清空所有"}
         const rowSelection = {
-            selectedRowKeys, onChange: this.onSelectChange, selections: [Table.SELECTION_ALL, Table.SELECTION_NONE],
+            selectedRowKeys,
+            onChange: this.onSelectChange,
+            selections: [Table.SELECTION_ALL, Table.SELECTION_NONE],
         };
 
         let summaryRow =
@@ -202,8 +244,8 @@ class PerturbationAttach extends React.Component {
                 <Table.Summary.Row>
                     <Table.Summary.Cell index={0}>总 计</Table.Summary.Cell>
                     <Table.Summary.Cell index={1}>
-                        <div
-                            style={{textAlign: "center"}}>{selectedRowKeys.length >= 10 ? `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项` : `选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项`}
+                        <div style={{textAlign: "center"}}>
+                            {`选择了 ${selectedRowKeys.length} 项 / 总共 ${this.state.dataSource.length} 项`}
                         </div>
                     </Table.Summary.Cell>
                     <Table.Summary.Cell index={2}>
@@ -222,7 +264,7 @@ class PerturbationAttach extends React.Component {
         let select =
             <div>
                 <span>数据集:</span>
-                <Select defaultValue="cv-corpus-arabic" bordered={false}
+                <Select defaultValue={this.state.dataset} bordered={false}
                         onChange={this.datasetChange}>
                     {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                 </Select>
