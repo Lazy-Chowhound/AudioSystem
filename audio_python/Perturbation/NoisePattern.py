@@ -1,6 +1,7 @@
 import soundfile
 
 from Perturbation.AudioProcess import *
+from Util.RpcResult import RpcResult
 from Util.util import *
 
 
@@ -19,7 +20,7 @@ def add_gaussian_noise(path, audioName):
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
-    return "success"
+    return RpcResult.ok("")
 
 
 def add_sound_level(path, audioName, specificPattern=None):
@@ -45,7 +46,7 @@ def add_sound_level(path, audioName, specificPattern=None):
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
-    return "success"
+    return RpcResult.ok("")
 
 
 def add_natural_sounds(path, audioName, specificPattern=None):
@@ -75,6 +76,7 @@ def add_natural_sounds(path, audioName, specificPattern=None):
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
+    RpcResult.ok("")
 
 
 if __name__ == '__main__':

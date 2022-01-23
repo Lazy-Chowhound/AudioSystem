@@ -2,6 +2,7 @@ import json
 import os
 import re
 
+from Util.RpcResult import RpcResult
 from Util.util import suffixToPatternType, removeAudio, addTag, patternTypeToSuffix
 
 patternToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
@@ -31,7 +32,7 @@ def getNoisePatternSummary(dataset):
                     summary[key] = 1
                 break
     sorted(summary)
-    return json.dumps(summary, ensure_ascii=False)
+    return RpcResult.ok(json.dumps(summary, ensure_ascii=False))
 
 
 def getNoisePatternDetail(dataset, patternType):
@@ -57,7 +58,7 @@ def getNoisePatternDetail(dataset, patternType):
             else:
                 summaryDetail[pattern] = 1
     sorted(summaryDetail)
-    return json.dumps(summaryDetail, ensure_ascii=False)
+    return RpcResult.ok(json.dumps(summaryDetail, ensure_ascii=False))
 
 
 def getAudioSetPattern(dataset):
@@ -82,7 +83,7 @@ def getAudioSetPattern(dataset):
                 temp["pattern"] = nameToPattern[file[file.find(num) + len(num) + 1:file.rfind("_")]]
                 temp["patternType"] = suffixToPatternType(file[file.rfind("_") + 1:file.find(".")])
             audioSetPattern.append(temp)
-    return json.dumps(audioSetPattern, ensure_ascii=False)
+    return RpcResult.ok(json.dumps(audioSetPattern, ensure_ascii=False))
 
 
 def removeFormerAudio(dataset, audioName, pattern, patternType=None):
@@ -91,7 +92,7 @@ def removeFormerAudio(dataset, audioName, pattern, patternType=None):
     if patternType is not None:
         audioName = addTag(audioName, patternTypeToSuffix(patternType))
     removeAudio(path, audioName)
-    return "success"
+    return RpcResult.ok("")
 
 
 if __name__ == "__main__":

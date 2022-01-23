@@ -8,8 +8,7 @@ class RPCServer:
         self.rpcServer = None
 
     def start(self, function_list):
-        self.rpcServer = SimpleXMLRPCServer((self.ip, self.port))
+        self.rpcServer = SimpleXMLRPCServer((self.ip, self.port), allow_none=True)
         for func in function_list:
             self.rpcServer.register_function(func)
         self.rpcServer.serve_forever()
-

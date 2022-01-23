@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 from pydub import AudioSegment
 
+from Util.RpcResult import RpcResult
+
 
 def getAudio(AudioSetName, page, pageSize):
     Audio = []
@@ -18,7 +20,7 @@ def getAudio(AudioSetName, page, pageSize):
         AudioProperty = getAudioProperty(path, AudioList[i])
         AudioProperty['key'] = i + 1
         Audio.append(AudioProperty)
-    return json.dumps(Audio, ensure_ascii=False)
+    return RpcResult.ok(json.dumps(Audio, ensure_ascii=False))
 
 
 def getAudioProperty(path, audioName):
@@ -85,7 +87,7 @@ def getWaveForm(audioSetName, audioName):
     plt.ylabel('Amplitude')
     savingPath = "D:/AudioSystem/WaveImage/" + audioName + ".jpg"
     plt.savefig(savingPath)
-    return savingPath
+    return RpcResult.ok(savingPath)
 
 
 # Mel频谱图
@@ -102,7 +104,7 @@ def getMelSpectrum(audioSetName, audioName):
     plt.tight_layout()
     savingPath = "D:/AudioSystem/SpectrumImage/" + audioName + ".jpg"
     plt.savefig(savingPath)
-    return savingPath
+    return RpcResult.ok(savingPath)
 
 
 # 音频的采样率
@@ -132,4 +134,4 @@ def getBitDepth(audio):
 # 删除图片
 def removeImage(path):
     os.remove(path)
-    return "Image removed"
+    return RpcResult.ok("Image removed")
