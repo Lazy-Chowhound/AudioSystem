@@ -47,7 +47,8 @@ class PerturbationAttach extends React.Component {
         },
         {
             title: "添加/更改扰动",
-            render: (item) => <PatternDisplay parent={this} row={item.key}/>, align: "center"
+            render: (item) => <PatternDisplay parent={this} row={item.key}/>,
+            align: "center"
         }];
 
     componentDidMount() {
@@ -207,7 +208,7 @@ class PerturbationAttach extends React.Component {
             if (typeof choice === "undefined") {
                 valid = false;
                 Modal.error({
-                    title: "警告", content: "选中行的 添加/更改扰动 为必选项",
+                    title: "警告", content: "选中行的添加/更改扰动为必选项",
                 });
                 break;
             } else {
@@ -217,7 +218,7 @@ class PerturbationAttach extends React.Component {
                     if ((patternType != null && patternType === this.state.dataSource[selectedKeys[i]].patternType)
                         || patternType === null) {
                         Modal.error({
-                            title: "警告", content: "更改扰动不允许和之前一样",
+                            title: "警告", content: "更改扰动不允许和当前一样",
                         });
                         valid = false;
                         break;
