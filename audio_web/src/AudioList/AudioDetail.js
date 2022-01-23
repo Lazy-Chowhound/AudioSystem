@@ -67,18 +67,18 @@ class AudioDetail extends React.Component {
         {
             title: "波形图",
             dataIndex: "distribution",
-            render: item =>
+            render: (text, record) =>
                 <Button type={"link"} size={"small"} onClick={() => {
-                    this.showWaveForm(item)
+                    this.showWaveForm(text, record)
                 }}>查看波形图</Button>,
             align: "center"
         },
         {
             title: "频谱图",
             dataIndex: "list",
-            render: item =>
+            render: (text, record) =>
                 <Button type={"link"} size={"small"} onClick={() => {
-                    this.showMelSpectrum(item)
+                    this.showMelSpectrum(text, record)
                 }}>查看频谱图</Button>,
             align: "center"
         },
@@ -88,11 +88,11 @@ class AudioDetail extends React.Component {
         this.getPage()
     }
 
-    showWaveForm = (item) => {
+    showWaveForm = (text, record) => {
         sendGet("/getWaveForm", {
             params: {
                 audioSet: this.props.choice,
-                audioName: item.name
+                audioName: record.name
             }
         }).then(res => {
             if (res.data.code === 400) {
@@ -112,11 +112,11 @@ class AudioDetail extends React.Component {
         )
     }
 
-    showMelSpectrum = (item) => {
+    showMelSpectrum = (text, record) => {
         sendGet("/getMelSpectrum", {
             params: {
                 audioSet: this.props.choice,
-                audioName: item.name
+                audioName: record.name
             }
         }).then(res => {
             if (res.data.code === 400) {
@@ -177,8 +177,6 @@ class AudioDetail extends React.Component {
             } else {
                 const data = JSON.parse(res.data.data)
                 const totalLen = data.shift().total
-                console.log(totalLen)
-                console.log(data)
                 this.setState({
                     dataSource: data,
                     total: totalLen,
