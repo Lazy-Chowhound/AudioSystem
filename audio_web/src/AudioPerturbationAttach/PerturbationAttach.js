@@ -11,7 +11,7 @@ class PerturbationAttach extends React.Component {
         this.state = {
             selectedRowKeys: [],
             dataSource: [],
-            patternChoices: [],
+            patternChoices: {},
             percent: 0,
             visible: false,
             operationDone: false,
@@ -61,7 +61,11 @@ class PerturbationAttach extends React.Component {
 
     getChildren = (children, option) => {
         const choices = this.state.patternChoices
-        choices.push(option)
+        if (option.length !== 0) {
+            choices[option[0]] = option[1]
+        } else {
+            delete choices.option[0]
+        }
         this.setState({
             patternChoices: choices
         })
@@ -97,8 +101,8 @@ class PerturbationAttach extends React.Component {
                         dataset: this.state.dataset,
                         audioName: audioName
                     }
-                    if (info[2][0] !== "Gaussian noise") {
-                        parameters['specificPattern'] = info[2][1]
+                    if (info[2].length === 2) {
+                        parameters["specificPattern"] = info[2][1]
                     }
                     await sendGet(url, {
                         params: parameters
@@ -158,7 +162,6 @@ class PerturbationAttach extends React.Component {
             }
         }).then(r => {
                 const data = JSON.parse(r.data.data)
-                console.log(data)
                 this.setState({
                     dataSource: data,
                     total: data.length,
@@ -190,54 +193,36 @@ class PerturbationAttach extends React.Component {
 
     getSelectedRowInfo = (selectedKey) => {
         let urls = {"Gaussian noise": "/addGaussianNoise", "Sound level": "/addSoundLevel"}
-        let patternChoices = this.state.patternChoices
         let audioName = this.state.dataSource[selectedKey].name
         let key = this.state.dataSource[selectedKey].key
-        let pattern = []
-        let info = []
-        for (let items in patternChoices) {
-            if (patternChoices[items][0] === key) {
-                for (let i = 1; i < patternChoices[items].length; i++) {
-                    pattern.push(patternChoices[items][i])
-                }
-                break
-            }
-        }
-        info.push(urls[pattern])
-        info.push(audioName)
-        info.push(pattern)
-        return info
+        let pattern = this.state.patternChoices[key]
+        return [urls[pattern[0]], audioName, pattern]
     }
 
     checkValid = () => {
         let selectedKeys = this.state.selectedRowKeys
-        let choices = this.state.patternChoices
-        let count = 0
         let valid = true
         for (let i = 0; i < selectedKeys.length; i++) {
-            for (let j = 0; j < choices.length; j++) {
-                if (choices[j][0] === selectedKeys[i]) {
-                    let pattern = choices[j][1][0];
-                    let patternType = choices[j][1].length === 2 ? choices[j][1][1] : null;
-                    if (pattern === this.state.dataSource[selectedKeys[i]].pattern) {
-                        if (patternType != null && patternType === this.state.dataSource[selectedKeys[i]].patternType) {
-                            Modal.error({
-                                title: "警告", content: "更改扰动不允许和之前一样",
-                            });
-                            valid = false;
-                            break;
-                        }
-                    }
-                    count++;
-                    break;
-                }
-            }
-            if (count !== i + 1 && valid) {
+            const choice = this.state.patternChoices[selectedKeys[i]]
+            if (typeof choice === "undefined") {
                 valid = false;
                 Modal.error({
                     title: "警告", content: "选中行的 添加/更改扰动 为必选项",
                 });
                 break;
+            } else {
+                let pattern = choice[0]
+                let patternType = (choice.length === 2 ? choice[1] : null)
+                if (pattern === this.state.dataSource[selectedKeys[i]].pattern) {
+                    if ((patternType != null && patternType === this.state.dataSource[selectedKeys[i]].patternType)
+                        || patternType === null) {
+                        Modal.error({
+                            title: "警告", content: "更改扰动不允许和之前一样",
+                        });
+                        valid = false;
+                        break;
+                    }
+                }
             }
         }
         return valid
