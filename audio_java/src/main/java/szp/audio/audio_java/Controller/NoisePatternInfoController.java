@@ -1,5 +1,6 @@
 package szp.audio.audio_java.Controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,9 @@ public class NoisePatternInfoController {
     @RequestMapping("/noisePatternSummary")
     public Result getNoisePatternSummary(@RequestParam(value = "dataset") String dataset) {
         try {
+            JSONObject jsonObject = rpcUtil.sendRequest("getNoisePatternSummary", dataset);
             return Result.success(StatusCode.SUCCESS.getStatus(),
-                    rpcUtil.sendRequest("getNoisePatternSummary", dataset));
+                    JSONObject.toJSONString(jsonObject.getJSONObject("data")));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
@@ -38,8 +40,9 @@ public class NoisePatternInfoController {
     public Result getNoisePatternDetail(@RequestParam(value = "dataset") String dataset,
                                         @RequestParam(value = "patternType") String patternType) {
         try {
+            JSONObject jsonObject = rpcUtil.sendRequest("getNoisePatternDetail", dataset, patternType);
             return Result.success(StatusCode.SUCCESS.getStatus(),
-                    rpcUtil.sendRequest("getNoisePatternDetail", dataset, patternType));
+                    JSONObject.toJSONString(jsonObject.getJSONObject("data")));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
@@ -51,8 +54,9 @@ public class NoisePatternInfoController {
     @RequestMapping("/audioSetPattern")
     public Result getAudioSetPattern(@RequestParam(value = "dataset") String dataset) {
         try {
+            JSONObject jsonObject = rpcUtil.sendRequest("getAudioSetPattern", dataset);
             return Result.success(StatusCode.SUCCESS.getStatus(),
-                    rpcUtil.sendRequest("getAudioSetPattern", dataset));
+                    JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }

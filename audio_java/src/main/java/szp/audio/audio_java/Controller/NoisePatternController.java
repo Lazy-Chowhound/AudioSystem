@@ -23,11 +23,14 @@ public class NoisePatternController {
      */
     @RequestMapping("/addGaussianNoise")
     public Result addGaussianWhiteNoise(@RequestParam(value = "dataset") String dataset,
-                                        @RequestParam(value = "audioName") String audioName) {
+                                        @RequestParam(value = "audioName") String audioName,
+                                        @RequestParam(value = "formerPattern") String formerPattern,
+                                        @RequestParam(value = "formerPatternType") String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            return Result.success(StatusCode.SUCCESS.getStatus(),
-                    rpcUtil.sendRequest("add_gaussian_noise", path, audioName));
+            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
+            rpcUtil.sendRequest("add_gaussian_noise", path, audioName);
+            return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
@@ -39,11 +42,14 @@ public class NoisePatternController {
     @RequestMapping("/addSoundLevel")
     public Result addSoundLevel(@RequestParam(value = "dataset") String dataset,
                                 @RequestParam(value = "audioName") String audioName,
-                                @RequestParam(value = "specificPattern") String specificPattern) {
+                                @RequestParam(value = "specificPattern") String specificPattern,
+                                @RequestParam(value = "formerPattern") String formerPattern,
+                                @RequestParam(value = "formerPatternType") String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            return Result.success(StatusCode.SUCCESS.getStatus(),
-                    rpcUtil.sendRequest("add_natural_sounds", path, audioName, specificPattern));
+            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
+            rpcUtil.sendRequest("add_natural_sounds", path, audioName, specificPattern);
+            return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
