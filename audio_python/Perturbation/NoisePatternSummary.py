@@ -2,14 +2,16 @@ import json
 import os
 import re
 
-patternTypeToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
-                     "Animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",
-                     "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
-                     "Human sounds": "human_sounds", "Music": "music"}
+from Util.util import suffixToPatternType, removeAudio, addTag, patternTypeToSuffix
 
-nameToPatternType = {'gaussian_white_noise': 'Gaussian noise', 'sound_level': 'Sound level', 'animal': 'Animal',
-                     'source_ambiguous_sounds': 'Source-ambiguous\nsounds', 'natural_sounds': 'Natural sounds',
-                     'sound_of_things': 'Sound of things', 'human_sounds': 'Human sounds', 'music': 'Music'}
+patternToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
+                 "Animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",
+                 "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
+                 "Human sounds": "human_sounds", "Music": "music"}
+
+nameToPattern = {'gaussian_white_noise': 'Gaussian noise', 'sound_level': 'Sound level', 'animal': 'Animal',
+                 'source_ambiguous_sounds': 'Source-ambiguous\nsounds', 'natural_sounds': 'Natural sounds',
+                 'sound_of_things': 'Sound of things', 'human_sounds': 'Human sounds', 'music': 'Music'}
 
 
 def getNoisePatternSummary(dataset):
@@ -21,7 +23,7 @@ def getNoisePatternSummary(dataset):
     path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips"
     summary = {}
     for file in os.listdir(path):
-        for key, value in patternTypeToName.items():
+        for key, value in patternToName.items():
             if value in file:
                 if key in summary.keys():
                     summary[key] = summary[key] + 1
@@ -41,7 +43,7 @@ def getNoisePatternDetail(dataset, patternType):
     """
     path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips"
     summaryDetail = {}
-    name = patternTypeToName[patternType]
+    name = patternToName[patternType]
     for file in os.listdir(path):
         if name in file:
             if name == "gaussian_white_noise":
@@ -74,17 +76,22 @@ def getAudioSetPattern(dataset):
             num = re.findall("\\d+", file)[0]
             temp["name"] = file[0:file.find(num) + len(num)] + ".mp3"
             if "gaussian_white_noise" in file:
-                temp["pattern"] = nameToPatternType["gaussian_white_noise"]
-                temp["patternType"] = formatType("gaussian_white_noise")
+                temp["pattern"] = nameToPattern["gaussian_white_noise"]
+                temp["patternType"] = suffixToPatternType("gaussian_white_noise")
             else:
-                temp["pattern"] = nameToPatternType[file[file.find(num) + len(num) + 1:file.rfind("_")]]
-                temp["patternType"] = formatType(file[file.rfind("_") + 1:file.find(".")])
+                temp["pattern"] = nameToPattern[file[file.find(num) + len(num) + 1:file.rfind("_")]]
+                temp["patternType"] = suffixToPatternType(file[file.rfind("_") + 1:file.find(".")])
             audioSetPattern.append(temp)
     return json.dumps(audioSetPattern, ensure_ascii=False)
 
 
-def formatType(patternType):
-    return patternType.replace("_", " ").capitalize()
+def removeFormerAudio(dataset, audioName, pattern, patternType=None):
+    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
+    audioName = addTag(audioName, patternToName[pattern])
+    if patternType is not None:
+        audioName = addTag(audioName, patternTypeToSuffix(patternType))
+    removeAudio(path, audioName)
+    return "success"
 
 
 if __name__ == "__main__":

@@ -43,5 +43,31 @@ def addTag(name, tag):
     return name[0:pos] + "_" + tag + name[pos:]
 
 
+def suffixToPatternType(suffix):
+    """
+    将音频名称扰动后缀转换为对应的扰动类型
+    gaussian_white_noise ---> Gaussian white noise
+    :param suffix:
+    :return:
+    """
+    return suffix.replace("_", " ").capitalize()
+
+
+def patternTypeToSuffix(patternType):
+    """
+    扰动类型转换为对应后缀
+    Gaussian white noise ---> gaussian_white_noise
+    :param patternType:
+    :return:
+    """
+    return patternType.replace(" ", "_").lower()
+
+
 def removeAudio(path, audioName):
+    """
+    删除音频
+    :param path:
+    :param audioName:
+    :return:
+    """
     os.remove(path + audioName)
