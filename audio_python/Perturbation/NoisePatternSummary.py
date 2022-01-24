@@ -10,9 +10,9 @@ patternToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound
                  "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
                  "Human sounds": "human_sounds", "Music": "music"}
 
-nameToPattern = {'gaussian_white_noise': 'Gaussian noise', 'sound_level': 'Sound level', 'animal': 'Animal',
-                 'source_ambiguous_sounds': 'Source-ambiguous\nsounds', 'natural_sounds': 'Natural sounds',
-                 'sound_of_things': 'Sound of things', 'human_sounds': 'Human sounds', 'music': 'Music'}
+nameToPattern = {"gaussian_white_noise": "Gaussian noise", "sound_level": "Sound level", "animal": "Animal",
+                 "source_ambiguous_sounds": "Source-ambiguous\nsounds", "natural_sounds": "Natural sounds",
+                 "sound_of_things": "Sound of things", "human_sounds": "Human sounds", "music": "Music"}
 
 
 def getNoisePatternSummary(dataset):
@@ -72,7 +72,7 @@ def getAudioSetPattern(dataset):
     key = 0
     for root, dirs, files in os.walk(path):
         for file in files:
-            temp = {'key': key}
+            temp = {"key": key}
             key += 1
             num = re.findall("\\d+", file)[0]
             temp["name"] = file[0:file.find(num) + len(num)] + ".mp3"
