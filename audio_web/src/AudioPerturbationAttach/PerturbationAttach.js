@@ -96,15 +96,8 @@ class PerturbationAttach extends React.Component {
                 let i = 0;
                 for (; i < selectedKeys.length; i++) {
                     let errorMsg = null
-                    const info = this.getSelectedRowInfo(selectedKeys[i])
-                    let flag = true, url = info[0], audioName = info[1], parameters = null
-                    parameters = {
-                        dataset: this.state.dataset,
-                        audioName: audioName
-                    }
-                    if (info[2].length === 2) {
-                        parameters["specificPattern"] = info[2][1]
-                    }
+                    const info = this.getSelectedRowParam(selectedKeys[i])
+                    let flag = true, url = info[0], parameters = info[1]
                     await sendGet(url, {
                         params: parameters
                     }).then((res) => {
@@ -192,12 +185,21 @@ class PerturbationAttach extends React.Component {
         })
     }
 
-    getSelectedRowInfo = (selectedKey) => {
+    getSelectedRowParam = (selectedKey) => {
         let urls = {"Gaussian noise": "/addGaussianNoise", "Sound level": "/addSoundLevel"}
-        let audioName = this.state.dataSource[selectedKey].name
         let key = this.state.dataSource[selectedKey].key
         let pattern = this.state.patternChoices[key]
-        return [urls[pattern[0]], audioName, pattern]
+        let params = {};
+        params["audioName"] = this.state.dataSource[selectedKey].name
+        params["dataset"] = this.state.dataset
+        params["formerPattern"] = this.state.dataSource[selectedKey].pattern
+        if (params["formerPattern"] !== "Gaussian noise") {
+            params["formerPatternType"] = this.state.dataSource[selectedKey].patternType
+        }
+        if (pattern[0] !== "Gaussian noise") {
+            params["specificPattern"] = pattern[1]
+        }
+        return [urls[pattern[0]], params]
     }
 
     checkValid = () => {
