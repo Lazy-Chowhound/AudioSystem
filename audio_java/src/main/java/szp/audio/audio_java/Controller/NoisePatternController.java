@@ -44,11 +44,15 @@ public class NoisePatternController {
                                 @RequestParam(value = "audioName") String audioName,
                                 @RequestParam(value = "specificPattern") String specificPattern,
                                 @RequestParam(value = "formerPattern") String formerPattern,
-                                @RequestParam(value = "formerPatternType") String formerPatternType) {
+                                @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
-            rpcUtil.sendRequest("add_natural_sounds", path, audioName, specificPattern);
+            if (formerPatternType == null) {
+                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
+            } else {
+                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
+            }
+            rpcUtil.sendRequest("add_sound_level", path, audioName, specificPattern);
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());

@@ -46,7 +46,7 @@ class PerturbationAttach extends React.Component {
             align: "center",
         },
         {
-            title: "添加/更改扰动",
+            title: "更改扰动",
             render: (item) => <PatternDisplay parent={this} row={item.key}/>,
             align: "center"
         }];
@@ -210,7 +210,7 @@ class PerturbationAttach extends React.Component {
             if (typeof choice === "undefined") {
                 valid = false;
                 Modal.error({
-                    title: "警告", content: "选中行的添加/更改扰动为必选项",
+                    title: "警告", content: "选中行的更改扰动为必选项",
                 });
                 break;
             } else {
@@ -280,10 +280,10 @@ class PerturbationAttach extends React.Component {
         let content;
         if (this.state.operationDone) {
             content =
-                <Result status="success" title="成功添加/修改扰动!"
-                        subTitle={`成功添加或修改 ${this.state.selectedRowKeys.length} 个噪声扰动`}
+                <Result status="success" title="成功修改扰动!"
+                        subTitle={`成功修改 ${this.state.selectedRowKeys.length} 个噪声扰动`}
                         extra={[<Button type="primary" key="add"><a
-                            href={"/perturbationAttach"}>继续添加</a></Button>,
+                            href={"/perturbationAttach"}>继续操作</a></Button>,
                             <Button key="detail"><a href={"/perturbationDisplay"}>查看详情</a></Button>,]}/>
         } else if (this.state.operationCancel) {
             content =
@@ -291,7 +291,7 @@ class PerturbationAttach extends React.Component {
                         title="操作出现了未知错误"
                         subTitle={this.state.errorMessage}
                         extra={<Button type="primary" key="reAdd"><a
-                            href={"/perturbationAttach"}>重新添加</a></Button>}/>
+                            href={"/perturbationAttach"}>重新操作</a></Button>}/>
         } else {
             content =
                 <div style={{whiteSpace: "pre"}}>

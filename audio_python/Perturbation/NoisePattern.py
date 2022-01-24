@@ -34,15 +34,16 @@ def add_sound_level(path, audioName, specificPattern=None):
     sig, sr = librosa.load(path + audioName, sr=None)
     noiseAudio = sig
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "louder":
+    if specificPattern == "Louder":
         noiseAudio = louder(sig)
-    elif specificPattern == "quieter":
+    elif specificPattern == "Quieter":
         noiseAudio = quieter(sig)
-    elif specificPattern == "pitch":
+    elif specificPattern == "Pitch":
         noiseAudio = changePitch(sig, sr)
-    elif specificPattern == "speed":
+    elif specificPattern == "Speed":
         sr = sr * 2
-    noiseWaveName = addTag(addTag(audioName, "sound_level"), specificPattern).replace(".mp3", ".wav")
+    noiseWaveName = addTag(addTag(audioName, "sound_level"),
+                           patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
