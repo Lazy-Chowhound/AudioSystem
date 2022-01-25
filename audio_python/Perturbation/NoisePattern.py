@@ -77,7 +77,7 @@ def add_natural_sounds(path, audioName, specificPattern):
     return RpcResult.ok("")
 
 
-def addAnimal(path, audioName, specificPattern):
+def add_animal(path, audioName, specificPattern):
     """
     添加 animal 扰动
     :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
@@ -103,7 +103,7 @@ def addAnimal(path, audioName, specificPattern):
     return RpcResult.ok("")
 
 
-def addSoundOfThings(path, audioName, specificPattern):
+def add_sound_of_things(path, audioName, specificPattern):
     """
     添加 sound of things 扰动
     :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/

@@ -9,4 +9,5 @@ if __name__ == '__main__':
     print("-------rpc sever start-------")
     rpcServer.start([getAudioSet, getAudioSetList, getAudio, getWaveForm, getMelSpectrum, removeImage,
                      getNoisePatternSummary, getNoisePatternDetail, getAudioSetPattern,
-                     add_gaussian_noise, add_sound_level, add_natural_sounds, removeFormerAudio])
+                     add_gaussian_noise, add_sound_level, add_natural_sounds, add_animal, add_sound_of_things,
+                     removeFormerAudio])
