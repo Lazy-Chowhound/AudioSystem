@@ -18,9 +18,7 @@ def add_gaussian_noise(path, audioName):
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
     waveName = audioName.replace(".mp3", ".wav")
     noiseWaveName = addTag(waveName, "gaussian_white_noise")
-    soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
-    trans_wav_to_mp3(wavePath, noiseWaveName)
-    removeAudio(wavePath, noiseWaveName)
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
 
@@ -45,9 +43,7 @@ def add_sound_level(path, audioName, specificPattern):
         sr = sr * 2
     noiseWaveName = addTag(addTag(audioName, "sound_level"),
                            patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
-    soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
-    trans_wav_to_mp3(wavePath, noiseWaveName)
-    removeAudio(wavePath, noiseWaveName)
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
 
@@ -77,10 +73,98 @@ def add_natural_sounds(path, audioName, specificPattern):
         noiseAudio = addNoise(sig, noiseSig)
     noiseWaveName = addTag(addTag(audioName, "natural_sounds"), patternTypeToSuffix(specificPattern)).replace(".mp3",
                                                                                                               ".wav")
-    soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
-    trans_wav_to_mp3(wavePath, noiseWaveName)
-    removeAudio(wavePath, noiseWaveName)
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
+
+
+def addAnimal(path, audioName, specificPattern):
+    """
+    添加 animal 扰动
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param specificPattern:
+    :return:
+    """
+    sig, sr = librosa.load(path + audioName, sr=None)
+    noiseAudio = sig
+    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    if specificPattern == "Pet":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/pet.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Livestock":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/livestock.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Wild animals":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    noiseWaveName = addTag(addTag(audioName, "animal"),
+                           patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
+    return RpcResult.ok("")
+
+
+def addSoundOfThings(path, audioName, specificPattern):
+    """
+    添加 sound of things 扰动
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param specificPattern:
+    :return:
+    """
+    sig, sr = librosa.load(path + audioName, sr=None)
+    noiseAudio = sig
+    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    if specificPattern == "Vehicle":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/vehicle.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Engine":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/engine.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "":
+        pass
+    elif specificPattern == "Bell":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/bell.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Alarm":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/alarm.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Mechanisms":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/mechanism.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Explosions":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/explosion.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Wood":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Glass":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Liquid":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/liquid.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "":
+        pass
+    elif specificPattern == "":
+        pass
+    noiseWaveName = addTag(addTag(audioName, "sound_of_things"),
+                           patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
+    return RpcResult.ok("")
+
+
+def writeNoiseAudio(path, noiseAudioName, noiseAudio, sr):
+    """
+    将生成的扰动噪音以 wav 形式写入，然后转为 mp3 格式 然后删除原 wav
+    :param path: 写入的地址
+    :param noiseAudioName: 生成的音频文件名
+    :param noiseAudio: 音频数据
+    :param sr: 采样率
+    :return:
+    """
+    soundfile.write(path, noiseAudio, sr)
+    trans_wav_to_mp3(path, noiseAudioName)
+    removeAudio(path, noiseAudioName)
 
 
 if __name__ == '__main__':

@@ -63,6 +63,7 @@ def changePitch(wavData, sr):
     return noiseAudio
 
 
+# todo 拟合曲线使声音差不多
 def addNoise(waveData, noiseData):
     audioLength = len(waveData)
     if len(waveData) > len(noiseData):
