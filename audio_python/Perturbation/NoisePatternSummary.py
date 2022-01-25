@@ -2,6 +2,7 @@ import json
 import os
 import re
 
+from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 from Util.util import suffixToPatternType, removeAudio, addTag, patternTypeToSuffix
 
@@ -15,6 +16,7 @@ nameToPattern = {"gaussian_white_noise": "Gaussian noise", "sound_level": "Sound
                  "sound_of_things": "Sound of things", "human_sounds": "Human sounds", "music": "Music"}
 
 
+@rpcApi()
 def getNoisePatternSummary(dataset):
     """
     获取某个数据集扰动大类的详情
@@ -35,6 +37,7 @@ def getNoisePatternSummary(dataset):
     return RpcResult.ok(json.dumps(summary, ensure_ascii=False))
 
 
+@rpcApi()
 def getNoisePatternDetail(dataset, patternType):
     """
     获取某个数据集某个扰动大类的具体扰动类型详情
@@ -61,6 +64,7 @@ def getNoisePatternDetail(dataset, patternType):
     return RpcResult.ok(json.dumps(summaryDetail, ensure_ascii=False))
 
 
+@rpcApi()
 def getAudioSetPattern(dataset):
     """
     获取某个数据集每条音频的扰动详情
@@ -86,6 +90,7 @@ def getAudioSetPattern(dataset):
     return RpcResult.ok(json.dumps(audioSetPattern, ensure_ascii=False))
 
 
+@rpcApi()
 def removeFormerAudio(dataset, audioName, pattern, patternType=None):
     path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
     audioName = addTag(audioName, patternToName[pattern])

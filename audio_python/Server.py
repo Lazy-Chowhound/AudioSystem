@@ -5,10 +5,10 @@ class RPCServer:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.rpcServer = None
-
-    def start(self, function_list):
         self.rpcServer = SimpleXMLRPCServer((self.ip, self.port), allow_none=True)
-        for func in function_list:
-            self.rpcServer.register_function(func)
+
+    def register(self, func):
+        self.rpcServer.register_function(func)
+
+    def start(self):
         self.rpcServer.serve_forever()

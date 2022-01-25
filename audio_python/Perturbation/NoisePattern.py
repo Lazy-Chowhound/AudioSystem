@@ -2,10 +2,11 @@ import librosa
 import soundfile
 
 from Perturbation.AudioProcess import *
+from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 from Util.util import *
 
-
+@rpcApi()
 def add_gaussian_noise(path, audioName):
     """
     添加高斯白噪声
@@ -21,7 +22,7 @@ def add_gaussian_noise(path, audioName):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-
+@rpcApi()
 def add_sound_level(path, audioName, specificPattern):
     """
     添加 sound level 扰动
@@ -46,7 +47,7 @@ def add_sound_level(path, audioName, specificPattern):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-
+@rpcApi()
 def add_natural_sounds(path, audioName, specificPattern):
     """
     添加 natural sound 扰动
@@ -76,7 +77,7 @@ def add_natural_sounds(path, audioName, specificPattern):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-
+@rpcApi()
 def add_animal(path, audioName, specificPattern):
     """
     添加 animal 扰动
@@ -102,7 +103,7 @@ def add_animal(path, audioName, specificPattern):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-
+@rpcApi()
 def add_sound_of_things(path, audioName, specificPattern):
     """
     添加 sound of things 扰动

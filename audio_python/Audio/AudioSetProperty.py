@@ -4,9 +4,11 @@ import os
 import pymysql.cursors
 
 # 获取所有音频数据集及其所有属性
+from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
 
+@rpcApi()
 def getAudioSet():
     AudioSet = []
     path = "D:/AudioSystem/Audio"
@@ -26,6 +28,7 @@ def getAudioSet():
 
 
 # 获取目录下的音频数据集
+@rpcApi()
 def getAudioSetList(path):
     return RpcResult.ok(audioSetList(path))
 

@@ -7,9 +7,10 @@ import numpy as np
 import pandas as pd
 from pydub import AudioSegment
 
+from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
-
+@rpcApi()
 def getAudio(AudioSetName, page, pageSize):
     Audio = []
     path = "D:/AudioSystem/Audio/" + AudioSetName + "/"
@@ -78,6 +79,7 @@ def getAudioDetail(path, audioName):
 
 
 # 波形图、振幅
+@rpcApi()
 def getWaveForm(audioSetName, audioName):
     path = "D:/AudioSystem/Audio/" + audioSetName + "/"
     audio = path + "clips/" + audioName
@@ -91,6 +93,7 @@ def getWaveForm(audioSetName, audioName):
 
 
 # Mel频谱图
+@rpcApi()
 def getMelSpectrum(audioSetName, audioName):
     path = "D:/AudioSystem/Audio/" + audioSetName + "/"
     audio = path + "clips/" + audioName
@@ -132,6 +135,7 @@ def getBitDepth(audio):
 
 
 # 删除图片
+@rpcApi()
 def removeImage(path):
     os.remove(path)
     return RpcResult.ok("Image removed")
