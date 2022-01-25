@@ -186,7 +186,10 @@ class PerturbationAttach extends React.Component {
     }
 
     getSelectedRowParam = (selectedKey) => {
-        let urls = {"Gaussian noise": "/addGaussianNoise", "Sound level": "/addSoundLevel"}
+        let urls = {
+            "Gaussian noise": "/addGaussianNoise", "Sound level": "/addSoundLevel",
+            "Natural sounds": "/addNaturalSounds"
+        }
         let key = this.state.dataSource[selectedKey].key
         let pattern = this.state.patternChoices[key]
         let params = {};
@@ -199,6 +202,7 @@ class PerturbationAttach extends React.Component {
         if (pattern[0] !== "Gaussian noise") {
             params["specificPattern"] = pattern[1]
         }
+        console.log([urls[pattern[0]], params])
         return [urls[pattern[0]], params]
     }
 

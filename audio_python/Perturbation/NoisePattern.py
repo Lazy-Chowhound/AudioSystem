@@ -1,3 +1,4 @@
+import librosa
 import soundfile
 
 from Perturbation.AudioProcess import *
@@ -23,7 +24,7 @@ def add_gaussian_noise(path, audioName):
     return RpcResult.ok("")
 
 
-def add_sound_level(path, audioName, specificPattern=None):
+def add_sound_level(path, audioName, specificPattern):
     """
     添加 sound level 扰动
     :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
@@ -50,7 +51,7 @@ def add_sound_level(path, audioName, specificPattern=None):
     return RpcResult.ok("")
 
 
-def add_natural_sounds(path, audioName, specificPattern=None):
+def add_natural_sounds(path, audioName, specificPattern):
     """
     添加 natural sound 扰动
     :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
@@ -61,24 +62,30 @@ def add_natural_sounds(path, audioName, specificPattern=None):
     sig, sr = librosa.load(path + audioName, sr=None)
     noiseAudio = sig
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "wind":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/winds.mp3", sr=sr, mono=True)
+    # todo 声音还是有点小
+    if specificPattern == "Wind":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/winds.wav", sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "thunderstorm":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/thunderstorm.mp3", sr=sr, mono=True)
+    elif specificPattern == "Thunderstorm":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/thunderstorm.wav", sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "water":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/", sr=sr, mono=True)
+    elif specificPattern == "Water":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/water.wav", sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "fire":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/water.wav.wav", sr=sr, mono=True)
+    elif specificPattern == "Fire":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/fire.wav", sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
-    noiseWaveName = addTag(addTag(audioName, "natural_sounds"), specificPattern).replace(".mp3", ".wav")
+    noiseWaveName = addTag(addTag(audioName, "natural_sounds"), patternTypeToSuffix(specificPattern)).replace(".mp3",
+                                                                                                              ".wav")
     soundfile.write(wavePath + noiseWaveName, noiseAudio, sr)
     trans_wav_to_mp3(wavePath, noiseWaveName)
     removeAudio(wavePath, noiseWaveName)
-    RpcResult.ok("")
+    return RpcResult.ok("")
 
 
 if __name__ == '__main__':
-    pass
+    # sig, sr = librosa.load(r"D:\AudioSystem\Noise\Natural Sounds\winds.mp3", sr=None)
+    # sig = sig * 10
+    # soundfile.write(r"D:\AudioSystem\Noise\Natural Sounds\winds10.wav", sig, sr)
+    add_natural_sounds("D:/AudioSystem/Audio/cv-corpus-chinese/clips/", "common_voice_zh-CN_18524189.mp3",
+                       "Water")

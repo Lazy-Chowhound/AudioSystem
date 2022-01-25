@@ -70,6 +70,4 @@ def addNoise(waveData, noiseData):
     # 如果本来噪音就长 或者 经过上步加长后比声音长
     if len(waveData) < len(noiseData):
         noiseData = noiseData[:audioLength]
-    exp = max(waveData) / max(noiseData)
-    noiseData = noiseData * exp
     return waveData + noiseData
