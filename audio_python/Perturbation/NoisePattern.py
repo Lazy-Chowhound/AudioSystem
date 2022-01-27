@@ -6,7 +6,8 @@ from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 from Util.util import *
 
-@rpcApi()
+
+@rpcApi
 def add_gaussian_noise(path, audioName):
     """
     添加高斯白噪声
@@ -22,7 +23,8 @@ def add_gaussian_noise(path, audioName):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-@rpcApi()
+
+@rpcApi
 def add_sound_level(path, audioName, specificPattern):
     """
     添加 sound level 扰动
@@ -47,7 +49,8 @@ def add_sound_level(path, audioName, specificPattern):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-@rpcApi()
+
+@rpcApi
 def add_natural_sounds(path, audioName, specificPattern):
     """
     添加 natural sound 扰动
@@ -77,7 +80,8 @@ def add_natural_sounds(path, audioName, specificPattern):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-@rpcApi()
+
+@rpcApi
 def add_animal(path, audioName, specificPattern):
     """
     添加 animal 扰动
@@ -103,7 +107,8 @@ def add_animal(path, audioName, specificPattern):
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
 
-@rpcApi()
+
+@rpcApi
 def add_sound_of_things(path, audioName, specificPattern):
     """
     添加 sound of things 扰动
@@ -149,6 +154,45 @@ def add_sound_of_things(path, audioName, specificPattern):
     elif specificPattern == "":
         pass
     noiseWaveName = addTag(addTag(audioName, "sound_of_things"),
+                           patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
+    return RpcResult.ok("")
+
+
+@rpcApi
+def add_human_sounds(path, audioName, specificPattern):
+    """
+    添加 human sounds 扰动
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param specificPattern:
+    :return:
+    """
+    sig, sr = librosa.load(path + audioName, sr=None)
+    noiseAudio = sig
+    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    if specificPattern == "":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Whistling":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/whistle.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Respiratory sounds":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/respiratory sounds.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Human locomotion":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/locomotion.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Hands":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/hands.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Heartbeat":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/heartbeat.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Human group actions":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/group actions.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    noiseWaveName = addTag(addTag(audioName, "human_sounds"),
                            patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")

@@ -8,13 +8,14 @@ from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
 
-@rpcApi()
+@rpcApi
 def getAudioSet():
     AudioSet = []
-    path = "D:/AudioSystem/Audio"
+    path = "D:/AudioSystem/Audio/"
     for audio in json.loads(audioSetList(path)):
         audioProperty = {}
         description = getAudioDescription(audio)
+        print(description)
         audioProperty["key"] = description[0]
         audioProperty["name"] = description[1]
         audioProperty["language"] = description[2]
@@ -28,7 +29,7 @@ def getAudioSet():
 
 
 # 获取目录下的音频数据集
-@rpcApi()
+@rpcApi
 def getAudioSetList(path):
     return RpcResult.ok(audioSetList(path))
 
