@@ -3,8 +3,8 @@ import os
 import re
 
 from Util.Annotation import rpcApi
+from Util.AudioUtil import suffixToPatternType, removeAudio, addTag, patternTypeToSuffix
 from Util.RpcResult import RpcResult
-from Util.util import suffixToPatternType, removeAudio, addTag, patternTypeToSuffix
 
 patternToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
                  "Animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",

@@ -1,11 +1,9 @@
+import importlib
 from Server import RPCServer
+from Util.PackageUtil import PackageUtil
 
 if __name__ == '__main__':
-    from Audio.AudioSetProperty import *
-    from Audio.AudioProperty import *
-    from Perturbation.AudioProcess import *
-    from Perturbation.NoisePattern import *
-    from Perturbation.NoisePatternSummary import *
-
+    for module in PackageUtil.getPackageModule():
+        importlib.import_module(module)
     print("-------rpc sever start-------")
     RPCServer.start()
