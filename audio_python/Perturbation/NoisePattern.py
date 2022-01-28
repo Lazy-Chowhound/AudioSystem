@@ -197,6 +197,69 @@ def add_human_sounds(path, audioName, specificPattern):
     return RpcResult.ok("")
 
 
+@rpcApi
+def add_music(path, audioName, specificPattern):
+    """
+    添加 music 扰动
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param specificPattern:
+    :return:
+    """
+    sig, sr = librosa.load(path + audioName, sr=None)
+    noiseAudio = sig
+    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    if specificPattern == "Music instrument":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/pet.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Music genre":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/livestock.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Music concepts":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Music role":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Music mood":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    noiseWaveName = addTag(addTag(audioName, "animal"),
+                           patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
+    return RpcResult.ok("")
+
+
+@rpcApi
+def add_source_ambiguous_sounds(path, audioName, specificPattern):
+    """
+    添加 source_ambiguous_sounds 扰动
+    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param specificPattern:
+    :return:
+    """
+    sig, sr = librosa.load(path + audioName, sr=None)
+    noiseAudio = sig
+    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    if specificPattern == "Generic impact sounds":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Surface contact":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/livestock.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Deformable shell":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    elif specificPattern == "Onomatopoeia":
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+        noiseAudio = addNoise(sig, noiseSig)
+    noiseWaveName = addTag(addTag(audioName, "animal"),
+                           patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
+    writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
+    return RpcResult.ok("")
+
+
 def writeNoiseAudio(path, noiseAudioName, noiseAudio, sr):
     """
     将生成的扰动噪音以 wav 形式写入，然后转为 mp3 格式 然后删除原 wav
@@ -206,14 +269,13 @@ def writeNoiseAudio(path, noiseAudioName, noiseAudio, sr):
     :param sr: 采样率
     :return:
     """
-    soundfile.write(path, noiseAudio, sr)
+    soundfile.write(path + noiseAudioName, noiseAudio, sr)
     trans_wav_to_mp3(path, noiseAudioName)
     removeAudio(path, noiseAudioName)
 
 
 if __name__ == '__main__':
-    # sig, sr = librosa.load(r"D:\AudioSystem\Noise\Natural Sounds\winds.mp3", sr=None)
-    # sig = sig * 10
-    # soundfile.write(r"D:\AudioSystem\Noise\Natural Sounds\winds10.wav", sig, sr)
-    add_natural_sounds("D:/AudioSystem/Audio/cv-corpus-chinese/clips/", "common_voice_zh-CN_18524189.mp3",
-                       "Water")
+    add_animal("D:/AudioSystem/Audio/cv-corpus-chinese/clips/", "common_voice_zh-CN_18524189.mp3",
+               "Wild animals")
+    add_animal("D:/AudioSystem/Audio/cv-corpus-chinese/clips/", "common_voice_zh-CN_18524189.mp3",
+               "Livestock")

@@ -63,12 +63,14 @@ def changePitch(wavData, sr):
     return noiseAudio
 
 
-# todo 拟合曲线使声音差不多
 def addNoise(waveData, noiseData):
     audioLength = len(waveData)
+    # 先使噪声长度大于等于音频，然后再截取成一样
     if len(waveData) > len(noiseData):
         noiseData = np.tile(noiseData, math.ceil(len(waveData) / len(noiseData)))
-    # 如果本来噪音就长 或者 经过上步加长后比声音长
     if len(waveData) < len(noiseData):
         noiseData = noiseData[:audioLength]
+    # 归一化
+    waveData = waveData * 1.0 / (max(abs(waveData)))
+    noiseData = noiseData * 1.0 / (max(abs(noiseData)))
     return waveData + noiseData

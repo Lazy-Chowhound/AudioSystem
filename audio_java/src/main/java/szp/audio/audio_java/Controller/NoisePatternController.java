@@ -28,7 +28,7 @@ public class NoisePatternController {
                                         @RequestParam(value = "formerPatternType") String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
             rpcUtil.sendRequest("add_gaussian_noise", path, audioName);
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
@@ -47,11 +47,7 @@ public class NoisePatternController {
                                 @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            if (formerPatternType == null) {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
-            } else {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
-            }
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
             rpcUtil.sendRequest("add_sound_level", path, audioName, specificPattern);
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
@@ -70,11 +66,7 @@ public class NoisePatternController {
                                    @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            if (formerPatternType == null) {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
-            } else {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
-            }
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
             rpcUtil.sendRequest("add_natural_sounds", path, audioName, specificPattern);
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
@@ -93,11 +85,7 @@ public class NoisePatternController {
                             @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            if (formerPatternType == null) {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
-            } else {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
-            }
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
             rpcUtil.sendRequest("add_animal", path, audioName, specificPattern);
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
@@ -116,15 +104,77 @@ public class NoisePatternController {
                                    @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
             String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            if (formerPatternType == null) {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
-            } else {
-                rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
-            }
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
             rpcUtil.sendRequest("add_sound_of_things", path, audioName, specificPattern);
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    /**
+     * 添加 Human sounds 扰动
+     */
+    @RequestMapping("/addHumanSounds")
+    public Result addHumanSounds(@RequestParam(value = "dataset") String dataset,
+                                 @RequestParam(value = "audioName") String audioName,
+                                 @RequestParam(value = "specificPattern") String specificPattern,
+                                 @RequestParam(value = "formerPattern") String formerPattern,
+                                 @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
+        try {
+            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
+            rpcUtil.sendRequest("add_human_sounds", path, audioName, specificPattern);
+            return Result.success(StatusCode.SUCCESS.getStatus(), null);
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    /**
+     * 添加 music 扰动
+     */
+    @RequestMapping("/addMusic")
+    public Result addMusic(@RequestParam(value = "dataset") String dataset,
+                           @RequestParam(value = "audioName") String audioName,
+                           @RequestParam(value = "specificPattern") String specificPattern,
+                           @RequestParam(value = "formerPattern") String formerPattern,
+                           @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
+        try {
+            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
+            rpcUtil.sendRequest("add_music", path, audioName, specificPattern);
+            return Result.success(StatusCode.SUCCESS.getStatus(), null);
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    /**
+     * 添加 Source-Ambiguous Sounds 扰动
+     */
+    @RequestMapping("/addSourceAmbiguousSounds")
+    public Result addSourceAmbiguousSounds(@RequestParam(value = "dataset") String dataset,
+                                           @RequestParam(value = "audioName") String audioName,
+                                           @RequestParam(value = "specificPattern") String specificPattern,
+                                           @RequestParam(value = "formerPattern") String formerPattern,
+                                           @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
+        try {
+            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
+            removeFormerAudio(dataset, audioName, formerPattern, formerPatternType);
+            rpcUtil.sendRequest("add_source_ambiguous_sounds", path, audioName, specificPattern);
+            return Result.success(StatusCode.SUCCESS.getStatus(), null);
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    private void removeFormerAudio(String dataset, String audioName,
+                                   String formerPattern, String formerPatternType) throws XmlRpcException {
+        if (formerPatternType == null) {
+            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
+        } else {
+            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
         }
     }
 }
