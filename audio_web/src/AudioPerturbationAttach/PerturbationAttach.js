@@ -38,7 +38,7 @@ class PerturbationAttach extends React.Component {
 
     columns = [
         {
-            title: "音频",
+            title: "原音频",
             dataIndex: "name",
             key: "name",
             align: "center",
@@ -61,6 +61,32 @@ class PerturbationAttach extends React.Component {
             title: "扰动类型",
             dataIndex: "pattern",
             align: "center",
+            filters: [{
+                text: "Animal",
+                value: "Animal",
+            }, {
+                text: "Gaussian noise",
+                value: "Gaussian noise",
+            }, {
+                text: "Human sounds",
+                value: "Human sounds",
+            }, {
+                text: "Music",
+                value: "Music",
+            }, {
+                text: "Natural sounds",
+                value: "Natural sounds",
+            }, {
+                text: "Sound level",
+                value: "Sound level",
+            }, {
+                text: "Sounds of things",
+                value: "Sounds of things",
+            }, {
+                text: "Source-ambiguous sounds",
+                value: "Source-ambiguous sounds",
+            }],
+            onFilter: (value, record) => record.pattern.includes(value)
         },
         {
             title: "具体扰动",
