@@ -13,8 +13,8 @@ class NoisePatternChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            columns: ["Animal", "Gaussian noise", "Human Sounds", "Music", "Natural Sounds",
-                "Source-ambiguous\nsounds", "Sound level", "Sound of things"],
+            columns: ["Animal", "Gaussian noise", "Human sounds", "Music", "Natural sounds"
+                , "Sound level", "Sound of things", "Source-ambiguous sounds"],
             data: []
         }
     }
@@ -31,10 +31,11 @@ class NoisePatternChart extends Component {
                 const rawData = JSON.parse(res.data.data)
                 const info = []
                 for (let i = 0; i < this.state.columns.length; i++) {
-                    if (typeof rawData[this.state.columns[i]] == "undefined") {
+                    let legend = this.state.columns[i];
+                    if (typeof rawData[legend] == "undefined") {
                         info.push(0)
                     } else {
-                        info.push(rawData[this.state.columns[i]])
+                        info.push(rawData[legend])
                     }
                 }
                 this.setState({
@@ -70,6 +71,14 @@ class NoisePatternChart extends Component {
                 data: this.state.columns,
                 "axisLabel": {
                     interval: 0,
+                    formatter: function (value) {
+                        if (value.length > 15) {
+                            let space = value.lastIndexOf(" ");
+                            return value.substring(0, space) + "\n" + value.substring(space)
+                        } else {
+                            return value
+                        }
+                    }
                 }
             },
             yAxis: {
