@@ -4,6 +4,8 @@ import PatternDisplay from "./PatternDisplay";
 import {CloudUploadOutlined} from "@ant-design/icons";
 import sendGet from "../Util/axios";
 import getAudioSet from "../Util/AudioUtil";
+import AudioPlay from "../AudioList/AudioPlay";
+import baseUrl from "../Util/url";
 
 class PerturbationAttach extends React.Component {
     constructor(props) {
@@ -27,13 +29,33 @@ class PerturbationAttach extends React.Component {
         };
     }
 
+    patternToName = {
+        "Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
+        "Animal": "animal", "Source-ambiguous sounds": "source_ambiguous_sounds",
+        "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
+        "Human sounds": "human_sounds", "Music": "music"
+    }
+
     columns = [
         {
-            title: "音频名称",
+            title: "音频",
             dataIndex: "name",
             key: "name",
             align: "center",
-            width: 320
+            width: 320,
+            render: (text, record) => {
+                let name = record.name, pattern = record.pattern, patternType = record.patternType
+                name = name.substring(0, name.indexOf(".")) + "_"
+                    + this.patternToName[pattern] + name.substring(name.indexOf("."))
+                if (pattern !== "Gaussian noise") {
+                    patternType = patternType.replace(" ", "_").toLowerCase()
+                    name = name.substring(0, name.indexOf(".")) + "_" + patternType + name.substring(name.indexOf("."))
+                }
+                return (
+                    <AudioPlay name={record.name}
+                               src={baseUrl + "/NoiseAudio/" + this.state.dataset + "/clips/" + name}/>
+                )
+            }
         },
         {
             title: "扰动类型",
@@ -208,7 +230,6 @@ class PerturbationAttach extends React.Component {
         if (pattern[0] !== "Gaussian noise") {
             params["specificPattern"] = pattern[1]
         }
-        console.log([urls[pattern[0]], params])
         return [urls[pattern[0]], params]
     }
 

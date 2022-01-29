@@ -7,12 +7,12 @@ from Util.AudioUtil import suffixToPatternType, removeAudio, addTag, patternType
 from Util.RpcResult import RpcResult
 
 patternToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
-                 "Animal": "animal", "Source-ambiguous\nsounds": "source_ambiguous_sounds",
+                 "Animal": "animal", "Source-ambiguous sounds": "source_ambiguous_sounds",
                  "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
                  "Human sounds": "human_sounds", "Music": "music"}
 
 nameToPattern = {"gaussian_white_noise": "Gaussian noise", "sound_level": "Sound level", "animal": "Animal",
-                 "source_ambiguous_sounds": "Source-ambiguous\nsounds", "natural_sounds": "Natural sounds",
+                 "source_ambiguous_sounds": "Source-ambiguous sounds", "natural_sounds": "Natural sounds",
                  "sound_of_things": "Sound of things", "human_sounds": "Human sounds", "music": "Music"}
 
 
