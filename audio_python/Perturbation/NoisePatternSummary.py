@@ -3,17 +3,8 @@ import os
 import re
 
 from Util.Annotation import rpcApi
-from Util.AudioUtil import suffixToPatternType, removeAudio, addTag, patternTypeToSuffix
+from Util.AudioUtil import removeAudio, addTag, patternTypeToSuffix, getPatternInfo, patternToName
 from Util.RpcResult import RpcResult
-
-patternToName = {"Gaussian noise": "gaussian_white_noise", "Sound level": "sound_level",
-                 "Animal": "animal", "Source-ambiguous sounds": "source_ambiguous_sounds",
-                 "Natural sounds": "natural_sounds", "Sound of things": "sound_of_things",
-                 "Human sounds": "human_sounds", "Music": "music"}
-
-nameToPattern = {"gaussian_white_noise": "Gaussian noise", "sound_level": "Sound level", "animal": "Animal",
-                 "source_ambiguous_sounds": "Source-ambiguous sounds", "natural_sounds": "Natural sounds",
-                 "sound_of_things": "Sound of things", "human_sounds": "Human sounds", "music": "Music"}
 
 
 @rpcApi
@@ -76,17 +67,13 @@ def getAudioSetPattern(dataset):
     key = 0
     for root, dirs, files in os.walk(path):
         for file in files:
-            temp = {"key": key}
+            patternInfo = {"key": key}
             key += 1
             num = re.findall("\\d+", file)[0]
-            temp["name"] = file[0:file.find(num) + len(num)] + ".mp3"
-            if "gaussian_white_noise" in file:
-                temp["pattern"] = nameToPattern["gaussian_white_noise"]
-                temp["patternType"] = suffixToPatternType("gaussian_white_noise")
-            else:
-                temp["pattern"] = nameToPattern[file[file.find(num) + len(num) + 1:file.rfind("_")]]
-                temp["patternType"] = suffixToPatternType(file[file.rfind("_") + 1:file.find(".")])
-            audioSetPattern.append(temp)
+            patternInfo["name"] = file[0:file.find(num) + len(num)] + ".mp3"
+            patternTag = file[file.find(num) + len(num) + 1:file.find(".")]
+            patternInfo["pattern"], patternInfo["patternType"] = getPatternInfo(patternTag)
+            audioSetPattern.append(patternInfo)
     return RpcResult.ok(json.dumps(audioSetPattern, ensure_ascii=False))
 
 
@@ -98,7 +85,3 @@ def removeFormerAudio(dataset, audioName, pattern, patternType=None):
         audioName = addTag(audioName, patternTypeToSuffix(patternType))
     removeAudio(path, audioName)
     return RpcResult.ok("")
-
-
-if __name__ == "__main__":
-    pass

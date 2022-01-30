@@ -2,6 +2,24 @@ import os
 
 from pydub import AudioSegment
 
+patternToName = {"Gaussian noise": "gaussian_white_noise",
+                 "Sound level": "sound_level",
+                 "Animal": "animal",
+                 "Source-ambiguous sounds": "source_ambiguous_sounds",
+                 "Natural sounds": "natural_sounds",
+                 "Sound of things": "sound_of_things",
+                 "Human sounds": "human_sounds",
+                 "Music": "music"}
+
+nameToPattern = {"gaussian_white_noise": "Gaussian noise",
+                 "sound_level": "Sound level",
+                 "animal": "Animal",
+                 "source_ambiguous_sounds": "Source-ambiguous sounds",
+                 "natural_sounds": "Natural sounds",
+                 "sound_of_things": "Sound of things",
+                 "human_sounds": "Human sounds",
+                 "music": "Music"}
+
 
 def trans_mp3_to_wav(path, audioName):
     """
@@ -71,3 +89,12 @@ def removeAudio(path, audioName):
     :return:
     """
     os.remove(path + audioName)
+
+
+def getPatternInfo(patternTag):
+    if "gaussian_white_noise" in patternTag:
+        return nameToPattern["gaussian_white_noise"], suffixToPatternType("gaussian_white_noise")
+    else:
+        for key, value in nameToPattern.items():
+            if key in patternTag:
+                return nameToPattern[key], suffixToPatternType(patternTag.replace(key + "_", ""))
