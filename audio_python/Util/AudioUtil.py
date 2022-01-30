@@ -92,6 +92,12 @@ def removeAudio(path, audioName):
 
 
 def getPatternInfo(patternTag):
+    """
+    从名称后缀解析出扰动大类和具体类型
+    animal_wild_animals ---> animal,wild animals
+    :param patternTag:
+    :return:
+    """
     if "gaussian_white_noise" in patternTag:
         return nameToPattern["gaussian_white_noise"], suffixToPatternType("gaussian_white_noise")
     else:
