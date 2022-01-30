@@ -296,7 +296,7 @@ class PerturbationAttach extends React.Component {
 
     render() {
         const {selectedRowKeys} = this.state;
-        const locales = {selectionAll: "全选", selectNone: "清空所有"}
+        const locales = {selectionAll: "全选", selectNone: "清空所有", filterConfirm: '确定', filterReset: '重置'}
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange,
