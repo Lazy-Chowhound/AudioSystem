@@ -1,11 +1,12 @@
 import React from "react";
-import {Button, message, Modal, Progress, Result, Select, Table} from "antd";
+import {Button, message, Modal, Progress, Result, Select, Table, Tooltip} from "antd";
 import PatternDisplay from "./PatternDisplay";
-import {CloudUploadOutlined} from "@ant-design/icons";
+import {CloudUploadOutlined, QuestionOutlined} from "@ant-design/icons";
 import sendGet from "../Util/axios";
 import getAudioSet from "../Util/AudioUtil";
 import AudioPlay from "../AudioList/AudioPlay";
 import baseUrl from "../Util/url";
+import PatternDrawer from "./PatternDrawer";
 
 class PerturbationAttach extends React.Component {
     constructor(props) {
@@ -25,7 +26,8 @@ class PerturbationAttach extends React.Component {
             options: [],
             pageSize: 5,
             total: 0,
-            loading: true
+            loading: true,
+            drawerVisible: false
         };
     }
 
@@ -108,6 +110,7 @@ class PerturbationAttach extends React.Component {
         })
     }
 
+    // 获取子组件的值
     getChildren = (children, option) => {
         const choices = this.state.patternChoices
         if (option.length !== 0) {
@@ -218,7 +221,7 @@ class PerturbationAttach extends React.Component {
         })
     }
 
-    handleCancel = () => {
+    closeModal = () => {
         this.setState({
             visible: false
         })
@@ -294,6 +297,15 @@ class PerturbationAttach extends React.Component {
         })
     }
 
+    // 绑定子组件
+    bindPatternDrawer = (ref) => {
+        this.patternDrawer= ref
+    }
+
+    openDrawer = () => {
+        this.patternDrawer.openDrawer()
+    }
+
     render() {
         const {selectedRowKeys} = this.state;
         const locales = {selectionAll: "全选", selectNone: "清空所有", filterConfirm: '确定', filterReset: '重置'}
@@ -325,13 +337,18 @@ class PerturbationAttach extends React.Component {
                 </Table.Summary.Row>
             </Table.Summary>
 
-        let select =
+        let titleRow =
             <div>
                 <span>数据集:</span>
                 <Select defaultValue={this.state.dataset} bordered={false}
                         onChange={this.datasetChange}>
                     {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                 </Select>
+                <Tooltip placement="right" title="点击查看所有扰动">
+                    <Button style={{marginLeft: 10}} size={"small"} type="primary" shape="circle"
+                            onClick={this.openDrawer} icon={<QuestionOutlined/>}/>
+                    <PatternDrawer bindChildren={this.bindPatternDrawer}/>
+                </Tooltip>
             </div>
 
         let content;
@@ -355,7 +372,7 @@ class PerturbationAttach extends React.Component {
                     <Table rowSelection={rowSelection} columns={this.columns} dataSource={this.state.dataSource}
                            locale={locales} summary={() => (summaryRow)} loading={this.state.loading}
                            title={() => {
-                               return (select)
+                               return (titleRow)
                            }}
                            pagination={{
                                pageSize: this.state.pageSize,
@@ -366,7 +383,7 @@ class PerturbationAttach extends React.Component {
                     />
                     <Modal style={{marginTop: 80}} title={this.state.title} key={this.state.visible}
                            visible={this.state.visible} footer={null}
-                           width={400} onCancel={this.handleCancel}>
+                           width={400} onCancel={this.closeModal}>
                         <div style={{display: "flex", flexDirection: "column"}}>
                             <div style={{textAlign: "center"}}>
                                 <Progress type="circle" percent={this.state.percent}/>
