@@ -31,26 +31,15 @@ class Index extends React.Component {
     };
 
     handleClick = (e) => {
-        this.changeSelectedKeys()
         if (e.key === "title") {
             return;
         }
-        const map = new Map([["list", "音频列表"], ["perturbationAttach", "添加扰动"],
-            ["perturbationDisplay", "扰动概况"], ["validation", "质量分析"]]);
-        if (e.key === "perturbationAttach" || e.key === "perturbationDisplay") {
-            this.setState({
-                choice: "音频扰动",
-                subChoice: map.get(e.key)
-            })
-        } else {
-            this.setState({
-                choice: map.get(e.key),
-                subChoice: null
-            })
-        }
+        this.changeSelectedKeys()
     };
 
     changeSelectedKeys = () => {
+        const menu = new Map([["list", "音频列表"], ["noise", "音频扰动"], ["validation", "质量分析"]])
+        const submenu = new Map([["perturbationAttach", "添加扰动"], ["perturbationDisplay", "扰动概况"]])
         let curPath = []
         let path = new URL(window.location.href).pathname
         if (path === "/") {
@@ -63,7 +52,9 @@ class Index extends React.Component {
         }
         this.setState({
             selectedPath: curPath,
-            openKeys: curPath.length === 2 ? ["noise"] : []
+            openKeys: curPath.length === 2 ? ["noise"] : [],
+            choice: menu.get(curPath[0]),
+            subChoice: curPath.length === 2 ? submenu.get(curPath[1]) : null
         })
     }
 
