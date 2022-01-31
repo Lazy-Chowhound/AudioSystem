@@ -1,7 +1,10 @@
 import React from "react";
 import {Button, message, Modal, Progress, Result, Select, Table, Tooltip} from "antd";
 import PatternDisplay from "./PatternDisplay";
-import {CloudUploadOutlined, QuestionOutlined} from "@ant-design/icons";
+import {
+    CloudUploadOutlined,
+    QuestionCircleOutlined,
+} from "@ant-design/icons";
 import sendGet from "../Util/axios";
 import getAudioSet from "../Util/AudioUtil";
 import AudioPlay from "../AudioList/AudioPlay";
@@ -299,7 +302,7 @@ class PerturbationAttach extends React.Component {
 
     // 绑定子组件
     bindPatternDrawer = (ref) => {
-        this.patternDrawer= ref
+        this.patternDrawer = ref
     }
 
     openDrawer = () => {
@@ -345,8 +348,9 @@ class PerturbationAttach extends React.Component {
                     {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                 </Select>
                 <Tooltip placement="right" title="点击查看所有扰动">
-                    <Button style={{marginLeft: 10}} size={"small"} type="primary" shape="circle"
-                            onClick={this.openDrawer} icon={<QuestionOutlined/>}/>
+                    <QuestionCircleOutlined onClick={() => {
+                        this.openDrawer()
+                    }}/>
                     <PatternDrawer bindChildren={this.bindPatternDrawer}/>
                 </Tooltip>
             </div>
