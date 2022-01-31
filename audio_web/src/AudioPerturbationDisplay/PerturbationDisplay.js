@@ -2,7 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import NoisePatternChart from "./NoisePatternChart";
 import {Button, message, Modal, Select} from "antd";
-import {BarChartOutlined} from "@ant-design/icons";
+import {PieChartOutlined} from "@ant-design/icons";
 import NoisePatternDetail from "./NoisePatternDetail";
 import "../css/PerturbationDisplay.css"
 import getAudioSet from "../Util/AudioUtil"
@@ -50,7 +50,7 @@ class PerturbationDisplay extends React.Component {
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
-                    <Button type="primary" icon={<BarChartOutlined/>} onClick={() => {
+                    <Button type="primary" icon={<PieChartOutlined/>} onClick={() => {
                         this.setState({
                             visible: true
                         })

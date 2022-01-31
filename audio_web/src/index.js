@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Breadcrumb, Layout, Menu} from "antd";
-import {AudioOutlined, BarsOutlined, FireOutlined, BranchesOutlined, CodeOutlined} from "@ant-design/icons";
+import {
+    BarsOutlined, BarChartOutlined,
+    PullRequestOutlined, SlidersOutlined, ControlOutlined
+} from "@ant-design/icons";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 import AudioList from "./AudioList/AudioList";
 import PerturbationDisplay from "./AudioPerturbationDisplay/PerturbationDisplay";
@@ -80,15 +83,15 @@ class Index extends React.Component {
                             <Menu.Item key="list" icon={<BarsOutlined/>}>
                                 <Link to={"/list"}>音频列表</Link>
                             </Menu.Item>
-                            <SubMenu key="noise" icon={<AudioOutlined/>} title={"音频扰动"}>
-                                <Menu.Item key="perturbationAttach" icon={<BranchesOutlined/>}>
+                            <SubMenu key="noise" icon={<SlidersOutlined/>} title={"音频扰动"}>
+                                <Menu.Item key="perturbationAttach" icon={<PullRequestOutlined/>}>
                                     <Link to={"/perturbationAttach"}>添加扰动</Link>
                                 </Menu.Item>
-                                <Menu.Item key="perturbationDisplay" icon={<CodeOutlined/>}>
+                                <Menu.Item key="perturbationDisplay" icon={<BarChartOutlined/>}>
                                     <Link to={"/perturbationDisplay"}>扰动概况</Link>
                                 </Menu.Item>
                             </SubMenu>
-                            <Menu.Item key="validation" icon={<FireOutlined/>}>
+                            <Menu.Item key="validation" icon={<ControlOutlined/>}>
                                 <Link to={"/validation"}>质量分析</Link>
                             </Menu.Item>
                         </Menu>
