@@ -347,7 +347,7 @@ class PerturbationAttach extends React.Component {
                         onChange={this.datasetChange}>
                     {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                 </Select>
-                <Tooltip placement="right" title="点击查看所有扰动">
+                <Tooltip placement="right" title="点击查看所有扰动类别">
                     <QuestionCircleOutlined onClick={() => {
                         this.openDrawer()
                     }}/>
