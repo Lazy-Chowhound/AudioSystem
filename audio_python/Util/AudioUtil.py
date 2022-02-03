@@ -1,5 +1,7 @@
 import os
 
+import librosa
+from moviepy.editor import *
 from pydub import AudioSegment
 
 patternToName = {"Gaussian noise": "gaussian_white_noise",
@@ -104,3 +106,16 @@ def getPatternInfo(patternTag):
         for key, value in nameToPattern.items():
             if key in patternTag:
                 return nameToPattern[key], suffixToPatternType(patternTag.replace(key + "_", ""))
+
+
+def extractAudio(path, start, end, patternType):
+    """
+    从视频中提取音频
+    :param path:
+    :param start:
+    :param end:
+    :param patternType:
+    :return:
+    """
+    audio_background = AudioFileClip(path).subclip(start, end)
+    audio_background.write_audiofile("C:/Users/Nakano Miku/Desktop/audio/" + patternType + ".wav", fps=48000)
