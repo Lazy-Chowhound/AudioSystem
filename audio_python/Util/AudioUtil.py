@@ -1,6 +1,7 @@
 import os
 
 import librosa
+import soundfile
 from moviepy.editor import *
 from pydub import AudioSegment
 
@@ -112,10 +113,26 @@ def extractAudio(path, start, end, patternType):
     """
     从视频中提取音频
     :param path:
-    :param start:
-    :param end:
+    :param start: 开始的秒数
+    :param end: 结束的秒数
     :param patternType:
     :return:
     """
     audio_background = AudioFileClip(path).subclip(start, end)
     audio_background.write_audiofile("C:/Users/Nakano Miku/Desktop/audio/" + patternType + ".wav", fps=48000)
+
+
+def cutAudio(path, start, end=None):
+    """
+    截取音频
+    :param path:
+    :param start: 开始的秒数
+    :param end: 结束的秒数
+    :return:
+    """
+    sig, sr = librosa.load(path, sr=None)
+    if end is None:
+        audio_dst = sig[start * sr:]
+    else:
+        audio_dst = sig[start * sr:end * sr]
+    soundfile.write(path[0: path.find(".")] + "_cut" + ".wav", audio_dst, sr)
