@@ -62,17 +62,10 @@ def add_natural_sounds(path, audioName, specificPattern):
     """
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "Wind":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/winds.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Thunderstorm":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/thunderstorm.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Water":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/water.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Fire":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/fire.wav", sr=sr, mono=True)
+    specificPatterns = ["Wind", "Thunderstorm", "Water", "Fire"]
+    if specificPattern in specificPatterns:
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/" + specificPattern + ".wav", sr=sr,
+                                          mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -93,14 +86,10 @@ def add_animal(path, audioName, specificPattern):
     """
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "Pets":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/pet.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Livestock":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/livestock.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Wild animals":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+    specificPatterns = ["Pets", "Livestock", "Wild animals"]
+    if specificPattern in specificPatterns:
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/" + specificPattern + ".wav", sr=sr,
+                                          mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -120,41 +109,13 @@ def add_sound_of_things(path, audioName, specificPattern):
     :return:
     """
     sig, sr = librosa.load(path + audioName, sr=None)
-    noiseAudio = sig
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "Vehicle":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/vehicle.wav", sr=sr, mono=True)
+    specificPatterns = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosions", "Wood",
+                        "Glass", "Liquid", "Miscellaneous sources", ""]
+    if specificPattern in specificPatterns:
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/" + specificPattern + ".wav", sr=sr,
+                                          mono=True)
         noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Engine":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/engine.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "":
-        pass
-    elif specificPattern == "Bell":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/bell.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Alarm":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/alarm.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Mechanisms":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/mechanism.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Explosions":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/explosion.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Wood":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Glass":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Liquid":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/liquid.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "":
-        pass
-    elif specificPattern == "":
-        pass
     else:
         return RpcResult.error("patternType error")
     noiseWaveName = addTag(addTag(audioName, "sound_of_things"),
@@ -174,26 +135,11 @@ def add_human_sounds(path, audioName, specificPattern):
     """
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Whistling":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/whistle.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Respiratory sounds":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/respiratory sounds.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Human locomotion":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/locomotion.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Hands":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/hands.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Heartbeat":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/heartbeat.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Human group actions":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/group actions.wav", sr=sr, mono=True)
+    specificPatterns = ["Human voice", "Whistling", "Respiratory sounds", "Human locomotion", "Hands", "Heartbeat",
+                        "Human group actions"]
+    if specificPattern in specificPatterns:
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/" + specificPattern + ".wav", sr=sr,
+                                          mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -214,24 +160,14 @@ def add_music(path, audioName, specificPattern):
     """
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "Music instrument":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/pet.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Music genre":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/livestock.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Music concepts":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Music role":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Music mood":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+    specificPatterns = ["Musical instrument", "Music genre", "Musical concepts", "Music role", "Music mood"]
+    if specificPattern in specificPatterns:
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Music/" + specificPattern + ".wav", sr=sr,
+                                          mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
-    noiseWaveName = addTag(addTag(audioName, "animal"),
+    noiseWaveName = addTag(addTag(audioName, "music"),
                            patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
@@ -248,21 +184,15 @@ def add_source_ambiguous_sounds(path, audioName, specificPattern):
     """
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if specificPattern == "Generic impact sounds":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Surface contact":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/livestock.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Deformable shell":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
-        noiseAudio = addNoise(sig, noiseSig)
-    elif specificPattern == "Onomatopoeia":
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/wild animals.wav", sr=sr, mono=True)
+    specificPatterns = ["Generic impact sounds", "Surface contact", "Deformable shell", "Onomatopoeia", "Silence",
+                        "Other sourceless"]
+    if specificPattern in specificPatterns:
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Source-ambiguous sounds" + specificPattern + ".wav",
+                                          sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
-    noiseWaveName = addTag(addTag(audioName, "animal"),
+    noiseWaveName = addTag(addTag(audioName, "source_ambiguous_sounds"),
                            patternTypeToSuffix(specificPattern)).replace(".mp3", ".wav")
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
     return RpcResult.ok("")
