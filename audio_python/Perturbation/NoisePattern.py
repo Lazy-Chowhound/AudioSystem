@@ -111,7 +111,7 @@ def add_sound_of_things(path, audioName, specificPattern):
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
     specificPatterns = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosions", "Wood",
-                        "Glass", "Liquid", "Miscellaneous sources", ""]
+                        "Glass", "Liquid", "Miscellaneous sources", "Specific impact sounds"]
     if specificPattern in specificPatterns:
         noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/" + specificPattern + ".wav", sr=sr,
                                           mono=True)
