@@ -72,8 +72,8 @@ class PatternDisplay extends React.Component {
             label: "Music",
             children: [
                 {
-                    value: "Music instrument",
-                    label: "Music instrument",
+                    value: "Musical instrument",
+                    label: "Musical instrument",
                 },
                 {
                     value: "Music genre",
