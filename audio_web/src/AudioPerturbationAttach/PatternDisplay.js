@@ -80,8 +80,8 @@ class PatternDisplay extends React.Component {
                     label: "Music genre",
                 },
                 {
-                    value: "Music concepts",
-                    label: "Music concepts",
+                    value: "Musical concepts",
+                    label: "Musical concepts",
                 },
                 {
                     value: "Music role",
