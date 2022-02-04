@@ -110,7 +110,7 @@ def add_sound_of_things(path, audioName, specificPattern):
     """
     sig, sr = librosa.load(path + audioName, sr=None)
     wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    specificPatterns = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosions", "Wood",
+    specificPatterns = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosion", "Wood",
                         "Glass", "Liquid", "Miscellaneous sources", "Specific impact sounds"]
     if specificPattern in specificPatterns:
         noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/" + specificPattern + ".wav", sr=sr,
@@ -187,7 +187,7 @@ def add_source_ambiguous_sounds(path, audioName, specificPattern):
     specificPatterns = ["Generic impact sounds", "Surface contact", "Deformable shell", "Onomatopoeia", "Silence",
                         "Other sourceless"]
     if specificPattern in specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Source-ambiguous sounds" + specificPattern + ".wav",
+        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Source-ambiguous sounds/" + specificPattern + ".wav",
                                           sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
@@ -210,8 +210,3 @@ def writeNoiseAudio(path, noiseAudioName, noiseAudio, sr):
     soundfile.write(path + noiseAudioName, noiseAudio, sr)
     trans_wav_to_mp3(path, noiseAudioName)
     removeAudio(path, noiseAudioName)
-
-
-if __name__ == '__main__':
-    add_animal("D:/AudioSystem/Audio/cv-corpus-chinese/clips/", "common_voice_zh-CN_18524189.mp3",
-               "Pet")
