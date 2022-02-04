@@ -23,6 +23,17 @@ nameToPattern = {"gaussian_white_noise": "Gaussian noise",
                  "human_sounds": "Human sounds",
                  "music": "Music"}
 
+sound_level_specificPatterns = ["Louder", "Quieter", "Pitch", "Speed"]
+animal_specificPatterns = ["Pets", "Livestock", "Wild animals"]
+sound_of_things_specificPatterns = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosion",
+                                    "Wood", "Glass", "Liquid", "Miscellaneous sources", "Specific impact sounds"]
+human_sounds_specificPatterns = ["Human voice", "Whistling", "Respiratory sounds", "Human locomotion", "Hands",
+                                 "Heartbeat", "Human group actions"]
+natural_sounds_specificPatterns = ["Wind", "Thunderstorm", "Water", "Fire"]
+music_specificPatterns = ["Musical instrument", "Music genre", "Musical concepts", "Music role", "Music mood"]
+source_ambiguous_sounds_specificPatterns = ["Generic impact sounds", "Surface contact", "Deformable shell",
+                                            "Onomatopoeia", "Silence", "Other sourceless"]
+
 
 def trans_mp3_to_wav(path, audioName):
     """
