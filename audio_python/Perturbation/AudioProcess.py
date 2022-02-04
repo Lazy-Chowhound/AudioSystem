@@ -58,7 +58,6 @@ def changePitch(wavData, sr):
     :return:
     """
     pitch = random.randint(5, 10) * random.randrange(-1, 2, 2)
-    print("pitch:" + str(pitch))
     noiseAudio = librosa.effects.pitch_shift(wavData, sr, n_steps=float(pitch))
     return noiseAudio
 
