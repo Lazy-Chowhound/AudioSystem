@@ -1,4 +1,5 @@
 import os
+import re
 
 import librosa
 import soundfile
@@ -147,3 +148,81 @@ def cutAudio(path, start, end=None):
     else:
         audio_dst = sig[start * sr:end * sr]
     soundfile.write(path[0: path.find(".")] + "_cut" + ".wav", audio_dst, sr)
+
+
+def find_error_audio(dataset):
+    """
+    寻找没有成功添加的音频
+    :param dataset: cv-corpus-chinese
+    :return: 
+    """
+    error_list = []
+    source_path = "D:/AudioSystem/Audio/" + dataset + "/clips/"
+    target_path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
+    source_file_list = []
+    target_file_list = []
+    for root, dirs, files in os.walk(source_path):
+        source_file_list = files
+    for root, dirs, files in os.walk(target_path):
+        target_file_list = files
+    for audio in source_file_list:
+        number = audio[audio.rfind("_") + 1:audio.find(".")]
+        flag = False
+        for t_audio in target_file_list:
+            if number in t_audio:
+                flag = True
+                break
+        if flag is False:
+            error_list.append(audio)
+    return error_list
+
+
+def extract_error_audio_from_log():
+    """
+    从 log 中提取出错的 audio
+    :return:
+    """
+    path = "D:/AudioSystem/audio_python/Perturbation/error.log"
+    error_list = []
+    with open(path) as f:
+        while True:
+            lines = f.readline()
+            if not lines:
+                break
+            line = lines.split(" ")
+            error_list.append(line[4][line[4].rfind("/") + 1:])
+    return error_list
+
+
+def getOrder(name):
+    """
+    获取文件名中的序号
+    :param name:
+    :return:
+    """
+    return re.findall("\\d+", name)[0]
+
+
+def ifDuplicate(path):
+    """
+    查看添加扰动后的音频列表是否因错误而重复添加
+    :param path: D:/AudioSystem/NoiseAudio/cv-corpus-japanese/clips
+    :return: 
+    """
+    duplicate_list = []
+    data = {}
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            order = getOrder(file)
+            if order in data.keys():
+                data[order] = data[order] + 1
+            else:
+                data[order] = 1
+    for key, value in data.items():
+        if value >= 2:
+            duplicate_list.append(key)
+    return duplicate_list
+
+
+if __name__ == '__main__':
+    pass
