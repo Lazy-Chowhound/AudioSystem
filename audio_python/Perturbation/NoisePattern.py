@@ -275,7 +275,3 @@ def add_pattern_randomly(path, file):
             add_source_ambiguous_sounds(path, file, ptype[random.randint(0, len(ptype) - 1)])
     except Exception as e:
         logging.warning(path + file + " fail ", e)
-
-
-if __name__ == "__main__":
-    pass

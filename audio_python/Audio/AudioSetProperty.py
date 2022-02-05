@@ -15,7 +15,6 @@ def getAudioSet():
     for audio in json.loads(audioSetList(path)):
         audioProperty = {}
         description = getAudioDescription(audio)
-        print(description)
         audioProperty["key"] = description[0]
         audioProperty["name"] = description[1]
         audioProperty["language"] = description[2]
