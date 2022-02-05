@@ -1,5 +1,4 @@
 import logging
-import threading
 from multiprocessing import Pool
 
 from Perturbation.AudioProcess import *
@@ -205,25 +204,25 @@ def writeNoiseAudio(path, noiseAudioName, noiseAudio, sr):
     removeAudio(path, noiseAudioName)
 
 
-def add_randomly_multiProcess(path):
+def add_randomly_multiProcess(path, process_num):
     """
     多线程添加扰动
+    :param process_num: 进程数
     :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
     :return:
     """
     logging.basicConfig(level=logging.ERROR, filename="error.log", filemode="a",
                         format="%(levelname)s %(asctime)s %(filename)s %(message)s")
-    PROCESS_NUM = 8
     audio_list = []
     for root, dirs, files in os.walk(path):
         audio_list = files
-    task_slice = math.ceil(len(audio_list) / PROCESS_NUM)
+    task_slice = math.ceil(len(audio_list) / process_num)
 
-    pool = Pool(PROCESS_NUM)
-    for i in range(0, PROCESS_NUM):
+    pool = Pool(process_num)
+    for i in range(0, process_num):
         pool.apply_async(add_pattern_range,
                          args=(path, audio_list, i * task_slice,
-                               min((i + 1) * task_slice - 1, len(audio_list) - 1),))
+                               min((i + 1) * task_slice, len(audio_list)),))
     pool.close()
     pool.join()
 
@@ -274,13 +273,9 @@ def add_pattern_randomly(path, file):
         elif p == 8:
             ptype = source_ambiguous_sounds_specificPatterns
             add_source_ambiguous_sounds(path, file, ptype[random.randint(0, len(ptype) - 1)])
-        print(path + file + " finished")
     except Exception as e:
         logging.warning(path + file + " fail ", e)
 
 
 if __name__ == "__main__":
-    add_randomly_multiProcess("D:/AudioSystem/Audio/cv-corpus-arabic/clips")
-    add_randomly_multiProcess("D:/AudioSystem/Audio/cv-corpus-chinese/clips")
-    add_randomly_multiProcess("D:/AudioSystem/Audio/cv-corpus-portuguese/clips")
-    add_randomly_multiProcess("D:/AudioSystem/Audio/cv-corpus-russian/clips")
+    pass
