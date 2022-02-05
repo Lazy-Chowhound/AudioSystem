@@ -1,5 +1,6 @@
 import os
 import re
+import time
 
 import librosa
 import soundfile
@@ -165,15 +166,15 @@ def find_error_audio(dataset):
         source_file_list = files
     for root, dirs, files in os.walk(target_path):
         target_file_list = files
-    for audio in source_file_list:
-        number = audio[audio.rfind("_") + 1:audio.find(".")]
-        flag = False
-        for t_audio in target_file_list:
-            if number in t_audio:
-                flag = True
-                break
-        if flag is False:
-            error_list.append(audio)
+    i = 0
+    j = 0
+    while i < len(source_file_list):
+        if getOrder(source_file_list[i]) in getOrder(target_file_list[j]):
+            i += 1
+            j += 1
+        else:
+            error_list.append(source_file_list[i])
+            i += 1
     return error_list
 
 
