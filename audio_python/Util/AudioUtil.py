@@ -37,22 +37,6 @@ source_ambiguous_sounds_specificPatterns = ["Generic impact sounds", "Surface co
                                             "Onomatopoeia", "Silence", "Other sourceless"]
 
 
-def trans_mp3_to_wav(path, audioName):
-    """
-    mp3转 wav
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
-    :return: 生成的 wav 地址
-    """
-    audio = AudioSegment.from_mp3(path + audioName)
-    targetPath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
-    if not os.path.exists(targetPath):
-        os.makedirs(targetPath)
-    audioName = audioName.replace(".mp3", ".wav")
-    audio.export(targetPath + audioName, format="wav")
-    return targetPath, audioName
-
-
 def trans_wav_to_mp3(path, audioName):
     """
     wav转 mp3
@@ -122,17 +106,18 @@ def getPatternInfo(patternTag):
                 return nameToPattern[key], suffixToPatternType(patternTag.replace(key + "_", ""))
 
 
-def extractAudio(path, start, end, patternType):
+def extractAudio(source_path, start, end, patternType, target_path):
     """
     从视频中提取音频
-    :param path:
+    :param source_path:
     :param start: 开始的秒数
     :param end: 结束的秒数
     :param patternType:
+    :param target_path: 输出路径 形如 C:/Users/Nakano Miku/Desktop/audio/
     :return:
     """
-    audio_background = AudioFileClip(path).subclip(start, end)
-    audio_background.write_audiofile("C:/Users/Nakano Miku/Desktop/audio/" + patternType + ".wav", fps=48000)
+    audio_background = AudioFileClip(source_path).subclip(start, end)
+    audio_background.write_audiofile(target_path + patternType + ".wav", fps=48000)
 
 
 def cutAudio(path, start, end=None):
@@ -140,7 +125,7 @@ def cutAudio(path, start, end=None):
     截取音频
     :param path:
     :param start: 开始的秒数
-    :param end: 结束的秒数
+    :param end: 结束的秒数，默认最后
     :return:
     """
     sig, sr = librosa.load(path, sr=None)
@@ -168,13 +153,16 @@ def find_error_audio(dataset):
         target_file_list = files
     i = 0
     j = 0
-    while i < len(source_file_list):
+    while i < len(source_file_list) and j < len(target_file_list):
         if getOrder(source_file_list[i]) in getOrder(target_file_list[j]):
             i += 1
             j += 1
         else:
             error_list.append(source_file_list[i])
             i += 1
+    while i < len(source_file_list):
+        error_list.append(source_file_list[i])
+        i += 1
     return error_list
 
 
@@ -204,12 +192,13 @@ def getOrder(name):
     return re.findall("\\d+", name)[0]
 
 
-def ifDuplicate(path):
+def ifDuplicate(dataset):
     """
     查看添加扰动后的音频列表是否因错误而重复添加
-    :param path: D:/AudioSystem/NoiseAudio/cv-corpus-japanese/clips
+    :param dataset: cv-corpus-japanese
     :return: 
     """
+    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
     duplicate_list = []
     data = {}
     for root, dirs, files in os.walk(path):
@@ -223,7 +212,3 @@ def ifDuplicate(path):
         if value >= 2:
             duplicate_list.append(key)
     return duplicate_list
-
-
-if __name__ == '__main__':
-    pass
