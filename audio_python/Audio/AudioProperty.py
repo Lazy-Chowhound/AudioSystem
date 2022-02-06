@@ -1,5 +1,4 @@
 import json
-import os
 
 import librosa.display
 import matplotlib.pyplot as plt
@@ -13,6 +12,13 @@ from Util.RpcResult import RpcResult
 
 @rpcApi
 def getAudio(dataset, page, pageSize):
+    """
+    分页获取音频及其属性
+    :param dataset: cv-corpus-chinese
+    :param page: 页数
+    :param pageSize: 页面大小
+    :return:
+    """
     Audio = []
     AudioList = getAudioList(dataset)
     Audio.append({'total': len(AudioList)})
@@ -27,8 +33,8 @@ def getAudio(dataset, page, pageSize):
 def getAudioProperty(dataset, audioName):
     """
     获取某条音频所有属性
-    :param dataset: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :return:
     """
     audio = getAudioSetClipPath(dataset) + audioName
@@ -79,9 +85,14 @@ def getAudioDetail(dataset, audioName):
     return detail
 
 
-# 波形图、振幅
 @rpcApi
 def getWaveForm(dataset, audioName):
+    """
+    生成波形图
+    :param dataset: cv-corpus-chinese
+    :param audioName: 音频名
+    :return:
+    """
     audio = os.path.join(getAudioSetClipPath(dataset), audioName)
     sig, sr = librosa.load(audio, sr=None)
     plt.figure(figsize=(8, 5))
@@ -92,9 +103,14 @@ def getWaveForm(dataset, audioName):
     return RpcResult.ok(savingPath)
 
 
-# Mel频谱图
 @rpcApi
 def getMelSpectrum(dataset, audioName):
+    """
+    生成 Mel频谱图
+    :param dataset: cv-corpus-chinese
+    :param audioName: 音频名
+    :return:
+    """
     audio = os.path.join(getAudioSetClipPath(dataset), audioName)
     sig, sr = librosa.load(audio, sr=None)
     S = librosa.feature.melspectrogram(y=sig, sr=sr)
@@ -109,36 +125,52 @@ def getMelSpectrum(dataset, audioName):
     return RpcResult.ok(savingPath)
 
 
-# 音频的采样率
 def getSamplingRate(audio):
+    """
+    获取音频的采样率
+    :param audio: 音频路径
+    :return:
+    """
     samplingRate = librosa.get_samplerate(audio)
     return samplingRate
 
 
-# 音频时长
 def getDuration(audio):
+    """
+    获取音频时长
+    :param audio: 音频路径
+    :return:
+    """
     sig, sr = librosa.load(audio, sr=None)
     return round(librosa.get_duration(sig, sr), 2)
 
 
-# 声道
 def getChannels(audio):
+    """
+    获取声道
+    :param audio: 音频路径
+    :return:
+    """
     song = AudioSegment.from_mp3(audio)
     return song.channels
 
 
-# 位深
 def getBitDepth(audio):
+    """
+    获取位深
+    :param audio: 音频路径
+    :return:
+    """
     song = AudioSegment.from_mp3(audio)
     return song.sample_width * 8
 
 
-# 删除图片
 @rpcApi
 def removeImage(path):
+    """
+    删除图片
+    :param path: 路径
+    :return:
+    """
     os.remove(path)
     return RpcResult.ok("Image removed")
-
-
-if __name__ == '__main__':
-    pass

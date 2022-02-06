@@ -44,8 +44,8 @@ source_ambiguous_sounds_specificPatterns = ["Generic impact sounds", "Surface co
 def trans_wav_to_mp3(path, audioName):
     """
     wav转 mp3
-    :param path: 形如 D:/AudioSystem/noiseAudio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189_gaussian_white_noise.wav
+    :param path: D:/AudioSystem/noiseAudio/cv-corpus-chinese/clips/
+    :param audioName: common_voice_zh-CN_18524189_gaussian_white_noise.wav
     :return: 生成的 wav 地址
     """
     audio = AudioSegment.from_wav(path + audioName)
@@ -57,9 +57,9 @@ def trans_wav_to_mp3(path, audioName):
 def addTag(name, tag):
     """
     给添加扰动后生成的文件名打上对应扰动的类型
-    :param name:
-    :param tag:
-    :return:
+    :param name: common_voice_zh-CN_18524189.mp3
+    :param tag: sound_level
+    :return: common_voice_zh-CN_18524189_sound_level.mp3
     """
     pos = name.index(".")
     return name[0:pos] + "_" + tag + name[pos:]
@@ -68,9 +68,8 @@ def addTag(name, tag):
 def suffixToPatternType(suffix):
     """
     将音频名称扰动后缀转换为对应的扰动类型
-    gaussian_white_noise ---> Gaussian white noise
-    :param suffix:
-    :return:
+    :param suffix: gaussian_white_noise
+    :return: Gaussian white noise
     """
     return suffix.replace("_", " ").capitalize()
 
@@ -78,9 +77,8 @@ def suffixToPatternType(suffix):
 def patternTypeToSuffix(patternType):
     """
     扰动类型转换为对应后缀
-    Gaussian white noise ---> gaussian_white_noise
-    :param patternType:
-    :return:
+    :param patternType: Gaussian white noise
+    :return: gaussian_white_noise
     """
     return patternType.replace(" ", "_").lower()
 
@@ -88,8 +86,8 @@ def patternTypeToSuffix(patternType):
 def removeAudio(path, audioName):
     """
     删除音频
-    :param path:
-    :param audioName:
+    :param path: D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/
+    :param audioName: common_voice_zh-CN_27451286.mp3
     :return:
     """
     os.remove(path + audioName)
@@ -98,9 +96,8 @@ def removeAudio(path, audioName):
 def getPatternInfoFromName(patternTag):
     """
     从名称后缀解析出扰动大类和具体类型
-    animal_wild_animals ---> animal,wild animals
-    :param patternTag:
-    :return:
+    :param patternTag: animal_wild_animals
+    :return: animal,wild animals
     """
     if "gaussian_white_noise" in patternTag:
         return nameToPattern["gaussian_white_noise"], suffixToPatternType("gaussian_white_noise")

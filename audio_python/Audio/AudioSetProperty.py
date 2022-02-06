@@ -2,6 +2,7 @@ import json
 import os
 
 import pymysql.cursors
+
 from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
@@ -30,14 +31,22 @@ def getAudioSet():
     return RpcResult.ok(json.dumps(AudioSet, ensure_ascii=False))
 
 
-# 获取目录下的音频数据集
 @rpcApi
 def getAudioSetList(path):
+    """
+    获取目录下的音频数据集
+    :param path: 路径
+    :return:
+    """
     return RpcResult.ok(audioSetList(path))
 
 
-# 获取目录下的音频数据集
 def audioSetList(path):
+    """
+    获取目录下的音频数据集
+    :param path: 路径
+    :return:
+    """
     setList = []
     for file in os.listdir(path):
         filePath = os.path.join(path, file)
@@ -46,8 +55,12 @@ def audioSetList(path):
     return json.dumps(setList, ensure_ascii=False)
 
 
-# 从数据库获取数据集属性
 def getAudioDescription(dataset):
+    """
+    从数据库获取数据集属性
+    :param dataset: cv-corpus-chinese
+    :return:
+    """
     connect = pymysql.Connect(host="localhost", port=3306, user="root",
                               passwd="061210", db="audioset", charset="utf8")
     cursor = connect.cursor()

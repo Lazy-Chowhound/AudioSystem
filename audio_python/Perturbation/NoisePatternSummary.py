@@ -9,7 +9,7 @@ from Util.RpcResult import RpcResult
 def getNoisePatternSummary(dataset):
     """
     获取某个数据集扰动大类的详情
-    :param dataset:
+    :param dataset: cv-corpus-chinese
     :return:
     """
     path = getNoiseAudioSetClipPath(dataset)
@@ -30,8 +30,8 @@ def getNoisePatternSummary(dataset):
 def getNoisePatternDetail(dataset, patternType):
     """
     获取某个数据集某个扰动大类的具体扰动类型详情
-    :param dataset:
-    :param patternType:
+    :param dataset: cv-corpus-chinese
+    :param patternType: Sound level
     :return:
     """
     path = getNoiseAudioSetClipPath(dataset)
@@ -57,7 +57,7 @@ def getNoisePatternDetail(dataset, patternType):
 def getAudioSetPattern(dataset):
     """
     获取某个数据集每条音频的扰动详情
-    :param dataset:
+    :param dataset: cv-corpus-chinese
     :return:
     """
     path = getNoiseAudioSetClipPath(dataset)
@@ -77,6 +77,14 @@ def getAudioSetPattern(dataset):
 
 @rpcApi
 def removeFormerAudio(dataset, audioName, pattern, patternType=None):
+    """
+    删除现有的扰动音频
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
+    :param pattern: Animal
+    :param patternType: Wild animals
+    :return:
+    """
     path = getNoiseAudioSetClipPath(dataset)
     audioName = addTag(audioName, patternToName[pattern])
     if patternType is not None:

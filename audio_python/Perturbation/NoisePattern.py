@@ -174,7 +174,7 @@ def add_source_ambiguous_sounds(dataset, audioName, specificPattern):
     """
     添加 source_ambiguous_sounds 扰动
     :param dataset: cv-corpus-chinese
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
