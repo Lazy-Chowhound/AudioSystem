@@ -11,51 +11,51 @@ from Util.RpcResult import RpcResult
 
 
 @rpcApi
-def getAudio(dataset, page, pageSize):
+def get_audio_clips_properties_by_page(dataset, page, page_size):
     """
     分页获取音频及其属性
     :param dataset: cv-corpus-chinese
     :param page: 页数
-    :param pageSize: 页面大小
+    :param page_size: 页面大小
     :return:
     """
-    Audio = []
-    AudioList = getAudioList(dataset)
-    Audio.append({'total': len(AudioList)})
-    for i in range((int(page) - 1) * int(pageSize),
-                   min(int(page) * int(pageSize), len(AudioList))):
-        AudioProperty = getAudioProperty(dataset, AudioList[i])
-        AudioProperty['key'] = i + 1
-        Audio.append(AudioProperty)
-    return RpcResult.ok(json.dumps(Audio, ensure_ascii=False))
+    audio = []
+    audio_list = get_audio_clips_list(dataset)
+    audio.append({'total': len(audio_list)})
+    for i in range((int(page) - 1) * int(page_size),
+                   min(int(page) * int(page_size), len(audio_list))):
+        audio_property = get_audio_clip_properties(dataset, audio_list[i])
+        audio_property['key'] = i + 1
+        audio.append(audio_property)
+    return RpcResult.ok(json.dumps(audio, ensure_ascii=False))
 
 
-def getAudioProperty(dataset, audioName):
+def get_audio_clip_properties(dataset, audio_name):
     """
     获取某条音频所有属性
     :param dataset: cv-corpus-chinese
-    :param audioName: common_voice_zh-CN_18524189.mp3
+    :param audio_name: common_voice_zh-CN_18524189.mp3
     :return:
     """
-    audio = getAudioSetClipPath(dataset) + audioName
-    audioProperty = {}
-    detail = getAudioDetail(dataset, audioName)
-    audioProperty['name'] = audioName
-    audioProperty['size'] = str(getDuration(audio)) + "秒"
-    audioProperty['channel'] = "单" if getChannels(audio) == 1 else "双"
-    audioProperty['sampleRate'] = str(getSamplingRate(audio)) + "Hz"
-    audioProperty['bitDepth'] = str(getBitDepth(audio)) + "bit"
-    audioProperty['content'] = detail['sentence']
-    return audioProperty
+    audio = get_audio_clips_path(dataset) + audio_name
+    audio_property = {}
+    detail = get_audio_clip_detail(dataset, audio_name)
+    audio_property['name'] = audio_name
+    audio_property['size'] = str(get_duration(audio)) + "秒"
+    audio_property['channel'] = "单" if get_channels(audio) == 1 else "双"
+    audio_property['sampleRate'] = str(getSamplingRate(audio)) + "Hz"
+    audio_property['bitDepth'] = str(get_bit_depth(audio)) + "bit"
+    audio_property['content'] = detail['sentence']
+    return audio_property
 
 
-def getAudioList(dataset):
+def get_audio_clips_list(dataset):
     """
     获取目录下所有音频文件名
     :param dataset: cv-corpus-arabic
     :return:
     """
-    path = getAudioSetClipPath(dataset)
+    path = get_audio_clips_path(dataset)
     audioList = []
     for root, dirs, files in os.walk(path):
         for file in files:
@@ -64,20 +64,20 @@ def getAudioList(dataset):
     return audioList
 
 
-def getAudioDetail(dataset, audioName):
+def get_audio_clip_detail(dataset, audio_name):
     """
     获取指定音频的详情
     :param dataset: cv-corpus-chinese
-    :param audioName:
+    :param audio_name:
     :return:
     """
-    path = getAudioSetPath(dataset)
+    path = get_audio_set_path(dataset)
     files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
     detail = {}
     for file in files:
         train = pd.read_csv(os.path.join(path, file), sep='\t', header=0)
         for index, row in train.iterrows():
-            if audioName in row['path']:
+            if audio_name in row['path']:
                 detail['id'] = index
                 for item in row.items():
                     detail[item[0]] = item[1]
@@ -86,32 +86,32 @@ def getAudioDetail(dataset, audioName):
 
 
 @rpcApi
-def getWaveForm(dataset, audioName):
+def get_waveform_graph(dataset, audio_name):
     """
     生成波形图
     :param dataset: cv-corpus-chinese
-    :param audioName: 音频名
+    :param audio_name: 音频名
     :return:
     """
-    audio = os.path.join(getAudioSetClipPath(dataset), audioName)
+    audio = os.path.join(get_audio_clips_path(dataset), audio_name)
     sig, sr = librosa.load(audio, sr=None)
     plt.figure(figsize=(8, 5))
     librosa.display.waveshow(sig, sr=sr)
     plt.ylabel('Amplitude')
-    savingPath = "D:/AudioSystem/WaveImage/" + audioName + ".jpg"
+    savingPath = "D:/AudioSystem/WaveImage/" + audio_name + ".jpg"
     plt.savefig(savingPath)
     return RpcResult.ok(savingPath)
 
 
 @rpcApi
-def getMelSpectrum(dataset, audioName):
+def get_mel_spectrum(dataset, audio_name):
     """
     生成 Mel频谱图
     :param dataset: cv-corpus-chinese
-    :param audioName: 音频名
+    :param audio_name: 音频名
     :return:
     """
-    audio = os.path.join(getAudioSetClipPath(dataset), audioName)
+    audio = os.path.join(get_audio_clips_path(dataset), audio_name)
     sig, sr = librosa.load(audio, sr=None)
     S = librosa.feature.melspectrogram(y=sig, sr=sr)
     plt.figure(figsize=(8, 5))
@@ -120,7 +120,7 @@ def getMelSpectrum(dataset, audioName):
     plt.colorbar(format='%+2.0f dB')
     plt.title('Mel spectrogram')
     plt.tight_layout()
-    savingPath = "D:/AudioSystem/SpectrumImage/" + audioName + ".jpg"
+    savingPath = "D:/AudioSystem/SpectrumImage/" + audio_name + ".jpg"
     plt.savefig(savingPath)
     return RpcResult.ok(savingPath)
 
@@ -135,7 +135,7 @@ def getSamplingRate(audio):
     return samplingRate
 
 
-def getDuration(audio):
+def get_duration(audio):
     """
     获取音频时长
     :param audio: 音频路径
@@ -145,7 +145,7 @@ def getDuration(audio):
     return round(librosa.get_duration(sig, sr), 2)
 
 
-def getChannels(audio):
+def get_channels(audio):
     """
     获取声道
     :param audio: 音频路径
@@ -155,7 +155,7 @@ def getChannels(audio):
     return song.channels
 
 
-def getBitDepth(audio):
+def get_bit_depth(audio):
     """
     获取位深
     :param audio: 音频路径
@@ -166,7 +166,7 @@ def getBitDepth(audio):
 
 
 @rpcApi
-def removeImage(path):
+def remove_image(path):
     """
     删除图片
     :param path: 路径

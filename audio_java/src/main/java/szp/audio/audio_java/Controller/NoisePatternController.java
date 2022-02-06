@@ -191,9 +191,9 @@ public class NoisePatternController {
     private void removeFormerAudio(String dataset, String audioName,
                                    String formerPattern, String formerPatternType) throws XmlRpcException {
         if (formerPatternType == null) {
-            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern);
+            rpcUtil.sendRequest("remove_current_noise_audio_clip", dataset, audioName, formerPattern);
         } else {
-            rpcUtil.sendRequest("removeFormerAudio", dataset, audioName, formerPattern, formerPatternType);
+            rpcUtil.sendRequest("remove_current_noise_audio_clip", dataset, audioName, formerPattern, formerPatternType);
         }
     }
 }

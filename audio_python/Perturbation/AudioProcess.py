@@ -5,71 +5,77 @@ import librosa
 import numpy as np
 
 
-def normalize(waveData):
+def normalize(wave_data):
     """
     将标准正态分布样本变更加标准化
-    :param waveData: ndarray
+    :param wave_data: ndarray
     :return:
     """
-    standardDeviation = np.std(waveData)
-    return (waveData - np.mean(waveData)) / standardDeviation
+    standardDeviation = np.std(wave_data)
+    return (wave_data - np.mean(wave_data)) / standardDeviation
 
 
-def gaussian_white_noise(waveData, snr):
+def gaussian_white_noise(wave_data, snr):
     """
     高斯白噪声
-    :param waveData: numpy数组
+    :param wave_data: numpy数组
     :param snr:
     :return:
     """
-    data_type = waveData[0].dtype
-    P_signal = np.sum(abs(waveData) ** 2) / len(waveData)  # 信号功率
+    data_type = wave_data[0].dtype
+    P_signal = np.sum(abs(wave_data) ** 2) / len(wave_data)  # 信号功率
     P_noise = P_signal / 10 ** (snr / 10.0)  # 噪声功率
-    noise = np.random.normal(0, 1, size=len(waveData))
+    noise = np.random.normal(0, 1, size=len(wave_data))
     noise = normalize(noise)
-    noiseAudio = waveData + noise * np.sqrt(P_noise)
+    noiseAudio = wave_data + noise * np.sqrt(P_noise)
     noiseAudio = noiseAudio.astype(data_type)
     return noiseAudio
 
 
-def louder(wavData):
+def louder(wave_data):
     """
     提高响度
-    :param wavData: numpy数组
+    :param wave_data: numpy数组
     :return:
     """
-    return wavData * 5
+    return wave_data * 5
 
 
-def quieter(wavData):
+def quieter(wave_data):
     """
     降低响度
-    :param wavData: numpy数组
+    :param wave_data: numpy数组
     :return:
     """
-    return wavData / 5
+    return wave_data / 5
 
 
-def changePitch(wavData, sr):
+def change_pitch(wave_data, sr):
     """
     改变音高
-    :param wavData:
+    :param wave_data:
     :param sr:
     :return:
     """
     pitch = random.randint(5, 10) * random.randrange(-1, 2, 2)
-    noiseAudio = librosa.effects.pitch_shift(wavData, sr, n_steps=float(pitch))
-    return noiseAudio
+    noise_audio = librosa.effects.pitch_shift(wave_data, sr, n_steps=float(pitch))
+    return noise_audio
 
 
-def addNoise(waveData, noiseData):
-    audioLength = len(waveData)
+def add_noise(wave_data, noise_data):
+    """
+    音频添加噪声噪声
+    :param wave_data: 原始音频 ndarray
+    :param noise_data: 噪声音频 ndarray
+    :return:
+    """
+    audioLength = len(wave_data)
     # 先使噪声长度大于等于音频，然后再截取成一样
-    if len(waveData) > len(noiseData):
-        noiseData = np.tile(noiseData, math.ceil(len(waveData) / len(noiseData)))
-    if len(waveData) < len(noiseData):
-        noiseData = noiseData[:audioLength]
+    if len(wave_data) > len(noise_data):
+        noise_data = np.tile(noise_data, math.ceil(len(wave_data) / len(noise_data)))
+    if len(wave_data) < len(noise_data):
+        noise_data = noise_data[:audioLength]
     # 归一化
-    waveData = waveData * 1.0 / (max(abs(waveData)))
-    noiseData = noiseData * 1.0 / (max(abs(noiseData)))
-    return waveData + noiseData
+    wave_data = wave_data * 1.0 / (max(abs(wave_data)))
+    noise_data = noise_data * 1.0 / (max(abs(noise_data)))
+    return wave_data + noise_data

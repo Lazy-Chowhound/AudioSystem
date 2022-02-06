@@ -8,54 +8,54 @@ from Util.RpcResult import RpcResult
 
 
 @rpcApi
-def getAudioSet():
+def get_audio_sets_properties():
     """
     获取所有音频数据集及其所有属性
     :return:
     """
-    AudioSet = []
-    projectPath = os.path.abspath(os.path.join(os.getcwd(), "../.."))
-    path = os.path.join(projectPath, "Audio/")
-    for audio in json.loads(audioSetList(path)):
-        audioProperty = {}
-        description = getAudioDescription(audio)
-        audioProperty["key"] = description[0]
-        audioProperty["name"] = description[1]
-        audioProperty["language"] = description[2]
-        audioProperty["size"] = description[3]
-        audioProperty["hour"] = description[4]
-        audioProperty["people"] = description[5]
-        audioProperty["form"] = description[6]
-        audioProperty["distribution"] = description[7]
-        AudioSet.append(audioProperty)
-    return RpcResult.ok(json.dumps(AudioSet, ensure_ascii=False))
+    audio_set = []
+    project_path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    path = os.path.join(project_path, "Audio/")
+    for audio in json.loads(audio_sets_list(path)):
+        audio_property = {}
+        description = get_audio_set_description(audio)
+        audio_property["key"] = description[0]
+        audio_property["name"] = description[1]
+        audio_property["language"] = description[2]
+        audio_property["size"] = description[3]
+        audio_property["hour"] = description[4]
+        audio_property["people"] = description[5]
+        audio_property["form"] = description[6]
+        audio_property["distribution"] = description[7]
+        audio_set.append(audio_property)
+    return RpcResult.ok(json.dumps(audio_set, ensure_ascii=False))
 
 
 @rpcApi
-def getAudioSetList(path):
+def get_audio_sets_list(path):
     """
     获取目录下的音频数据集
     :param path: 路径
     :return:
     """
-    return RpcResult.ok(audioSetList(path))
+    return RpcResult.ok(audio_sets_list(path))
 
 
-def audioSetList(path):
+def audio_sets_list(path):
     """
     获取目录下的音频数据集
     :param path: 路径
     :return:
     """
-    setList = []
+    set_list = []
     for file in os.listdir(path):
-        filePath = os.path.join(path, file)
-        if os.path.isdir(filePath):
-            setList.append(file)
-    return json.dumps(setList, ensure_ascii=False)
+        file_path = os.path.join(path, file)
+        if os.path.isdir(file_path):
+            set_list.append(file)
+    return json.dumps(set_list, ensure_ascii=False)
 
 
-def getAudioDescription(dataset):
+def get_audio_set_description(dataset):
     """
     从数据库获取数据集属性
     :param dataset: cv-corpus-chinese
