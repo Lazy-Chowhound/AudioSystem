@@ -30,8 +30,7 @@ public class NoisePatternController {
                                         @RequestParam(value = "formerPattern") String formerPattern,
                                         @RequestParam(value = "formerPatternType") String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_gaussian_noise", path, audioName);
+            JSONObject response = rpcUtil.sendRequest("add_gaussian_noise", dataset, audioName);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -52,8 +51,7 @@ public class NoisePatternController {
                                 @RequestParam(value = "formerPattern") String formerPattern,
                                 @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_sound_level", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_sound_level", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -74,8 +72,7 @@ public class NoisePatternController {
                                    @RequestParam(value = "formerPattern") String formerPattern,
                                    @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_natural_sounds", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_natural_sounds", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -96,8 +93,7 @@ public class NoisePatternController {
                             @RequestParam(value = "formerPattern") String formerPattern,
                             @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_animal", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_animal", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -118,8 +114,7 @@ public class NoisePatternController {
                                    @RequestParam(value = "formerPattern") String formerPattern,
                                    @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_sound_of_things", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_sound_of_things", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -140,8 +135,7 @@ public class NoisePatternController {
                                  @RequestParam(value = "formerPattern") String formerPattern,
                                  @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_human_sounds", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_human_sounds", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -162,8 +156,7 @@ public class NoisePatternController {
                            @RequestParam(value = "formerPattern") String formerPattern,
                            @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_music", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_music", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -184,8 +177,7 @@ public class NoisePatternController {
                                            @RequestParam(value = "formerPattern") String formerPattern,
                                            @RequestParam(value = "formerPatternType", required = false) String formerPatternType) {
         try {
-            String path = "D:/AudioSystem/Audio/" + dataset + "/clips/";
-            JSONObject response = rpcUtil.sendRequest("add_source_ambiguous_sounds", path, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_source_ambiguous_sounds", dataset, audioName, specificPattern);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }

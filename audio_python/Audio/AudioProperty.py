@@ -5,36 +5,35 @@ import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from pydub import AudioSegment
 
 from Util.Annotation import rpcApi
+from Util.AudioUtil import *
 from Util.RpcResult import RpcResult
 
 
 @rpcApi
-def getAudio(AudioSetName, page, pageSize):
+def getAudio(dataset, page, pageSize):
     Audio = []
-    path = "D:/AudioSystem/Audio/" + AudioSetName + "/"
-    AudioList = getAudioList(path)
+    AudioList = getAudioList(dataset)
     Audio.append({'total': len(AudioList)})
     for i in range((int(page) - 1) * int(pageSize),
                    min(int(page) * int(pageSize), len(AudioList))):
-        AudioProperty = getAudioProperty(path, AudioList[i])
+        AudioProperty = getAudioProperty(dataset, AudioList[i])
         AudioProperty['key'] = i + 1
         Audio.append(AudioProperty)
     return RpcResult.ok(json.dumps(Audio, ensure_ascii=False))
 
 
-def getAudioProperty(path, audioName):
+def getAudioProperty(dataset, audioName):
     """
-    获取音频所有属性
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
+    获取某条音频所有属性
+    :param dataset: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
     :param audioName: 形如 common_voice_zh-CN_18524189.mp3
     :return:
     """
-    audio = path + "clips/" + audioName
+    audio = getAudioSetClipPath(dataset) + audioName
     audioProperty = {}
-    detail = getAudioDetail(path, audioName)
+    detail = getAudioDetail(dataset, audioName)
     audioProperty['name'] = audioName
     audioProperty['size'] = str(getDuration(audio)) + "秒"
     audioProperty['channel'] = "单" if getChannels(audio) == 1 else "双"
@@ -44,13 +43,13 @@ def getAudioProperty(path, audioName):
     return audioProperty
 
 
-def getAudioList(path):
+def getAudioList(dataset):
     """
     获取目录下所有音频文件名
-    :param path:D:/AudioSystem/Audio/cv-corpus-arabic/
+    :param dataset: cv-corpus-arabic
     :return:
     """
-    path += "clips/"
+    path = getAudioSetClipPath(dataset)
     audioList = []
     for root, dirs, files in os.walk(path):
         for file in files:
@@ -59,17 +58,18 @@ def getAudioList(path):
     return audioList
 
 
-def getAudioDetail(path, audioName):
+def getAudioDetail(dataset, audioName):
     """
     获取指定音频的详情
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/
+    :param dataset: cv-corpus-chinese
     :param audioName:
     :return:
     """
+    path = getAudioSetPath(dataset)
     files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
     detail = {}
     for file in files:
-        train = pd.read_csv(path + file, sep='\t', header=0)
+        train = pd.read_csv(os.path.join(path, file), sep='\t', header=0)
         for index, row in train.iterrows():
             if audioName in row['path']:
                 detail['id'] = index
@@ -81,9 +81,8 @@ def getAudioDetail(path, audioName):
 
 # 波形图、振幅
 @rpcApi
-def getWaveForm(audioSetName, audioName):
-    path = "D:/AudioSystem/Audio/" + audioSetName + "/"
-    audio = path + "clips/" + audioName
+def getWaveForm(dataset, audioName):
+    audio = os.path.join(getAudioSetClipPath(dataset), audioName)
     sig, sr = librosa.load(audio, sr=None)
     plt.figure(figsize=(8, 5))
     librosa.display.waveshow(sig, sr=sr)
@@ -95,9 +94,8 @@ def getWaveForm(audioSetName, audioName):
 
 # Mel频谱图
 @rpcApi
-def getMelSpectrum(audioSetName, audioName):
-    path = "D:/AudioSystem/Audio/" + audioSetName + "/"
-    audio = path + "clips/" + audioName
+def getMelSpectrum(dataset, audioName):
+    audio = os.path.join(getAudioSetClipPath(dataset), audioName)
     sig, sr = librosa.load(audio, sr=None)
     S = librosa.feature.melspectrogram(y=sig, sr=sr)
     plt.figure(figsize=(8, 5))
@@ -140,3 +138,7 @@ def getBitDepth(audio):
 def removeImage(path):
     os.remove(path)
     return RpcResult.ok("Image removed")
+
+
+if __name__ == '__main__':
+    pass

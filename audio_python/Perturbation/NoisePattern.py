@@ -8,16 +8,17 @@ from Util.RpcResult import RpcResult
 
 
 @rpcApi
-def add_gaussian_noise(path, audioName):
+def add_gaussian_noise(dataset, audioName):
     """
     添加高斯白噪声
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
     noiseAudio = gaussian_white_noise(sig, snr=5)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     waveName = audioName.replace(".mp3", ".wav")
     noiseWaveName = addTag(waveName, "gaussian_white_noise")
     writeNoiseAudio(wavePath, noiseWaveName, noiseAudio, sr)
@@ -25,17 +26,18 @@ def add_gaussian_noise(path, audioName):
 
 
 @rpcApi
-def add_sound_level(path, audioName, specificPattern):
+def add_sound_level(dataset, audioName, specificPattern):
     """
     添加 sound level 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :param specificPattern: 具体扰动 {louder:更响,quieter:更静,pitch:英高,speed:变速（更快）}
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
     noiseAudio = sig
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern == "Louder":
         noiseAudio = louder(sig)
     elif specificPattern == "Quieter":
@@ -53,19 +55,19 @@ def add_sound_level(path, audioName, specificPattern):
 
 
 @rpcApi
-def add_natural_sounds(path, audioName, specificPattern):
+def add_natural_sounds(dataset, audioName, specificPattern):
     """
     添加 natural sound 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern in natural_sounds_specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Natural Sounds/" + specificPattern + ".wav", sr=sr,
-                                          mono=True)
+        noiseSig, noise_sr = librosa.load(getSourceNoisePath("Natural Sounds", specificPattern), sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -76,19 +78,19 @@ def add_natural_sounds(path, audioName, specificPattern):
 
 
 @rpcApi
-def add_animal(path, audioName, specificPattern):
+def add_animal(dataset, audioName, specificPattern):
     """
     添加 animal 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern in animal_specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Animal/" + specificPattern + ".wav", sr=sr,
-                                          mono=True)
+        noiseSig, noise_sr = librosa.load(getSourceNoisePath("Animal", specificPattern), sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -99,19 +101,19 @@ def add_animal(path, audioName, specificPattern):
 
 
 @rpcApi
-def add_sound_of_things(path, audioName, specificPattern):
+def add_sound_of_things(dataset, audioName, specificPattern):
     """
     添加 sound of things 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param audioName: 形如 common_voice_zh-CN_18524189.mp3
+    :param dataset: cv-corpus-chinese
+    :param audioName: common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern in sound_of_things_specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Sound of things/" + specificPattern + ".wav", sr=sr,
-                                          mono=True)
+        noiseSig, noise_sr = librosa.load(getSourceNoisePath("Sound of things", specificPattern), sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -122,19 +124,19 @@ def add_sound_of_things(path, audioName, specificPattern):
 
 
 @rpcApi
-def add_human_sounds(path, audioName, specificPattern):
+def add_human_sounds(dataset, audioName, specificPattern):
     """
     添加 human sounds 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param dataset: cv-corpus-chinese
     :param audioName: 形如 common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern in human_sounds_specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Human Sounds/" + specificPattern + ".wav", sr=sr,
-                                          mono=True)
+        noiseSig, noise_sr = librosa.load(getSourceNoisePath("Human sounds", specificPattern), sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -145,19 +147,19 @@ def add_human_sounds(path, audioName, specificPattern):
 
 
 @rpcApi
-def add_music(path, audioName, specificPattern):
+def add_music(dataset, audioName, specificPattern):
     """
     添加 music 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param dataset: cv-corpus-chinese
     :param audioName: 形如 common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern in music_specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Music/" + specificPattern + ".wav", sr=sr,
-                                          mono=True)
+        noiseSig, noise_sr = librosa.load(getSourceNoisePath("Music", specificPattern), sr=sr, mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -168,19 +170,20 @@ def add_music(path, audioName, specificPattern):
 
 
 @rpcApi
-def add_source_ambiguous_sounds(path, audioName, specificPattern):
+def add_source_ambiguous_sounds(dataset, audioName, specificPattern):
     """
     添加 source_ambiguous_sounds 扰动
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param dataset: cv-corpus-chinese
     :param audioName: 形如 common_voice_zh-CN_18524189.mp3
     :param specificPattern:
     :return:
     """
+    path = getAudioSetClipPath(dataset)
     sig, sr = librosa.load(path + audioName, sr=None)
-    wavePath = path.replace("D:/AudioSystem/Audio/", "D:/AudioSystem/noiseAudio/")
+    wavePath = getNoiseAudioSetClipPath(dataset)
     if specificPattern in source_ambiguous_sounds_specificPatterns:
-        noiseSig, noise_sr = librosa.load("D:/AudioSystem/Noise/Source-ambiguous sounds/" + specificPattern + ".wav",
-                                          sr=sr, mono=True)
+        noiseSig, noise_sr = librosa.load(getSourceNoisePath("Source-ambiguous sounds", specificPattern), sr=sr,
+                                          mono=True)
         noiseAudio = addNoise(sig, noiseSig)
     else:
         return RpcResult.error("patternType error")
@@ -204,15 +207,16 @@ def writeNoiseAudio(path, noiseAudioName, noiseAudio, sr):
     removeAudio(path, noiseAudioName)
 
 
-def add_randomly_multiProcess(path, process_num):
+def add_randomly_multiProcess(dataset, process_num):
     """
     多线程添加扰动
     :param process_num: 进程数
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param dataset: cv-corpus-chinese
     :return:
     """
     logging.basicConfig(level=logging.ERROR, filename="error.log", filemode="a",
                         format="%(levelname)s %(asctime)s %(filename)s %(message)s")
+    path = getAudioSetClipPath(dataset)
     audio_list = []
     for root, dirs, files in os.walk(path):
         audio_list = files
@@ -221,16 +225,16 @@ def add_randomly_multiProcess(path, process_num):
     pool = Pool(process_num)
     for i in range(0, process_num):
         pool.apply_async(add_pattern_range,
-                         args=(path, audio_list, i * task_slice,
+                         args=(dataset, audio_list, i * task_slice,
                                min((i + 1) * task_slice, len(audio_list)),))
     pool.close()
     pool.join()
 
 
-def add_pattern_range(path, audio_list, start, end):
+def add_pattern_range(dataset, audio_list, start, end):
     """
     范围添加扰动
-    :param path:
+    :param dataset:
     :param audio_list:
     :param start:
     :param end:
@@ -238,40 +242,44 @@ def add_pattern_range(path, audio_list, start, end):
     """
     print('process %s working...' % (os.getpid()))
     for audio in audio_list[start:end]:
-        add_pattern_randomly(path, audio)
+        add_pattern_randomly(dataset, audio)
 
 
-def add_pattern_randomly(path, file):
+def add_pattern_randomly(dataset, file):
     """
     随即个某一音频添加噪声
-    :param path: 形如 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param dataset: cv-corpus-chinese
     :param file: common_voice_zh-CN_18524189.mp3
     :return:
     """
     try:
         p = random.randint(1, 8)
         if p == 1:
-            add_gaussian_noise(path, file)
+            add_gaussian_noise(dataset, file)
         elif p == 2:
             ptype = sound_level_specificPatterns
-            add_sound_level(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_sound_level(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 3:
             ptype = animal_specificPatterns
-            add_animal(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_animal(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 4:
             ptype = sound_of_things_specificPatterns
-            add_sound_of_things(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_sound_of_things(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 5:
             ptype = human_sounds_specificPatterns
-            add_human_sounds(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_human_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 6:
             ptype = natural_sounds_specificPatterns
-            add_natural_sounds(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_natural_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 7:
             ptype = music_specificPatterns
-            add_music(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_music(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 8:
             ptype = source_ambiguous_sounds_specificPatterns
-            add_source_ambiguous_sounds(path, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
     except Exception as e:
-        logging.warning(path + file + " fail ", e)
+        logging.warning(dataset + ":" + file + " fail ", e)
+
+
+if __name__ == '__main__':
+    add_randomly_multiProcess("cv-corpus-test", 8)

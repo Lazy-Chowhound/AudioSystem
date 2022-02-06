@@ -1,9 +1,7 @@
 import json
-import os
-import re
 
 from Util.Annotation import rpcApi
-from Util.AudioUtil import removeAudio, addTag, patternTypeToSuffix, getPatternInfo, patternToName
+from Util.AudioUtil import *
 from Util.RpcResult import RpcResult
 
 
@@ -14,7 +12,7 @@ def getNoisePatternSummary(dataset):
     :param dataset:
     :return:
     """
-    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips"
+    path = getNoiseAudioSetClipPath(dataset)
     summary = {}
     for file in os.listdir(path):
         for key, value in patternToName.items():
@@ -36,7 +34,7 @@ def getNoisePatternDetail(dataset, patternType):
     :param patternType:
     :return:
     """
-    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips"
+    path = getNoiseAudioSetClipPath(dataset)
     summaryDetail = {}
     name = patternToName[patternType]
     for file in os.listdir(path):
@@ -62,7 +60,7 @@ def getAudioSetPattern(dataset):
     :param dataset:
     :return:
     """
-    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
+    path = getNoiseAudioSetClipPath(dataset)
     audioSetPattern = []
     key = 0
     for root, dirs, files in os.walk(path):
@@ -72,14 +70,14 @@ def getAudioSetPattern(dataset):
             num = re.findall("\\d+", file)[0]
             patternInfo["name"] = file[0:file.find(num) + len(num)] + ".mp3"
             patternTag = file[file.find(num) + len(num) + 1:file.find(".")]
-            patternInfo["pattern"], patternInfo["patternType"] = getPatternInfo(patternTag)
+            patternInfo["pattern"], patternInfo["patternType"] = getPatternInfoFromName(patternTag)
             audioSetPattern.append(patternInfo)
     return RpcResult.ok(json.dumps(audioSetPattern, ensure_ascii=False))
 
 
 @rpcApi
 def removeFormerAudio(dataset, audioName, pattern, patternType=None):
-    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
+    path = getNoiseAudioSetClipPath(dataset)
     audioName = addTag(audioName, patternToName[pattern])
     if patternType is not None:
         audioName = addTag(audioName, patternTypeToSuffix(patternType))

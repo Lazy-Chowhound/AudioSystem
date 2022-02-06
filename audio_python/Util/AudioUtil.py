@@ -24,13 +24,19 @@ nameToPattern = {"gaussian_white_noise": "Gaussian noise",
                  "music": "Music"}
 
 sound_level_specificPatterns = ["Louder", "Quieter", "Pitch", "Speed"]
+
 animal_specificPatterns = ["Pets", "Livestock", "Wild animals"]
+
 sound_of_things_specificPatterns = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosion",
                                     "Wood", "Glass", "Liquid", "Miscellaneous sources", "Specific impact sounds"]
+
 human_sounds_specificPatterns = ["Human voice", "Whistling", "Respiratory sounds", "Human locomotion", "Hands",
                                  "Heartbeat", "Human group actions"]
+
 natural_sounds_specificPatterns = ["Wind", "Thunderstorm", "Water", "Fire"]
+
 music_specificPatterns = ["Musical instrument", "Music genre", "Musical concepts", "Music role", "Music mood"]
+
 source_ambiguous_sounds_specificPatterns = ["Generic impact sounds", "Surface contact", "Deformable shell",
                                             "Onomatopoeia", "Silence", "Other sourceless"]
 
@@ -89,7 +95,7 @@ def removeAudio(path, audioName):
     os.remove(path + audioName)
 
 
-def getPatternInfo(patternTag):
+def getPatternInfoFromName(patternTag):
     """
     从名称后缀解析出扰动大类和具体类型
     animal_wild_animals ---> animal,wild animals
@@ -102,6 +108,41 @@ def getPatternInfo(patternTag):
         for key, value in nameToPattern.items():
             if key in patternTag:
                 return nameToPattern[key], suffixToPatternType(patternTag.replace(key + "_", ""))
+
+
+def getAudioSetPath(dataset):
+    """
+    根据数据集名称获取地址
+    :param dataset:
+    :return:
+    """
+    projectPath = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    return os.path.join(projectPath, "Audio", dataset + "/").replace("\\", "/")
+
+
+def getAudioSetClipPath(dataset):
+    """
+    根据数据集名称获取音频地址
+    :param dataset:
+    :return:
+    """
+    projectPath = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    return os.path.join(projectPath, "Audio", dataset, "clips/").replace("\\", "/")
+
+
+def getNoiseAudioSetClipPath(dataset):
+    """
+    根据噪声数据集名称获取地址
+    :param dataset:
+    :return:
+    """
+    projectPath = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    return os.path.join(projectPath, "NoiseAudio", dataset, "clips/").replace("\\", "/")
+
+
+def getSourceNoisePath(pattern, specificPattern):
+    projectPath = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    return os.path.join(projectPath, "Noise", pattern, specificPattern + ".wav").replace("\\", "/")
 
 
 def extractAudio(source_path, start, end, patternType, target_path):
@@ -141,8 +182,8 @@ def find_error_audio(dataset):
     :return: 
     """
     error_list = []
-    source_path = "D:/AudioSystem/Audio/" + dataset + "/clips/"
-    target_path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
+    source_path = getAudioSetClipPath(dataset)
+    target_path = getNoiseAudioSetClipPath(dataset)
     source_file_list = []
     target_file_list = []
     for root, dirs, files in os.walk(source_path):
@@ -196,10 +237,9 @@ def ifDuplicate(dataset):
     :param dataset: cv-corpus-japanese
     :return: 
     """
-    path = "D:/AudioSystem/NoiseAudio/" + dataset + "/clips/"
     duplicate_list = []
     data = {}
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(getNoiseAudioSetClipPath(dataset)):
         for file in files:
             order = getOrder(file)
             if order in data.keys():
@@ -210,3 +250,7 @@ def ifDuplicate(dataset):
         if value >= 2:
             duplicate_list.append(key)
     return duplicate_list
+
+
+if __name__ == '__main__':
+    pass

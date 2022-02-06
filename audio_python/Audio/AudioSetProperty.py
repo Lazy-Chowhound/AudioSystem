@@ -2,16 +2,19 @@ import json
 import os
 
 import pymysql.cursors
-
-# 获取所有音频数据集及其所有属性
 from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
 
 @rpcApi
 def getAudioSet():
+    """
+    获取所有音频数据集及其所有属性
+    :return:
+    """
     AudioSet = []
-    path = "D:/AudioSystem/Audio/"
+    projectPath = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    path = os.path.join(projectPath, "Audio/")
     for audio in json.loads(audioSetList(path)):
         audioProperty = {}
         description = getAudioDescription(audio)
@@ -44,12 +47,12 @@ def audioSetList(path):
 
 
 # 从数据库获取数据集属性
-def getAudioDescription(AudioSetName):
+def getAudioDescription(dataset):
     connect = pymysql.Connect(host="localhost", port=3306, user="root",
                               passwd="061210", db="audioset", charset="utf8")
     cursor = connect.cursor()
     cursor.execute(
-        "select id,name,language,size,hour,people,form,distribution from audio where name = '%s'" % (AudioSetName,))
+        "select id,name,language,size,hour,people,form,distribution from audio where name = '%s'" % (dataset,))
     description = cursor.fetchone()
     cursor.close()
     connect.close()
