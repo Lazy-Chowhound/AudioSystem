@@ -5,11 +5,17 @@ import soundfile
 from moviepy.editor import *
 from pydub import AudioSegment
 
+# 项目路径
 PROJECT_PATH = "D:/AudioSystem/"
+# 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
+# 添加完扰动的音频数据集路径
 NOISE_AUDIO_SETS_PATH = PROJECT_PATH + "NoiseAudio/"
+# 原始噪声路径
 SOURCE_NOISES_PATH = PROJECT_PATH + "Noise/"
+# 波形图路径
 WAVEFORM_GRAPH_PATH = PROJECT_PATH + "WaveImage/"
+# Mel频谱图路径
 MEL_SPECTRUM_PATH = PROJECT_PATH + "SpectrumImage/"
 
 pattern_to_name = {"Gaussian noise": "gaussian_white_noise",
