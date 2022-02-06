@@ -89,7 +89,7 @@ class AudioDetail extends React.Component {
     }
 
     showWaveForm = (text, record) => {
-        sendGet("/getWaveForm", {
+        sendGet("/waveFormGraph", {
             params: {
                 audioSet: this.props.choice,
                 audioName: record.name
@@ -113,7 +113,7 @@ class AudioDetail extends React.Component {
     }
 
     showMelSpectrum = (text, record) => {
-        sendGet("/getMelSpectrum", {
+        sendGet("/melSpectrum", {
             params: {
                 audioSet: this.props.choice,
                 audioName: record.name
@@ -162,7 +162,7 @@ class AudioDetail extends React.Component {
             dataSource: [],
             loading: true
         })
-        sendGet("/audioDescription", {
+        sendGet("/audioClipsPropertiesByPage", {
             params: {
                 audioSet: this.props.choice,
                 page: this.state.currentPage,

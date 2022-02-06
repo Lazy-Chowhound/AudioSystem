@@ -22,10 +22,10 @@ public class AudioController {
     /**
      * 获取音频数据集列表
      */
-    @RequestMapping("/audioSetList")
-    public Result getAudioSetList(@RequestParam(value = "path") String path) {
+    @RequestMapping("/audioSetsList")
+    public Result getAudioSetsList(@RequestParam(value = "path") String path) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getAudioSetList", path);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_list", path);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -36,10 +36,10 @@ public class AudioController {
     /**
      * 获取音频数据集属性
      */
-    @RequestMapping("/audioSetDescription")
-    public Result getAudioSetDescription() {
+    @RequestMapping("/audioSetsProperties")
+    public Result getAudioSetsProperties() {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getAudioSet");
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_properties");
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -50,12 +50,13 @@ public class AudioController {
     /**
      * 获取音频属性
      */
-    @RequestMapping("/audioDescription")
-    public Result getAudioDescription(@RequestParam(value = "audioSet") String audioSet,
+    @RequestMapping("/audioClipsPropertiesByPage")
+    public Result getAudioClipsPropertiesByPage(@RequestParam(value = "audioSet") String audioSet,
                                       @RequestParam(value = "page") String page,
                                       @RequestParam(value = "pageSize") String pageSize) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getAudio", audioSet, page, pageSize);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_clips_properties_by_page",
+                    audioSet, page, pageSize);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -66,11 +67,11 @@ public class AudioController {
     /**
      * 获取波形图
      */
-    @RequestMapping("/getWaveForm")
-    public Result getAudioWaveForm(@RequestParam(value = "audioSet") String audioSet,
+    @RequestMapping("/waveFormGraph")
+    public Result getWaveFormGraph(@RequestParam(value = "audioSet") String audioSet,
                                    @RequestParam(value = "audioName") String audioName) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getWaveForm", audioSet, audioName);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_waveform_graph", audioSet, audioName);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     jsonObject.getString("data"));
         } catch (XmlRpcException xmlRpcException) {
@@ -81,11 +82,11 @@ public class AudioController {
     /**
      * 获取 Mel 频谱图
      */
-    @RequestMapping("/getMelSpectrum")
+    @RequestMapping("/melSpectrum")
     public Result getMelSpectrum(@RequestParam(value = "audioSet") String audioSet,
                                  @RequestParam(value = "audioName") String audioName) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getMelSpectrum", audioSet, audioName);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_mel_spectrum", audioSet, audioName);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getString("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -96,7 +97,7 @@ public class AudioController {
     @RequestMapping("/removeImage")
     public Result removeImage(@RequestParam(value = "path") String path) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("removeImage", path);
+            JSONObject jsonObject = rpcUtil.sendRequest("remove_image", path);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     jsonObject.getString("data"));
         } catch (XmlRpcException xmlRpcException) {

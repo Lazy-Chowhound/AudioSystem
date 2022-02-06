@@ -10,7 +10,7 @@ class NoisePatternDetail extends React.Component {
         this.state = {
             legend: [],
             info: [],
-            patternType: "Sound level"
+            pattern: "Sound level"
         }
     }
 
@@ -20,7 +20,7 @@ class NoisePatternDetail extends React.Component {
 
     handleChange = (e) => {
         this.setState({
-            patternType: e
+            pattern: e
         }, () => {
             this.getDetail()
         })
@@ -46,10 +46,10 @@ class NoisePatternDetail extends React.Component {
     }
 
     getDetail = () => {
-        sendGet("/noisePatternDetail", {
+        sendGet("/patternDetail", {
             params: {
                 dataset: this.props.dataset,
-                patternType: this.state.patternType
+                pattern: this.state.pattern
             }
         }).then(res => {
             if (res.data.code === 400) {

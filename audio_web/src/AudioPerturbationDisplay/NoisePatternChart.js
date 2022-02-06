@@ -20,7 +20,7 @@ class NoisePatternChart extends Component {
     }
 
     componentDidMount() {
-        sendGet("/noisePatternSummary", {
+        sendGet("/patternSummary", {
             params: {
                 dataset: this.props.dataset
             }

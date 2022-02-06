@@ -22,10 +22,10 @@ public class NoisePatternInfoController {
     /**
      * 获取扰动概况
      */
-    @RequestMapping("/noisePatternSummary")
-    public Result getNoisePatternSummary(@RequestParam(value = "dataset") String dataset) {
+    @RequestMapping("/patternSummary")
+    public Result getPatternSummary(@RequestParam(value = "dataset") String dataset) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getNoisePatternSummary", dataset);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_pattern_summary", dataset);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONObject("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -36,11 +36,11 @@ public class NoisePatternInfoController {
     /**
      * 获取扰动详情
      */
-    @RequestMapping("/noisePatternDetail")
-    public Result getNoisePatternDetail(@RequestParam(value = "dataset") String dataset,
-                                        @RequestParam(value = "patternType") String patternType) {
+    @RequestMapping("/patternDetail")
+    public Result getPatternDetail(@RequestParam(value = "dataset") String dataset,
+                                        @RequestParam(value = "pattern") String pattern) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getNoisePatternDetail", dataset, patternType);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_pattern_detail", dataset, pattern);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONObject("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -51,10 +51,10 @@ public class NoisePatternInfoController {
     /**
      * 获取某数据集所有音频扰动情况
      */
-    @RequestMapping("/audioSetPattern")
-    public Result getAudioSetPattern(@RequestParam(value = "dataset") String dataset) {
+    @RequestMapping("/audioClipsPattern")
+    public Result getAudioClipsPattern(@RequestParam(value = "dataset") String dataset) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("getAudioSetPattern", dataset);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_clips_pattern", dataset);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {

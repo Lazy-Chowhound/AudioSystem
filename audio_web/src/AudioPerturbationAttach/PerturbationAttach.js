@@ -204,7 +204,7 @@ class PerturbationAttach extends React.Component {
     }
 
     getPatternDetail = () => {
-        sendGet("/audioSetPattern", {
+        sendGet("/audioClipsPattern", {
             params: {
                 dataset: this.state.dataset
             }
@@ -255,9 +255,9 @@ class PerturbationAttach extends React.Component {
         let params = {};
         params["audioName"] = this.state.dataSource[selectedKey].name
         params["dataset"] = this.state.dataset
-        params["formerPattern"] = this.state.dataSource[selectedKey].pattern
-        if (params["formerPattern"] !== "Gaussian noise") {
-            params["formerPatternType"] = this.state.dataSource[selectedKey].patternType
+        params["currentPattern"] = this.state.dataSource[selectedKey].pattern
+        if (params["currentPattern"] !== "Gaussian noise") {
+            params["currentPatternType"] = this.state.dataSource[selectedKey].patternType
         }
         if (pattern[0] !== "Gaussian noise") {
             params["specificPattern"] = pattern[1]

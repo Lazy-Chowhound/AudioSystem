@@ -54,7 +54,7 @@ def get_pattern_detail(dataset, pattern):
 
 
 @rpcApi
-def get_audio_clip_pattern(dataset):
+def get_audio_clips_pattern(dataset):
     """
     获取某个数据集所有音频的扰动详情
     :param dataset: cv-corpus-chinese

@@ -65,7 +65,7 @@ class AudioList extends React.Component {
     ];
 
     componentDidMount() {
-        sendGet("/audioSetDescription").then(res => {
+        sendGet("/audioSetsProperties").then(res => {
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
                 this.setState({
