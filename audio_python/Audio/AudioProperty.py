@@ -98,7 +98,7 @@ def get_waveform_graph(dataset, audio_name):
     plt.figure(figsize=(8, 5))
     librosa.display.waveshow(sig, sr=sr)
     plt.ylabel('Amplitude')
-    savingPath = "D:/AudioSystem/WaveImage/" + audio_name + ".jpg"
+    savingPath = WAVEFORM_GRAPH_PATH + audio_name + ".jpg"
     plt.savefig(savingPath)
     return RpcResult.ok(savingPath)
 
@@ -120,7 +120,7 @@ def get_mel_spectrum(dataset, audio_name):
     plt.colorbar(format='%+2.0f dB')
     plt.title('Mel spectrogram')
     plt.tight_layout()
-    savingPath = "D:/AudioSystem/SpectrumImage/" + audio_name + ".jpg"
+    savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
     plt.savefig(savingPath)
     return RpcResult.ok(savingPath)
 

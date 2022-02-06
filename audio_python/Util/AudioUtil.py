@@ -5,6 +5,13 @@ import soundfile
 from moviepy.editor import *
 from pydub import AudioSegment
 
+PROJECT_PATH = "D:/AudioSystem/"
+AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
+NOISE_AUDIO_SETS_PATH = PROJECT_PATH + "NoiseAudio/"
+SOURCE_NOISES_PATH = PROJECT_PATH + "Noise/"
+WAVEFORM_GRAPH_PATH = PROJECT_PATH + "WaveImage/"
+MEL_SPECTRUM_PATH = PROJECT_PATH + "SpectrumImage/"
+
 pattern_to_name = {"Gaussian noise": "gaussian_white_noise",
                    "Sound level": "sound_level",
                    "Animal": "animal",
@@ -109,37 +116,33 @@ def get_pattern_info_from_name(pattern_tag):
 
 def get_audio_set_path(dataset):
     """
-    根据数据集名称获取地址
+    根据数据集名称获取路径
     :param dataset:
     :return:
     """
-    project_path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
-    return os.path.join(project_path, "Audio", dataset + "/").replace("\\", "/")
+    return AUDIO_SETS_PATH + dataset + "/"
 
 
 def get_audio_clips_path(dataset):
     """
-    根据数据集名称获取音频地址
+    根据数据集名称获取音频路径
     :param dataset:
     :return:
     """
-    project_path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
-    return os.path.join(project_path, "Audio", dataset, "clips/").replace("\\", "/")
+    return AUDIO_SETS_PATH + dataset + "/clips/"
 
 
 def get_noise_audio_clips_path(dataset):
     """
-    根据噪声数据集名称获取地址
+    根据噪声数据集名称获取路径
     :param dataset:
     :return:
     """
-    project_path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
-    return os.path.join(project_path, "NoiseAudio", dataset, "clips/").replace("\\", "/")
+    return NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
 
 
-def get_source_noises_path(pattern, specificPattern):
-    project_path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
-    return os.path.join(project_path, "Noise", pattern, specificPattern + ".wav").replace("\\", "/")
+def get_source_noises_path(pattern, pattern_type):
+    return SOURCE_NOISES_PATH + pattern + "/" + pattern_type + ".wav"
 
 
 def extract_audio(source_path, start, end, pattern_type, target_path):

@@ -4,6 +4,7 @@ import os
 import pymysql.cursors
 
 from Util.Annotation import rpcApi
+from Util.AudioUtil import AUDIO_SETS_PATH
 from Util.RpcResult import RpcResult
 
 
@@ -14,8 +15,7 @@ def get_audio_sets_properties():
     :return:
     """
     audio_set = []
-    project_path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
-    path = os.path.join(project_path, "Audio/")
+    path = AUDIO_SETS_PATH
     for audio in json.loads(audio_sets_list(path)):
         audio_property = {}
         description = get_audio_set_description(audio)
@@ -70,3 +70,7 @@ def get_audio_set_description(dataset):
     cursor.close()
     connect.close()
     return description
+
+
+if __name__ == '__main__':
+    get_audio_sets_properties()
