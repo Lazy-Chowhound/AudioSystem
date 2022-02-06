@@ -52,8 +52,8 @@ public class AudioController {
      */
     @RequestMapping("/audioClipsPropertiesByPage")
     public Result getAudioClipsPropertiesByPage(@RequestParam(value = "audioSet") String audioSet,
-                                      @RequestParam(value = "page") String page,
-                                      @RequestParam(value = "pageSize") String pageSize) {
+                                                @RequestParam(value = "page") String page,
+                                                @RequestParam(value = "pageSize") String pageSize) {
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_audio_clips_properties_by_page",
                     audioSet, page, pageSize);
@@ -72,8 +72,7 @@ public class AudioController {
                                    @RequestParam(value = "audioName") String audioName) {
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_waveform_graph", audioSet, audioName);
-            return Result.success(StatusCode.SUCCESS.getStatus(),
-                    jsonObject.getString("data"));
+            return Result.success(StatusCode.SUCCESS.getStatus(), jsonObject.getString("data"));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
@@ -87,8 +86,7 @@ public class AudioController {
                                  @RequestParam(value = "audioName") String audioName) {
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_mel_spectrum", audioSet, audioName);
-            return Result.success(StatusCode.SUCCESS.getStatus(),
-                    JSONObject.toJSONString(jsonObject.getString("data")));
+            return Result.success(StatusCode.SUCCESS.getStatus(), jsonObject.getString("data"));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
