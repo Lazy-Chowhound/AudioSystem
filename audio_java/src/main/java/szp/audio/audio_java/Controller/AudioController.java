@@ -23,9 +23,9 @@ public class AudioController {
      * 获取音频数据集列表
      */
     @RequestMapping("/audioSetsList")
-    public Result getAudioSetsList(@RequestParam(value = "path") String path) {
+    public Result getAudioSetsList() {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_list", path);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_list");
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {

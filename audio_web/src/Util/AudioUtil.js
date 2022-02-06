@@ -3,11 +3,7 @@ import sendGet from "./axios";
 async function getAudioSet() {
     const ops = []
     let error = null
-    await sendGet("/audioSetsList", {
-        params: {
-            path: "D:/AudioSystem/Audio/"
-        }
-    }).then(res => {
+    await sendGet("/audioSetsList", {}).then(res => {
         if (res.data.code === 400) {
             error = res.data.data
         } else {

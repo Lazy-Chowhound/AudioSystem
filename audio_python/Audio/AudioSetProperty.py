@@ -32,12 +32,12 @@ def get_audio_sets_properties():
 
 
 @rpcApi
-def get_audio_sets_list(path):
+def get_audio_sets_list():
     """
     获取目录下的音频数据集
-    :param path: 路径
     :return:
     """
+    path = AUDIO_SETS_PATH
     return RpcResult.ok(audio_sets_list(path))
 
 
