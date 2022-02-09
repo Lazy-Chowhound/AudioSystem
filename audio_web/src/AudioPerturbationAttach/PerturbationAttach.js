@@ -340,21 +340,6 @@ class PerturbationAttach extends React.Component {
                 </Table.Summary.Row>
             </Table.Summary>
 
-        let titleRow =
-            <div>
-                <span>数据集:</span>
-                <Select defaultValue={this.state.dataset} bordered={false}
-                        onChange={this.datasetChange}>
-                    {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
-                </Select>
-                <Tooltip placement="right" title="点击查看所有扰动类别">
-                    <QuestionCircleOutlined onClick={() => {
-                        this.openDrawer()
-                    }}/>
-                    <PatternDrawer bindChildren={this.bindPatternDrawer}/>
-                </Tooltip>
-            </div>
-
         let content;
         if (this.state.operationDone) {
             content =
@@ -373,11 +358,21 @@ class PerturbationAttach extends React.Component {
         } else {
             content =
                 <div style={{whiteSpace: "pre"}}>
+                    <div style={{padding: 10}}>
+                        <span>数据集:</span>
+                        <Select defaultValue={this.state.dataset} bordered={false}
+                                onChange={this.datasetChange} size={"large"}>
+                            {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
+                        </Select>
+                        <Tooltip placement="right" title="点击查看所有扰动类别">
+                            <QuestionCircleOutlined onClick={() => {
+                                this.openDrawer()
+                            }}/>
+                            <PatternDrawer bindChildren={this.bindPatternDrawer}/>
+                        </Tooltip>
+                    </div>
                     <Table rowSelection={rowSelection} columns={this.columns} dataSource={this.state.dataSource}
                            locale={locales} summary={() => (summaryRow)} loading={this.state.loading}
-                           title={() => {
-                               return (titleRow)
-                           }}
                            pagination={{
                                pageSize: this.state.pageSize,
                                total: this.state.total,
