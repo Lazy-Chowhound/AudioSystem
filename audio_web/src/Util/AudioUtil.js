@@ -1,4 +1,5 @@
 import sendGet from "./axios";
+import baseUrl from "./url";
 
 async function getAudioSet() {
     const ops = []
@@ -20,4 +21,12 @@ async function getAudioSet() {
     })
 }
 
-export default getAudioSet
+function getAudioAddress(dataset, audioName) {
+    return baseUrl + "/Audio/" + dataset + "/clips/" + audioName
+}
+
+function getNoiseAudioAddress(dataset, audioName) {
+    return baseUrl + "/NoiseAudio/" + dataset + "/clips/" + audioName
+}
+
+export {getAudioSet, getAudioAddress, getNoiseAudioAddress}

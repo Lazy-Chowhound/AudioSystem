@@ -4,6 +4,7 @@ import ImageDisplay from "./ImageDisplay";
 import sendGet from "../Util/axios";
 import baseUrl from "../Util/url";
 import AudioPlay from "./AudioPlay";
+import {getAudioAddress} from "../Util/AudioUtil";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -25,11 +26,10 @@ class AudioDetail extends React.Component {
         {
             title: "音频",
             dataIndex: "name",
-            key: "name",
             align: "center",
             width: 320,
-            render: item => <AudioPlay name={item}
-                                       src={baseUrl + "/Audio/" + this.props.choice + "/clips/" + item}/>
+            render: (text, record) => <AudioPlay name={record.name}
+                                                 src={getAudioAddress(this.props.choice, record.name)}/>
         },
         {
             title: "时长",
