@@ -163,7 +163,7 @@ class AudioDetail extends React.Component {
         })
         sendGet("/audioClipsPropertiesByPage", {
             params: {
-                audioSet: this.props.choice,
+                dataset: this.props.choice,
                 page: this.state.currentPage,
                 pageSize: this.state.pageSize
             }

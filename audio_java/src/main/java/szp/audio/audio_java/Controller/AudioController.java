@@ -51,12 +51,12 @@ public class AudioController {
      * 获取音频属性
      */
     @RequestMapping("/audioClipsPropertiesByPage")
-    public Result getAudioClipsPropertiesByPage(@RequestParam(value = "audioSet") String audioSet,
+    public Result getAudioClipsPropertiesByPage(@RequestParam(value = "audioSet") String dataset,
                                                 @RequestParam(value = "page") String page,
                                                 @RequestParam(value = "pageSize") String pageSize) {
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_audio_clips_properties_by_page",
-                    audioSet, page, pageSize);
+                    dataset, page, pageSize);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
