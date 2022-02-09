@@ -18,7 +18,7 @@ class NoisePatternDetail extends React.Component {
         this.getDetail()
     }
 
-    handleChange = (e) => {
+    patternChange = (e) => {
         this.setState({
             pattern: e
         }, () => {
@@ -88,7 +88,7 @@ class NoisePatternDetail extends React.Component {
         return (
             <div>
                 <div style={{marginTop: -20}}>
-                    <Select defaultValue="Sound level" bordered={false} onChange={this.handleChange}>
+                    <Select defaultValue="Sound level" bordered={false} onChange={this.patternChange}>
                         <Select.Option value="Sound level">Sound level</Select.Option>
                         <Select.Option value="Gaussian noise">Gaussian noise</Select.Option>
                         <Select.Option value="Animal">Animal</Select.Option>

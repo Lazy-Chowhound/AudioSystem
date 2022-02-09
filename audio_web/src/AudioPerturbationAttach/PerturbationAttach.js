@@ -45,22 +45,11 @@ class PerturbationAttach extends React.Component {
         {
             title: "原音频",
             dataIndex: "name",
-            key: "name",
             align: "center",
             width: 320,
-            render: (text, record) => {
-                let name = record.name, pattern = record.pattern, patternType = record.patternType
-                name = name.substring(0, name.indexOf(".")) + "_"
-                    + this.patternToName[pattern] + name.substring(name.indexOf("."))
-                if (pattern !== "Gaussian noise") {
-                    patternType = patternType.replace(" ", "_").toLowerCase()
-                    name = name.substring(0, name.indexOf(".")) + "_" + patternType + name.substring(name.indexOf("."))
-                }
-                return (
-                    <AudioPlay name={record.name}
-                               src={baseUrl + "/NoiseAudio/" + this.state.dataset + "/clips/" + name}/>
-                )
-            }
+            render: (text, record) =>
+                <AudioPlay name={record.name}
+                           src={baseUrl + "/NoiseAudio/" + this.state.dataset + "/clips/" + this.getAudioName(record)}/>
         },
         {
             title: "扰动类型",
@@ -111,6 +100,17 @@ class PerturbationAttach extends React.Component {
             operationDone: false,
             operationCancel: false,
         })
+    }
+
+    getAudioName = (record) => {
+        let name = record.name, pattern = record.pattern, patternType = record.patternType
+        name = name.substring(0, name.indexOf(".")) + "_"
+            + this.patternToName[pattern] + name.substring(name.indexOf("."))
+        if (pattern !== "Gaussian noise") {
+            patternType = patternType.replace(" ", "_").toLowerCase()
+            name = name.substring(0, name.indexOf(".")) + "_" + patternType + name.substring(name.indexOf("."))
+        }
+        return name
     }
 
     // 获取子组件的值
