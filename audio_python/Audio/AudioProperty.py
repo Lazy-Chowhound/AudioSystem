@@ -20,11 +20,10 @@ def get_audio_clips_properties_by_page(dataset, page, page_size):
     :return:
     """
     audio = []
-    audio_list = get_audio_clips_list(dataset)
-    audio.append({'total': len(audio_list)})
-    for i in range((int(page) - 1) * int(page_size),
-                   min(int(page) * int(page_size), len(audio_list))):
-        audio_property = get_audio_clip_properties(dataset, audio_list[i])
+    audio_clips_list = get_audio_clips_list(dataset)
+    audio.append({'total': len(audio_clips_list)})
+    for i in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_clips_list))):
+        audio_property = get_audio_clip_properties(dataset, audio_clips_list[i])
         audio_property['key'] = i + 1
         audio.append(audio_property)
     return RpcResult.ok(json.dumps(audio, ensure_ascii=False))
@@ -66,7 +65,7 @@ def get_audio_clips_list(dataset):
 
 def get_audio_clip_detail(dataset, audio_name):
     """
-    获取指定音频的详情
+    获取指定数据集音频的详情
     :param dataset: cv-corpus-chinese
     :param audio_name:
     :return:
@@ -78,9 +77,8 @@ def get_audio_clip_detail(dataset, audio_name):
         train = pd.read_csv(os.path.join(path, file), sep='\t', header=0)
         for index, row in train.iterrows():
             if audio_name in row['path']:
+                detail = dict(row.items())
                 detail['id'] = index
-                for item in row.items():
-                    detail[item[0]] = item[1]
                 break
     return detail
 
