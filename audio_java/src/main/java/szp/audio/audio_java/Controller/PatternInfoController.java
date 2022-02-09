@@ -14,7 +14,7 @@ import szp.audio.audio_java.Util.StatusCode;
  * @author Nakano Miku
  */
 @RestController
-public class NoisePatternInfoController {
+public class PatternInfoController {
 
     @Autowired
     private RpcUtil rpcUtil;
