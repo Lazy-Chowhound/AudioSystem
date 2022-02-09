@@ -5,7 +5,7 @@ import {Button, message, Modal, Select} from "antd";
 import {PieChartOutlined} from "@ant-design/icons";
 import NoisePatternDetail from "./NoisePatternDetail";
 import "../css/PerturbationDisplay.css"
-import getAudioSet from "../Util/AudioUtil"
+import {getAudioSet} from "../Util/AudioUtil"
 
 class PerturbationDisplay extends React.Component {
     constructor(props) {
