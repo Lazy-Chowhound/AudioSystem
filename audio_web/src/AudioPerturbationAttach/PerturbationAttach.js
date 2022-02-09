@@ -6,7 +6,7 @@ import {
     QuestionCircleOutlined,
 } from "@ant-design/icons";
 import sendGet from "../Util/axios";
-import {getAudioSet, getNoiseAudioAddress} from "../Util/AudioUtil";
+import {getAudioSet, getNoiseAudioUrl} from "../Util/AudioUtil";
 import AudioPlay from "../AudioList/AudioPlay";
 import PatternDrawer from "./PatternDrawer";
 
@@ -47,7 +47,7 @@ class PerturbationAttach extends React.Component {
             align: "center",
             width: 320,
             render: (text, record) => <AudioPlay name={record.name}
-                                                 src={getNoiseAudioAddress(this.state.dataset, this.getAudioName(record))}/>
+                                                 src={getNoiseAudioUrl(this.state.dataset, this.getAudioName(record))}/>
         },
         {
             title: "扰动类型",

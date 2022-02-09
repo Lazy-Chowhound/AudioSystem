@@ -2,9 +2,8 @@ import React from "react";
 import {Button, message, Modal, Table, Tooltip} from "antd";
 import ImageDisplay from "./ImageDisplay";
 import sendGet from "../Util/axios";
-import baseUrl from "../Util/url";
 import AudioPlay from "./AudioPlay";
-import {getAudioAddress} from "../Util/AudioUtil";
+import {getAudioUrl, getImageUrl} from "../Util/AudioUtil";
 
 class AudioDetail extends React.Component {
     constructor(props) {
@@ -29,7 +28,7 @@ class AudioDetail extends React.Component {
             align: "center",
             width: 320,
             render: (text, record) => <AudioPlay name={record.name}
-                                                 src={getAudioAddress(this.props.choice, record.name)}/>
+                                                 src={getAudioUrl(this.props.choice, record.name)}/>
         },
         {
             title: "时长",
@@ -103,7 +102,7 @@ class AudioDetail extends React.Component {
                     ImageType: "波形图",
                     isModalVisible: true,
                     AbsoluteUrl: path,
-                    ImageUrl: path.replace("D:/AudioSystem", baseUrl)
+                    ImageUrl: getImageUrl(path)
                 })
             }
         }).catch(error => {
@@ -127,7 +126,7 @@ class AudioDetail extends React.Component {
                     ImageType: "Mel频谱图",
                     isModalVisible: true,
                     AbsoluteUrl: path,
-                    ImageUrl: path.replace("D:/AudioSystem", baseUrl)
+                    ImageUrl: getImageUrl(path)
                 })
             }
         }).catch(error => {

@@ -21,12 +21,16 @@ async function getAudioSet() {
     })
 }
 
-function getAudioAddress(dataset, audioName) {
+function getAudioUrl(dataset, audioName) {
     return baseUrl + "/Audio/" + dataset + "/clips/" + audioName
 }
 
-function getNoiseAudioAddress(dataset, audioName) {
+function getNoiseAudioUrl(dataset, audioName) {
     return baseUrl + "/NoiseAudio/" + dataset + "/clips/" + audioName
 }
 
-export {getAudioSet, getAudioAddress, getNoiseAudioAddress}
+function getImageUrl(path){
+    return path.replace("D:/AudioSystem", baseUrl)
+}
+
+export {getAudioSet, getAudioUrl, getNoiseAudioUrl,getImageUrl}
