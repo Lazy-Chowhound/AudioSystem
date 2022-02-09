@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
 import {message, Select, Table} from "antd";
-import getAudioSet from "../Util/AudioUtil";
+import {getAudioSet} from "../Util/AudioUtil";
 
 
 class Validation extends React.Component {
@@ -19,13 +19,18 @@ class Validation extends React.Component {
 
     columns = [
         {
+            title: "音频名称",
+            dataIndex: "name",
+            align: "center"
+        },
+        {
             title: "原始音频",
             dataIndex: "sourceAudio",
             align: "center"
         },
         {
             title: "内容",
-            dataIndex: "content",
+            dataIndex: "preContent",
             align: "center"
         },
         {
@@ -35,7 +40,7 @@ class Validation extends React.Component {
         },
         {
             title: "识别内容",
-            dataIndex: "recContent",
+            dataIndex: "postContent",
             align: "center"
         },
     ];
@@ -76,7 +81,7 @@ class Validation extends React.Component {
                     <div>
                         <span>模型:</span>
                         <Select defaultValue="模型1" bordered={false}
-                                 onChange={this.modalChange}>
+                                onChange={this.modalChange}>
                             <Select.Option key={"模型1"} value={"模型1"}/>
                             <Select.Option key={"模型2"} value={"模型2"}/>
                             <Select.Option key={"模型3"} value={"模型3"}/>
