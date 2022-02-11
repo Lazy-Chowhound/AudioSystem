@@ -2,7 +2,9 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
 import {message, Select, Table} from "antd";
-import {getAudioSet} from "../Util/AudioUtil";
+import {getAudioSet, getAudioUrl} from "../Util/AudioUtil";
+import sendGet from "../Util/axios";
+import AudioPlay from "../AudioList/AudioPlay";
 
 
 class Validation extends React.Component {
@@ -13,7 +15,10 @@ class Validation extends React.Component {
             loading: true,
             dataset: "cv-corpus-chinese",
             options: [],
-            modal: "模型1"
+            modal: "模型1",
+            currentPage: 1,
+            pageSize: 5,
+            total: null
         }
     }
 
@@ -21,17 +26,22 @@ class Validation extends React.Component {
         {
             title: "音频名称",
             dataIndex: "name",
-            align: "center"
+            align: "center",
+            render: (text, record) => <AudioPlay name={record.name}
+                                                 src={getAudioUrl(this.state.dataset, record.name)}/>
         },
         {
             title: "原始音频",
             dataIndex: "sourceAudio",
-            align: "center"
+            align: "center",
         },
         {
             title: "内容",
             dataIndex: "preContent",
-            align: "center"
+            align: "center",
+            ellipsis: {
+                showTitle: false,
+            },
         },
         {
             title: "扰动音频",
@@ -41,7 +51,10 @@ class Validation extends React.Component {
         {
             title: "识别内容",
             dataIndex: "postContent",
-            align: "center"
+            align: "center",
+            ellipsis: {
+                showTitle: false,
+            },
         },
     ];
 
@@ -53,7 +66,41 @@ class Validation extends React.Component {
         }).catch(error => {
             message.error(error).then()
         })
+        this.getAudioSetContrastContentByPage()
     }
+
+    getAudioSetContrastContentByPage = () => {
+        sendGet("/audioSetContrastContentByPage", {
+                params: {
+                    dataset: this.state.dataset,
+                    page: this.state.currentPage,
+                    pageSize: this.state.pageSize
+                }
+            }
+        ).then(res => {
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+                this.setState({
+                    loading: false
+                })
+            } else {
+                const data = JSON.parse(res.data.data)
+                const totalLen = data.shift().total
+                this.setState({
+                    dataSource: data,
+                    total: totalLen,
+                    loading: false
+                })
+            }
+        }).catch(error => {
+                message.error(error).then()
+                this.setState({
+                    loading: false
+                })
+            }
+        )
+    }
+
 
     datasetChange = (e) => {
         this.setState({

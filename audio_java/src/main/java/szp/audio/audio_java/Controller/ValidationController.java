@@ -20,15 +20,15 @@ public class ValidationController {
     @Autowired
     private RpcUtil rpcUtil;
 
-    @RequestMapping("audioSetContrastContentByPage")
-    public Result getAudioSetContrastContentByPage(@RequestParam(value = "audioSet") String dataset,
+    @RequestMapping("/audioSetContrastContentByPage")
+    public Result getAudioSetContrastContentByPage(@RequestParam(value = "dataset") String dataset,
                                                    @RequestParam(value = "page") String page,
                                                    @RequestParam(value = "pageSize") String pageSize) {
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_audio_set_contrast_content_by_page",
                     dataset, page, pageSize);
             return Result.success(StatusCode.SUCCESS.getStatus(),
-                    JSONObject.toJSONString(jsonObject.getJSONObject("data")));
+                    JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
