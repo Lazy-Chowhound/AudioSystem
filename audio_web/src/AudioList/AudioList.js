@@ -56,9 +56,9 @@ class AudioList extends React.Component {
         },
         {
             title: "音频列表",
-            render: item =>
+            render: (text, record) =>
                 <Button type={"primary"} onClick={() => {
-                    this.showDetail(item)
+                    this.showDetail(record.name)
                 }}>详细音频列表</Button>,
             align: "center"
         },
@@ -88,10 +88,10 @@ class AudioList extends React.Component {
         )
     }
 
-    showDetail = (item) => {
+    showDetail = (name) => {
         this.setState({
             isModalVisible: true,
-            choice: item.name
+            choice: name
         })
     }
 
