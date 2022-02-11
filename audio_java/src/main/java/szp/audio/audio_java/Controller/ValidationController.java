@@ -21,7 +21,7 @@ public class ValidationController {
     private RpcUtil rpcUtil;
 
     @RequestMapping("/audioSetContrastContentByPage")
-    public Result getAudioSetContrastContentByPage(@RequestParam(value = "dataset") String dataset,
+    public Result getAudioSetContrastContentByPage(@RequestParam(value = "audioSet") String dataset,
                                                    @RequestParam(value = "page") String page,
                                                    @RequestParam(value = "pageSize") String pageSize) {
         try {

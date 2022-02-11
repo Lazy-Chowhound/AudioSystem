@@ -72,7 +72,7 @@ class Validation extends React.Component {
     getAudioSetContrastContentByPage = () => {
         sendGet("/audioSetContrastContentByPage", {
                 params: {
-                    dataset: this.state.dataset,
+                    audioSet: this.state.dataset,
                     page: this.state.currentPage,
                     pageSize: this.state.pageSize
                 }
