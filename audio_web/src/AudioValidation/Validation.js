@@ -4,7 +4,6 @@ import '../css/index.css';
 import {message, Select, Table} from "antd";
 import {getAudioSet, getAudioUrl} from "../Util/AudioUtil";
 import sendGet from "../Util/axios";
-import AudioPlay from "../AudioList/AudioPlay";
 
 
 class Validation extends React.Component {
@@ -13,7 +12,7 @@ class Validation extends React.Component {
         this.state = {
             dataSource: [],
             loading: true,
-            dataset: "cv-corpus-chinese",
+            dataset: "cv-corpus-japanese",
             options: [],
             modal: "模型1",
             currentPage: 1,
@@ -27,26 +26,12 @@ class Validation extends React.Component {
             title: "音频名称",
             dataIndex: "name",
             align: "center",
-            render: (text, record) => <AudioPlay name={record.name}
-                                                 src={getAudioUrl(this.state.dataset, record.name)}/>
-        },
-        {
-            title: "原始音频",
-            dataIndex: "sourceAudio",
-            align: "center",
         },
         {
             title: "内容",
             dataIndex: "preContent",
             align: "center",
-            ellipsis: {
-                showTitle: false,
-            },
-        },
-        {
-            title: "扰动音频",
-            dataIndex: "noiseAudio",
-            align: "center"
+            ellipsis: true
         },
         {
             title: "识别内容",
@@ -70,6 +55,9 @@ class Validation extends React.Component {
     }
 
     getAudioSetContrastContentByPage = () => {
+        this.setState({
+            loading: true
+        })
         sendGet("/audioSetContrastContentByPage", {
                 params: {
                     audioSet: this.state.dataset,
@@ -105,6 +93,8 @@ class Validation extends React.Component {
     datasetChange = (e) => {
         this.setState({
             dataset: e
+        }, () => {
+            this.getAudioSetContrastContentByPage()
         })
     }
 
@@ -120,7 +110,7 @@ class Validation extends React.Component {
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <div>
                         <span>数据集:</span>
-                        <Select defaultValue="cv-corpus-chinese" bordered={false}
+                        <Select defaultValue={this.state.dataset} bordered={false}
                                 size={"large"} onChange={this.datasetChange}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
@@ -139,6 +129,28 @@ class Validation extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
+                       }}
+                       expandable={{
+                           expandedRowRender: record => {
+                               return (
+                                   <div>
+
+                                       <span style={{marginRight: 20}}>{"原音频:"}</span>
+                                       <audio
+                                           src={getAudioUrl(this.state.dataset, record.name)}
+                                           style={{height: 30, width: 300, verticalAlign: "middle"}}
+                                           controls={true}
+                                       />
+                                       <span style={{marginLeft: 20, marginRight: 20}}>{"扰动音频:"}</span>
+                                       <audio
+                                           src={getAudioUrl(this.state.dataset, record.name)}
+                                           style={{height: 30, width: 300, verticalAlign: "middle"}}
+                                           controls={true}
+                                       />
+                                   </div>
+                               )
+                           },
+                           rowExpandable: () => true
                        }}/>
             </div>
         );
