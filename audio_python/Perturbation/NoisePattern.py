@@ -247,7 +247,7 @@ def add_pattern_range(dataset, audio_list, start, end):
 
 def add_pattern_randomly(dataset, file):
     """
-    随即个某一音频添加噪声
+    随机加噪声
     :param dataset: cv-corpus-chinese
     :param file: common_voice_zh-CN_18524189.mp3
     :return:
