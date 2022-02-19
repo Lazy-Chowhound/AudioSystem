@@ -1,25 +1,60 @@
 import React from "react";
-import {Button, Form, Input, Upload} from "antd";
+import {Button, Form, Input, Upload, message} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
+import sendGet from "../Util/axios";
 
 class UploadForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            formRef: React.createRef()
+            formRef: React.createRef(),
+            uploading: false,
         }
     }
 
     upload = (values) => {
-        console.log(values)
+        this.setState({
+            uploading: true
+        })
+        const dataset = values['datasetName']
+        const language = values['language']
+        const size = values['size']
+        const hour = values['hour']
+        const people = values["people"]
+        const form = values['form']
+        const description = values['description']
+        sendGet("/uploadDatasetDescription", {
+            params: {
+                dataset: dataset,
+                language: language,
+                size: size,
+                hour: hour,
+                people: people,
+                form: form,
+                description: description
+            }
+        }).then(res => {
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+            } else {
+                message.success("上传成功").then()
+                this.state.formRef.current.resetFields();
+            }
+        }).catch(error => {
+                message.error(error).then()
+            }
+        )
+        this.setState({
+            uploading: false
+        })
     }
 
     uploadFailed = (errorInfo) => {
-        console.log(errorInfo);
+        message.error(errorInfo).then()
     };
 
     onChange = (file) => {
-        console.log(file)
+        // console.log(file)
     }
 
     onReset = () => {
@@ -77,7 +112,8 @@ class UploadForm extends React.Component {
                 </Form.Item>
                 <Form.Item wrapperCol={{offset: 8, span: 16}}>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                        <Button type="primary" htmlType="submit" onClick={this.upload}> 上传 </Button>
+                        <Button type="primary" htmlType="submit" loading={this.state.uploading}>
+                            {this.state.uploading ? "上传中" : "上传"} </Button>
                         <Button htmlType="button" onClick={this.onReset}> 重置 </Button>
                     </div>
                 </Form.Item>
