@@ -17,6 +17,8 @@ class UploadForm extends React.Component {
     upload = (values) => {
         if (!this.state.hasUploadDataset) {
             message.error("尚未选择需要上传的数据集").then()
+        } else if (this.state.fileList.length === 0) {
+            message.error("数据集未上传成功，请重试").then()
         } else {
             this.setState({
                 uploading: true
@@ -193,7 +195,8 @@ class UploadForm extends React.Component {
                     <Upload beforeUpload={this.beforeUpload} directory onRemove={this.onRemove}
                             fileList={this.state.fileList}>
                         <Button icon={<UploadOutlined/>}
-                                disabled={this.state.hasUploadDataset}>{this.state.hasUploadDataset ? "已上传" : "选择数据集"}
+                                disabled={this.state.hasUploadDataset && this.state.fileList.length === 0}>
+                            {this.state.hasUploadDataset ? (this.state.fileList.length === 0 ? "上传成功" : "未上传成功") : "选择数据集"}
                         </Button>
                     </Upload>
                 </Form.Item>
