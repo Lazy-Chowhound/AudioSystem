@@ -126,7 +126,7 @@ class Validation extends React.Component {
                         </Select>
                     </div>
                     <Upload action="http://localhost:8080/uploadModel" onChange={this.uploadModel}
-                            fileList={this.state.fileList}>
+                            showUploadList={false}>
                         <Button icon={<UploadOutlined/>} type="primary">上传模型</Button>
                     </Upload>
                     <div>
