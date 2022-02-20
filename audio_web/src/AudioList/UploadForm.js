@@ -84,7 +84,7 @@ class UploadForm extends React.Component {
         ).catch(err => {
             message.error(err).then()
         })
-        return true;
+        return false;
     }
 
     onRemove = (file) => {
