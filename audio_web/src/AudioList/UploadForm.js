@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Form, Input, Upload, message} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
-import sendGet from "../Util/axios";
+import {sendFile, sendGet} from "../Util/axios";
 
 class UploadForm extends React.Component {
     constructor(props) {
@@ -9,6 +9,7 @@ class UploadForm extends React.Component {
         this.state = {
             formRef: React.createRef(),
             uploading: false,
+            fileList: [],
         }
     }
 
@@ -53,12 +54,48 @@ class UploadForm extends React.Component {
         message.error(errorInfo).then()
     };
 
-    onChange = (file) => {
-        // console.log(file)
-    }
-
     onReset = () => {
         this.state.formRef.current.resetFields();
+    }
+
+    beforeUpload = (file) => {
+        const data = new FormData();
+        data.append("file", file)
+        this.setState(state => ({
+            fileList: [...state.fileList, file],
+        }));
+        sendFile("/uploadDataset", data,
+            {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                if (res.data.code === 200) {
+                    setTimeout(() => {
+                        this.setState(state => {
+                            const index = state.fileList.indexOf(file);
+                            const newFileList = state.fileList.slice();
+                            newFileList.splice(index, 1);
+                            return {
+                                fileList: newFileList,
+                            };
+                        });
+                    }, 500)
+                } else {
+                    message.error("上传失败").then()
+                }
+            }
+        ).catch(err => {
+            message.error(err).then()
+        })
+        return true;
+    }
+
+    onRemove = (file) => {
+        this.setState(state => {
+            const index = state.fileList.indexOf(file);
+            const newFileList = state.fileList.slice();
+            newFileList.splice(index, 1);
+            return {
+                fileList: newFileList,
+            };
+        });
     }
 
     checkSize = () => {
@@ -103,10 +140,9 @@ class UploadForm extends React.Component {
                            rules={[{required: true, message: "请输入描述"}]}>
                     <Input.TextArea/>
                 </Form.Item>
-                {/*todo 上传地址*/}
                 <Form.Item label="数据集">
-                    <Upload action="https://www.mocky.io/v2/5cc8019d300000980a055e76" directory
-                            onChange={this.onChange}>
+                    <Upload beforeUpload={this.beforeUpload} directory onRemove={this.onRemove}
+                            fileList={this.state.fileList}>
                         <Button icon={<UploadOutlined/>}>选择数据集</Button>
                     </Upload>
                 </Form.Item>
