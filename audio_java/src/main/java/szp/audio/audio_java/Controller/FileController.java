@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import szp.audio.audio_java.Service.DatasetService;
 import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.Util.StatusCode;
@@ -27,6 +26,9 @@ public class FileController {
 
     @Value("${audioset.path}")
     private String audioSetPath;
+
+    @Value("${model.path}")
+    private String modelPath;
 
     @RequestMapping("/uploadDatasetDescription")
     public Result uploadDatasetDescription(@RequestParam("dataset") String dataset,
@@ -52,13 +54,25 @@ public class FileController {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
         Path filePath = Paths.get(audioSetPath + originPath);
         try {
             file.transferTo(filePath);
         } catch (IOException e) {
-            Result.fail(StatusCode.FAIL.getStatus(), "Upload Fail");
+            Result.fail(StatusCode.FAIL.getStatus(), "Upload Dataset Fail");
         }
-        return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Success");
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Dataset Success");
+    }
+
+    @RequestMapping("/uploadModel")
+    public Result uploadModel(@RequestParam("file") MultipartFile file) {
+        String originPath = file.getOriginalFilename();
+        String modelName = originPath.substring(originPath.lastIndexOf("/") + 1);
+        Path filePath = Paths.get(modelPath + modelName);
+        try {
+            file.transferTo(filePath);
+        } catch (IOException e) {
+            Result.fail(StatusCode.FAIL.getStatus(), "Upload Model Fail");
+        }
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Model Success");
     }
 }

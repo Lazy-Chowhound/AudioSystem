@@ -1,9 +1,10 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
-import {message, Select, Table} from "antd";
+import {Button, message, Select, Table, Upload} from "antd";
 import {getAudioSet, getAudioUrl} from "../Util/AudioUtil";
 import {sendGet} from "../Util/axios";
+import {UploadOutlined} from "@ant-design/icons";
 
 
 class Validation extends React.Component {
@@ -17,7 +18,8 @@ class Validation extends React.Component {
             modal: "模型1",
             currentPage: 1,
             pageSize: 5,
-            total: null
+            total: null,
+            fileList: []
         }
     }
 
@@ -104,6 +106,14 @@ class Validation extends React.Component {
         })
     }
 
+    uploadModel = (info) => {
+        if (info.file.status === 'done') {
+            message.success("上传模型成功").then();
+        } else if (info.file.status === 'error') {
+            message.error("上传模型失败").then();
+        }
+    }
+
     render() {
         return (
             <div style={{whiteSpace: "pre", padding: 10}}>
@@ -115,6 +125,10 @@ class Validation extends React.Component {
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
+                    <Upload action="http://localhost:8080/uploadModel" onChange={this.uploadModel}
+                            fileList={this.state.fileList}>
+                        <Button icon={<UploadOutlined/>} type="primary">上传模型</Button>
+                    </Upload>
                     <div>
                         <span>模型:</span>
                         <Select defaultValue="模型1" bordered={false}
@@ -134,7 +148,6 @@ class Validation extends React.Component {
                            expandedRowRender: record => {
                                return (
                                    <div>
-
                                        <span style={{marginRight: 20}}>{"原音频:"}</span>
                                        <audio
                                            src={getAudioUrl(this.state.dataset, record.name)}
