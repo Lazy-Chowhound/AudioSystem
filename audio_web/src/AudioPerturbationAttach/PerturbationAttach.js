@@ -5,7 +5,7 @@ import {
     CloudUploadOutlined,
     QuestionCircleOutlined,
 } from "@ant-design/icons";
-import sendGet from "../Util/axios";
+import {sendGet} from "../Util/axios";
 import {getAudioSet, getNoiseAudioUrl} from "../Util/AudioUtil";
 import AudioPlay from "../AudioList/AudioPlay";
 import PatternDrawer from "./PatternDrawer";

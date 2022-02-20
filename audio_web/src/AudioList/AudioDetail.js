@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, message, Modal, Table, Tooltip} from "antd";
 import ImageDisplay from "./ImageDisplay";
-import sendGet from "../Util/axios";
+import {sendGet} from "../Util/axios";
 import AudioPlay from "./AudioPlay";
 import {getAudioUrl, getImageUrl} from "../Util/AudioUtil";
 

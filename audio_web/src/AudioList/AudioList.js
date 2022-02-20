@@ -3,7 +3,7 @@ import {Button, message, Modal, Table} from "antd";
 import AudioDetail from "./AudioDetail";
 import "antd/dist/antd.css";
 import "../css/AudioList.css";
-import sendGet from "../Util/axios";
+import {sendGet} from "../Util/axios";
 import {UploadOutlined} from "@ant-design/icons";
 import UploadForm from "./UploadForm";
 
@@ -132,7 +132,7 @@ class AudioList extends React.Component {
                        footer={null} onCancel={this.handleCancel} width={1200}>
                     <AudioDetail key={this.state.choice} choice={this.state.choice}/>
                 </Modal>
-                <Modal style={{marginTop: -50}} visible={this.state.uploadVisible} width={500}
+                <Modal style={{marginTop: -70}} visible={this.state.uploadVisible} width={500}
                        title="数据集上传" footer={[<Button key="back" onClick={this.cancelUpload}>取消上传</Button>]}
                        onCancel={this.cancelUpload}>
                     <UploadForm uploadVisible={this.state.uploadVisible}/>

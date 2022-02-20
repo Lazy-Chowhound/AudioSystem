@@ -15,4 +15,14 @@ function sendGet(url, params = {}) {
     });
 }
 
-export default sendGet
+function sendFile(url,data={}){
+    return new Promise((resolve, reject) => {
+        axiosInstance.post(url, data).then(res => {
+            resolve(res);
+        }).catch(error => {
+            reject(error.toString())
+        })
+    });
+}
+
+export {sendGet,sendFile}

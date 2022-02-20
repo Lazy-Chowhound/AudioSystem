@@ -5,7 +5,7 @@ import "echarts/lib/component/title"
 import "echarts/lib/component/legend"
 import "echarts/lib/component/markPoint"
 import ReactEcharts from "echarts-for-react"
-import sendGet from "../Util/axios";
+import {sendGet} from "../Util/axios";
 import {message} from "antd";
 
 

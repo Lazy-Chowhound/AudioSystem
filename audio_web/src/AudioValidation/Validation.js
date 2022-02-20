@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import '../css/index.css';
 import {message, Select, Table} from "antd";
 import {getAudioSet, getAudioUrl} from "../Util/AudioUtil";
-import sendGet from "../Util/axios";
+import {sendGet} from "../Util/axios";
 
 
 class Validation extends React.Component {

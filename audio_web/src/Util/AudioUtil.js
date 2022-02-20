@@ -1,4 +1,4 @@
-import sendGet from "./axios";
+import {sendGet} from "./axios";
 import baseUrl from "./url";
 
 async function getAudioSet() {

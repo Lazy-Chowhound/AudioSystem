@@ -1,6 +1,6 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react"
-import sendGet from "../Util/axios";
+import {sendGet} from "../Util/axios";
 import {message, Select} from "antd";
 import "../css/NoisePatternDetail.css"
 
