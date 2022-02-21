@@ -1,3 +1,4 @@
+import glob
 import re
 
 import librosa
@@ -6,6 +7,8 @@ from moviepy.editor import *
 from pydub import AudioSegment
 
 # 项目路径
+from sphfile import SPHFile
+
 PROJECT_PATH = "D:/AudioSystem/"
 # 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
@@ -258,5 +261,18 @@ def if_duplicate(dataset):
     return duplicate_list
 
 
+def trans_WAV_to_wav():
+    """
+    TIMIT 生成 wav 文件
+    :return:
+    """
+    wav_file = AUDIO_SETS_PATH + "data/lisa/data/timit/raw/TIMIT/*/*/*/*.WAV"
+    sph_files = glob.glob(wav_file)
+    for sph_file in sph_files:
+        sph = SPHFile(sph_file)
+        print(sph_file + " has transform to " + sph_file.replace(".WAV", "_n.wav"))
+        sph.write_wav(sph_file.replace(".WAV", "_n.wav"))
+
+
 if __name__ == '__main__':
-    pass
+    trans_WAV_to_wav()

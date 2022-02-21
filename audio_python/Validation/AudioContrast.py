@@ -1,9 +1,10 @@
+import pandas as pd
 import json
 import os
 
 import pandas as pd
 
-from Audio.AudioProperty import get_audio_clips_list
+from AudioProperty.AudioClipsProperty import get_audio_clips_list
 from Util.Annotation import rpcApi
 from Util.AudioUtil import get_audio_set_path
 from Util.RpcResult import RpcResult
@@ -69,7 +70,3 @@ def get_audio_clip_posterior_content(dataset, audio_name):
     :return:
     """
     return "xxx"
-
-
-if __name__ == '__main__':
-    print(get_audio_set_contrast_content_by_page("cv-corpus-chinese", 1, 5).data)
