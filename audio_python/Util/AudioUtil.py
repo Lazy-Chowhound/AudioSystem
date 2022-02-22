@@ -1,4 +1,3 @@
-import glob
 import re
 
 import librosa
@@ -7,8 +6,6 @@ from moviepy.editor import *
 from pydub import AudioSegment
 
 # 项目路径
-from sphfile import SPHFile
-
 PROJECT_PATH = "D:/AudioSystem/"
 # 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
@@ -107,20 +104,6 @@ def remove_audio(path, audio_name):
     :return:
     """
     os.remove(path + audio_name)
-
-
-def get_pattern_info_from_name(pattern_tag):
-    """
-    从名称后缀解析出扰动大类和具体类型
-    :param pattern_tag: animal_wild_animals
-    :return: animal,wild animals
-    """
-    if "gaussian_white_noise" in pattern_tag:
-        return name_to_pattern["gaussian_white_noise"], suffix_to_pattern_type("gaussian_white_noise")
-    else:
-        for key, value in name_to_pattern.items():
-            if key in pattern_tag:
-                return name_to_pattern[key], suffix_to_pattern_type(pattern_tag.replace(key + "_", ""))
 
 
 def get_audio_clips_path(dataset):
@@ -250,19 +233,6 @@ def if_duplicate(dataset):
         if value >= 2:
             duplicate_list.append(key)
     return duplicate_list
-
-
-def trans_WAV_to_wav():
-    """
-    TIMIT 生成 wav 文件
-    :return:
-    """
-    wav_file = AUDIO_SETS_PATH + "timit/lisa/data/timit/raw/TIMIT/*/*/*/*.WAV"
-    sph_files = glob.glob(wav_file)
-    for sph_file in sph_files:
-        sph = SPHFile(sph_file)
-        print(sph_file + " has transform to " + sph_file.replace(".WAV", "_n.wav"))
-        sph.write_wav(sph_file.replace(".WAV", "_n.wav"))
 
 
 def getAudioForm(audio_name):
