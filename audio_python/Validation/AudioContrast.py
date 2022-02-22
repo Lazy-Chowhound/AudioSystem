@@ -1,12 +1,9 @@
-import pandas as pd
 import json
 import os
 
 import pandas as pd
 
-from AudioProperty.AudioClipsProperty import get_audio_clips_list
 from Util.Annotation import rpcApi
-from Util.AudioUtil import get_audio_set_path
 from Util.RpcResult import RpcResult
 
 
@@ -20,7 +17,7 @@ def get_audio_set_contrast_content_by_page(dataset, page, page_size):
     :return:
     """
     contrast_content = []
-    audio_clips_list = get_audio_clips_list(dataset)
+    audio_clips_list = []
     contrast_content.append({'total': len(audio_clips_list)})
     for i in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_clips_list))):
         audio_name = audio_clips_list[i]
@@ -52,7 +49,7 @@ def get_audio_clip_previous_content(dataset, audio_name):
     :param audio_name: common_voice_zh-CN_18524189.mp3
     :return:
     """
-    path = get_audio_set_path(dataset)
+    path = []
     files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
     for file in files:
         train = pd.read_csv(os.path.join(path, file), sep='\t', header=0)

@@ -123,15 +123,6 @@ def get_pattern_info_from_name(pattern_tag):
                 return name_to_pattern[key], suffix_to_pattern_type(pattern_tag.replace(key + "_", ""))
 
 
-def get_audio_set_path(dataset):
-    """
-    根据数据集名称获取路径
-    :param dataset:
-    :return:
-    """
-    return AUDIO_SETS_PATH + dataset + "/"
-
-
 def get_audio_clips_path(dataset):
     """
     根据数据集名称获取音频路径

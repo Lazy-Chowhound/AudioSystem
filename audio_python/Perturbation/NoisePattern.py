@@ -1,3 +1,4 @@
+import json
 import logging
 from multiprocessing import Pool
 
@@ -5,6 +6,46 @@ from Perturbation.AudioProcess import *
 from Util.Annotation import rpcApi
 from Util.AudioUtil import *
 from Util.RpcResult import RpcResult
+
+
+@rpcApi
+def get_audio_clips_pattern(dataset):
+    """
+    添加扰动时获取某数据集所有音频扰动情况
+    :param dataset: cv-corpus-chinese
+    :return:
+    """
+    path = get_noise_audio_clips_path(dataset)
+    audio_set_pattern = []
+    key = 0
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            pattern_info = {"key": key}
+            key += 1
+            num = re.findall("\\d+", file)[0]
+            pattern_info["name"] = file[0:file.find(num) + len(num)] + ".mp3"
+            patternTag = file[file.find(num) + len(num) + 1:file.find(".")]
+            pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(patternTag)
+            audio_set_pattern.append(pattern_info)
+    return RpcResult.ok(json.dumps(audio_set_pattern, ensure_ascii=False))
+
+
+@rpcApi
+def remove_current_noise_audio_clip(dataset, audio_name, pattern, patternType=None):
+    """
+    删除现有的扰动音频
+    :param dataset: cv-corpus-chinese
+    :param audio_name: common_voice_zh-CN_18524189.mp3
+    :param pattern: Animal
+    :param patternType: Wild animals
+    :return:
+    """
+    path = get_noise_audio_clips_path(dataset)
+    audio_name = add_tag(audio_name, pattern_to_name[pattern])
+    if patternType is not None:
+        audio_name = add_tag(audio_name, pattern_type_to_suffix(patternType))
+    remove_audio(path, audio_name)
+    return RpcResult.ok("")
 
 
 @rpcApi

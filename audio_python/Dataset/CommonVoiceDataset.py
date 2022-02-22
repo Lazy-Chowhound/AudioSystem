@@ -6,7 +6,8 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
 
-from Util.AudioUtil import AUDIO_SETS_PATH, WAVEFORM_GRAPH_PATH, MEL_SPECTRUM_PATH
+from Util.AudioUtil import AUDIO_SETS_PATH, WAVEFORM_GRAPH_PATH, MEL_SPECTRUM_PATH, NOISE_AUDIO_SETS_PATH, \
+    pattern_to_name
 
 
 class CommonVoiceDataset:
@@ -14,6 +15,7 @@ class CommonVoiceDataset:
         self.dataset = dataset
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
         self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
+        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -145,3 +147,43 @@ class CommonVoiceDataset:
         savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
         plt.savefig(savingPath)
         return savingPath
+
+    def get_pattern_summary(self):
+        """
+        获取扰动大类的详情
+        :return:
+        """
+        summary = {}
+        for file in os.listdir(self.noise_clips_path):
+            for key, value in pattern_to_name.items():
+                if value in file:
+                    if key in summary.keys():
+                        summary[key] = summary[key] + 1
+                    else:
+                        summary[key] = 1
+                    break
+        sorted(summary)
+        return summary
+
+    def get_pattern_detail(self, pattern):
+        """
+        获取某个数据集某个扰动大类的具体扰动类型详情
+        :param pattern: Sound level
+        :return:
+        """
+        summaryDetail = {}
+        name = pattern_to_name[pattern]
+        for file in os.listdir(self.noise_clips_path):
+            if name in file:
+                if name == "gaussian_white_noise":
+                    pattern = name
+                else:
+                    beg = file.index(name) + len(name) + 1
+                    end = file.index(".")
+                    pattern = file[beg:end]
+                if pattern in summaryDetail.keys():
+                    summaryDetail[pattern] = summaryDetail[pattern] + 1
+                else:
+                    summaryDetail[pattern] = 1
+        sorted(summaryDetail)
+        return summaryDetail
