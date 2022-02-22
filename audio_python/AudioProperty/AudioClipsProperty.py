@@ -1,7 +1,7 @@
 import json
 
-from Dataset.CommonVoiceDataset import CommonVoiceDataset
-from Dataset.TimitDataset import TimitDataset
+from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
+from Dataset.TimitDataset.TimitDataset import TimitDataset
 from Util.Annotation import rpcApi
 from Util.AudioUtil import *
 from Util.RpcResult import RpcResult
