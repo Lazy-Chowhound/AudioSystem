@@ -1,7 +1,7 @@
 import json
 
-from Dataset.CommonVoiceDataset import CommonVoiceDataset
-from Dataset.TimitDataset import TimitDataset
+from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
+from Dataset.TimitDataset.TimitDataset import TimitDataset
 from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
@@ -19,6 +19,7 @@ def get_pattern_summary(dataset):
         summary = cvd.get_pattern_summary()
     elif dataset == "timit":
         td = TimitDataset("timit")
+        summary = td.get_pattern_summary()
     return RpcResult.ok(json.dumps(summary, ensure_ascii=False))
 
 
@@ -31,10 +32,11 @@ def get_pattern_detail(dataset, pattern):
     :return:
     """
 
-    summaryDetail = {}
+    summary_detail = {}
     if dataset == "cv-corpus-chinese":
         cvd = CommonVoiceDataset("cv-corpus-chinese")
-        summaryDetail = cvd.get_pattern_detail(pattern)
+        summary_detail = cvd.get_pattern_detail(pattern)
     elif dataset == "timit":
         td = TimitDataset("timit")
-    return RpcResult.ok(json.dumps(summaryDetail, ensure_ascii=False))
+        summary_detail = td.get_pattern_detail(pattern)
+    return RpcResult.ok(json.dumps(summary_detail, ensure_ascii=False))

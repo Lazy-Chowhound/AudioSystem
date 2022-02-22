@@ -3,6 +3,7 @@ import logging
 from multiprocessing import Pool
 
 from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
+from Dataset.TimitDataset.TimitDataset import TimitDataset
 from Perturbation.AudioProcess import *
 from Util.Annotation import rpcApi
 from Util.AudioUtil import *
@@ -20,6 +21,9 @@ def get_audio_clips_pattern(dataset):
     if dataset == "cv-corpus-chinese":
         cvd = CommonVoiceDataset("cv-corpus-chinese")
         audio_set_pattern = cvd.get_audio_clips_pattern()
+    elif dataset == "timit":
+        td = TimitDataset("timit")
+        audio_set_pattern = td.get_audio_clips_pattern()
     return RpcResult.ok(json.dumps(audio_set_pattern, ensure_ascii=False))
 
 

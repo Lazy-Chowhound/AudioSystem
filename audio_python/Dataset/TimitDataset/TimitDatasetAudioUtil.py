@@ -2,7 +2,7 @@ import glob
 
 from sphfile import SPHFile
 
-from Util.AudioUtil import AUDIO_SETS_PATH
+from Util.AudioUtil import AUDIO_SETS_PATH, name_to_pattern, suffix_to_pattern_type
 
 
 def trans_WAV_to_wav():

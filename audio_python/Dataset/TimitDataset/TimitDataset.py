@@ -1,12 +1,11 @@
 import glob
-import os
 
 import librosa.display
 import numpy as np
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
 
-from Util.AudioUtil import WAVEFORM_GRAPH_PATH, MEL_SPECTRUM_PATH, AUDIO_SETS_PATH, getAudioForm
+from Util.AudioUtil import *
 
 
 class TimitDataset:
@@ -14,6 +13,7 @@ class TimitDataset:
         self.dataset = dataset
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
         self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/TRAIN/"
+        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/TRAIN/"
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -145,7 +145,68 @@ class TimitDataset:
         plt.savefig(savingPath)
         return savingPath
 
+    def get_pattern_summary(self):
+        """
+        获取扰动大类的详情
+        :return:
+        """
+        summary = {}
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*.wav")
+        for file in noise_clips:
+            for key, value in pattern_to_name.items():
+                if value in file:
+                    if key in summary.keys():
+                        summary[key] = summary[key] + 1
+                    else:
+                        summary[key] = 1
+                    break
+        sorted(summary)
+        return summary
+
+    def get_pattern_detail(self, pattern):
+        """
+        获取某个数据集某个扰动大类的具体扰动类型详情
+        :param pattern: Sound level
+        :return:
+        """
+        summaryDetail = {}
+        name = pattern_to_name[pattern]
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*.wav")
+        for file in noise_clips:
+            if name in file:
+                if name == "gaussian_white_noise":
+                    pattern = name
+                else:
+                    beg = file.index(name) + len(name) + 1
+                    end = file.index(".")
+                    pattern = file[beg:end]
+                if pattern in summaryDetail.keys():
+                    summaryDetail[pattern] = summaryDetail[pattern] + 1
+                else:
+                    summaryDetail[pattern] = 1
+        sorted(summaryDetail)
+        return summaryDetail
+
+    def get_audio_clips_pattern(self):
+        """
+        添加扰动时获取某数据集所有音频扰动情况
+        :return:
+        """
+        audio_set_pattern = []
+        key = 0
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*.wav")
+        for file in noise_clips:
+            pattern_info = {"key": key}
+            key += 1
+            file = file.replace("\\", "/")
+            noise_audio_name = file[file.rfind("/")+1:]
+            pattern_info["name"] = noise_audio_name[0:noise_audio_name.find("_n") + 2]
+            pattern_tag = noise_audio_name[noise_audio_name.find("_n") + 3:noise_audio_name.find(".")]
+            pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
+            audio_set_pattern.append(pattern_info)
+        return audio_set_pattern
+
 
 if __name__ == '__main__':
     td = TimitDataset("timit")
-    print(td.get_duration(td.clips_path + "DR1/FCJF0/SA1_n.wav"))
+    print(td.get_audio_clips_pattern())

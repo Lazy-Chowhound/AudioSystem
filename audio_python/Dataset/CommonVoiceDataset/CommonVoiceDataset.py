@@ -3,7 +3,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
 
-from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import get_pattern_info_from_name, writeNoiseAudio
+from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import writeNoiseAudio
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
 
@@ -199,8 +199,8 @@ class CommonVoiceDataset:
                 key += 1
                 num = re.findall("\\d+", file)[0]
                 pattern_info["name"] = file[0:file.find(num) + len(num)] + ".mp3"
-                patternTag = file[file.find(num) + len(num) + 1:file.find(".")]
-                pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(patternTag)
+                pattern_tag = file[file.find(num) + len(num) + 1:file.find(".")]
+                pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
                 audio_set_pattern.append(pattern_info)
         return audio_set_pattern
 
