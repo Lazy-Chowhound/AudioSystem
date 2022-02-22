@@ -1,6 +1,7 @@
 import librosa.display
 import pandas as pd
 from matplotlib import pyplot as plt
+from pydub import AudioSegment
 
 from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import get_pattern_info_from_name, writeNoiseAudio
 from Perturbation.AudioProcess import *
