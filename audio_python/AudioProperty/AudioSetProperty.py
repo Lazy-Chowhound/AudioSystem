@@ -73,4 +73,4 @@ def get_audio_set_description(dataset):
 
 
 if __name__ == '__main__':
-    get_audio_sets_properties()
+    print(get_audio_sets_properties())
