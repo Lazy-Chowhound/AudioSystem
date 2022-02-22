@@ -12,8 +12,8 @@ from Util.AudioUtil import AUDIO_SETS_PATH, WAVEFORM_GRAPH_PATH, MEL_SPECTRUM_PA
 class CommonVoiceDataset:
     def __init__(self, dataset):
         self.dataset = dataset
-        self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
+        self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -79,7 +79,7 @@ class CommonVoiceDataset:
     def getSamplingRate(self, audio):
         """
         获取音频的采样率
-        :param audio: 音频路径
+        :param audio: 音频绝对路径
         :return:
         """
         samplingRate = librosa.get_samplerate(audio)
@@ -88,7 +88,7 @@ class CommonVoiceDataset:
     def get_duration(self, audio):
         """
         获取音频时长
-        :param audio: 音频路径
+        :param audio: 音频绝对路径
         :return:
         """
         sig, sr = librosa.load(audio, sr=None)
@@ -97,7 +97,7 @@ class CommonVoiceDataset:
     def get_channels(self, audio):
         """
         获取声道
-        :param audio: 音频路径
+        :param audio: 音频绝对路径
         :return:
         """
         song = AudioSegment.from_mp3(audio)
@@ -106,7 +106,7 @@ class CommonVoiceDataset:
     def get_bit_depth(self, audio):
         """
         获取位深
-        :param audio: 音频路径
+        :param audio: 音频绝对路径
         :return:
         """
         song = AudioSegment.from_mp3(audio)

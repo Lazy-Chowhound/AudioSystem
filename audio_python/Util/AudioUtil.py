@@ -14,7 +14,7 @@ PROJECT_PATH = "D:/AudioSystem/"
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
 # 添加完扰动的音频数据集路径
 NOISE_AUDIO_SETS_PATH = PROJECT_PATH + "NoiseAudio/"
-# 原始噪声路径
+# 噪声文件路径
 SOURCE_NOISES_PATH = PROJECT_PATH + "Noise/"
 # 波形图路径
 WAVEFORM_GRAPH_PATH = PROJECT_PATH + "WaveImage/"
@@ -266,7 +266,7 @@ def trans_WAV_to_wav():
     TIMIT 生成 wav 文件
     :return:
     """
-    wav_file = AUDIO_SETS_PATH + "data/lisa/data/timit/raw/TIMIT/*/*/*/*.WAV"
+    wav_file = AUDIO_SETS_PATH + "timit/lisa/data/timit/raw/TIMIT/*/*/*/*.WAV"
     sph_files = glob.glob(wav_file)
     for sph_file in sph_files:
         sph = SPHFile(sph_file)
@@ -274,5 +274,14 @@ def trans_WAV_to_wav():
         sph.write_wav(sph_file.replace(".WAV", "_n.wav"))
 
 
+def getAudioForm(audio_name):
+    """
+    获取音频格式
+    :param audio_name: X/X/X/XXXXX.wav
+    :return:
+    """
+    return audio_name[audio_name.rindex('.') + 1:]
+
+
 if __name__ == '__main__':
-    trans_WAV_to_wav()
+    pass
