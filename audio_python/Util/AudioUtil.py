@@ -3,7 +3,6 @@ import re
 import librosa
 import soundfile
 from moviepy.editor import *
-from pydub import AudioSegment
 
 # 项目路径
 PROJECT_PATH = "D:/AudioSystem/"
@@ -54,19 +53,6 @@ source_ambiguous_sounds_pattern_types = ["Generic impact sounds", "Surface conta
                                          "Onomatopoeia", "Silence", "Other sourceless"]
 
 
-def transform_wav_to_mp3(path, audio_name):
-    """
-    wav转 mp3
-    :param path: D:/AudioSystem/noiseAudio/cv-corpus-chinese/clips/
-    :param audio_name: common_voice_zh-CN_18524189_gaussian_white_noise.wav
-    :return: 生成的 wav 地址
-    """
-    audio = AudioSegment.from_wav(path + audio_name)
-    audio_name = audio_name.replace(".wav", ".mp3")
-    audio.export(path + audio_name, format="mp3")
-    return path, audio_name
-
-
 def add_tag(name, tag):
     """
     给添加扰动后生成的文件名打上对应扰动的类型
@@ -106,24 +92,6 @@ def remove_audio(path, audio_name):
     os.remove(path + audio_name)
 
 
-def get_audio_clips_path(dataset):
-    """
-    根据数据集名称获取音频路径
-    :param dataset:
-    :return:
-    """
-    return AUDIO_SETS_PATH + dataset + "/clips/"
-
-
-def get_noise_audio_clips_path(dataset):
-    """
-    根据噪声数据集名称获取路径
-    :param dataset:
-    :return:
-    """
-    return NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
-
-
 def get_source_noises_path(pattern, pattern_type):
     return SOURCE_NOISES_PATH + pattern + "/" + pattern_type + ".wav"
 
@@ -158,15 +126,14 @@ def cut_audio(path, start, end=None):
     soundfile.write(path[0: path.find(".")] + "_cut" + ".wav", audio_dst, sr)
 
 
-def find_error_audio(dataset):
+def find_error_audio(source_path, target_path):
     """
     寻找没有成功添加的音频
-    :param dataset: cv-corpus-chinese
+    :param target_path: 原音频文件夹路径 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
+    :param source_path: 扰动音频文件夹路径 D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/
     :return: 
     """
     error_list = []
-    source_path = get_audio_clips_path(dataset)
-    target_path = get_noise_audio_clips_path(dataset)
     source_file_list = []
     target_file_list = []
     for root, dirs, files in os.walk(source_path):
@@ -214,15 +181,15 @@ def get_order_number(name):
     return re.findall("\\d+", name)[0]
 
 
-def if_duplicate(dataset):
+def if_duplicate(noise_audio_clips_path):
     """
     查看添加扰动后的音频列表是否因错误而重复添加
-    :param dataset: cv-corpus-japanese
-    :return: 
+    :param noise_audio_clips_path: D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/
+    :return:
     """
     duplicate_list = []
     data = {}
-    for root, dirs, files in os.walk(get_noise_audio_clips_path(dataset)):
+    for root, dirs, files in os.walk(noise_audio_clips_path):
         for file in files:
             order = get_order_number(file)
             if order in data.keys():
