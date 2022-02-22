@@ -22,6 +22,20 @@ public class NoisePatternController {
     private RpcUtil rpcUtil;
 
     /**
+     * 添加扰动时获取某数据集所有音频扰动情况
+     */
+    @RequestMapping("/audioClipsPattern")
+    public Result getAudioClipsPattern(@RequestParam(value = "dataset") String dataset) {
+        try {
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_clips_pattern", dataset);
+            return Result.success(StatusCode.SUCCESS.getStatus(),
+                    JSONObject.toJSONString(jsonObject.getJSONArray("data")));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    /**
      * 添加高斯白噪声
      */
     @RequestMapping("/addGaussianNoise")
