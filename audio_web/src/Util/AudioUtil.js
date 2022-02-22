@@ -1,5 +1,6 @@
 import {sendGet} from "./axios";
 import baseUrl from "./url";
+import {clips_path} from "./Path";
 
 async function getAudioSet() {
     const ops = []
@@ -22,15 +23,15 @@ async function getAudioSet() {
 }
 
 function getAudioUrl(dataset, audioName) {
-    return baseUrl + "/Audio/" + dataset + "/clips/" + audioName
+    return clips_path.get(dataset) + audioName
 }
 
 function getNoiseAudioUrl(dataset, audioName) {
     return baseUrl + "/NoiseAudio/" + dataset + "/clips/" + audioName
 }
 
-function getImageUrl(path){
+function getImageUrl(path) {
     return path.replace("D:/AudioSystem", baseUrl)
 }
 
-export {getAudioSet, getAudioUrl, getNoiseAudioUrl,getImageUrl}
+export {getAudioSet, getAudioUrl, getNoiseAudioUrl, getImageUrl}
