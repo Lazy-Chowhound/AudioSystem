@@ -1,7 +1,6 @@
 import json
 
-from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
-from Dataset.TimitDataset.TimitDataset import TimitDataset
+from Dataset.DatasetList import getDatasetInstance
 from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
@@ -13,30 +12,19 @@ def get_pattern_summary(dataset):
     :param dataset: cv-corpus-chinese
     :return:
     """
-    summary = {}
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        summary = cvd.get_pattern_summary()
-    elif dataset == "timit":
-        td = TimitDataset("timit")
-        summary = td.get_pattern_summary()
+    dataset_instance = getDatasetInstance(dataset)
+    summary = dataset_instance.get_pattern_summary(dataset)
     return RpcResult.ok(json.dumps(summary, ensure_ascii=False))
 
 
 @rpcApi
-def get_pattern_detail(dataset, pattern):
+def get_pattern_type_summary(dataset, pattern):
     """
     获取某个数据集某个扰动大类的具体扰动类型详情
     :param dataset: cv-corpus-chinese
     :param pattern: Sound level
     :return:
     """
-
-    summary_detail = {}
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        summary_detail = cvd.get_pattern_detail(pattern)
-    elif dataset == "timit":
-        td = TimitDataset("timit")
-        summary_detail = td.get_pattern_detail(pattern)
+    dataset_instance = getDatasetInstance(dataset)
+    summary_detail = dataset_instance.get_pattern_type_summary(pattern)
     return RpcResult.ok(json.dumps(summary_detail, ensure_ascii=False))

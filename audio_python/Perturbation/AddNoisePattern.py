@@ -2,8 +2,7 @@ import json
 import logging
 from multiprocessing import Pool
 
-from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
-from Dataset.TimitDataset.TimitDataset import TimitDataset
+from Dataset.DatasetList import getDatasetInstance
 from Perturbation.AudioProcess import *
 from Util.Annotation import rpcApi
 from Util.AudioUtil import *
@@ -17,13 +16,8 @@ def get_audio_clips_pattern(dataset):
     :param dataset: cv-corpus-chinese or timit
     :return:
     """
-    audio_set_pattern = []
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        audio_set_pattern = cvd.get_audio_clips_pattern()
-    elif dataset == "timit":
-        td = TimitDataset("timit")
-        audio_set_pattern = td.get_audio_clips_pattern()
+    dataset_instance = getDatasetInstance(dataset)
+    audio_set_pattern = dataset_instance.get_audio_clips_pattern()
     return RpcResult.ok(json.dumps(audio_set_pattern, ensure_ascii=False))
 
 
@@ -37,12 +31,8 @@ def remove_current_noise_audio_clip(dataset, audio_name, pattern, pattern_type=N
     :param pattern_type: Wild animals
     :return:
     """
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        cvd.remove_current_noise_audio_clip(audio_name, pattern, pattern_type)
-    elif dataset == "timit":
-        td = TimitDataset("timit")
-        td.remove_current_noise_audio_clip(audio_name, pattern, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance.remove_current_noise_audio_clip(audio_name, pattern, pattern_type)
     return RpcResult.ok("")
 
 
@@ -54,12 +44,8 @@ def add_gaussian_noise(dataset, audio_name):
     :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
     :return:
     """
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        cvd.add_gaussian_noise(audio_name)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_gaussian_noise(audio_name)
+    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance.add_gaussian_noise(audio_name)
     return RpcResult.ok("")
 
 
@@ -72,13 +58,8 @@ def add_sound_level(dataset, audio_name, pattern_type):
     :param pattern_type: 具体扰动 {louder:更响,quieter:更静,pitch:英高,speed:变速（更快）}
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_sound_level(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_sound_level(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_sound_level(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -91,13 +72,8 @@ def add_natural_sounds(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_natural_sounds(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_natural_sounds(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_natural_sounds(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -110,13 +86,8 @@ def add_animal(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_animal(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_animal(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_animal(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -129,13 +100,8 @@ def add_sound_of_things(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_sound_of_things(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_sound_of_things(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_sound_of_things(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -148,13 +114,8 @@ def add_human_sounds(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_human_sounds(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_human_sounds(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_human_sounds(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -167,13 +128,8 @@ def add_music(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_music(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_music(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_sound_level(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -186,13 +142,8 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    result = ""
-    if dataset == "cv-corpus-chinese":
-        cvd = CommonVoiceDataset("cv-corpus-chinese")
-        result = cvd.add_source_ambiguous_sounds(audio_name, pattern_type)
-    elif dataset == "timit":
-        td = CommonVoiceDataset("timit")
-        td.add_source_ambiguous_sounds(audio_name, pattern_type)
+    dataset_instance = getDatasetInstance(dataset)
+    result = dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
@@ -203,12 +154,8 @@ def add_randomly_multiProcess(dataset, process_num):
     :param dataset: cv-corpus-chinese or timit
     :return:
     """
-
-    audio_list = []
-    if dataset == "cv-corpus-chinese":
-        audio_list = CommonVoiceDataset("cv-corpus-chinese").get_audio_clips_list()
-    elif dataset == "timit":
-        audio_list = TimitDataset("timit").get_audio_clips_list()
+    dataset_instance = getDatasetInstance(dataset)
+    audio_list = dataset_instance.get_audio_clips_list()
     task_slice = math.ceil(len(audio_list) / process_num)
     pool = Pool(process_num)
     for i in range(0, process_num):
@@ -269,4 +216,4 @@ def add_pattern_randomly(dataset, file):
 
 
 if __name__ == '__main__':
-    pass
+    print(get_audio_clips_pattern("timit").data)
