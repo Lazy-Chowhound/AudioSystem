@@ -2,9 +2,12 @@ import glob
 
 import librosa.display
 import numpy as np
+import soundfile
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
 
+from Dataset.TimitDataset.TimitDatasetAudioUtil import make_noise_audio_clips_dirs
+from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
 from Util.AudioUtil import *
 
 
@@ -127,7 +130,7 @@ class TimitDataset:
     def get_mel_spectrum(self, audio_name):
         """
         生成 Mel频谱图
-        :param audio_name: 音频名
+        :param audio_name: DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -199,14 +202,173 @@ class TimitDataset:
             pattern_info = {"key": key}
             key += 1
             file = file.replace("\\", "/")
-            noise_audio_name = file[file.rfind("/")+1:]
+            noise_audio_name = file[file.rfind("/") + 1:]
             pattern_info["name"] = noise_audio_name[0:noise_audio_name.find("_n") + 2]
             pattern_tag = noise_audio_name[noise_audio_name.find("_n") + 3:noise_audio_name.find(".")]
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
 
+    def remove_current_noise_audio_clip(self, audio_name, pattern, pattern_type=None):
+        """
+        删除现有的扰动音频
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param pattern: Animal
+        :param pattern_type: Wild animals
+        :return:
+        """
+        audio_name = add_tag(audio_name, pattern_to_name[pattern])
+        if pattern_type is not None:
+            audio_name = add_tag(audio_name, pattern_type_to_suffix(pattern_type))
+        remove_audio(self.noise_clips_path, audio_name)
+
+    def add_gaussian_noise(self, audio_name):
+        """
+        添加高斯白噪声
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        noise_audio = gaussian_white_noise(sig, snr=5)
+        noise_audio_name = add_tag(audio_name, "gaussian_white_noise")
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+
+    def add_sound_level(self, audio_name, pattern_type):
+        """
+        添加 sound level 扰动
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param pattern_type: 具体扰动
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        noise_audio = sig
+        if pattern_type == "Louder":
+            noise_audio = louder(sig)
+        elif pattern_type == "Quieter":
+            noise_audio = quieter(sig)
+        elif pattern_type == "Pitch":
+            noise_audio = change_pitch(sig, sr)
+        elif pattern_type == "Speed":
+            sr = sr * 2
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
+    def add_natural_sounds(self, audio_name, pattern_type):
+        """
+        添加 natural sound 扰动
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param pattern_type:
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in natural_sounds_pattern_types:
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Natural Sounds", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
+    def add_animal(self, audio_name, pattern_type):
+        """
+        添加 animal 扰动
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param pattern_type:
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in animal_pattern_types:
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Animal", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "animal"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
+    def add_sound_of_things(self, audio_name, pattern_type):
+        """
+        添加 sound of things 扰动
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param pattern_type:
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in sound_of_things_pattern_types:
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Sound of things", pattern_type), sr=sr,
+                                               mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
+    def add_human_sounds(self, audio_name, pattern_type):
+        """
+        添加 human sounds 扰动
+        :param audio_name: 形如 DR1/FCJF0/SA1_n.wav
+        :param pattern_type:
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in human_sounds_pattern_types:
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Human sounds", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
+    def add_music(self, audio_name, pattern_type):
+        """
+        添加 music 扰动
+        :param audio_name: 形如 DR1/FCJF0/SA1_n.wav
+        :param pattern_type:
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in music_pattern_types:
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Music", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
+    def add_source_ambiguous_sounds(self, audio_name, pattern_type):
+        """
+        添加 source_ambiguous_sounds 扰动
+        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param pattern_type:
+        :return:
+        """
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in source_ambiguous_sounds_pattern_types:
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Source-ambiguous sounds", pattern_type), sr=sr,
+                                               mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
+
 
 if __name__ == '__main__':
-    td = TimitDataset("timit")
-    print(td.get_audio_clips_pattern())
+    pass
