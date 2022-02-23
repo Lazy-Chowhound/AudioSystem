@@ -163,7 +163,7 @@ class CommonVoiceDataset:
         sorted(summary)
         return summary
 
-    def get_pattern_detail(self, pattern):
+    def get_pattern_type_summary(self, pattern):
         """
         获取某个数据集某个扰动大类的具体扰动类型详情
         :param pattern: Sound level
