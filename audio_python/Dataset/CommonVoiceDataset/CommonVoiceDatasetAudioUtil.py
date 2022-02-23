@@ -4,7 +4,7 @@ from pydub import AudioSegment
 from Util.AudioUtil import remove_audio
 
 
-def writeNoiseAudio(path, noise_audio_name, noiseAudio, sr):
+def write_noise_audio(path, noise_audio_name, noiseAudio, sr):
     """
     将生成的扰动噪音以 wav 形式写入，然后转为 mp3 格式 然后删除原 wav
     :param path: 写入的地址
