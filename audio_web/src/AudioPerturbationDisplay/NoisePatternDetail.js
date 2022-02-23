@@ -93,9 +93,9 @@ class NoisePatternDetail extends React.Component {
                         <Select.Option value="Gaussian noise">Gaussian noise</Select.Option>
                         <Select.Option value="Animal">Animal</Select.Option>
                         <Select.Option value="Source-ambiguous sounds">Source-ambiguous sounds</Select.Option>
-                        <Select.Option value="Natural Sounds">Natural Sounds</Select.Option>
+                        <Select.Option value="Natural sounds">Natural sounds</Select.Option>
                         <Select.Option value="Sound of things">Sound of things</Select.Option>
-                        <Select.Option value="Human Sounds">Human Sounds</Select.Option>
+                        <Select.Option value="Human sounds">Human sounds</Select.Option>
                         <Select.Option value="Music">Music</Select.Option>
                     </Select>
                 </div>
