@@ -202,9 +202,9 @@ class TimitDataset:
             pattern_info = {"key": key}
             key += 1
             file = file.replace("\\", "/")
-            noise_audio_name = file[file.rfind("/") + 1:]
-            pattern_info["name"] = noise_audio_name[0:noise_audio_name.find("_n") + 2]
-            pattern_tag = noise_audio_name[noise_audio_name.find("_n") + 3:noise_audio_name.find(".")]
+            file = file.replace(self.noise_clips_path, "")
+            pattern_info["name"] = file[0:file.find("_n") + 2] + ".wav"
+            pattern_tag = file[file.find("_n") + 3:file.find(".")]
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
