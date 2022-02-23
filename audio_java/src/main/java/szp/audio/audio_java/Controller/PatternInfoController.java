@@ -36,11 +36,11 @@ public class PatternInfoController {
     /**
      * 获取扰动详情
      */
-    @RequestMapping("/patternDetail")
-    public Result getPatternDetail(@RequestParam(value = "dataset") String dataset,
+    @RequestMapping("/patternTypeSummary")
+    public Result getPatternTypeSummary(@RequestParam(value = "dataset") String dataset,
                                         @RequestParam(value = "pattern") String pattern) {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("get_pattern_detail", dataset, pattern);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_pattern_type_summary", dataset, pattern);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONObject("data")));
         } catch (XmlRpcException xmlRpcException) {

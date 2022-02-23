@@ -46,7 +46,7 @@ class NoisePatternDetail extends React.Component {
     }
 
     getDetail = () => {
-        sendGet("/patternDetail", {
+        sendGet("/patternTypeSummary", {
             params: {
                 dataset: this.props.dataset,
                 pattern: this.state.pattern
