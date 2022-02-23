@@ -27,7 +27,7 @@ class PerturbationDisplay extends React.Component {
         })
     }
 
-    handleChange = (e) => {
+    datasetChange = (e) => {
         this.setState({
             dataset: e
         })
@@ -39,6 +39,12 @@ class PerturbationDisplay extends React.Component {
         })
     }
 
+    showDetail = () => {
+        this.setState({
+            visible: true
+        })
+    }
+
     render() {
         return (
             <div className="content" style={{padding: 10}}>
@@ -46,22 +52,18 @@ class PerturbationDisplay extends React.Component {
                     <div>
                         <span>数据集:</span>
                         <Select defaultValue="cv-corpus-chinese" bordered={false}
-                                size={"large"} onChange={this.handleChange}>
+                                size={"large"} onChange={this.datasetChange}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
-                    <Button type="primary" icon={<PieChartOutlined/>} onClick={() => {
-                        this.setState({
-                            visible: true
-                        })
-                    }}>
+                    <Button type="primary" icon={<PieChartOutlined/>} onClick={this.showDetail}>
                         查看详情
                     </Button>
                 </div>
                 <NoisePatternChart key={this.state.dataset} dataset={this.state.dataset}/>
-                <Modal style={{marginTop: 30}} title={this.state.dataset} visible={this.state.visible}
-                       footer={null} onCancel={this.handleCancel} width={750}>
-                    <NoisePatternDetail dataset={this.state.dataset}/>
+                <Modal style={{marginTop: 30}} title={this.state.dataset}
+                       visible={this.state.visible} footer={null} onCancel={this.handleCancel} width={750}>
+                    <NoisePatternDetail key={this.state.dataset} dataset={this.state.dataset}/>
                 </Modal>
             </div>
         );

@@ -19,6 +19,7 @@ class NoisePatternDetail extends React.Component {
     }
 
     patternChange = (e) => {
+        console.log("改变了")
         this.setState({
             pattern: e
         }, () => {
@@ -99,7 +100,7 @@ class NoisePatternDetail extends React.Component {
                         <Select.Option value="Music">Music</Select.Option>
                     </Select>
                 </div>
-                <ReactEcharts option={this.getOption()}/>
+                <ReactEcharts style={{height:"300px",width:"702px"}} option={this.getOption()}/>
             </div>
         )
     }
