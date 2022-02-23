@@ -235,7 +235,7 @@ class CommonVoiceDataset:
         """
         添加 sound level 扰动
         :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type: 具体扰动 {louder:更响,quieter:更静,pitch:英高,speed:变速（更快）}
+        :param pattern_type:
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
