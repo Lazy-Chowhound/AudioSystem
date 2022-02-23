@@ -13,7 +13,7 @@ def get_pattern_summary(dataset):
     :return:
     """
     dataset_instance = getDatasetInstance(dataset)
-    summary = dataset_instance.get_pattern_summary(dataset)
+    summary = dataset_instance.get_pattern_summary()
     return RpcResult.ok(json.dumps(summary, ensure_ascii=False))
 
 
