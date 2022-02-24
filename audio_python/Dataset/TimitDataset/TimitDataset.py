@@ -14,8 +14,8 @@ class TimitDataset:
     def __init__(self, dataset):
         self.dataset = dataset
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
-        self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/TRAIN/"
-        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/TRAIN/"
+        self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
+        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -36,9 +36,9 @@ class TimitDataset:
     def get_audio_clips_list(self):
         """
         获取目录下所有音频文件名
-        :return:[DR1/FCJF0/SA1_n.wav]
+        :return:[TRAIN/DR1/FCJF0/SA1_n.wav]
         """
-        audioList = glob.glob(self.clips_path + "*/*/*.wav")
+        audioList = glob.glob(self.clips_path + "*/*/*/*.wav")
         audios = []
         for audio in audioList:
             if getAudioForm(audio) == "wav":
@@ -48,7 +48,7 @@ class TimitDataset:
     def get_audio_clip_detail(self, audio_name):
         """
         获取指定数据集音频的详情
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         txtPath = self.clips_path + audio_name.replace("_n.wav", ".TXT")
@@ -60,7 +60,7 @@ class TimitDataset:
     def get_audio_clip_properties(self, audio_name):
         """
         获取某条音频所有属性
-        :param audio_name:DR1/FCJF0/SA1_n.wav
+        :param audio_name:TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = self.clips_path + audio_name
@@ -112,7 +112,7 @@ class TimitDataset:
     def get_waveform_graph(self, audio_name):
         """
         生成波形图
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -129,7 +129,7 @@ class TimitDataset:
     def get_mel_spectrum(self, audio_name):
         """
         生成 Mel频谱图
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -153,7 +153,7 @@ class TimitDataset:
         :return:
         """
         summary = {}
-        noise_clips = glob.glob(self.noise_clips_path + "*/*/*.wav")
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
         for file in noise_clips:
             for key, value in pattern_to_name.items():
                 if value in file:
@@ -173,7 +173,7 @@ class TimitDataset:
         """
         summaryDetail = {}
         name = pattern_to_name[pattern]
-        noise_clips = glob.glob(self.noise_clips_path + "*/*/*.wav")
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
         for file in noise_clips:
             if name in file:
                 if name == "gaussian_white_noise":
@@ -196,7 +196,7 @@ class TimitDataset:
         """
         audio_set_pattern = []
         key = 0
-        noise_clips = glob.glob(self.noise_clips_path + "*/*/*.wav")
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
         for file in noise_clips:
             pattern_info = {"key": key}
             key += 1
@@ -211,7 +211,7 @@ class TimitDataset:
     def remove_current_noise_audio_clip(self, audio_name, pattern, pattern_type=None):
         """
         删除现有的扰动音频
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern: Animal
         :param pattern_type: Wild animals
         :return:
@@ -224,7 +224,7 @@ class TimitDataset:
     def add_gaussian_noise(self, audio_name):
         """
         添加高斯白噪声
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -237,7 +237,7 @@ class TimitDataset:
     def add_sound_level(self, audio_name, pattern_type):
         """
         添加 sound level 扰动
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type: 具体扰动
         :return:
         """
@@ -255,13 +255,14 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
         添加 natural sound 扰动
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -273,13 +274,14 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -291,13 +293,14 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "animal"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
         添加 sound of things 扰动
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -310,13 +313,14 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
         添加 human sounds 扰动
-        :param audio_name: 形如 DR1/FCJF0/SA1_n.wav
+        :param audio_name: 形如 TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -328,13 +332,14 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name: 形如 DR1/FCJF0/SA1_n.wav
+        :param audio_name: 形如 TRAIN/TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -346,13 +351,14 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
         添加 source_ambiguous_sounds 扰动
-        :param audio_name: DR1/FCJF0/SA1_n.wav
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -365,9 +371,11 @@ class TimitDataset:
             return "patternType error"
         noise_audio_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
 
 
 if __name__ == '__main__':
-    pass
+    td = TimitDataset("timit")
+    print(td.add_music("TEST/DR1/FAKS0/SA1_n.wav", "Musical instrument"))
