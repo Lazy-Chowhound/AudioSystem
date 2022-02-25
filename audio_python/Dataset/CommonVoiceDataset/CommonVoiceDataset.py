@@ -204,9 +204,7 @@ class CommonVoiceDataset:
         for clip in self.get_noise_audio_clips_list():
             pattern_info = {"key": key}
             key += 1
-            num = re.findall("\\d+", clip)[0]
-            pattern_info["name"] = clip[0:clip.find(num) + len(num)] + ".mp3"
-            pattern_tag = clip[clip.find(num) + len(num) + 1:clip.find(".")]
+            pattern_info["name"], pattern_tag = self.get_name_and_pattern_tag(clip)
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
@@ -382,3 +380,12 @@ class CommonVoiceDataset:
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
         write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
         return ""
+
+    def get_name_and_pattern_tag(self, name):
+        """
+        从扰动名字中获取原本的名字和扰动标签
+        :param name: common_voice_zh-CN_18524189_gaussian_white_noise.mp3
+        :return: common_voice_zh-CN_18524189.mp3,gaussian_white_noise
+        """
+        num = re.findall("\\d+", name)[0]
+        return name[0:name.find(num) + len(num)] + ".mp3", name[name.find(num) + len(num) + 1:name.find(".")]

@@ -210,8 +210,7 @@ class TimitDataset:
         for clip in noise_clips:
             pattern_info = {"key": key}
             key += 1
-            pattern_info["name"] = clip[0:clip.find("_n") + 2] + ".wav"
-            pattern_tag = clip[clip.find("_n") + 3:clip.find(".")]
+            pattern_info["name"], pattern_tag = self.get_name_and_pattern(clip)
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
@@ -382,3 +381,11 @@ class TimitDataset:
         make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
+
+    def get_name_and_pattern_tag(self, name):
+        """
+        从扰动名字中获取原本的名字和扰动标签
+        :param name: TEST/DR1/FAKS0/SA2_n_human_sounds_respiratory_sounds.wav
+        :return: TEST/DR1/FAKS0/SA2_n.wav,human_sounds_respiratory_sounds
+        """
+        return name[0:name.find("_n") + 2] + ".wav", name[name.find("_n") + 3:name.find(".")]
