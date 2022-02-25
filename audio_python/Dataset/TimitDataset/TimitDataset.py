@@ -1,7 +1,9 @@
 import glob
+import os
 
 import librosa.display
 import numpy as np
+import soundfile
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
 
@@ -225,7 +227,7 @@ class TimitDataset:
         audio_name = add_tag(audio_name, pattern_to_name[pattern])
         if pattern_type is not None:
             audio_name = add_tag(audio_name, pattern_type_to_suffix(pattern_type))
-        remove_audio(self.noise_clips_path, audio_name)
+        os.remove(self.noise_clips_path + audio_name)
 
     def add_gaussian_noise(self, audio_name):
         """

@@ -1,8 +1,8 @@
 import json
+import os
 
 from Dataset.DatasetList import getDatasetInstance
 from Util.Annotation import rpcApi
-from Util.AudioUtil import *
 from Util.RpcResult import RpcResult
 
 
@@ -16,7 +16,7 @@ def get_audio_clips_properties_by_page(dataset, page, page_size):
     :return:
     """
     dataset_instance = getDatasetInstance(dataset)
-    audio = dataset_instance.get_audio_clips_properties_by_page(page,page_size)
+    audio = dataset_instance.get_audio_clips_properties_by_page(page, page_size)
     return RpcResult.ok(json.dumps(audio, ensure_ascii=False))
 
 

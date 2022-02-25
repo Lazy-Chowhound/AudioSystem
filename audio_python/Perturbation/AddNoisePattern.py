@@ -1,11 +1,13 @@
 import json
-import logging
+import math
+import os
+import random
 from multiprocessing import Pool
 
 from Dataset.DatasetList import getDatasetInstance
-from Perturbation.AudioProcess import *
 from Util.Annotation import rpcApi
-from Util.AudioUtil import *
+from Util.AudioUtil import sound_level_pattern_types, animal_pattern_types, sound_of_things_pattern_types, \
+    human_sounds_pattern_types, natural_sounds_pattern_types, source_ambiguous_sounds_pattern_types, music_pattern_types
 from Util.RpcResult import RpcResult
 
 
@@ -212,4 +214,4 @@ def add_pattern_randomly(dataset, file):
             ptype = source_ambiguous_sounds_pattern_types
             add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
     except Exception as e:
-        logging.warning(dataset + ":" + file + " fail ", e)
+        print(dataset + ":" + file + " fail ", e)

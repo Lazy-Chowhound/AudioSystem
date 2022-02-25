@@ -1,7 +1,7 @@
+import os
+
 import soundfile
 from pydub import AudioSegment
-
-from Util.AudioUtil import remove_audio
 
 
 def write_noise_audio(path, noise_audio_name, noiseAudio, sr):
@@ -15,7 +15,7 @@ def write_noise_audio(path, noise_audio_name, noiseAudio, sr):
     """
     soundfile.write(path + noise_audio_name, noiseAudio, sr)
     transform_wav_to_mp3(path, noise_audio_name)
-    remove_audio(path, noise_audio_name)
+    os.remove(path + noise_audio_name)
 
 
 def transform_wav_to_mp3(path, audio_name):

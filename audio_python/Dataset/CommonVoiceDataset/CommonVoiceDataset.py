@@ -1,3 +1,6 @@
+import os
+import re
+
 import librosa.display
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -219,7 +222,7 @@ class CommonVoiceDataset:
         audio_name = add_tag(audio_name, pattern_to_name[pattern])
         if pattern_type is not None:
             audio_name = add_tag(audio_name, pattern_type_to_suffix(pattern_type))
-        remove_audio(self.noise_clips_path, audio_name)
+        os.remove(self.noise_clips_path + audio_name)
 
     def add_gaussian_noise(self, audio_name):
         """

@@ -1,12 +1,11 @@
+import os
 import re
 
 import librosa
 import soundfile
-from moviepy.editor import *
+from moviepy.audio.io.AudioFileClip import AudioFileClip
 
 # 项目路径
-from Dataset.DatasetList import getDatasetInstance
-
 PROJECT_PATH = "D:/AudioSystem/"
 # 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
@@ -98,16 +97,6 @@ def get_pattern_info_from_name(pattern_tag):
                 return name_to_pattern[key], suffix_to_pattern_type(pattern_tag.replace(key + "_", ""))
 
 
-def remove_audio(path, audio_name):
-    """
-    删除音频
-    :param path: D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/
-    :param audio_name: common_voice_zh-CN_27451286.mp3
-    :return:
-    """
-    os.remove(path + audio_name)
-
-
 def get_source_noises_path(pattern, pattern_type):
     return SOURCE_NOISES_PATH + pattern + "/" + pattern_type + ".wav"
 
@@ -148,6 +137,7 @@ def get_error_audio_clips(dataset):
     :param dataset: cv-corpus-chinese or timit
     :return:
     """
+    from Dataset.DatasetList import getDatasetInstance
     dataset_instance = getDatasetInstance(dataset)
     error_list = []
     source_file_list = dataset_instance.get_audio_clips_list()
@@ -165,23 +155,6 @@ def get_error_audio_clips(dataset):
     while i < len(source_file_list):
         error_list.append(source_file_list[i])
         i += 1
-    return error_list
-
-
-def extract_error_audio_from_log():
-    """
-    从 log 中提取出错的 audio
-    :return:
-    """
-    path = "D:/AudioSystem/audio_python/Perturbation/error.log"
-    error_list = []
-    with open(path) as f:
-        while True:
-            lines = f.readline()
-            if not lines:
-                break
-            line = lines.split(" ")
-            error_list.append(line[4][line[4].rfind("/") + 1:])
     return error_list
 
 
