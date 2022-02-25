@@ -147,23 +147,32 @@ class TimitDataset:
         plt.savefig(savingPath)
         return savingPath
 
+    def get_noise_audio_clips_list(self):
+        """
+        获取扰动音频列表
+        :return: [TRAIN/DR1/FCJF0/SA1_n_gaussian_white_noise.wav]
+        """
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
+        for index in range(0, len(noise_clips)):
+            noise_clips[index] = noise_clips[index].replace("\\", "/").replace(self.noise_clips_path, "")
+        return noise_clips
+
     def get_pattern_summary(self):
         """
         获取扰动大类的详情
         :return:
         """
-        summary = {}
-        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
-        for file in noise_clips:
+        pattern_summary = {}
+        noise_clips = self.get_noise_audio_clips_list()
+        for clip in noise_clips:
             for key, value in pattern_to_name.items():
-                if value in file:
-                    if key in summary.keys():
-                        summary[key] = summary[key] + 1
+                if value in clip:
+                    if key in pattern_summary.keys():
+                        pattern_summary[key] = pattern_summary[key] + 1
                     else:
-                        summary[key] = 1
+                        pattern_summary[key] = 1
                     break
-        sorted(summary)
-        return summary
+        return pattern_summary
 
     def get_pattern_type_summary(self, pattern):
         """
@@ -171,23 +180,22 @@ class TimitDataset:
         :param pattern: Sound level
         :return:
         """
-        summaryDetail = {}
+        pattern_type_summary = {}
         name = pattern_to_name[pattern]
-        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
-        for file in noise_clips:
-            if name in file:
+        noise_clips = self.get_noise_audio_clips_list()
+        for clip in noise_clips:
+            if name in clip:
                 if name == "gaussian_white_noise":
-                    pattern = name
+                    pattern_type = name
                 else:
-                    beg = file.index(name) + len(name) + 1
-                    end = file.index(".")
-                    pattern = file[beg:end]
-                if pattern in summaryDetail.keys():
-                    summaryDetail[pattern] = summaryDetail[pattern] + 1
+                    beg = clip.index(name) + len(name) + 1
+                    end = clip.index(".")
+                    pattern_type = clip[beg:end]
+                if pattern_type in pattern_type_summary.keys():
+                    pattern_type_summary[pattern_type] = pattern_type_summary[pattern_type] + 1
                 else:
-                    summaryDetail[pattern] = 1
-        sorted(summaryDetail)
-        return summaryDetail
+                    pattern_type_summary[pattern_type] = 1
+        return pattern_type_summary
 
     def get_audio_clips_pattern(self):
         """
@@ -196,14 +204,12 @@ class TimitDataset:
         """
         audio_set_pattern = []
         key = 0
-        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
-        for file in noise_clips:
+        noise_clips = self.get_noise_audio_clips_list()
+        for clip in noise_clips:
             pattern_info = {"key": key}
             key += 1
-            file = file.replace("\\", "/")
-            file = file.replace(self.noise_clips_path, "")
-            pattern_info["name"] = file[0:file.find("_n") + 2] + ".wav"
-            pattern_tag = file[file.find("_n") + 3:file.find(".")]
+            pattern_info["name"] = clip[0:clip.find("_n") + 2] + ".wav"
+            pattern_tag = clip[clip.find("_n") + 3:clip.find(".")]
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
@@ -374,8 +380,3 @@ class TimitDataset:
         make_noise_audio_clips_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
         return ""
-
-
-if __name__ == '__main__':
-    td = TimitDataset("timit")
-    print(len(td.get_audio_clips_list()))

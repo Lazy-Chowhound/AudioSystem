@@ -146,22 +146,28 @@ class CommonVoiceDataset:
         plt.savefig(savingPath)
         return savingPath
 
+    def get_noise_audio_clips_list(self):
+        """
+        获取扰动音频列表
+        :return: [common_voice_zh-CN_18531538_gaussian_white_noise.mp3]
+        """
+        return os.listdir(self.noise_clips_path)
+
     def get_pattern_summary(self):
         """
         获取扰动大类的详情
         :return:
         """
-        summary = {}
-        for file in os.listdir(self.noise_clips_path):
+        pattern_summary = {}
+        for clip in self.get_noise_audio_clips_list():
             for key, value in pattern_to_name.items():
-                if value in file:
-                    if key in summary.keys():
-                        summary[key] = summary[key] + 1
+                if value in clip:
+                    if key in pattern_summary.keys():
+                        pattern_summary[key] = pattern_summary[key] + 1
                     else:
-                        summary[key] = 1
+                        pattern_summary[key] = 1
                     break
-        sorted(summary)
-        return summary
+        return pattern_summary
 
     def get_pattern_type_summary(self, pattern):
         """
@@ -169,22 +175,21 @@ class CommonVoiceDataset:
         :param pattern: Sound level
         :return:
         """
-        summaryDetail = {}
+        pattern_type_summary = {}
         name = pattern_to_name[pattern]
         for file in os.listdir(self.noise_clips_path):
             if name in file:
                 if name == "gaussian_white_noise":
-                    pattern = name
+                    pattern_type = name
                 else:
                     beg = file.index(name) + len(name) + 1
                     end = file.index(".")
-                    pattern = file[beg:end]
-                if pattern in summaryDetail.keys():
-                    summaryDetail[pattern] = summaryDetail[pattern] + 1
+                    pattern_type = file[beg:end]
+                if pattern_type in pattern_type_summary.keys():
+                    pattern_type_summary[pattern_type] = pattern_type_summary[pattern_type] + 1
                 else:
-                    summaryDetail[pattern] = 1
-        sorted(summaryDetail)
-        return summaryDetail
+                    pattern_type_summary[pattern_type] = 1
+        return pattern_type_summary
 
     def get_audio_clips_pattern(self):
         """
@@ -193,15 +198,14 @@ class CommonVoiceDataset:
         """
         audio_set_pattern = []
         key = 0
-        for root, dirs, files in os.walk(self.noise_clips_path):
-            for file in files:
-                pattern_info = {"key": key}
-                key += 1
-                num = re.findall("\\d+", file)[0]
-                pattern_info["name"] = file[0:file.find(num) + len(num)] + ".mp3"
-                pattern_tag = file[file.find(num) + len(num) + 1:file.find(".")]
-                pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
-                audio_set_pattern.append(pattern_info)
+        for clip in self.get_noise_audio_clips_list():
+            pattern_info = {"key": key}
+            key += 1
+            num = re.findall("\\d+", clip)[0]
+            pattern_info["name"] = clip[0:clip.find(num) + len(num)] + ".mp3"
+            pattern_tag = clip[clip.find(num) + len(num) + 1:clip.find(".")]
+            pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
+            audio_set_pattern.append(pattern_info)
         return audio_set_pattern
 
     def remove_current_noise_audio_clip(self, audio_name, pattern, pattern_type=None):
