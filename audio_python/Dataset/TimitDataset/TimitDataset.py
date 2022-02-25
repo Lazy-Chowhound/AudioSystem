@@ -41,7 +41,7 @@ class TimitDataset:
         audioList = glob.glob(self.clips_path + "*/*/*/*.wav")
         audios = []
         for audio in audioList:
-            if getAudioForm(audio) == "wav":
+            if get_audio_form(audio) == "wav":
                 audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
         return audios
 
@@ -378,4 +378,4 @@ class TimitDataset:
 
 if __name__ == '__main__':
     td = TimitDataset("timit")
-    print(td.add_music("TEST/DR1/FAKS0/SA1_n.wav", "Musical instrument"))
+    print(len(td.get_audio_clips_list()))

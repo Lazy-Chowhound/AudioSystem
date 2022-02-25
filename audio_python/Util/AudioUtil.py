@@ -216,7 +216,7 @@ def if_duplicate(noise_audio_clips_path):
     return duplicate_list
 
 
-def getAudioForm(audio_name):
+def get_audio_form(audio_name):
     """
     获取音频格式
     :param audio_name: X/X/X/XXXXX.wav
