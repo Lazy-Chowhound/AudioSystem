@@ -19,7 +19,6 @@ class NoisePatternDetail extends React.Component {
     }
 
     patternChange = (e) => {
-        console.log("改变了")
         this.setState({
             pattern: e
         }, () => {
