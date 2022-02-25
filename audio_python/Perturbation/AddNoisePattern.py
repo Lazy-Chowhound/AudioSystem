@@ -26,7 +26,7 @@ def remove_current_noise_audio_clip(dataset, audio_name, pattern, pattern_type=N
     """
     删除现有的扰动音频
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern: Animal
     :param pattern_type: Wild animals
     :return:
@@ -41,7 +41,7 @@ def add_gaussian_noise(dataset, audio_name):
     """
     添加高斯白噪声
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :return:
     """
     dataset_instance = getDatasetInstance(dataset)
@@ -54,7 +54,7 @@ def add_sound_level(dataset, audio_name, pattern_type):
     """
     添加 sound level 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type: 具体扰动 {louder:更响,quieter:更静,pitch:英高,speed:变速（更快）}
     :return:
     """
@@ -68,7 +68,7 @@ def add_natural_sounds(dataset, audio_name, pattern_type):
     """
     添加 natural sound 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type:
     :return:
     """
@@ -82,7 +82,7 @@ def add_animal(dataset, audio_name, pattern_type):
     """
     添加 animal 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type:
     :return:
     """
@@ -96,7 +96,7 @@ def add_sound_of_things(dataset, audio_name, pattern_type):
     """
     添加 sound of things 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type:
     :return:
     """
@@ -110,7 +110,7 @@ def add_human_sounds(dataset, audio_name, pattern_type):
     """
     添加 human sounds 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: 形如 common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: 形如 common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type:
     :return:
     """
@@ -124,7 +124,7 @@ def add_music(dataset, audio_name, pattern_type):
     """
     添加 music 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: 形如 common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: 形如 common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type:
     :return:
     """
@@ -138,7 +138,7 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
     """
     添加 source_ambiguous_sounds 扰动
     :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :param pattern_type:
     :return:
     """
@@ -168,10 +168,10 @@ def add_randomly_multiProcess(dataset, process_num):
 def add_pattern_range(dataset, audio_list, start, end):
     """
     范围添加扰动
-    :param dataset:
+    :param dataset: cv-corpus-chinese or timit
     :param audio_list:
-    :param start:
-    :param end:
+    :param start: 第几个开始
+    :param end: 第几个结束
     :return:
     """
     print('process %s working...' % (os.getpid()))
@@ -183,7 +183,7 @@ def add_pattern_randomly(dataset, file):
     """
     随机加噪声
     :param dataset: cv-corpus-chinese or timit
-    :param file: common_voice_zh-CN_18524189.mp3 or DR1/FCJF0/SA1_n.wav
+    :param file: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :return:
     """
     try:
@@ -213,7 +213,3 @@ def add_pattern_randomly(dataset, file):
             add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
     except Exception as e:
         logging.warning(dataset + ":" + file + " fail ", e)
-
-
-if __name__ == '__main__':
-    print(get_audio_clips_pattern("timit").data)
