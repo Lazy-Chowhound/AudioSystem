@@ -146,7 +146,7 @@ def get_error_audio_clips(dataset):
     i = 0
     j = 0
     while i < len(source_file_list) and j < len(target_file_list):
-        if get_order_number(source_file_list[i]) in get_order_number(target_file_list[j]):
+        if source_file_list[i][0:source_file_list[i].rfind(".")] in target_file_list[j]:
             i += 1
             j += 1
         else:
@@ -167,21 +167,23 @@ def get_order_number(name):
     return re.findall("\\d+", name)[0]
 
 
-def if_duplicate(noise_audio_clips_path):
+def if_duplicate(dataset):
     """
     查看添加扰动后的音频列表是否因错误而重复添加
-    :param noise_audio_clips_path: D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/
+    :param dataset: cv-corpus-chinese or timit
     :return:
     """
     duplicate_list = []
     data = {}
-    for root, dirs, files in os.walk(noise_audio_clips_path):
-        for file in files:
-            order = get_order_number(file)
-            if order in data.keys():
-                data[order] = data[order] + 1
-            else:
-                data[order] = 1
+    from Dataset.DatasetList import getDatasetInstance
+    dataset_instance = getDatasetInstance(dataset)
+    noise_clips = dataset_instance.get_noise_audio_clips_list()
+    for clip in noise_clips:
+        name, pattern_tag = dataset_instance.get_name_and_pattern_tag(clip)
+        if name in data.keys():
+            data[name] = data[name] + 1
+        else:
+            data[name] = 1
     for key, value in data.items():
         if value >= 2:
             duplicate_list.append(key)
