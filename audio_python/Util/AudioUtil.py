@@ -5,6 +5,8 @@ import soundfile
 from moviepy.editor import *
 
 # 项目路径
+from Dataset.DatasetList import getDatasetInstance
+
 PROJECT_PATH = "D:/AudioSystem/"
 # 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
@@ -140,20 +142,17 @@ def cut_audio(path, start, end=None):
     soundfile.write(path[0: path.find(".")] + "_cut" + ".wav", audio_dst, sr)
 
 
-def find_error_audio(source_path, target_path):
+def get_error_audio_clips(dataset):
     """
-    寻找没有成功添加的音频
-    :param target_path: 原音频文件夹路径 D:/AudioSystem/Audio/cv-corpus-chinese/clips/
-    :param source_path: 扰动音频文件夹路径 D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/
-    :return: 
+    获取没有成功添加扰动的音频
+    :param dataset: cv-corpus-chinese or timit
+    :return:
     """
+    dataset_instance = getDatasetInstance(dataset)
     error_list = []
-    source_file_list = []
-    target_file_list = []
-    for root, dirs, files in os.walk(source_path):
-        source_file_list = files
-    for root, dirs, files in os.walk(target_path):
-        target_file_list = files
+    source_file_list = dataset_instance.get_audio_clips_list()
+    target_file_list = dataset_instance.get_noise_audio_clips_list()
+
     i = 0
     j = 0
     while i < len(source_file_list) and j < len(target_file_list):
