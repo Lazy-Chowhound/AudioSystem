@@ -20,13 +20,25 @@ public class ValidationController {
     @Autowired
     private RpcUtil rpcUtil;
 
-    @RequestMapping("/audioSetContrastContentByPage")
-    public Result getAudioSetContrastContentByPage(@RequestParam(value = "audioSet") String dataset,
-                                                   @RequestParam(value = "page") String page,
-                                                   @RequestParam(value = "pageSize") String pageSize) {
+    @RequestMapping("/models")
+    public Result getModels() {
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_set_contrast_content_by_page",
-                    dataset, page, pageSize);
+            JSONObject jsonObject = rpcUtil.sendRequest("get_models");
+            return Result.success(StatusCode.SUCCESS.getStatus(),
+                    JSONObject.toJSONString(jsonObject.getJSONArray("data")));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
+    @RequestMapping("/validationResultsByPage")
+    public Result getValidationResultsByPage(@RequestParam(value = "audioSet") String dataset,
+                                             @RequestParam(value = "modelName") String modelName,
+                                             @RequestParam(value = "page") String page,
+                                             @RequestParam(value = "pageSize") String pageSize) {
+        try {
+            JSONObject jsonObject = rpcUtil.sendRequest("get_validation_results_by_page",
+                    dataset, modelName, page, pageSize);
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {

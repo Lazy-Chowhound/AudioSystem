@@ -13,13 +13,15 @@ class Validation extends React.Component {
         this.state = {
             dataSource: [],
             loading: true,
-            dataset: "cv-corpus-japanese",
+            dataset: "cv-corpus-chinese",
             options: [],
-            modal: "模型1",
             currentPage: 1,
             pageSize: 5,
             total: null,
-            fileList: []
+            fileList: [],
+            uploading: false,
+            modelList: [],
+            currentModel: null,
         }
     }
 
@@ -53,7 +55,20 @@ class Validation extends React.Component {
         }).catch(error => {
             message.error(error).then()
         })
-        this.getAudioSetContrastContentByPage()
+        this.getModels()
+        // this.getAudioSetContrastContentByPage()
+    }
+
+    getModels = () => {
+        sendGet("/models").then(res => {
+            const data = JSON.parse(res.data.data)
+            this.setState({
+                modelList: data,
+                currentModel: data[0]
+            })
+        }).catch(error => {
+            message.error(error).then()
+        })
     }
 
     getAudioSetContrastContentByPage = () => {
@@ -102,16 +117,37 @@ class Validation extends React.Component {
 
     modalChange = (e) => {
         this.setState({
-            modal: e
+            currentModel: e
         })
     }
 
-    uploadModel = (info) => {
-        if (info.file.status === 'done') {
-            message.success("上传模型成功").then();
-        } else if (info.file.status === 'error') {
-            message.error("上传模型失败").then();
-        }
+    beforeUpload = (file, fileList) => {
+        console.log(fileList)
+        this.setState({
+            uploading: true
+        })
+        const data = new FormData();
+        fileList.forEach((file) => {
+            data.append('files[]', file);
+        });
+        // data.append("file", file)
+        // sendFile("/uploadModel", data,
+        //     {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+        //         if (res.data.code === 400) {
+        //
+        //         } else {
+        //             message.error("上传失败").then()
+        //         }
+        //     }
+        // ).catch(err => {
+        //     message.error(err).then()
+        // })
+        // setTimeout(() => {
+        //     this.setState({
+        //         uploading: false
+        //     })
+        // }, 500)
+        return false;
     }
 
     render() {
@@ -120,22 +156,18 @@ class Validation extends React.Component {
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <div>
                         <span>数据集:</span>
-                        <Select defaultValue={this.state.dataset} bordered={false}
-                                size={"large"} onChange={this.datasetChange}>
+                        <Select defaultValue={this.state.dataset} bordered={false} size={"large"}
+                                onChange={this.datasetChange}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
-                    <Upload action="http://localhost:8080/uploadModel" onChange={this.uploadModel}
-                            showUploadList={false}>
-                        <Button icon={<UploadOutlined/>} type="primary">上传模型</Button>
+                    <Upload beforeUpload={this.beforeUpload} directory showUploadList={false}>
+                        <Button icon={<UploadOutlined/>} loading={this.state.uploading} type="primary">上传模型</Button>
                     </Upload>
                     <div>
                         <span>模型:</span>
-                        <Select defaultValue="模型1" bordered={false}
-                                onChange={this.modalChange}>
-                            <Select.Option key={"模型1"} value={"模型1"}/>
-                            <Select.Option key={"模型2"} value={"模型2"}/>
-                            <Select.Option key={"模型3"} value={"模型3"}/>
+                        <Select value={this.state.currentModel} bordered={false} onChange={this.modalChange}>
+                            {this.state.modelList.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
                 </div>
