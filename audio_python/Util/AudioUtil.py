@@ -17,6 +17,8 @@ SOURCE_NOISES_PATH = PROJECT_PATH + "Noise/"
 WAVEFORM_GRAPH_PATH = PROJECT_PATH + "WaveImage/"
 # Mel频谱图路径
 MEL_SPECTRUM_PATH = PROJECT_PATH + "SpectrumImage/"
+# ASR模型路径
+MODEL_PATH = PROJECT_PATH + "Models/"
 
 pattern_to_name = {"Gaussian noise": "gaussian_white_noise",
                    "Sound level": "sound_level",
@@ -137,8 +139,8 @@ def get_error_audio_clips(dataset):
     :param dataset: cv-corpus-chinese or timit
     :return:
     """
-    from Dataset.DatasetList import getDatasetInstance
-    dataset_instance = getDatasetInstance(dataset)
+    from Dataset.DatasetList import get_dataset_instance
+    dataset_instance = get_dataset_instance(dataset)
     error_list = []
     source_file_list = dataset_instance.get_audio_clips_list()
     target_file_list = dataset_instance.get_noise_audio_clips_list()
@@ -175,8 +177,8 @@ def if_duplicate(dataset):
     """
     duplicate_list = []
     data = {}
-    from Dataset.DatasetList import getDatasetInstance
-    dataset_instance = getDatasetInstance(dataset)
+    from Dataset.DatasetList import get_dataset_instance
+    dataset_instance = get_dataset_instance(dataset)
     noise_clips = dataset_instance.get_noise_audio_clips_list()
     for clip in noise_clips:
         name, pattern_tag = dataset_instance.get_name_and_pattern_tag(clip)
