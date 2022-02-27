@@ -1,6 +1,6 @@
 import json
 
-from Dataset.DatasetList import getDatasetInstance
+from Dataset.DatasetList import get_dataset_instance
 from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
@@ -12,7 +12,7 @@ def get_pattern_summary(dataset):
     :param dataset: cv-corpus-chinese
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     summary = dataset_instance.get_pattern_summary()
     return RpcResult.ok(json.dumps(summary, ensure_ascii=False))
 
@@ -25,6 +25,6 @@ def get_pattern_type_summary(dataset, pattern):
     :param pattern: Sound level
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     summary_detail = dataset_instance.get_pattern_type_summary(pattern)
     return RpcResult.ok(json.dumps(summary_detail, ensure_ascii=False))

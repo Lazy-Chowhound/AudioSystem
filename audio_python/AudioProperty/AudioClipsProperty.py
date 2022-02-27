@@ -1,7 +1,7 @@
 import json
 import os
 
-from Dataset.DatasetList import getDatasetInstance
+from Dataset.DatasetList import get_dataset_instance
 from Util.Annotation import rpcApi
 from Util.RpcResult import RpcResult
 
@@ -15,7 +15,7 @@ def get_audio_clips_properties_by_page(dataset, page, page_size):
     :param page_size: 页面大小
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     audio = dataset_instance.get_audio_clips_properties_by_page(page, page_size)
     return RpcResult.ok(json.dumps(audio, ensure_ascii=False))
 
@@ -28,7 +28,7 @@ def get_waveform_graph(dataset, audio_name):
     :param audio_name: 音频名
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     savingPath = dataset_instance.get_waveform_graph(audio_name)
     return RpcResult.ok(savingPath)
 
@@ -41,7 +41,7 @@ def get_mel_spectrum(dataset, audio_name):
     :param audio_name: 音频名
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     savingPath = dataset_instance.get_mel_spectrum(audio_name)
     return RpcResult.ok(savingPath)
 

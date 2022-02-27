@@ -4,7 +4,7 @@ import os
 import random
 from multiprocessing import Pool
 
-from Dataset.DatasetList import getDatasetInstance
+from Dataset.DatasetList import get_dataset_instance
 from Util.Annotation import rpcApi
 from Util.AudioUtil import sound_level_pattern_types, animal_pattern_types, sound_of_things_pattern_types, \
     human_sounds_pattern_types, natural_sounds_pattern_types, source_ambiguous_sounds_pattern_types, music_pattern_types
@@ -18,7 +18,7 @@ def get_audio_clips_pattern(dataset):
     :param dataset: cv-corpus-chinese or timit
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     audio_set_pattern = dataset_instance.get_audio_clips_pattern()
     return RpcResult.ok(json.dumps(audio_set_pattern, ensure_ascii=False))
 
@@ -33,7 +33,7 @@ def remove_current_noise_audio_clip(dataset, audio_name, pattern, pattern_type=N
     :param pattern_type: Wild animals
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     dataset_instance.remove_current_noise_audio_clip(audio_name, pattern, pattern_type)
     return RpcResult.ok("")
 
@@ -46,7 +46,7 @@ def add_gaussian_noise(dataset, audio_name):
     :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     dataset_instance.add_gaussian_noise(audio_name)
     return RpcResult.ok("")
 
@@ -60,7 +60,7 @@ def add_sound_level(dataset, audio_name, pattern_type):
     :param pattern_type: 具体扰动 {louder:更响,quieter:更静,pitch:英高,speed:变速（更快）}
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_sound_level(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -74,7 +74,7 @@ def add_natural_sounds(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_natural_sounds(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -88,7 +88,7 @@ def add_animal(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_animal(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -102,7 +102,7 @@ def add_sound_of_things(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_sound_of_things(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -116,7 +116,7 @@ def add_human_sounds(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_human_sounds(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -130,7 +130,7 @@ def add_music(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_sound_level(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -144,7 +144,7 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
     :param pattern_type:
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     result = dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type)
     return RpcResult.ok(result)
 
@@ -156,7 +156,7 @@ def add_randomly_multiProcess(dataset, process_num):
     :param dataset: cv-corpus-chinese or timit
     :return:
     """
-    dataset_instance = getDatasetInstance(dataset)
+    dataset_instance = get_dataset_instance(dataset)
     audio_list = dataset_instance.get_audio_clips_list()
     task_slice = math.ceil(len(audio_list) / process_num)
     pool = Pool(process_num)

@@ -4,7 +4,7 @@ from Dataset.TimitDataset.TimitDataset import TimitDataset
 dataset_list = ["cv-corpus-chinese", "timit"]
 
 
-def getDatasetInstance(dataset):
+def get_dataset_instance(dataset):
     """
     根据数据集名称返回实例
     :param dataset:
