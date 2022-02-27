@@ -46,37 +46,34 @@ class CommonVoiceDataset:
                     audioList.append(file)
         return audioList
 
-    def get_audio_clip_detail(self, audio_name):
+    def get_audio_clip_content(self, audio_name):
         """
         获取指定数据集音频的详情
-        :param audio_name:
+        :param audio_name: common_voice_zh-CN_18524189.mp3
         :return:
         """
         files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
-        detail = {}
         for file in files:
             train = pd.read_csv(os.path.join(self.dataset_path, file), sep='\t', header=0)
             for index, row in train.iterrows():
                 if audio_name in row['path']:
                     detail = dict(row.items())
-                    detail['id'] = index
-                    break
-        return detail
+                    return detail['sentence']
 
     def get_audio_clip_properties(self, audio_name):
         """
         获取某条音频所有属性
+        :param audio_name: common_voice_zh-CN_18524189.mp3
         :return:
         """
         audio = self.clips_path + audio_name
         audio_property = {}
-        detail = self.get_audio_clip_detail(audio_name)
         audio_property['name'] = audio_name
         audio_property['size'] = str(self.get_duration(audio)) + "秒"
         audio_property['channel'] = "单" if self.get_channels(audio) == 1 else "双"
         audio_property['sampleRate'] = str(self.getSamplingRate(audio)) + "Hz"
         audio_property['bitDepth'] = str(self.get_bit_depth(audio)) + "bit"
-        audio_property['content'] = detail['sentence']
+        audio_property['content'] = self.get_audio_clip_content(audio_name)
         return audio_property
 
     def getSamplingRate(self, audio):
