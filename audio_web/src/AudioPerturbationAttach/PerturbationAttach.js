@@ -194,7 +194,8 @@ class PerturbationAttach extends React.Component {
     getAudioSetList = () => {
         getAudioSet().then(res => {
             this.setState({
-                options: res
+                options: res,
+                dataset: res[0]
             })
         }).catch(error => {
             message.error(error).then()
@@ -358,7 +359,7 @@ class PerturbationAttach extends React.Component {
                 <div style={{whiteSpace: "pre"}}>
                     <div style={{padding: 10}}>
                         <span>数据集:</span>
-                        <Select defaultValue={this.state.dataset} bordered={false}
+                        <Select value={this.state.dataset} bordered={false}
                                 onChange={this.datasetChange} size={"large"}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>

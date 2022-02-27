@@ -11,7 +11,7 @@ class PerturbationDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataset: "cv-corpus-chinese",
+            dataset: null,
             visible: false,
             options: []
         }
@@ -20,7 +20,8 @@ class PerturbationDisplay extends React.Component {
     componentDidMount() {
         getAudioSet().then(res => {
             this.setState({
-                options: res
+                options: res,
+                dataset: res[0]
             })
         }).catch(error => {
             message.error(error).then()
@@ -51,7 +52,7 @@ class PerturbationDisplay extends React.Component {
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <div>
                         <span>数据集:</span>
-                        <Select defaultValue="cv-corpus-chinese" bordered={false}
+                        <Select value={this.state.dataset} bordered={false}
                                 size={"large"} onChange={this.datasetChange}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
