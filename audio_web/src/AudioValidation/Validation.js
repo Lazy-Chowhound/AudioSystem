@@ -1,10 +1,11 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
-import {Button, message, Select, Table, Upload} from "antd";
+import {Button, Drawer, message, Modal, Select, Table, Upload} from "antd";
 import {getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
-import {sendGet} from "../Util/axios";
-import {UploadOutlined} from "@ant-design/icons";
+import {sendFile, sendGet} from "../Util/axios";
+import {CheckOutlined, InboxOutlined, UploadOutlined} from "@ant-design/icons";
+import Dragger from "antd/es/upload/Dragger";
 
 
 class Validation extends React.Component {
@@ -23,7 +24,11 @@ class Validation extends React.Component {
             modelList: [],
             currentModel: null,
             preOverallWER: "",
-            postOverallWER: ""
+            postOverallWER: "",
+            modalVisible: false,
+            historyFileList: [],
+            hasSelected: false,
+            drawerVisible: false
         }
     }
 
@@ -105,7 +110,6 @@ class Validation extends React.Component {
                 }
             }
         ).then(res => {
-            console.log(res)
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
                 this.setState({
@@ -149,56 +153,64 @@ class Validation extends React.Component {
     }
 
     beforeUpload = (file, fileList) => {
-        console.log(fileList)
         this.setState({
-            uploading: true
+            fileList: fileList
         })
-        const data = new FormData();
-        fileList.forEach((file) => {
-            data.append('files[]', file);
-        });
-        // data.append("file", file)
-        // sendFile("/uploadModel", data,
-        //     {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-        //         if (res.data.code === 400) {
-        //
-        //         } else {
-        //             message.error("上传失败").then()
-        //         }
-        //     }
-        // ).catch(err => {
-        //     message.error(err).then()
-        // })
-        // setTimeout(() => {
-        //     this.setState({
-        //         uploading: false
-        //     })
-        // }, 500)
+        this.setState({
+            hasSelected: true
+        })
         return false;
     }
 
-    render() {
-        const ex = {
-            expandedRowRender: record => {
-                return (
-                    <div>
-                        <span style={{marginRight: 20}}>{"原音频:"}</span>
-                        <audio
-                            src={getAudioUrl(this.state.dataset, record.name)}
-                            style={{height: 30, width: 300, verticalAlign: "middle"}}
-                            controls={true}
-                        />
-                        <span style={{marginLeft: 20, marginRight: 20}}>{"扰动音频:"}</span>
-                        <audio
-                            src={getNoiseAudioUrl(this.state.dataset, record.noise_audio_name)}
-                            style={{height: 30, width: 300, verticalAlign: "middle"}}
-                            controls={true}
-                        />
-                    </div>
-                )
-            },
-            rowExpandable: () => true
+    handleCancel = () => {
+        this.setState({
+            modalVisible: false
+        })
+    }
+
+    upload = () => {
+        let uploadSuccess = true;
+        for (let i = 0; i < this.state.fileList.length; i++) {
+            const data = new FormData();
+            data.append("file", this.state.fileList[i])
+            sendFile("/uploadModel", data,
+                {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                    if (res.data.code === 400) {
+                        uploadSuccess = false;
+                    } else {
+                        this.setState(state => ({
+                            historyFileList: [...state.historyFileList, this.state.fileList[i]],
+                        }));
+                    }
+                }
+            ).catch(err => {
+                message.error(err).then()
+            })
         }
+        if (uploadSuccess) {
+            message.success("上传成功").then()
+        } else {
+            message.error("上传失败").then()
+        }
+        this.setState({
+            hasSelected: false,
+            fileList: []
+        })
+    }
+
+    showHistory = () => {
+        this.setState({
+            drawerVisible: true
+        })
+    }
+
+    render() {
+        let modalTitle =
+            <div>
+                <span>上传模型</span>
+                <Button style={{marginLeft: 250}} onClick={this.showHistory} type={"link"}>查看上传历史</Button>
+            </div>
+
         let summaryRow =
             <Table.Summary fixed>
                 <Table.Summary.Row>
@@ -225,9 +237,9 @@ class Validation extends React.Component {
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
-                    <Upload beforeUpload={this.beforeUpload} directory showUploadList={false}>
-                        <Button icon={<UploadOutlined/>} loading={this.state.uploading} type="primary">上传模型</Button>
-                    </Upload>
+                    <Button icon={<UploadOutlined/>} onClick={() => {
+                        this.setState({modalVisible: true})
+                    }} type="primary">上传模型</Button>
                     <div>
                         <span>模型:</span>
                         <Select value={this.state.currentModel} bordered={false} onChange={this.modalChange}>
@@ -239,8 +251,49 @@ class Validation extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
-                       }} summary={() => (summaryRow)} expandable={ex}
+                       }} summary={() => (summaryRow)} expandable={{
+                    expandedRowRender: record => {
+                        return (
+                            <div>
+                                <span style={{marginRight: 20}}>{"原音频:"}</span>
+                                <audio
+                                    src={getAudioUrl(this.state.dataset, record.name)}
+                                    style={{height: 30, width: 300, verticalAlign: "middle"}}
+                                    controls={true}/>
+                                <span style={{marginLeft: 20, marginRight: 20}}>{"扰动音频:"}</span>
+                                <audio src={getNoiseAudioUrl(this.state.dataset, record.noise_audio_name)}
+                                       style={{height: 30, width: 300, verticalAlign: "middle"}}
+                                       controls={true}/>
+                            </div>
+                        )
+                    },
+                    rowExpandable: () => true
+                }}
                 />
+                <Modal visible={this.state.modalVisible} title={modalTitle} onCancel={this.handleCancel}
+                       footer={[<Button type={"primary"} onClick={this.upload}>点击上传</Button>,
+                           <Button onClick={this.handleCancel}>取消上传</Button>]}>
+                    <Dragger beforeUpload={this.beforeUpload} directory showUploadList={false}>
+                        <p className="ant-upload-drag-icon">
+                            {this.state.hasSelected ? <CheckOutlined/> : <InboxOutlined/>}
+                        </p>
+                        <p className="ant-upload-text">{this.state.hasSelected ? "已读取目标文件" : "点击或拖拽文件到此处以上传"}</p>
+                        <p className="ant-upload-hint">
+                            {this.state.hasSelected ? "点击或拖拽文件重新选择" : "目前只支持上传文件夹"}
+                        </p>
+                    </Dragger>
+                    <Drawer
+                        title="Basic Drawer"
+                        placement="right"
+                        closable={false}
+                        onClose={this.onClose}
+                        visible={this.state.drawerVisible}
+                        getContainer={false}
+                        style={{position: 'absolute'}}
+                    >
+                        <p>Some contents...</p>
+                    </Drawer>
+                </Modal>
             </div>
         );
     }

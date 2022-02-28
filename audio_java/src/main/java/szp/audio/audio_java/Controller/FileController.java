@@ -30,6 +30,9 @@ public class FileController {
     @Value("${model.path}")
     private String modelPath;
 
+    /**
+     * 上传数据集属性
+     */
     @RequestMapping("/uploadDatasetDescription")
     public Result uploadDatasetDescription(@RequestParam("dataset") String dataset,
                                            @RequestParam("language") String language,
@@ -45,16 +48,12 @@ public class FileController {
         return Result.success(StatusCode.SUCCESS.getStatus(), "Insert Success");
     }
 
+    /**
+     * 上传数据集
+     */
     @RequestMapping("/uploadDataset")
     public Result uploadDataset(@RequestParam("file") MultipartFile file) {
-        String originPath = file.getOriginalFilename();
-        // 建立文件夹
-        String directoryPath = audioSetPath + originPath.substring(0, originPath.lastIndexOf("/"));
-        File dir = new File(directoryPath);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        Path filePath = Paths.get(audioSetPath + originPath);
+        Path filePath = mkPath(file, audioSetPath);
         try {
             file.transferTo(filePath);
         } catch (IOException e) {
@@ -63,16 +62,30 @@ public class FileController {
         return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Dataset Success");
     }
 
+    /**
+     * 上传模型
+     */
     @RequestMapping("/uploadModel")
     public Result uploadModel(@RequestParam("file") MultipartFile file) {
-        String originPath = file.getOriginalFilename();
-        String modelName = originPath.substring(originPath.lastIndexOf("/") + 1);
-        Path filePath = Paths.get(modelPath + modelName);
+        Path filePath = mkPath(file, modelPath);
         try {
             file.transferTo(filePath);
         } catch (IOException e) {
             Result.fail(StatusCode.FAIL.getStatus(), "Upload Model Fail");
         }
         return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Model Success");
+    }
+
+    /**
+     * 生成所必须的文件夹
+     */
+    private Path mkPath(MultipartFile file, String uploadPath) {
+        String originPath = file.getOriginalFilename();
+        String directoryPath = uploadPath + originPath.substring(0, originPath.lastIndexOf("/"));
+        File dir = new File(directoryPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return Paths.get(uploadPath + originPath);
     }
 }
