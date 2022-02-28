@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
-import {Button, Drawer, message, Modal, Select, Table, Upload} from "antd";
+import {Button, Drawer, List, message, Modal, Select, Table} from "antd";
 import {getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
 import {sendFile, sendGet} from "../Util/axios";
 import {CheckOutlined, InboxOutlined, UploadOutlined} from "@ant-design/icons";
@@ -26,7 +26,7 @@ class Validation extends React.Component {
             preOverallWER: "",
             postOverallWER: "",
             modalVisible: false,
-            historyFileList: [],
+            uploadHistory: [],
             hasSelected: false,
             drawerVisible: false
         }
@@ -177,10 +177,6 @@ class Validation extends React.Component {
                 {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
                     if (res.data.code === 400) {
                         uploadSuccess = false;
-                    } else {
-                        this.setState(state => ({
-                            historyFileList: [...state.historyFileList, this.state.fileList[i]],
-                        }));
                     }
                 }
             ).catch(err => {
@@ -201,7 +197,38 @@ class Validation extends React.Component {
     showHistory = () => {
         this.setState({
             drawerVisible: true
+        }, () => {
+            this.getModelUploadHistory()
         })
+    }
+
+    getModelUploadHistory = () => {
+        sendGet("/uploadModelHistory").then(res => {
+            const data = JSON.parse(res.data.data)
+            const histories = []
+            for (let i = 0; i < data.length; i++) {
+                const history = {}
+                history['name'] = data[i]['name']
+                history['time'] = this.formatTime(data[i]['time'])
+                histories.push(history)
+            }
+            this.setState({
+                uploadHistory: histories
+            })
+        }).catch(() => {
+            message.error("获取历史记录失败").then()
+        })
+    }
+
+    closeHistory = () => {
+        this.setState({
+            drawerVisible: false,
+        });
+    };
+
+    formatTime = (timestamp) => {
+        const moment = require('moment');
+        return moment(+timestamp).format('YYYY-MM-DD HH:mm:ss')
     }
 
     render() {
@@ -282,16 +309,16 @@ class Validation extends React.Component {
                             {this.state.hasSelected ? "点击或拖拽文件重新选择" : "目前只支持上传文件夹"}
                         </p>
                     </Dragger>
-                    <Drawer
-                        title="Basic Drawer"
-                        placement="right"
-                        closable={false}
-                        onClose={this.onClose}
-                        visible={this.state.drawerVisible}
-                        getContainer={false}
-                        style={{position: 'absolute'}}
-                    >
-                        <p>Some contents...</p>
+                    <Drawer title="上传历史" placement="right" onClose={this.closeHistory}
+                            visible={this.state.drawerVisible}>
+                        <List itemLayout="horizontal"
+                              dataSource={this.state.uploadHistory}
+                              renderItem={item => (
+                                  <List.Item>
+                                      <List.Item.Meta title={item.name} description={item.time}/>
+                                  </List.Item>
+                              )}
+                        />,
                     </Drawer>
                 </Modal>
             </div>

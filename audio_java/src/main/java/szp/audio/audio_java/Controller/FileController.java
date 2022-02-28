@@ -1,12 +1,15 @@
 package szp.audio.audio_java.Controller;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import szp.audio.audio_java.Entity.ModelHistory;
 import szp.audio.audio_java.Service.DatasetService;
+import szp.audio.audio_java.Service.ModelService;
 import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.Util.StatusCode;
 
@@ -14,6 +17,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Nakano Miku
@@ -23,6 +29,9 @@ public class FileController {
 
     @Autowired
     private DatasetService datasetService;
+
+    @Autowired
+    private ModelService modelService;
 
     @Value("${audioset.path}")
     private String audioSetPath;
@@ -68,12 +77,19 @@ public class FileController {
     @RequestMapping("/uploadModel")
     public Result uploadModel(@RequestParam("file") MultipartFile file) {
         Path filePath = mkPath(file, modelPath);
+        modelService.insertModelUploadHistory(file.getOriginalFilename(), new Date());
         try {
             file.transferTo(filePath);
         } catch (IOException e) {
             Result.fail(StatusCode.FAIL.getStatus(), "Upload Model Fail");
         }
         return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Model Success");
+    }
+
+    @RequestMapping("/uploadModelHistory")
+    public Result getUploadModelHistory() {
+        List<ModelHistory> modelHistories = modelService.getModelHistories();
+        return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(modelHistories));
     }
 
     /**

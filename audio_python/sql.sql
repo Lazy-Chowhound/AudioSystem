@@ -11,3 +11,12 @@ create table audiosetproperty
     distribution varchar(1000) not null
 );
 
+create table ModelUploadHistory
+(
+    id   int auto_increment,
+    name varchar(100) not null,
+    time datetime     not null,
+    constraint ModelUploadHistory_pk
+        primary key (id)
+);
+
