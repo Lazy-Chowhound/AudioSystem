@@ -24,7 +24,7 @@ class PerturbationAttach extends React.Component {
             title: "处理中......",
             errorMessage: null,
             disabled: true,
-            dataset: "cv-corpus-chinese",
+            dataset: "",
             options: [],
             pageSize: 5,
             total: 0,
@@ -195,7 +195,6 @@ class PerturbationAttach extends React.Component {
         getAudioSet().then(res => {
             this.setState({
                 options: res,
-                dataset: res[0]
             })
         }).catch(error => {
             message.error(error).then()
@@ -359,8 +358,8 @@ class PerturbationAttach extends React.Component {
                 <div style={{whiteSpace: "pre"}}>
                     <div style={{padding: 10}}>
                         <span>数据集:</span>
-                        <Select value={this.state.dataset} bordered={false}
-                                onChange={this.datasetChange} size={"large"}>
+                        <Select value={this.state.dataset} bordered={false} onChange={this.datasetChange}
+                                size={"large"}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                         <Tooltip placement="right" title="点击查看所有扰动类别">

@@ -11,7 +11,7 @@ class PerturbationDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataset: null,
+            dataset: "",
             visible: false,
             options: []
         }

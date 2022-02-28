@@ -20,42 +20,44 @@ class NoisePatternChart extends Component {
     }
 
     componentDidMount() {
-        sendGet("/patternSummary", {
-            params: {
-                dataset: this.props.dataset
-            }
-        }).then(res => {
-            if (res.data.code === 400) {
-                message.error(res.data.data).then()
-            } else {
-                const rawData = JSON.parse(res.data.data)
-                const info = []
-                for (let i = 0; i < this.state.columns.length; i++) {
-                    let legend = this.state.columns[i];
-                    if (typeof rawData[legend] == "undefined") {
-                        info.push(0)
-                    } else {
-                        info.push(rawData[legend])
-                    }
+        if (this.props.dataset !== "") {
+            sendGet("/patternSummary", {
+                params: {
+                    dataset: this.props.dataset
                 }
-                this.setState({
-                    data: info
-                }, () => {
+            }).then(res => {
+                if (res.data.code === 400) {
+                    message.error(res.data.data).then()
+                } else {
+                    const rawData = JSON.parse(res.data.data)
+                    const info = []
+                    for (let i = 0; i < this.state.columns.length; i++) {
+                        let legend = this.state.columns[i];
+                        if (typeof rawData[legend] == "undefined") {
+                            info.push(0)
+                        } else {
+                            info.push(rawData[legend])
+                        }
+                    }
                     this.setState({
-                        series: [
-                            {
-                                name: "扰动数目",
-                                type: "bar",
-                                barWidth: "25%",
-                                data: this.state.data
-                            }
-                        ]
+                        data: info
+                    }, () => {
+                        this.setState({
+                            series: [
+                                {
+                                    name: "扰动数目",
+                                    type: "bar",
+                                    barWidth: "25%",
+                                    data: this.state.data
+                                }
+                            ]
+                        })
                     })
-                })
-            }
-        }).catch(error => {
-            message.error(error).then()
-        })
+                }
+            }).catch(error => {
+                message.error(error).then()
+            })
+        }
     }
 
     getOption = () => {

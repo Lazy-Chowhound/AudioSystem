@@ -9,7 +9,7 @@ import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 import AudioList from "./AudioList/AudioList";
 import PerturbationDisplay from "./AudioPerturbationDisplay/PerturbationDisplay";
 import Validation from "./AudioValidation/Validation";
-import "antd/dist/antd.css";
+
 import "./css/index.css";
 import PerturbationAttach from "./AudioPerturbationAttach/PerturbationAttach";
 
