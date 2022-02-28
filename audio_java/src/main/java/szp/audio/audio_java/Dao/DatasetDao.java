@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author Nakano Miku
  */
 @Mapper
-public interface DatasetMapper {
+public interface DatasetDao {
     /**
      * 插入数据集
      *
