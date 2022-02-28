@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
 import {Button, message, Select, Table, Upload} from "antd";
-import {getAudioSet, getAudioUrl} from "../Util/AudioUtil";
+import {getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
 import {sendGet} from "../Util/axios";
 import {UploadOutlined} from "@ant-design/icons";
 
@@ -13,7 +13,7 @@ class Validation extends React.Component {
         this.state = {
             dataSource: [],
             loading: true,
-            dataset: null,
+            dataset: "",
             options: [],
             currentPage: 1,
             pageSize: 5,
@@ -22,6 +22,8 @@ class Validation extends React.Component {
             uploading: false,
             modelList: [],
             currentModel: null,
+            preOverallWER: "",
+            postOverallWER: ""
         }
     }
 
@@ -32,18 +34,34 @@ class Validation extends React.Component {
             align: "center",
         },
         {
-            title: "内容",
-            dataIndex: "preContent",
+            title: "真实文本",
+            dataIndex: "realText",
             align: "center",
             ellipsis: true
         },
         {
-            title: "识别内容",
-            dataIndex: "postContent",
+            title: "原识别内容",
+            dataIndex: "previousText",
             align: "center",
-            ellipsis: {
-                showTitle: false,
-            },
+            ellipsis: true
+        },
+        {
+            title: "原WER/CER",
+            dataIndex: "preWER",
+            align: "center",
+            width: 100
+        },
+        {
+            title: "现识别内容",
+            dataIndex: "posteriorText",
+            align: "center",
+            ellipsis: true
+        },
+        {
+            title: "现WER/CER",
+            dataIndex: "postWER",
+            align: "center",
+            width: 100
         },
     ];
 
@@ -52,12 +70,12 @@ class Validation extends React.Component {
             this.setState({
                 options: res,
                 dataset: res[0]
+            }, () => {
+                this.getModels()
             })
         }).catch(error => {
             message.error(error).then()
         })
-        this.getModels()
-        // this.getAudioSetContrastContentByPage()
     }
 
     getModels = () => {
@@ -66,24 +84,28 @@ class Validation extends React.Component {
             this.setState({
                 modelList: data,
                 currentModel: data[0]
+            }, () => {
+                this.getValidationResultsByPage()
             })
         }).catch(error => {
             message.error(error).then()
         })
     }
 
-    getAudioSetContrastContentByPage = () => {
+    getValidationResultsByPage = () => {
         this.setState({
             loading: true
         })
-        sendGet("/audioSetContrastContentByPage", {
+        sendGet("/validationResultsByPage", {
                 params: {
                     audioSet: this.state.dataset,
+                    model: this.state.currentModel,
                     page: this.state.currentPage,
                     pageSize: this.state.pageSize
                 }
             }
         ).then(res => {
+            console.log(res)
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
                 this.setState({
@@ -92,9 +114,13 @@ class Validation extends React.Component {
             } else {
                 const data = JSON.parse(res.data.data)
                 const totalLen = data.shift().total
+                const preOverallWER = data.shift().preOverallWER
+                const postOverallWER = data.shift().postOverallWER
                 this.setState({
                     dataSource: data,
                     total: totalLen,
+                    preOverallWER: preOverallWER,
+                    postOverallWER: postOverallWER,
                     loading: false
                 })
             }
@@ -112,7 +138,7 @@ class Validation extends React.Component {
         this.setState({
             dataset: e
         }, () => {
-            this.getAudioSetContrastContentByPage()
+            this.getValidationResultsByPage()
         })
     }
 
@@ -152,6 +178,43 @@ class Validation extends React.Component {
     }
 
     render() {
+        const ex = {
+            expandedRowRender: record => {
+                return (
+                    <div>
+                        <span style={{marginRight: 20}}>{"原音频:"}</span>
+                        <audio
+                            src={getAudioUrl(this.state.dataset, record.name)}
+                            style={{height: 30, width: 300, verticalAlign: "middle"}}
+                            controls={true}
+                        />
+                        <span style={{marginLeft: 20, marginRight: 20}}>{"扰动音频:"}</span>
+                        <audio
+                            src={getNoiseAudioUrl(this.state.dataset, record.noise_audio_name)}
+                            style={{height: 30, width: 300, verticalAlign: "middle"}}
+                            controls={true}
+                        />
+                    </div>
+                )
+            },
+            rowExpandable: () => true
+        }
+        let summaryRow =
+            <Table.Summary fixed>
+                <Table.Summary.Row>
+                    <Table.Summary.Cell index={0}>统 计</Table.Summary.Cell>
+                    <Table.Summary.Cell index={1}>
+                        <div style={{textAlign: "center"}}>
+                            {`原WER/CER为 ${this.state.preOverallWER}`}
+                        </div>
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={2}>
+                        <div style={{textAlign: "center"}}>
+                            {`现WER/CER为 ${this.state.postOverallWER}`}
+                        </div>
+                    </Table.Summary.Cell>
+                </Table.Summary.Row>
+            </Table.Summary>
         return (
             <div style={{whiteSpace: "pre", padding: 10}}>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -176,28 +239,8 @@ class Validation extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
-                       }}
-                       expandable={{
-                           expandedRowRender: record => {
-                               return (
-                                   <div>
-                                       <span style={{marginRight: 20}}>{"原音频:"}</span>
-                                       <audio
-                                           src={getAudioUrl(this.state.dataset, record.name)}
-                                           style={{height: 30, width: 300, verticalAlign: "middle"}}
-                                           controls={true}
-                                       />
-                                       <span style={{marginLeft: 20, marginRight: 20}}>{"扰动音频:"}</span>
-                                       <audio
-                                           src={getAudioUrl(this.state.dataset, record.name)}
-                                           style={{height: 30, width: 300, verticalAlign: "middle"}}
-                                           controls={true}
-                                       />
-                                   </div>
-                               )
-                           },
-                           rowExpandable: () => true
-                       }}/>
+                       }} summary={() => (summaryRow)} expandable={ex}
+                />
             </div>
         );
     }

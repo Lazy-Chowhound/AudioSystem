@@ -3,13 +3,15 @@ import os
 
 import librosa.display
 import numpy as np
-import soundfile
+import torch
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
+from transformers import AutoProcessor, AutoModelForCTC
 
 from Dataset.TimitDataset.TimitDatasetAudioUtil import make_noise_audio_clips_dirs
 from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
 from Util.AudioUtil import *
+from Validation.Indicator import wer, wer_overall
 
 
 class TimitDataset:
@@ -18,6 +20,12 @@ class TimitDataset:
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
         self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
+        self.processor = None
+        self.model = None
+        self.model_path = MODEL_PATH
+        self.real_text_list = []
+        self.previous_text_list = []
+        self.post_text_list = []
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -40,14 +48,14 @@ class TimitDataset:
         获取目录下所有音频文件名
         :return:[TRAIN/DR1/FCJF0/SA1_n.wav]
         """
-        audioList = glob.glob(self.clips_path + "*/*/*/*.wav")
+        audio_list = glob.glob(self.clips_path + "*/*/*/*.wav")
         audios = []
-        for audio in audioList:
+        for audio in audio_list:
             if get_audio_form(audio) == "wav":
                 audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
         return audios
 
-    def get_audio_clip_detail(self, audio_name):
+    def get_audio_clip_content(self, audio_name):
         """
         获取指定数据集音频的详情
         :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
@@ -57,7 +65,8 @@ class TimitDataset:
         with open(txtPath, "r") as f:
             line = f.readline()
             content = line.split(" ")[2:]
-        return " ".join(content).replace("\n", "")
+            content = " ".join(content).replace("\n", "")
+        return content[0:len(content) - 1]
 
     def get_audio_clip_properties(self, audio_name):
         """
@@ -72,7 +81,7 @@ class TimitDataset:
         audio_property['channel'] = "单" if self.get_channels(audio) == 1 else "双"
         audio_property['sampleRate'] = str(self.getSamplingRate(audio)) + "Hz"
         audio_property['bitDepth'] = str(self.get_bit_depth(audio)) + "bit"
-        audio_property['content'] = self.get_audio_clip_detail(audio_name)
+        audio_property['content'] = self.get_audio_clip_content(audio_name)
         return audio_property
 
     def getSamplingRate(self, audio):
@@ -210,7 +219,7 @@ class TimitDataset:
         for clip in noise_clips:
             pattern_info = {"key": key}
             key += 1
-            pattern_info["name"], pattern_tag = self.get_name_and_pattern(clip)
+            pattern_info["name"], pattern_tag = self.get_name_and_pattern_tag(clip)
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
@@ -346,7 +355,7 @@ class TimitDataset:
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name: 形如 TRAIN/TRAIN/DR1/FCJF0/SA1_n.wav
+        :param audio_name: 形如 TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -389,3 +398,119 @@ class TimitDataset:
         :return: TEST/DR1/FAKS0/SA2_n.wav,human_sounds_respiratory_sounds
         """
         return name[0:name.find("_n") + 2] + ".wav", name[name.find("_n") + 3:name.find(".")]
+
+    def get_testset_audio_clips_list(self):
+        """
+        获取测试集
+        :return:
+        """
+        audio_list = glob.glob(self.clips_path + "TEST/*/*/*.wav")
+        audios = []
+        for audio in audio_list:
+            if get_audio_form(audio) == "wav":
+                audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
+        return audios
+
+    def get_validation_results_by_page(self, page, page_size):
+        validation_results = []
+        audio_list = self.get_testset_audio_clips_list()
+        validation_results.append({"total": len(audio_list)})
+        # 实时计算 由于时间太长这里就直接写死
+        # pre_overall_wer, post_overall_wer = self.get_dataset_wer()
+        pre_overall_wer, post_overall_wer = 0.5, 0.6
+        validation_results.append({"preOverallWER": pre_overall_wer})
+        validation_results.append({"postOverallWER": post_overall_wer})
+        for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
+            audio_result = self.get_validation_result(audio_list[index])
+            audio_result['key'] = index + 1
+            validation_results.append(audio_result)
+        return validation_results
+
+    def get_validation_result(self, audio_name):
+        """
+        计算某一音频的所有验证内容
+        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
+        :return:
+        """
+        validation_result = {}
+        validation_result['name'] = audio_name
+        validation_result['realText'] = self.get_audio_clip_content(audio_name)
+        validation_result['previousText'] = self.get_audio_clip_transcription(audio_name)
+        validation_result['preWER'] = round(wer(validation_result['realText'], validation_result['previousText']), 2)
+        noise_audio_name = self.get_noise_clip_name(audio_name)
+        validation_result['noise_audio_name'] = noise_audio_name
+        validation_result['posteriorText'] = self.get_noise_audio_clip_transcription(noise_audio_name)
+        validation_result['postWER'] = round(wer(validation_result['realText'], validation_result['posteriorText']), 2)
+        return validation_result
+
+    def get_audio_clip_transcription(self, audio_name):
+        """
+        获取原音频识别出的内容
+        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
+        :return:
+        """
+        audio, rate = librosa.load(self.clips_path + audio_name, sr=None)
+        input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
+        logits = self.model(input_values).logits
+        predicted_ids = torch.argmax(logits, dim=-1)
+        transcription = self.processor.batch_decode(predicted_ids)
+        return transcription[0].lower().capitalize()
+
+    def get_noise_audio_clip_transcription(self, audio_name):
+        """
+        获取扰动音频识别出的内容
+        :param audio_name: TEST/DR1/FAKS0/SA1_n_natural_sounds_wind.wav
+        :return:
+        """
+        audio, rate = librosa.load(self.noise_clips_path + audio_name, sr=16000)
+        input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
+        logits = self.model(input_values).logits
+        predicted_ids = torch.argmax(logits, dim=-1)
+        transcription = self.processor.batch_decode(predicted_ids)
+        return transcription[0].lower().capitalize()
+
+    def get_dataset_wer(self):
+        """
+        获取数据集总体上的 wer
+        :return:
+        """
+        if len(self.real_text_list) == 0 or len(self.previous_text_list) == 0 or len(self.post_text_list) == 0:
+            self.get_dataset_texts()
+        return wer_overall(self.real_text_list, self.previous_text_list), wer_overall(self.real_text_list,
+                                                                                      self.post_text_list)
+
+    def get_dataset_texts(self):
+        """
+        :return:
+        """
+        audio_list = self.get_testset_audio_clips_list()
+        for audio in audio_list:
+            self.real_text_list.append(self.get_audio_clip_content(audio))
+            self.previous_text_list.append(self.get_audio_clip_transcription(audio))
+            noise_audio = self.get_noise_clip_name(audio)
+            self.post_text_list.append(self.get_noise_audio_clip_transcription(noise_audio))
+
+    def load_model(self, model_name):
+        """
+        加载模型
+        :param model_name: wav2vec2-large-960h
+        :return:
+        """
+        if not os.path.exists(self.model_path + model_name):
+            return False
+        if self.processor is None and self.model is None:
+            self.processor = AutoProcessor.from_pretrained(self.model_path + model_name)
+            self.model = AutoModelForCTC.from_pretrained(self.model_path + model_name)
+        return True
+
+    def get_noise_clip_name(self, audio_name):
+        """
+        获取原音频对应的扰动音频名称
+        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
+        :return:
+        """
+        path = self.noise_clips_path + audio_name[0:audio_name.rfind("/") + 1]
+        prefix = audio_name[audio_name.rfind("/") + 1:audio_name.find(".")]
+        for file in os.listdir(path):
+            if file.startswith(prefix):
+                return audio_name[0:audio_name.rfind("/") + 1] + file

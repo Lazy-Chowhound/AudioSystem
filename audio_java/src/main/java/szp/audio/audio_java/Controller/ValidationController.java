@@ -20,6 +20,9 @@ public class ValidationController {
     @Autowired
     private RpcUtil rpcUtil;
 
+    /**
+     * 获取已有模型
+     */
     @RequestMapping("/models")
     public Result getModels() {
         try {
@@ -31,9 +34,12 @@ public class ValidationController {
         }
     }
 
+    /**
+     * 按夜获取验证结果
+     */
     @RequestMapping("/validationResultsByPage")
     public Result getValidationResultsByPage(@RequestParam(value = "audioSet") String dataset,
-                                             @RequestParam(value = "modelName") String modelName,
+                                             @RequestParam(value = "model") String modelName,
                                              @RequestParam(value = "page") String page,
                                              @RequestParam(value = "pageSize") String pageSize) {
         try {
