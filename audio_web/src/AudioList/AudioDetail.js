@@ -199,8 +199,7 @@ class AudioDetail extends React.Component {
                            showQuickJumper: true, showSizeChanger: false
                        }} onChange={this.changePage}/>
                 <Modal style={{marginTop: 30}} title={this.state.ImageType} visible={this.state.isModalVisible}
-                       footer={null}
-                       onCancel={this.handleCancel} width={600}>
+                       footer={null} onCancel={this.handleCancel} width={600}>
                     <ImageDisplay src={this.state.ImageUrl}/>
                 </Modal>
             </div>
