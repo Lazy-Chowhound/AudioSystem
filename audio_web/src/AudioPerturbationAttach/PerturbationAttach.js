@@ -42,7 +42,7 @@ class PerturbationAttach extends React.Component {
 
     columns = [
         {
-            title: "原音频",
+            title: "现音频",
             dataIndex: "name",
             align: "center",
             width: 320,
