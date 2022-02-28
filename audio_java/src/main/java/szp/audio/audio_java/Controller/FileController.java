@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -86,10 +85,22 @@ public class FileController {
         return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Model Success");
     }
 
+    /**
+     * 获取模型上传历史记录
+     */
     @RequestMapping("/uploadModelHistory")
     public Result getUploadModelHistory() {
         List<ModelHistory> modelHistories = modelService.getModelHistories();
         return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(modelHistories));
+    }
+
+    /**
+     * 清空模型上传历史记录
+     */
+    @RequestMapping("/clearModelHistory")
+    public Result clearUploadModelHistory() {
+        modelService.clearHistory();
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
     }
 
     /**

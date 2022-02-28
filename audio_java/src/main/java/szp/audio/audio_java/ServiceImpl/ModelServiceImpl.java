@@ -19,12 +19,19 @@ public class ModelServiceImpl implements ModelService {
     private ModelDao modelDao;
 
     @Override
-    public int insertModelUploadHistory(String name, Date date) {
-        return modelDao.insertModelUploadHistory(name, date);
+    public void insertModelUploadHistory(String name, Date date) {
+        modelDao.insertModelUploadHistory(name, date);
     }
 
     @Override
     public List<ModelHistory> getModelHistories() {
         return modelDao.getModelHistories();
     }
+
+    @Override
+    public void clearHistory() {
+        modelDao.clearHistory();
+    }
+
+
 }

@@ -10,4 +10,8 @@
         select id, name, time
         from modeluploadhistory
     </select>
+
+    <update id="clearHistory">
+        truncate table modeluploadhistory
+    </update>
 </mapper>

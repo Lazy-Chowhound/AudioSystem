@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
-import {Button, Drawer, List, message, Modal, Select, Table} from "antd";
+import {Button, Drawer, List, message, Modal, notification, Popconfirm, Select, Table} from "antd";
 import {getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
 import {sendFile, sendGet} from "../Util/axios";
 import {CheckOutlined, InboxOutlined, UploadOutlined} from "@ant-design/icons";
@@ -169,29 +169,33 @@ class Validation extends React.Component {
     }
 
     upload = () => {
-        let uploadSuccess = true;
-        for (let i = 0; i < this.state.fileList.length; i++) {
-            const data = new FormData();
-            data.append("file", this.state.fileList[i])
-            sendFile("/uploadModel", data,
-                {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-                    if (res.data.code === 400) {
-                        uploadSuccess = false;
+        if (this.state.fileList.length === 0) {
+            message.error("尚未选择任何模型").then()
+        } else {
+            let uploadSuccess = true;
+            for (let i = 0; i < this.state.fileList.length; i++) {
+                const data = new FormData();
+                data.append("file", this.state.fileList[i])
+                sendFile("/uploadModel", data,
+                    {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                        if (res.data.code === 400) {
+                            uploadSuccess = false;
+                        }
                     }
-                }
-            ).catch(err => {
-                message.error(err).then()
+                ).catch(err => {
+                    message.error(err).then()
+                })
+            }
+            if (uploadSuccess) {
+                message.success("上传成功").then()
+            } else {
+                message.error("上传失败").then()
+            }
+            this.setState({
+                hasSelected: false,
+                fileList: []
             })
         }
-        if (uploadSuccess) {
-            message.success("上传成功").then()
-        } else {
-            message.error("上传失败").then()
-        }
-        this.setState({
-            hasSelected: false,
-            fileList: []
-        })
     }
 
     showHistory = () => {
@@ -220,6 +224,19 @@ class Validation extends React.Component {
         })
     }
 
+    clearHistory = () => {
+        sendGet("/clearModelHistory").then(() => {
+            notification.success({
+                message: '清空历史成功',
+            })
+            this.setState({
+                modelList: []
+            })
+        }).catch(err => {
+            message.error(err).then()
+        })
+    }
+
     closeHistory = () => {
         this.setState({
             drawerVisible: false,
@@ -231,11 +248,15 @@ class Validation extends React.Component {
         return moment(+timestamp).format('YYYY-MM-DD HH:mm:ss')
     }
 
+    confirm = () => {
+        this.clearHistory()
+    }
+
     render() {
         let modalTitle =
             <div>
                 <span>上传模型</span>
-                <Button style={{marginLeft: 250}} onClick={this.showHistory} type={"link"}>查看上传历史</Button>
+                <Button style={{marginLeft: 300}} onClick={this.showHistory} type={"link"}>查看上传历史</Button>
             </div>
 
         let summaryRow =
@@ -254,6 +275,18 @@ class Validation extends React.Component {
                     </Table.Summary.Cell>
                 </Table.Summary.Row>
             </Table.Summary>
+
+        let drawerTitle =
+            <div>
+                <span>上传模型历史</span>
+                <Popconfirm placement="leftBottom"
+                            title="确定清空？"
+                    onConfirm={this.confirm}
+                    okText="确定" cancelText="取消">
+                    <Button style={{marginLeft: 60}} type={"dashed"}>清空所有历史</Button>
+                </Popconfirm>
+            </div>
+
         return (
             <div style={{whiteSpace: "pre", padding: 10}}>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -299,8 +332,9 @@ class Validation extends React.Component {
                 />
                 <Modal visible={this.state.modalVisible} title={modalTitle} onCancel={this.handleCancel}
                        footer={[<Button type={"primary"} onClick={this.upload}>点击上传</Button>,
-                           <Button onClick={this.handleCancel}>取消上传</Button>]}>
-                    <Dragger beforeUpload={this.beforeUpload} directory showUploadList={false}>
+                           <Button onClick={this.handleCancel}>取消上传</Button>]} width={550}>
+                    <Dragger style={{height: "400px"}} beforeUpload={this.beforeUpload} directory
+                             showUploadList={false}>
                         <p className="ant-upload-drag-icon">
                             {this.state.hasSelected ? <CheckOutlined/> : <InboxOutlined/>}
                         </p>
@@ -309,16 +343,15 @@ class Validation extends React.Component {
                             {this.state.hasSelected ? "点击或拖拽文件重新选择" : "目前只支持上传文件夹"}
                         </p>
                     </Dragger>
-                    <Drawer title="上传历史" placement="right" onClose={this.closeHistory}
+                    <Drawer title={drawerTitle} placement="right" onClose={this.closeHistory}
                             visible={this.state.drawerVisible}>
-                        <List itemLayout="horizontal"
-                              dataSource={this.state.uploadHistory}
+                        <List itemLayout="horizontal" dataSource={this.state.uploadHistory}
                               renderItem={item => (
                                   <List.Item>
                                       <List.Item.Meta title={item.name} description={item.time}/>
                                   </List.Item>
                               )}
-                        />,
+                        />
                     </Drawer>
                 </Modal>
             </div>
