@@ -10,12 +10,13 @@ class UploadForm extends React.Component {
             formRef: React.createRef(),
             uploading: false,
             fileList: [],
-            hasUploadDataset: false,
+            hasSelectDataset: false,
+            selectedDataset: ""
         }
     }
 
     upload = (values) => {
-        if (!this.state.hasUploadDataset) {
+        if (!this.state.hasSelectDataset) {
             message.error("尚未选择需要上传的数据集").then()
         } else if (this.state.fileList.length !== 0) {
             message.error("数据集未上传成功，请重试").then()
@@ -23,90 +24,77 @@ class UploadForm extends React.Component {
             this.setState({
                 uploading: true
             })
-            const dataset = values['datasetName']
-            const language = values['language']
-            const size = values['size']
-            const hour = values['hour']
-            const people = values["people"]
-            const form = values['form']
-            const description = values['description']
-            sendGet("/uploadDatasetDescription", {
-                params: {
-                    dataset: dataset,
-                    language: language,
-                    size: size,
-                    hour: hour,
-                    people: people,
-                    form: form,
-                    description: description
-                }
-            }).then(res => {
-                if (res.data.code === 400) {
-                    message.error(res.data.data).then()
-                } else {
-                    message.success("上传成功").then()
-                    this.state.formRef.current.resetFields();
-                }
-            }).catch(error => {
-                    message.error(error).then()
-                }
-            )
+            if (!this.uploadDatasetDescription(values) || !this.uploadDataset()) {
+                message.error("上传失败").then()
+            } else {
+                message.success("上传成功").then()
+            }
             this.setState({
                 uploading: false,
-                hasUploadDataset: false
             })
         }
     }
-
-    uploadFailed = (errorInfo) => {
-        message.error(errorInfo).then()
-    };
 
     onReset = () => {
         this.state.formRef.current.resetFields();
     }
 
-    beforeUpload = (file) => {
-        const data = new FormData();
-        data.append("file", file)
-        this.setState(state => ({
-            fileList: [...state.fileList, file],
-        }));
-        sendFile("/uploadDataset", data,
-            {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-                if (res.data.code === 200) {
-                    setTimeout(() => {
-                        this.setState(state => {
-                            const index = state.fileList.indexOf(file);
-                            const newFileList = state.fileList.slice();
-                            newFileList.splice(index, 1);
-                            return {
-                                fileList: newFileList,
-                            };
-                        });
-                    }, 500)
-                    this.setState({
-                        hasUploadDataset: true
-                    })
-                } else {
-                    message.error("上传失败").then()
-                }
-            }
-        ).catch(err => {
-            message.error(err).then()
+    beforeUpload = (file, fileList) => {
+        const path = file['webkitRelativePath']
+        this.setState({
+            fileList: fileList,
+            hasSelectDataset: true,
+            selectedDataset: path.substring(0, path.indexOf("/"))
         })
         return false;
     }
 
-    onRemove = (file) => {
-        this.setState(state => {
-            const index = state.fileList.indexOf(file);
-            const newFileList = state.fileList.slice();
-            newFileList.splice(index, 1);
-            return {
-                fileList: newFileList,
-            };
-        });
+    uploadDatasetDescription = (values) => {
+        let uploadSuccess = true;
+        const dataset = values['datasetName']
+        const language = values['language']
+        const size = values['size']
+        const hour = values['hour']
+        const people = values["people"]
+        const form = values['form']
+        const description = values['description']
+        sendGet("/uploadDatasetDescription", {
+            params: {
+                dataset: dataset,
+                language: language,
+                size: size,
+                hour: hour,
+                people: people,
+                form: form,
+                description: description
+            }
+        }).then(res => {
+            if (res.data.code === 400) {
+                uploadSuccess = false;
+            }
+        }).catch(() => {
+                uploadSuccess = false;
+            }
+        )
+        return uploadSuccess;
+    }
+
+    uploadDataset = () => {
+        let uploadSuccess = true;
+        for (let i = 0; i < this.state.fileList.length; i++) {
+            const data = new FormData();
+            data.append("file", this.state.fileList[i])
+            sendFile("/uploadDataset", data,
+                {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                    if (res.data.code === 400) {
+                        uploadSuccess = false;
+                    }
+                }
+            ).catch(() => {
+                uploadSuccess = false;
+            })
+        }
+        return uploadSuccess;
     }
 
     checkSize = () => {
@@ -192,11 +180,9 @@ class UploadForm extends React.Component {
                     <Input.TextArea/>
                 </Form.Item>
                 <Form.Item label="数据集">
-                    <Upload beforeUpload={this.beforeUpload} directory onRemove={this.onRemove}
-                            fileList={this.state.fileList}>
-                        <Button icon={<UploadOutlined/>}
-                                disabled={this.state.hasUploadDataset && this.state.fileList.length === 0}>
-                            {this.state.hasUploadDataset ? (this.state.fileList.length === 0 ? "上传成功" : "未上传成功") : "选择数据集"}
+                    <Upload beforeUpload={this.beforeUpload} directory showUploadList={false}>
+                        <Button icon={<UploadOutlined/>}>
+                            {this.state.hasSelectDataset ? "已选择" + this.state.selectedDataset + "，点击可重选" : "选择数据集"}
                         </Button>
                     </Upload>
                 </Form.Item>
