@@ -17,7 +17,7 @@ class UploadForm extends React.Component {
     upload = (values) => {
         if (!this.state.hasUploadDataset) {
             message.error("尚未选择需要上传的数据集").then()
-        } else if (this.state.fileList.length === 0) {
+        } else if (this.state.fileList.length !== 0) {
             message.error("数据集未上传成功，请重试").then()
         } else {
             this.setState({
@@ -204,7 +204,7 @@ class UploadForm extends React.Component {
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                         <Button type="primary" htmlType="submit" loading={this.state.uploading}>
                             {this.state.uploading ? "上传中" : "上传"} </Button>
-                        <Button htmlType="button" onClick={this.onReset}> 重置 </Button>
+                        <Button htmlType="button" onClick={this.onReset}>重置</Button>
                     </div>
                 </Form.Item>
             </Form>
