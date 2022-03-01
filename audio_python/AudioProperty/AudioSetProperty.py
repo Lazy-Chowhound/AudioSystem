@@ -1,10 +1,8 @@
 import json
-import os
 
 import pymysql.cursors
 
 from Util.Annotation import rpcApi
-from Util.AudioUtil import AUDIO_SETS_PATH
 from Util.RpcResult import RpcResult
 
 
@@ -15,8 +13,7 @@ def get_audio_sets_properties():
     :return:
     """
     audio_set = []
-    path = AUDIO_SETS_PATH
-    for audio in json.loads(audio_sets_list(path)):
+    for audio in get_audio_sets_list_from_db():
         audio_property = {}
         description = get_audio_set_description(audio)
         audio_property["key"] = description[0]
@@ -37,22 +34,24 @@ def get_audio_sets_list():
     获取目录下的音频数据集
     :return:
     """
-    path = AUDIO_SETS_PATH
-    return RpcResult.ok(audio_sets_list(path))
+    return RpcResult.ok(get_audio_sets_list_from_db())
 
 
-def audio_sets_list(path):
+def get_audio_sets_list_from_db():
     """
-    获取目录下的音频数据集
-    :param path: 路径
-    :return:
+    获取数据集列表
+    :return: ['cv-corpus-chinese','timit',....]
     """
-    set_list = []
-    for file in os.listdir(path):
-        file_path = os.path.join(path, file)
-        if os.path.isdir(file_path):
-            set_list.append(file)
-    return json.dumps(set_list, ensure_ascii=False)
+    audio_list = []
+    connect = pymysql.Connect(host="localhost", port=3306, user="root",
+                              passwd="061210", db="audioset", charset="utf8")
+    cursor = connect.cursor()
+    cursor.execute("select name from audio")
+    for item in cursor.fetchall():
+        audio_list.append(item[0])
+    cursor.close()
+    connect.close()
+    return audio_list
 
 
 def get_audio_set_description(dataset):
@@ -70,7 +69,3 @@ def get_audio_set_description(dataset):
     cursor.close()
     connect.close()
     return description
-
-
-if __name__ == '__main__':
-    print(get_audio_sets_properties())
