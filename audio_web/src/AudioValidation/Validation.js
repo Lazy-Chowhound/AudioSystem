@@ -226,16 +226,24 @@ class Validation extends React.Component {
     }
 
     clearHistory = () => {
-        sendGet("/clearModelHistory").then(() => {
-            notification.success({
-                message: '清空历史成功',
+        if(this.state.uploadHistory.length!==0) {
+            sendGet("/clearModelHistory").then(() => {
+                notification.success({
+                    message: '清空历史成功',
+                    duration: 1.0
+                })
+                this.setState({
+                    uploadHistory: []
+                })
+            }).catch(err => {
+                message.error(err).then()
             })
-            this.setState({
-                uploadHistory: []
+        }else{
+            notification.warning({
+                message: '无可清空历史',
+                duration: 1.0
             })
-        }).catch(err => {
-            message.error(err).then()
-        })
+        }
     }
 
     closeHistory = () => {
