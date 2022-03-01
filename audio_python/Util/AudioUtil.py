@@ -198,7 +198,3 @@ def get_audio_form(audio_name):
     :return:
     """
     return audio_name[audio_name.rindex('.') + 1:]
-
-
-if __name__ == '__main__':
-    pass

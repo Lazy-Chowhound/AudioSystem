@@ -5,7 +5,6 @@ import librosa.display
 import numpy as np
 import torch
 from matplotlib import pyplot as plt
-from pydub import AudioSegment
 from transformers import AutoProcessor, AutoModelForCTC
 
 from Dataset.TimitDataset.TimitDatasetAudioUtil import make_noise_audio_clips_dirs
@@ -415,9 +414,9 @@ class TimitDataset:
         validation_results = []
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
-        # 实时计算 由于时间太长这里就直接写死
+        # 实时计算 由于时间太长这里就直接写死 0.12667034026725443 0.5199752031960325
         # pre_overall_wer, post_overall_wer = self.get_dataset_wer()
-        pre_overall_wer, post_overall_wer = 0.5, 0.6
+        pre_overall_wer, post_overall_wer = 0.127, 0.519
         validation_results.append({"preOverallWER": pre_overall_wer})
         validation_results.append({"postOverallWER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
@@ -449,7 +448,7 @@ class TimitDataset:
         :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
         :return:
         """
-        audio, rate = librosa.load(self.clips_path + audio_name, sr=None)
+        audio, rate = librosa.load(self.clips_path + audio_name, sr=16000)
         input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
         logits = self.model(input_values).logits
         predicted_ids = torch.argmax(logits, dim=-1)
