@@ -18,7 +18,7 @@ class UploadForm extends React.Component {
     upload = (values) => {
         if (!this.state.hasSelectDataset) {
             message.error("尚未选择需要上传的数据集").then()
-        } else if (this.state.fileList.length !== 0) {
+        } else if (this.state.fileList.length === 0) {
             message.error("数据集未上传成功，请重试").then()
         } else {
             this.setState({
@@ -28,6 +28,10 @@ class UploadForm extends React.Component {
                 message.error("上传失败").then()
             } else {
                 message.success("上传成功").then()
+                this.setState({
+                    hasSelectDataset: false,
+                })
+                this.state.formRef.current.resetFields();
             }
             this.setState({
                 uploading: false,
@@ -149,8 +153,7 @@ class UploadForm extends React.Component {
     render() {
         return (
             <Form ref={this.state.formRef} name="uploadForm" labelCol={{span: 8}} wrapperCol={{span: 16}}
-                  onFinish={this.upload} onFinishFailed={this.uploadFailed} labelAlign={"left"}
-                  autoComplete="off">
+                  onFinish={this.upload} labelAlign={"left"} autoComplete="off">
                 <Form.Item label="数据集名称" name="datasetName"
                            rules={[{required: true, message: "请输入数据集名称"}]}>
                     <Input/>

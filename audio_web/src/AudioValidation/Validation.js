@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../css/index.css';
 import {Button, Drawer, List, message, Modal, notification, Popconfirm, Select, Table} from "antd";
-import {getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
+import {formatTime, getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
 import {sendFile, sendGet} from "../Util/axios";
 import {CheckOutlined, InboxOutlined, UploadOutlined} from "@ant-design/icons";
 import Dragger from "antd/es/upload/Dragger";
@@ -213,7 +213,7 @@ class Validation extends React.Component {
             for (let i = 0; i < data.length; i++) {
                 const history = {}
                 history['name'] = data[i]['name']
-                history['time'] = this.formatTime(data[i]['time'])
+                history['time'] = formatTime(data[i]['time'])
                 histories.push(history)
             }
             this.setState({
@@ -225,7 +225,7 @@ class Validation extends React.Component {
     }
 
     clearHistory = () => {
-        if(this.state.uploadHistory.length!==0) {
+        if (this.state.uploadHistory.length !== 0) {
             sendGet("/clearModelHistory").then(() => {
                 notification.success({
                     message: '清空历史成功',
@@ -237,7 +237,7 @@ class Validation extends React.Component {
             }).catch(err => {
                 message.error(err).then()
             })
-        }else{
+        } else {
             notification.warning({
                 message: '无可清空历史',
                 duration: 1.0
@@ -250,11 +250,6 @@ class Validation extends React.Component {
             drawerVisible: false,
         });
     };
-
-    formatTime = (timestamp) => {
-        const moment = require('moment');
-        return moment(+timestamp).format('YYYY-MM-DD HH:mm:ss')
-    }
 
     confirm = () => {
         this.clearHistory()
@@ -286,11 +281,9 @@ class Validation extends React.Component {
 
         let drawerTitle =
             <div>
-                <span>上传模型历史</span>
-                <Popconfirm placement="leftBottom"
-                            title="确定清空？"
-                            onConfirm={this.confirm}
-                            okText="确定" cancelText="取消">
+                <span>模型上传历史</span>
+                <Popconfirm placement="leftBottom" title="确定清空？"
+                            onConfirm={this.confirm} okText="确定" cancelText="取消">
                     <Button style={{marginLeft: 60}} type={"dashed"}>清空所有历史</Button>
                 </Popconfirm>
             </div>
@@ -351,17 +344,16 @@ class Validation extends React.Component {
                             {this.state.hasSelected ? "点击或拖拽文件重新选择" : "目前只支持上传文件夹"}
                         </p>
                     </Dragger>
-                    <Drawer title={drawerTitle} placement="right" onClose={this.closeHistory}
-                            visible={this.state.drawerVisible}>
-                        <List itemLayout="horizontal" dataSource={this.state.uploadHistory}
-                              renderItem={item => (
-                                  <List.Item>
-                                      <List.Item.Meta title={item.name} description={item.time}/>
-                                  </List.Item>
-                              )}
-                        />
-                    </Drawer>
                 </Modal>
+                <Drawer title={drawerTitle} placement="right" onClose={this.closeHistory}
+                        visible={this.state.drawerVisible}>
+                    <List itemLayout="horizontal" dataSource={this.state.uploadHistory}
+                          renderItem={item => (
+                              <List.Item>
+                                  <List.Item.Meta title={item.name} description={item.time}/>
+                              </List.Item>
+                          )}/>
+                </Drawer>
             </div>
         );
     }

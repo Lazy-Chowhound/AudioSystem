@@ -20,3 +20,13 @@ create table modelHistory
         primary key (id)
 );
 
+create table datasetHistory
+(
+    id   int auto_increment,
+    name varchar(50) not null,
+    time datetime    not null,
+    constraint datasetHistory_pk
+        primary key (id)
+);
+
+

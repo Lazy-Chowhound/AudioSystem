@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import szp.audio.audio_java.Entity.DatasetHistory;
 import szp.audio.audio_java.Entity.ModelHistory;
 import szp.audio.audio_java.Service.DatasetService;
 import szp.audio.audio_java.Service.ModelService;
@@ -50,6 +51,7 @@ public class FileController {
                                            @RequestParam("form") String form,
                                            @RequestParam("description") String description) {
         int res = datasetService.insertDataset(dataset, language, size, hour, people, form, description);
+        datasetService.insertDatasetUploadHistory(dataset, new Date());
         if (res == 0) {
             Result.fail(StatusCode.FAIL.getStatus(), "Insert Fail");
         }
@@ -68,6 +70,24 @@ public class FileController {
             Result.fail(StatusCode.FAIL.getStatus(), "Upload Dataset Fail");
         }
         return Result.success(StatusCode.SUCCESS.getStatus(), "Upload Dataset Success");
+    }
+
+    /**
+     * 获取数据集上传历史记录
+     */
+    @RequestMapping("/uploadDatasetHistory")
+    public Result getUploadDatasetHistory() {
+        List<DatasetHistory> datasetHistories = datasetService.getDatasetHistories();
+        return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(datasetHistories));
+    }
+
+    /**
+     * 清空数据集上传历史记录
+     */
+    @RequestMapping("/clearDatasetHistory")
+    public Result clearUploadDatasetHistory() {
+        datasetService.clearHistory();
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
     }
 
     /**
