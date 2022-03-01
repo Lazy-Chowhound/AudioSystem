@@ -106,8 +106,11 @@ class UploadForm extends React.Component {
         if (size.length === 0) {
             return Promise.reject("大小不能为空")
         }
-        if (!size.endsWith("MB") && !size.endsWith("GB") && !this.checkPositiveInteger(size.substring(0, size.length - 2))) {
-            return Promise.reject("大小只能以GB或者MB结尾,且为正整数")
+        if (!size.endsWith("MB") && !size.endsWith("GB")) {
+            return Promise.reject("大小只能以GB或者MB结尾")
+        }
+        if (!this.checkPositiveInteger(size.substring(0, size.length - 2))) {
+            return Promise.reject("大小只能为整数")
         }
         return Promise.resolve();
     }
