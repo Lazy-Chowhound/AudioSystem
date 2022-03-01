@@ -27,11 +27,11 @@ class UploadForm extends React.Component {
             if (!this.uploadDatasetDescription(values) || !this.uploadDataset()) {
                 message.error("上传失败").then()
             } else {
-                message.success("上传成功").then()
                 this.setState({
                     hasSelectDataset: false,
                 })
                 this.state.formRef.current.resetFields();
+                message.success("上传成功").then()
             }
             this.setState({
                 uploading: false,

@@ -34,4 +34,9 @@ function getImageUrl(path) {
     return path.replace("D:/AudioSystem", baseUrl)
 }
 
-export {getAudioSet, getAudioUrl, getNoiseAudioUrl, getImageUrl}
+function formatTime(timestamp) {
+    const moment = require('moment');
+    return moment(+timestamp).format('YYYY-MM-DD HH:mm:ss')
+}
+
+export {getAudioSet, getAudioUrl, getNoiseAudioUrl, getImageUrl, formatTime}
