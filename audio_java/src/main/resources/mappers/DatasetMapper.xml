@@ -16,6 +16,12 @@
         from datasethistory
     </select>
 
+    <delete id="deleteHistory">
+        delete
+        from datasethistory
+        where name = #{name}
+    </delete>
+
     <update id="clearHistory">
         truncate table datasethistory
     </update>

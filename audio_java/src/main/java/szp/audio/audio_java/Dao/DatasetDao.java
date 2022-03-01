@@ -40,6 +40,12 @@ public interface DatasetDao {
     List<DatasetHistory> getDatasetHistories();
 
     /**
+     * 删除一条记录
+     * @param name 名字
+     */
+    void deleteHistory(String name);
+
+    /**
      * 清楚全部历史记录
      */
     void clearHistory();

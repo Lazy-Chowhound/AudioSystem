@@ -1,7 +1,6 @@
 package szp.audio.audio_java.Service;
 
 import szp.audio.audio_java.Entity.DatasetHistory;
-import szp.audio.audio_java.Entity.ModelHistory;
 
 import java.util.Date;
 import java.util.List;
@@ -36,6 +35,12 @@ public interface DatasetService {
      * @return list
      */
     List<DatasetHistory> getDatasetHistories();
+
+    /**
+     * 删除一条记录
+     * @param name 名字
+     */
+    void deleteHistory(String name);
 
     /**
      * 清楚全部历史记录

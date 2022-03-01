@@ -29,6 +29,11 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    public void deleteHistory(String name) {
+        modelDao.deleteHistory(name);
+    }
+
+    @Override
     public void clearHistory() {
         modelDao.clearHistory();
     }

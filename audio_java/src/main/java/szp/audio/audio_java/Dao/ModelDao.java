@@ -14,6 +14,7 @@ public interface ModelDao {
 
     /**
      * 插入模型上传历史
+     *
      * @param name 文件名
      * @param date 日期
      */
@@ -21,9 +22,16 @@ public interface ModelDao {
 
     /**
      * 获取上传模型全部历史
+     *
      * @return list
      */
     List<ModelHistory> getModelHistories();
+
+    /**
+     * 删除一条记录
+     * @param name 名字
+     */
+    void deleteHistory(String name);
 
     /**
      * 清楚全部历史记录

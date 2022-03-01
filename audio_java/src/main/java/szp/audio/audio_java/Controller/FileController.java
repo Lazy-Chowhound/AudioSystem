@@ -82,6 +82,15 @@ public class FileController {
     }
 
     /**
+     * 删除某条模型上传历史记录
+     */
+    @RequestMapping("/deleteDatasetHistory")
+    public Result deleteUploadDatasetHistory(@RequestParam("name") String name) {
+        datasetService.deleteHistory(name);
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
+    }
+
+    /**
      * 清空数据集上传历史记录
      */
     @RequestMapping("/clearDatasetHistory")

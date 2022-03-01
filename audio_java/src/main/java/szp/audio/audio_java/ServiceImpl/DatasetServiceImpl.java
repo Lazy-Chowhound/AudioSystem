@@ -34,6 +34,11 @@ public class DatasetServiceImpl implements DatasetService {
     }
 
     @Override
+    public void deleteHistory(String name) {
+        datasetDao.deleteHistory(name);
+    }
+
+    @Override
     public void clearHistory() {
         datasetDao.clearHistory();
     }

@@ -181,6 +181,23 @@ class AudioList extends React.Component {
         });
     };
 
+    deleteHistory = (item) => {
+        const name = item.name
+        sendGet("/deleteDatasetHistory", {
+            params: {
+                name: name
+            }
+        }).then(() => {
+            notification.success({
+                message: '删除成功',
+                duration: 1.0
+            })
+            this.getDatasetUploadHistory()
+        }).catch(error => {
+            message.error(error).then()
+        })
+    }
+
     render() {
         let modalTitle =
             <div>
@@ -221,7 +238,9 @@ class AudioList extends React.Component {
                         visible={this.state.drawerVisible}>
                     <List itemLayout="horizontal" dataSource={this.state.uploadHistory}
                           renderItem={item => (
-                              <List.Item>
+                              <List.Item actions={[<Button type={"link"} onClick={() => {
+                                  this.deleteHistory(item)
+                              }}>删除此条</Button>]}>
                                   <List.Item.Meta title={item.name} description={item.time}/>
                               </List.Item>
                           )}/>
