@@ -363,9 +363,7 @@ class PerturbationAttach extends React.Component {
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                         <Tooltip placement="right" title="点击查看所有扰动类别">
-                            <QuestionCircleOutlined onClick={() => {
-                                this.openDrawer()
-                            }}/>
+                            <QuestionCircleOutlined onClick={this.openDrawer}/>
                             <PatternDrawer bindChildren={this.bindPatternDrawer}/>
                         </Tooltip>
                     </div>
@@ -376,8 +374,7 @@ class PerturbationAttach extends React.Component {
                                total: this.state.total,
                                showSizeChanger: false,
                                showQuickJumper: true,
-                           }}
-                    />
+                           }}/>
                     <Modal style={{marginTop: 80}} title={this.state.title} key={this.state.visible}
                            visible={this.state.visible} footer={null}
                            width={400} onCancel={this.closeModal}>
@@ -387,17 +384,13 @@ class PerturbationAttach extends React.Component {
                             </div>
                             <div style={{marginTop: 20, textAlign: "center"}}>
                                 <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
-                                        onClick={() => {
-                                            this.showResult()
-                                        }}>确认</Button>
+                                        onClick={this.showResult}>确认</Button>
                             </div>
                         </div>
                     </Modal>
                 </div>
         }
-        return (<div>
-            {content}
-        </div>);
+        return (<div>{content}</div>);
     }
 }
 
