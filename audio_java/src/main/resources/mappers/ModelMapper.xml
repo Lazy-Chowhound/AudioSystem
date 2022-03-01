@@ -11,6 +11,12 @@
         from modelHistory
     </select>
 
+    <delete id="deleteHistory">
+        delete
+        from modelhistory
+        where name = #{name}
+    </delete>
+
     <update id="clearHistory">
         truncate table modelHistory
     </update>

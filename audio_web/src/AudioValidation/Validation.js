@@ -166,6 +166,7 @@ class Validation extends React.Component {
             modalVisible: false,
             hasSelected: false
         })
+        this.getModels()
     }
 
     upload = () => {
@@ -212,6 +213,7 @@ class Validation extends React.Component {
             const histories = []
             for (let i = 0; i < data.length; i++) {
                 const history = {}
+                history['key'] = data[i]['id']
                 history['name'] = data[i]['name']
                 history['time'] = formatTime(data[i]['time'])
                 histories.push(history)
@@ -253,6 +255,23 @@ class Validation extends React.Component {
 
     confirm = () => {
         this.clearHistory()
+    }
+
+    deleteHistory = (item) => {
+        const name = item.name
+        sendGet("/deleteModelHistory", {
+            params: {
+                name: name
+            }
+        }).then(() => {
+            notification.success({
+                message: '删除成功',
+                duration: 1.0
+            })
+            this.getModelUploadHistory()
+        }).catch(error => {
+            message.error(error).then()
+        })
     }
 
     render() {
@@ -349,7 +368,9 @@ class Validation extends React.Component {
                         visible={this.state.drawerVisible}>
                     <List itemLayout="horizontal" dataSource={this.state.uploadHistory}
                           renderItem={item => (
-                              <List.Item>
+                              <List.Item actions={[<Button type={"link"} onClick={() => {
+                                  this.deleteHistory(item)
+                              }}>删除此条</Button>]}>
                                   <List.Item.Meta title={item.name} description={item.time}/>
                               </List.Item>
                           )}/>

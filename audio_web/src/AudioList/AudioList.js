@@ -137,6 +137,7 @@ class AudioList extends React.Component {
             const histories = []
             for (let i = 0; i < data.length; i++) {
                 const history = {}
+                history['key'] = data[i]['id']
                 history['name'] = data[i]['name']
                 history['time'] = formatTime(data[i]['time'])
                 histories.push(history)

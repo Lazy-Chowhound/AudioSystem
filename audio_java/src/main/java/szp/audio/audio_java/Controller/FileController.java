@@ -115,6 +115,15 @@ public class FileController {
     }
 
     /**
+     * 删除某条模型上传历史记录
+     */
+    @RequestMapping("/deleteModelHistory")
+    public Result deleteUploadModelHistory(@RequestParam("name") String name) {
+        modelService.deleteHistory(name);
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
+    }
+
+    /**
      * 清空模型上传历史记录
      */
     @RequestMapping("/clearModelHistory")
