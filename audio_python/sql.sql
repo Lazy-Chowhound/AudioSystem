@@ -11,7 +11,7 @@ create table audiosetproperty
     distribution varchar(1000) not null
 );
 
-create table ModelUploadHistory
+create table modelHistory
 (
     id   int auto_increment,
     name varchar(100) not null,
