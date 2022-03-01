@@ -164,7 +164,8 @@ class Validation extends React.Component {
 
     handleCancel = () => {
         this.setState({
-            modalVisible: false
+            modalVisible: false,
+            hasSelected: false
         })
     }
 
@@ -230,7 +231,7 @@ class Validation extends React.Component {
                 message: '清空历史成功',
             })
             this.setState({
-                modelList: []
+                uploadHistory: []
             })
         }).catch(err => {
             message.error(err).then()
@@ -281,8 +282,8 @@ class Validation extends React.Component {
                 <span>上传模型历史</span>
                 <Popconfirm placement="leftBottom"
                             title="确定清空？"
-                    onConfirm={this.confirm}
-                    okText="确定" cancelText="取消">
+                            onConfirm={this.confirm}
+                            okText="确定" cancelText="取消">
                     <Button style={{marginLeft: 60}} type={"dashed"}>清空所有历史</Button>
                 </Popconfirm>
             </div>
