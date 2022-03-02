@@ -5,6 +5,7 @@ import librosa.display
 import numpy as np
 import torch
 from matplotlib import pyplot as plt
+from pydub import AudioSegment
 from transformers import AutoProcessor, AutoModelForCTC
 
 from Dataset.TimitDataset.TimitDatasetAudioUtil import make_noise_audio_clips_dirs
@@ -415,10 +416,10 @@ class TimitDataset:
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
         # 实时计算 由于时间太长这里就直接写死 0.12667034026725443 0.5199752031960325
-        # pre_overall_wer, post_overall_wer = self.get_dataset_wer()
+        # pre_overall_wer, post_overall_wer = self.get_dataset_er()
         pre_overall_wer, post_overall_wer = 0.127, 0.519
-        validation_results.append({"preOverallWER": pre_overall_wer})
-        validation_results.append({"postOverallWER": post_overall_wer})
+        validation_results.append({"preOverallER": pre_overall_wer})
+        validation_results.append({"postOverallER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
             audio_result = self.get_validation_result(audio_list[index])
             audio_result['key'] = index + 1
@@ -435,11 +436,11 @@ class TimitDataset:
         validation_result['name'] = audio_name
         validation_result['realText'] = self.get_audio_clip_content(audio_name)
         validation_result['previousText'] = self.get_audio_clip_transcription(audio_name)
-        validation_result['preWER'] = round(wer(validation_result['realText'], validation_result['previousText']), 2)
+        validation_result['preER'] = round(wer(validation_result['realText'], validation_result['previousText']), 2)
         noise_audio_name = self.get_noise_clip_name(audio_name)
         validation_result['noise_audio_name'] = noise_audio_name
         validation_result['posteriorText'] = self.get_noise_audio_clip_transcription(noise_audio_name)
-        validation_result['postWER'] = round(wer(validation_result['realText'], validation_result['posteriorText']), 2)
+        validation_result['postER'] = round(wer(validation_result['realText'], validation_result['posteriorText']), 2)
         return validation_result
 
     def get_audio_clip_transcription(self, audio_name):
@@ -468,9 +469,9 @@ class TimitDataset:
         transcription = self.processor.batch_decode(predicted_ids)
         return transcription[0].lower().capitalize()
 
-    def get_dataset_wer(self):
+    def get_dataset_er(self):
         """
-        获取数据集总体上的 wer
+        获取数据集总体上的 WER/CER
         :return:
         """
         if len(self.real_text_list) == 0 or len(self.previous_text_list) == 0 or len(self.post_text_list) == 0:

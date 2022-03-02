@@ -23,8 +23,8 @@ class Validation extends React.Component {
             uploading: false,
             modelList: [],
             currentModel: null,
-            preOverallWER: "",
-            postOverallWER: "",
+            preOverallER: "",
+            postOverallER: "",
             modalVisible: false,
             uploadHistory: [],
             hasSelected: false,
@@ -52,7 +52,7 @@ class Validation extends React.Component {
         },
         {
             title: "原WER/CER",
-            dataIndex: "preWER",
+            dataIndex: "preER",
             align: "center",
             width: 100
         },
@@ -64,7 +64,7 @@ class Validation extends React.Component {
         },
         {
             title: "现WER/CER",
-            dataIndex: "postWER",
+            dataIndex: "postER",
             align: "center",
             width: 100
         },
@@ -118,13 +118,13 @@ class Validation extends React.Component {
             } else {
                 const data = JSON.parse(res.data.data)
                 const totalLen = data.shift().total
-                const preOverallWER = data.shift().preOverallWER
-                const postOverallWER = data.shift().postOverallWER
+                const preOverallER = data.shift().preOverallER
+                const postOverallER = data.shift().postOverallER
                 this.setState({
                     dataSource: data,
                     total: totalLen,
-                    preOverallWER: preOverallWER,
-                    postOverallWER: postOverallWER,
+                    preOverallER: preOverallER,
+                    postOverallER: postOverallER,
                     loading: false
                 })
             }
@@ -287,12 +287,12 @@ class Validation extends React.Component {
                     <Table.Summary.Cell index={0}>统 计</Table.Summary.Cell>
                     <Table.Summary.Cell index={1}>
                         <div style={{textAlign: "center"}}>
-                            {`原WER/CER为 ${this.state.preOverallWER}`}
+                            {`原WER/CER为 ${this.state.preOverallER}`}
                         </div>
                     </Table.Summary.Cell>
                     <Table.Summary.Cell index={2}>
                         <div style={{textAlign: "center"}}>
-                            {`现WER/CER为 ${this.state.postOverallWER}`}
+                            {`现WER/CER为 ${this.state.postOverallER}`}
                         </div>
                     </Table.Summary.Cell>
                 </Table.Summary.Row>
