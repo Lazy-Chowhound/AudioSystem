@@ -454,7 +454,7 @@ class TimitDataset:
         logits = self.model(input_values).logits
         predicted_ids = torch.argmax(logits, dim=-1)
         transcription = self.processor.batch_decode(predicted_ids)
-        return transcription[0].lower().capitalize()
+        return self.formalize(transcription[0])
 
     def get_noise_audio_clip_transcription(self, audio_name):
         """
@@ -467,7 +467,7 @@ class TimitDataset:
         logits = self.model(input_values).logits
         predicted_ids = torch.argmax(logits, dim=-1)
         transcription = self.processor.batch_decode(predicted_ids)
-        return transcription[0].lower().capitalize()
+        return self.formalize(transcription[0])
 
     def get_dataset_er(self):
         """
@@ -514,3 +514,11 @@ class TimitDataset:
         for file in os.listdir(path):
             if file.startswith(prefix):
                 return audio_name[0:audio_name.rfind("/") + 1] + file
+
+    def formalize(self, sentence):
+        """
+        规范化句子
+        :param sentence:
+        :return:
+        """
+        return sentence.lower().capitalize()

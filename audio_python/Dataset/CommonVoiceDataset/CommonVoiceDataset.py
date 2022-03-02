@@ -11,7 +11,6 @@ from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import write_noise_a
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
 from Validation.Indicator import cer, cer_overall
-from deepspeech import Model
 
 
 class CommonVoiceDataset:
@@ -453,7 +452,7 @@ class CommonVoiceDataset:
             logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
         predicted_ids = torch.argmax(logits, dim=-1)
         predicted_sentences = self.processor.batch_decode(predicted_ids)
-        return predicted_sentences[0]
+        return self.formalize(predicted_sentences[0])
 
     def get_noise_audio_clip_transcription(self, audio_name):
         """
@@ -467,7 +466,7 @@ class CommonVoiceDataset:
             logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
         predicted_ids = torch.argmax(logits, dim=-1)
         predicted_sentences = self.processor.batch_decode(predicted_ids)
-        return predicted_sentences[0]
+        return self.formalize(predicted_sentences[0])
 
     def get_dataset_er(self):
         """
@@ -481,6 +480,7 @@ class CommonVoiceDataset:
 
     def get_dataset_texts(self):
         """
+        获取训练集上所欲音频的前后文本
         :return:
         """
         audio_list = self.get_testset_audio_clips_list()
@@ -512,3 +512,22 @@ class CommonVoiceDataset:
         for file in os.listdir(self.noise_clips_path):
             if file.startswith(audio_name[0:audio_name.find(".")]):
                 return file
+
+    def formalize(self, sentence):
+        """
+        规范化句子
+        :param sentence:
+        :return:
+        """
+        CHARS_TO_IGNORE = [",", "?", "¿", ".", "!", "¡", ";", "；", ":", '""', "%", '"', "�", "ʿ", "·", "჻", "~",
+                           "՞", "؟", "،", "।", "॥", "«", "»", "„", "“", "”", "「", "」", "‘", "’", "《", "》", "(", ")",
+                           "[",
+                           "]", "{", "}", "=", "`", "_", "+", "<", ">", "…", "–", "°", "´", "ʾ", "‹", "›", "©", "®",
+                           "—",
+                           "→", "。", "、", "﹂", "﹁", "‧", "～", "﹏", "，", "｛", "｝", "（", "）", "［", "］", "【", "】", "‥",
+                           "〽",
+                           "『", "』", "〝", "〟", "⟨", "⟩", "〜", "：", "！", "？", "♪", "؛", "/", "\\", "º", "−", "^", "'",
+                           "ʻ",
+                           "ˆ", "<unk>"]
+        chars_to_ignore_regex = f"[{re.escape(''.join(CHARS_TO_IGNORE))}]"
+        return re.sub(chars_to_ignore_regex, "", sentence)
