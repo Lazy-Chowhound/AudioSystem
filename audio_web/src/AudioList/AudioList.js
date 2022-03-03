@@ -33,31 +33,37 @@ class AudioList extends React.Component {
         {
             title: "语言",
             dataIndex: "language",
-            align: "center"
+            align: "center",
         },
         {
             title: "大小",
             dataIndex: "size",
-            align: "center"
+            align: "center",
+            width: 80
         },
         {
             title: "总小时数",
             dataIndex: "hour",
-            align: "center"
+            align: "center",
+            width: 80
         },
         {
             title: "录音人数",
             dataIndex: "people",
-            align: "center"
+            align: "center",
+            width: 80
         },
         {
             title: "格式",
             dataIndex: "form",
-            align: "center"
+            align: "center",
+            width: 70
         },
         {
-            title: "分布",
+            title: "描述",
             dataIndex: "distribution",
+            width:500,
+            ellipsis: true
         },
         {
             title: "音频列表",
