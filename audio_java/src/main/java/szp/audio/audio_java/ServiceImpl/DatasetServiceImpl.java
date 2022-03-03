@@ -19,7 +19,7 @@ public class DatasetServiceImpl implements DatasetService {
     private DatasetDao datasetDao;
 
     @Override
-    public int insertDataset(String datasetName, String language, String size, int hour, int people, String form, String description) {
+    public int insertDataset(String datasetName, String language, String size, float hour, int people, String form, String description) {
         return datasetDao.insertDataset(datasetName, language, size, hour, people, form, description);
     }
 

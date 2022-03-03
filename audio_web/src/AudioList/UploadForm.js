@@ -120,8 +120,8 @@ class UploadForm extends React.Component {
         if (hour.length === 0) {
             return Promise.reject("时长不能为空")
         }
-        if (!this.checkPositiveInteger(hour)) {
-            return Promise.reject("时长只能为正整数")
+        if (!this.checkPositive(hour)) {
+            return Promise.reject("时长只能为正数")
         }
         return Promise.resolve();
     }
@@ -150,6 +150,11 @@ class UploadForm extends React.Component {
 
     checkPositiveInteger = (num) => {
         const reg = /^[1-9]\d*$/;
+        return reg.test(num);
+    }
+
+    checkPositive = (num) => {
+        const reg = /^\d+(?=\.?\d+$|$)/;
         return reg.test(num);
     }
 

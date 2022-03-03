@@ -46,7 +46,7 @@ public class FileController {
     public Result uploadDatasetDescription(@RequestParam("dataset") String dataset,
                                            @RequestParam("language") String language,
                                            @RequestParam("size") String size,
-                                           @RequestParam("hour") int hour,
+                                           @RequestParam("hour") float hour,
                                            @RequestParam("people") int people,
                                            @RequestParam("form") String form,
                                            @RequestParam("description") String description) {

@@ -21,7 +21,7 @@ public interface DatasetService {
      * @param description 描述
      * @return 插入条数
      */
-    int insertDataset(String datasetName, String language, String size, int hour, int people, String form, String description);
+    int insertDataset(String datasetName, String language, String size, float hour, int people, String form, String description);
 
     /**
      * 插入数据集上传历史
