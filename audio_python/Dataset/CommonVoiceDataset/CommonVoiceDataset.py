@@ -412,9 +412,9 @@ class CommonVoiceDataset:
         validation_results = []
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
-        # 实时计算 由于时间太长这里就直接写死
+        # 实时计算 由于时间太长这里就直接写死 0.1636319890171324 0.43685204973427405
         # pre_overall_cer, post_overall_cer = self.get_dataset_er()
-        pre_overall_cer, post_overall_cer = 0.5, 0.6
+        pre_overall_cer, post_overall_cer = 0.164, 0.436
         validation_results.append({"preOverallER": pre_overall_cer})
         validation_results.append({"postOverallER": post_overall_cer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
@@ -515,19 +515,15 @@ class CommonVoiceDataset:
 
     def formalize(self, sentence):
         """
-        规范化句子
+        规范化文本
         :param sentence:
         :return:
         """
         CHARS_TO_IGNORE = [",", "?", "¿", ".", "!", "¡", ";", "；", ":", '""', "%", '"', "�", "ʿ", "·", "჻", "~",
                            "՞", "؟", "،", "।", "॥", "«", "»", "„", "“", "”", "「", "」", "‘", "’", "《", "》", "(", ")",
-                           "[",
-                           "]", "{", "}", "=", "`", "_", "+", "<", ">", "…", "–", "°", "´", "ʾ", "‹", "›", "©", "®",
-                           "—",
-                           "→", "。", "、", "﹂", "﹁", "‧", "～", "﹏", "，", "｛", "｝", "（", "）", "［", "］", "【", "】", "‥",
-                           "〽",
-                           "『", "』", "〝", "〟", "⟨", "⟩", "〜", "：", "！", "？", "♪", "؛", "/", "\\", "º", "−", "^", "'",
-                           "ʻ",
-                           "ˆ", "<unk>"]
+                           "[", "]", "{", "}", "=", "`", "_", "+", "<", ">", "…", "–", "°", "´", "ʾ", "‹", "›", "©",
+                           "®", "—", "→", "。", "、", "﹂", "﹁", "‧", "～", "﹏", "，", "｛", "｝", "（", "）", "［", "］",
+                           "【", "】", "‥", "〽", "『", "』", "〝", "〟", "⟨", "⟩", "〜", "：", "！", "？", "♪", "؛", "/", "\\",
+                           "º", "−", "^", "'", "ʻ", "ˆ", "<unk>"]
         chars_to_ignore_regex = f"[{re.escape(''.join(CHARS_TO_IGNORE))}]"
         return re.sub(chars_to_ignore_regex, "", sentence)
