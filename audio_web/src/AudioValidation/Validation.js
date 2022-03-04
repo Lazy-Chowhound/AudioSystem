@@ -88,7 +88,7 @@ class Validation extends React.Component {
             const data = JSON.parse(res.data.data)
             this.setState({
                 modelList: data,
-                currentModel: data[0]
+                currentModel: data[1]
             }, () => {
                 this.getValidationResultsByPage()
             })

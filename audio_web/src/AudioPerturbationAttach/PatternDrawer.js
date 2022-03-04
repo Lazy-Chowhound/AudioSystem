@@ -108,7 +108,7 @@ class PatternDrawer extends React.Component {
                     </Panel>
                     <Panel style={{whiteSpace: "pre-wrap"}} header="Music" key="Music"
                            className="site-collapse-custom-panel">
-                        <p>{this.formatText("音乐是一种以声音和沉默为媒介的艺术形式和文化活动。 音乐的共同元素是音高、节奏、动态以及音色和纹理的声音品质")}</p>
+                        <p>{this.formatText("音乐是一种以声音和沉默为媒介的艺术形式和文化活动。音乐的共同元素是音高、节奏、动感以及音色和纹理的声音品质")}</p>
                         <Collapse accordion bordered={false}
                                   expandIcon={({isActive}) => <CaretRightOutlined rotate={isActive ? 90 : 0}/>}>
                             <Panel style={{whiteSpace: "pre-wrap"}} header="Musical instrument" key="Musical instrument"
@@ -129,7 +129,7 @@ class PatternDrawer extends React.Component {
                             </Panel>
                             <Panel style={{whiteSpace: "pre-wrap"}} header="Music mood" key="Music mood"
                                    className="site-collapse-custom-panel">
-                                <p>{this.formatText("不论流派或乐器，表示音乐对于情感的影响，如激情的音乐、舒缓的音乐")}</p>
+                                <p>{this.formatText("不论流派或乐器，表示音乐对于情感的影响的类别。如激情的音乐、舒缓的音乐")}</p>
                             </Panel>
                         </Collapse>
                     </Panel>
@@ -231,7 +231,7 @@ class PatternDrawer extends React.Component {
                             <Panel style={{whiteSpace: "pre-wrap"}} header="Miscellaneous sources"
                                    key="Miscellaneous sources"
                                    className="site-collapse-custom-panel">
-                                <p>{this.formatText("来自于其他类别未涵盖的具体来源的声音")}</p>
+                                <p>{this.formatText("具体来源没有被其他类别所涵盖的声音类别")}</p>
                             </Panel>
                             <Panel style={{whiteSpace: "pre-wrap"}} header="Specific impact sounds"
                                    key="Specific impact sounds"
@@ -249,7 +249,7 @@ class PatternDrawer extends React.Component {
                             <Panel style={{whiteSpace: "pre-wrap"}} header="Generic impact sounds"
                                    key="Generic impact sounds"
                                    className="site-collapse-custom-panel">
-                                <p>{this.formatText("撞击或碰撞的声音优先通过它们的声学特性来描述，而不是直接引用它们假定的源对象")}</p>
+                                <p>{this.formatText("优先通过其声学特性而不是直接提及声源来描述的撞击或碰撞的声音")}</p>
                             </Panel>
                             <Panel style={{whiteSpace: "pre-wrap"}} header="Surface contact" key="Surface contact"
                                    className="site-collapse-custom-panel">
