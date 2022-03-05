@@ -29,8 +29,10 @@ def get_validation_results_by_page(dataset, model_name, page, page_size):
     :param page_size:
     :return:
     """
-    dataset_instance = get_dataset_instance(dataset)
-    if not dataset_instance.load_model(model_name):
-        return RpcResult.error("模型不存在，请选择正确的模型")
-    results = dataset_instance.get_validation_results_by_page(page, page_size)
-    return RpcResult.ok(json.dumps(results, ensure_ascii=False))
+    try:
+        dataset_instance = get_dataset_instance(dataset)
+        dataset_instance.load_model(model_name)
+        results = dataset_instance.get_validation_results_by_page(page, page_size)
+        return RpcResult.ok(json.dumps(results, ensure_ascii=False))
+    except Exception as e:
+        return RpcResult.error(e)
