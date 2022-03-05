@@ -41,11 +41,12 @@ sound_level_pattern_types = ["Louder", "Quieter", "Pitch", "Speed"]
 
 animal_pattern_types = ["Pets", "Livestock", "Wild animals"]
 
-sound_of_things_pattern_types = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Explosion",
-                                 "Wood", "Glass", "Liquid", "Miscellaneous sources", "Specific impact sounds"]
+sound_of_things_pattern_types = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Tools",
+                                 "Explosion", "Wood", "Glass", "Liquid", "Miscellaneous sources",
+                                 "Specific impact sounds"]
 
 human_sounds_pattern_types = ["Human voice", "Whistling", "Respiratory sounds", "Human locomotion", "Hands",
-                              "Heartbeat", "Human group actions"]
+                              "Heartbeat", "Human group actions", "Digestive", "Otoacoustic emission"]
 
 natural_sounds_pattern_types = ["Wind", "Thunderstorm", "Water", "Fire"]
 
