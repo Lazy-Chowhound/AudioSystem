@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="szp.audio.audio_java.Dao.OperationDao">
+    <insert id="insertOperationHistory">
+
+    </insert>
+    <select id="getOperationHistories" resultType="szp.audio.audio_java.Entity.OperationHistory">
+        select id, formerType, latterType, time
+        from operationhistory
+    </select>
+    <delete id="deleteHistory">
+        delete
+        from operationhistory
+        where formerType = #{formerType}
+          and latterType = #{formerType}
+          and time = #{time}
+    </delete>
+    <update id="clearHistory">
+        truncate table operationhistory
+    </update>
+</mapper>

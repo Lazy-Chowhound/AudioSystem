@@ -29,4 +29,13 @@ create table datasetHistory
         primary key (id)
 );
 
+create table operationhistory
+(
+    id         int auto_increment
+        primary key,
+    formerType varchar(100) not null,
+    latterType varchar(100) not null,
+    time       datetime     not null
+);
+
 
