@@ -2,7 +2,6 @@ package szp.audio.audio_java.Dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import szp.audio.audio_java.Entity.DatasetHistory;
-import szp.audio.audio_java.Entity.ModelHistory;
 
 import java.util.Date;
 import java.util.List;
