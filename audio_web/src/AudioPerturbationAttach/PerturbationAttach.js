@@ -1,12 +1,25 @@
 import React from "react";
-import {Button, message, Modal, Progress, Result, Select, Table, Tooltip} from "antd";
+import {
+    Button,
+    Drawer,
+    List,
+    message,
+    Modal,
+    notification,
+    Popconfirm,
+    Progress,
+    Result,
+    Select,
+    Table,
+    Tooltip
+} from "antd";
 import PatternDisplay from "./PatternDisplay";
 import {
     CloudUploadOutlined,
     QuestionCircleOutlined,
 } from "@ant-design/icons";
 import {sendGet} from "../Util/axios";
-import {getAudioSet, getNoiseAudioUrl} from "../Util/AudioUtil";
+import {formatTime, formatTimeStamp, getAudioSet, getNoiseAudioUrl} from "../Util/AudioUtil";
 import AudioPlay from "../AudioList/AudioPlay";
 import PatternDrawer from "./PatternDrawer";
 
@@ -29,7 +42,9 @@ class PerturbationAttach extends React.Component {
             pageSize: 5,
             total: 0,
             loading: true,
-            drawerVisible: false
+            drawerVisible: false,
+            historyVisible: false,
+            operationHistory: []
         };
     }
 
@@ -251,8 +266,8 @@ class PerturbationAttach extends React.Component {
         let key = this.state.dataSource[selectedKey].key
         let pattern = this.state.patternChoices[key]
         let params = {};
-        params["audioName"] = this.state.dataSource[selectedKey].name
         params["dataset"] = this.state.dataset
+        params["audioName"] = this.state.dataSource[selectedKey].name
         params["currentPattern"] = this.state.dataSource[selectedKey].pattern
         if (params["currentPattern"] !== "Gaussian noise") {
             params["currentPatternType"] = this.state.dataSource[selectedKey].patternType
@@ -307,6 +322,92 @@ class PerturbationAttach extends React.Component {
         this.patternDrawer.openDrawer()
     }
 
+    showHistory = () => {
+        this.setState({
+            historyVisible: true
+        }, () => {
+            this.getOperationHistory()
+        })
+    }
+
+    getOperationHistory = () => {
+        sendGet("/operationHistory").then(res => {
+            const data = JSON.parse(res.data.data)
+            const histories = []
+            for (let i = 0; i < data.length; i++) {
+                const history = {}
+                history['key'] = data[i]['id']
+                history['dataset'] = data[i]['dataset']
+                history['audioName'] = data[i]['audioName']
+                history['formerType'] = data[i]['formerType']
+                history['latterType'] = data[i]['latterType']
+                history['time'] = formatTime(data[i]['time'])
+                histories.push(history)
+            }
+            this.setState({
+                operationHistory: histories
+            })
+        }).catch(() => {
+            message.error("获取历史记录失败").then()
+        })
+    }
+
+    confirm = () => {
+        this.clearHistory()
+    }
+
+    clearHistory = () => {
+        if (this.state.operationHistory.length !== 0) {
+            sendGet("/clearOperationHistory").then(() => {
+                notification.success({
+                    message: '清空历史成功',
+                    duration: 1.0
+                })
+                this.setState({
+                    operationHistory: []
+                })
+            }).catch(err => {
+                message.error(err).then()
+            })
+        } else {
+            notification.warning({
+                message: '无可清空历史',
+                duration: 1.0
+            })
+        }
+    }
+
+    closeHistory = () => {
+        this.setState({
+            historyVisible: false,
+        });
+    };
+
+    deleteHistory = (item) => {
+        const dataset = item.dataset;
+        const audioName = item.audioName;
+        const formerType = item.formerType;
+        const latterType = item.latterType;
+        const time = formatTimeStamp(item.time).toString()
+        sendGet("/deleteOperationHistory", {
+            params: {
+                dataset: dataset,
+                audioName: audioName,
+                formerType: formerType,
+                latterType: latterType,
+                time: time
+            }
+        }).then(() => {
+            notification.success({
+                message: '删除成功',
+                duration: 1.0
+            })
+            this.getOperationHistory()
+        }).catch(error => {
+            message.error(error).then()
+        })
+    }
+
     render() {
         const {selectedRowKeys} = this.state;
         const locales = {selectionAll: "全选", selectNone: "清空所有", filterConfirm: '确定', filterReset: '重置'}
@@ -315,6 +416,15 @@ class PerturbationAttach extends React.Component {
             onChange: this.onSelectChange,
             selections: [Table.SELECTION_ALL, Table.SELECTION_NONE],
         };
+
+        let drawerTitle =
+            <div>
+                <span>操作历史</span>
+                <Popconfirm placement="leftBottom" title="确定清空？"
+                            onConfirm={this.confirm} okText="确定" cancelText="取消">
+                    <Button style={{marginLeft: 60}} type={"dashed"}>清空所有历史</Button>
+                </Popconfirm>
+            </div>
 
         let summaryRow =
             <Table.Summary fixed>
@@ -366,6 +476,8 @@ class PerturbationAttach extends React.Component {
                             <QuestionCircleOutlined onClick={this.openDrawer}/>
                             <PatternDrawer bindChildren={this.bindPatternDrawer}/>
                         </Tooltip>
+                        <Button style={{marginLeft: "100px"}} onClick={this.showHistory}
+                                type={"primary"}>查看操作历史</Button>
                     </div>
                     <Table rowSelection={rowSelection} columns={this.columns} dataSource={this.state.dataSource}
                            locale={locales} summary={() => (summaryRow)} loading={this.state.loading}
@@ -388,6 +500,20 @@ class PerturbationAttach extends React.Component {
                             </div>
                         </div>
                     </Modal>
+                    <Drawer title={drawerTitle} placement="right" onClose={this.closeHistory}
+                            visible={this.state.historyVisible} style={{whiteSpace: "pre-wrap"}}>
+                        <List itemLayout="horizontal" dataSource={this.state.operationHistory}
+                              renderItem={item => (
+                                  <List.Item actions={[<Button type={"link"} onClick={() => {
+                                      this.deleteHistory(item)
+                                  }}>删除此条</Button>]}>
+                                      <List.Item.Meta
+                                          title={item.formerType + " --> " + item.latterType}
+                                          description={item.time}/>
+                                      {"数据集：" + item.dataset + "\n音频名：" + item.audioName}
+                                  </List.Item>
+                              )}/>
+                    </Drawer>
                 </div>
         }
         return (<div>{content}</div>);

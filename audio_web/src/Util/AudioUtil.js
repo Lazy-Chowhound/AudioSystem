@@ -1,6 +1,7 @@
 import {sendGet} from "./axios";
 import baseUrl from "./url";
 import {clips_path, noise_clips_path} from "./Path";
+import moment from "moment";
 
 async function getAudioSet() {
     const ops = []
@@ -39,4 +40,10 @@ function formatTime(timestamp) {
     return moment(+timestamp).format('YYYY-MM-DD HH:mm:ss')
 }
 
-export {getAudioSet, getAudioUrl, getNoiseAudioUrl, getImageUrl, formatTime}
+function formatTimeStamp(time) {
+    const moment = require('moment');
+    return moment(time).valueOf()
+}
+
+
+export {getAudioSet, getAudioUrl, getNoiseAudioUrl, getImageUrl, formatTime,formatTimeStamp}

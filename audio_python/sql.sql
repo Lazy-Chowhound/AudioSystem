@@ -33,9 +33,12 @@ create table operationhistory
 (
     id         int auto_increment
         primary key,
+    dataset    varchar(50)  not null,
+    audioName  varchar(100) not null,
+    time       datetime     not null,
     formerType varchar(100) not null,
-    latterType varchar(100) not null,
-    time       datetime     not null
+    latterType varchar(100) not null
 );
+
 
 

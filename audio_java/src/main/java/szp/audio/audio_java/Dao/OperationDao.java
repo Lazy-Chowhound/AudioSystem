@@ -1,6 +1,6 @@
 package szp.audio.audio_java.Dao;
 
-import szp.audio.audio_java.Entity.ModelHistory;
+import org.apache.ibatis.annotations.Mapper;
 import szp.audio.audio_java.Entity.OperationHistory;
 
 import java.util.Date;
@@ -9,15 +9,18 @@ import java.util.List;
 /**
  * @author Nakano Miku
  */
+@Mapper
 public interface OperationDao {
     /**
      * 操作历史
      *
-     * @param formerType 文件名
-     * @param latterType 文件名
+     * @param dataset    数据集
+     * @param audioName  音频名
+     * @param formerType 原扰动
+     * @param latterType 现扰动
      * @param date       日期
      */
-    void insertOperationHistory(String formerType, String latterType, Date date);
+    void insertOperationHistory(String dataset, String audioName, String formerType, String latterType, Date date);
 
     /**
      * 获取上传模型全部历史
@@ -29,11 +32,13 @@ public interface OperationDao {
     /**
      * 删除一条记录
      *
-     * @param formerType 文件名
-     * @param latterType 文件名
+     * @param dataset    数据集
+     * @param audioName  音频名
+     * @param formerType 原扰动
+     * @param latterType 现扰动
      * @param date       日期
      */
-    void deleteHistory(String formerType, String latterType, Date date);
+    void deleteHistory(String dataset, String audioName, String formerType, String latterType, Date date);
 
     /**
      * 清楚全部历史记录

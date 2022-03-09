@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import szp.audio.audio_java.Rpc.RpcUtil;
+import szp.audio.audio_java.Service.OperationService;
 import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.Util.StatusCode;
+
+import java.util.Date;
 
 /**
  * @author Nakano Miku
@@ -20,6 +23,9 @@ public class NoisePatternController {
 
     @Autowired
     private RpcUtil rpcUtil;
+
+    @Autowired
+    private OperationService operationService;
 
     /**
      * 添加扰动时获取某数据集所有音频扰动情况
@@ -49,6 +55,8 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName, currentPattern + " " + currentPatternType,
+                    "Gaussian noise", new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -70,6 +78,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Sound level " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -91,6 +102,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Natural Sounds " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -112,6 +126,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Animal " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -133,6 +150,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Sound of things " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -154,6 +174,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Human sounds " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -175,6 +198,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Music " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
@@ -198,6 +224,9 @@ public class NoisePatternController {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
             removeCurrentNoiseAudioClip(dataset, audioName, currentPattern, currentPatternType);
+            operationService.insertOperationHistory(dataset, audioName,
+                    currentPattern + (currentPatternType != null ? " " + currentPatternType : ""),
+                    "Source ambiguous sounds " + specificPattern, new Date());
             return Result.success(StatusCode.SUCCESS.getStatus(), null);
         } catch (XmlRpcException xmlRpcException) {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());

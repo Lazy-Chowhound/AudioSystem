@@ -10,6 +10,8 @@ import java.util.Date;
 @Data
 public class OperationHistory {
     private int id;
+    private String dataset;
+    private String audioName;
     private String formerType;
     private String latterType;
     private Date time;

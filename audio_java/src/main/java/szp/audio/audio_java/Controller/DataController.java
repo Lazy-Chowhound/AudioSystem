@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import szp.audio.audio_java.Dao.OperationDao;
 import szp.audio.audio_java.Entity.DatasetHistory;
 import szp.audio.audio_java.Entity.ModelHistory;
+import szp.audio.audio_java.Entity.OperationHistory;
 import szp.audio.audio_java.Service.DatasetService;
 import szp.audio.audio_java.Service.ModelService;
+import szp.audio.audio_java.Service.OperationService;
 import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.Util.StatusCode;
 
@@ -18,6 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,13 +31,16 @@ import java.util.List;
  * @author Nakano Miku
  */
 @RestController
-public class FileController {
+public class DataController {
 
     @Autowired
     private DatasetService datasetService;
 
     @Autowired
     private ModelService modelService;
+
+    @Autowired
+    private OperationService operationService;
 
     @Value("${audioset.path}")
     private String audioSetPath;
@@ -138,6 +147,40 @@ public class FileController {
     @RequestMapping("/clearModelHistory")
     public Result clearUploadModelHistory() {
         modelService.clearHistory();
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
+    }
+
+    /**
+     * 获取扰动操作记录
+     */
+    @RequestMapping("/operationHistory")
+    public Result getOperationHistories() {
+        List<OperationHistory> operationHistories = operationService.getOperationHistories();
+        return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(operationHistories));
+    }
+
+    /**
+     * 删除某条扰动修改历史记录
+     */
+    @RequestMapping("/deleteOperationHistory")
+    public Result deleteOperationHistories(@RequestParam("dataset") String dataset,
+                                           @RequestParam("audioName") String audioName,
+                                           @RequestParam("formerType") String formerType,
+                                           @RequestParam("latterType") String latterType,
+                                           @RequestParam("time") String time) {
+        System.out.println(time);
+        Date date = new Date(Long.parseLong(time));
+        operationService.deleteHistory(dataset, audioName, formerType, latterType, date);
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
+    }
+
+
+    /**
+     * 清空扰动修改历史记录
+     */
+    @RequestMapping("/clearOperationHistory")
+    public Result clearOperationHistory() {
+        operationService.clearHistory();
         return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
     }
 

@@ -2,18 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="szp.audio.audio_java.Dao.OperationDao">
     <insert id="insertOperationHistory">
-
+        insert into operationhistory(dataset, audioName, formerType, latterType, time)
+        values (#{dataset}, #{audioName}, #{formerType}, #{latterType}, #{date})
     </insert>
     <select id="getOperationHistories" resultType="szp.audio.audio_java.Entity.OperationHistory">
-        select id, formerType, latterType, time
+        select id, dataset, audioName, time, formerType, latterType
         from operationhistory
     </select>
     <delete id="deleteHistory">
         delete
         from operationhistory
-        where formerType = #{formerType}
-          and latterType = #{formerType}
-          and time = #{time}
+        where dataset = #{dataset}
+          and audioName = #{audioName}
+          and formerType = #{formerType}
+          and latterType = #{latterType}
+          and time = #{date}
     </delete>
     <update id="clearHistory">
         truncate table operationhistory
