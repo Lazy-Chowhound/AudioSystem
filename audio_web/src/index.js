@@ -33,6 +33,27 @@ class Index extends React.Component {
     };
 
     componentDidMount() {
+        const token = localStorage.getItem("token")
+        sendGet("/verifyToken", {
+            params: {
+                token: token
+            }
+        }).then(res => {
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+            } else {
+                const data = res.data.data.split(" ");
+                const token = data[0];
+                const userName = data[1];
+                this.setState({
+                    isLogin: true,
+                    userName: userName
+                })
+                localStorage.setItem("token", token);
+            }
+        }).catch(err => {
+            message.error(err).then()
+        })
         this.changeSelectedKeys()
     }
 

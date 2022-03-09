@@ -38,16 +38,16 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
             throws AuthenticationException {
         if (authenticationToken == null) {
-            throw new UnsupportedTokenException("token为空");
+            throw new UnsupportedTokenException();
         }
         String userName = (String) authenticationToken.getPrincipal();
         User userInfo = userService.getUserInfoByName(userName);
         if (userInfo == null) {
-            throw new UnknownAccountException("没有帐户信息");
+            throw new UnknownAccountException();
         }
         String password = (String) authenticationToken.getCredentials();
         if (!password.equals(userInfo.getPassword())) {
-            throw new IncorrectCredentialsException("密码错误");
+            throw new IncorrectCredentialsException();
         }
         return new SimpleAuthenticationInfo(userName, password, getName());
     }

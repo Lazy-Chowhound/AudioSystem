@@ -37,7 +37,7 @@ public class JwtUtil {
     }
 
     public String createRefreshToken(String userName, String password) {
-        Date expireDay = DateUtil.offset(new Date(), DateField.DAY_OF_YEAR, refreshTime);
+        Date expireDay = DateUtil.offset(new Date(), DateField.DAY_OF_MONTH, refreshTime);
         Algorithm algorithm = Algorithm.HMAC512(secretKey);
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("userName", userName).withClaim("password", password)

@@ -1,6 +1,8 @@
 package szp.audio.audio_java.Controller;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.pam.UnsupportedTokenException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,9 +48,6 @@ public class UserController {
     @RequestMapping("/login")
     public Result login(@RequestParam("userName") String userName, @RequestParam("password") String password) {
         Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
-            return Result.fail(StatusCode.FAIL.getStatus(), "已经登录，请先退出当前帐号再登录");
-        }
         String token = jwtUtil.createUserToken(userName, password);
         String refreshToken = jwtUtil.createRefreshToken(userName, password);
         // token存入redis
@@ -63,5 +62,32 @@ public class UserController {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
         return Result.success(StatusCode.SUCCESS.getStatus(), "登出成功");
+    }
+
+    @RequestMapping("/verifyToken")
+    public Result verifyToken(@RequestParam(value = "token", required = false) String token) {
+        if (token == null) {
+            throw new UnsupportedTokenException();
+        }
+        String userName = jwtUtil.getUserName(token);
+        String password = jwtUtil.getUserPassword(token);
+        try {
+            jwtUtil.verifyToken(token);
+        } catch (TokenExpiredException expiredException) {
+            // 双token均过期
+            if (Boolean.FALSE.equals(redisTemplate.hasKey(userName))) {
+                throw new TokenExpiredException("token已过期");
+            }
+        } catch (Exception exception) {
+            throw new UnsupportedTokenException();
+        }
+        // 用户token过期但refresh token没有，则刷新两个token，然后将新的token返回给用户
+        String newUserToken = jwtUtil.createUserToken(userName, password);
+        String newRefreshToken = jwtUtil.createRefreshToken(userName, password);
+        redisTemplate.delete(userName);
+        redisTemplate.opsForValue().set(userName, newRefreshToken, refreshTime, TimeUnit.DAYS);
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(new AccessToken(newUserToken));
+        return Result.success(StatusCode.SUCCESS.getStatus(), newUserToken + " " + userName);
     }
 }

@@ -1,5 +1,6 @@
 package szp.audio.audio_java.Util;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(UnsupportedTokenException.class)
     public Result unsupportedTokenExceptionHandler() {
-        return Result.fail(StatusCode.FAIL.getStatus(), "token为null");
+        return Result.fail(StatusCode.FAIL.getStatus(), "无效的token，请重新登录");
     }
 
     @ResponseBody
@@ -57,6 +58,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IncorrectCredentialsException.class)
     public Result incorrectCredentialsExceptionHandler() {
         return Result.fail(StatusCode.FAIL.getStatus(), "密码错误");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(TokenExpiredException.class)
+    public Result tokenExpiredExceptionHandler() {
+        return Result.fail(StatusCode.FAIL.getStatus(), "登录已失效，请重新登录");
     }
 }
 
