@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="szp.audio.audio_java.Dao.UserDao">
+    <resultMap id="permissionMap" type="szp.audio.audio_java.Entity.Permission">
+        <id property="id" column="id"/>
+        <result property="permissionName" column="permission_name"/>
+        <result property="moduleId" column="module_id"/>
+        <result property="actionId" column="action_id"/>
+    </resultMap>
+
+    <select id="getUserInfoByName" resultType="szp.audio.audio_java.Entity.User">
+        select id, name, password
+        from user
+        where name = #{userName};
+    </select>
+
+    <select id="getUserPermissions" resultMap="permissionMap">
+        select p.id, p.permission_name, p.module_id, p.action_id
+        from user u
+                 join role r on json_contains(u.role, cast(r.id as char))
+                 join permission p on json_contains(r.permissions, cast(p.id as char))
+        where u.name = #{userName}
+    </select>
+
+    <select id="getUserRoles" resultType="szp.audio.audio_java.Entity.Role">
+        select r.id, r.role_name as roleName
+        from user u
+                 join role r on json_contains(u.role, cast(r.id as char))
+        where u.name = #{userName}
+    </select>
+
+    <insert id="insertUserInfo">
+        insert into user(name, password, role)
+        values (#{userName}, #{password}, #{role})
+    </insert>
+</mapper>

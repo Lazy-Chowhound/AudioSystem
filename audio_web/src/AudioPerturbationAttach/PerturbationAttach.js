@@ -502,7 +502,7 @@ class PerturbationAttach extends React.Component {
                     </Modal>
                     <Drawer title={drawerTitle} placement="right" onClose={this.closeHistory}
                             visible={this.state.historyVisible} style={{whiteSpace: "pre-wrap"}}>
-                        <List itemLayout="horizontal" dataSource={this.state.operationHistory}
+                        <List itemLayout="vertical" dataSource={this.state.operationHistory}
                               renderItem={item => (
                                   <List.Item actions={[<Button type={"link"} onClick={() => {
                                       this.deleteHistory(item)

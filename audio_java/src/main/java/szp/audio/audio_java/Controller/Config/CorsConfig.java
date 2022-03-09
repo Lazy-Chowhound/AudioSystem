@@ -1,4 +1,4 @@
-package szp.audio.audio_java.Config;
+package szp.audio.audio_java.Controller.Config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

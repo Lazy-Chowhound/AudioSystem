@@ -1,4 +1,4 @@
-package szp.audio.audio_java.Config;
+package szp.audio.audio_java.Controller.Config;
 
 
 import org.springframework.boot.web.servlet.MultipartConfigFactory;

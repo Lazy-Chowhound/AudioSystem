@@ -40,5 +40,48 @@ create table operationhistory
     latterType varchar(100) not null
 );
 
+create table action
+(
+    id          int auto_increment
+        primary key,
+    action_code varchar(100) null,
+    action_name varchar(100) not null
+);
+
+create table module
+(
+    id          int auto_increment
+        primary key,
+    module_code varchar(100) not null,
+    module_name varchar(100) not null
+);
+
+create table permission
+(
+    id              int auto_increment
+        primary key,
+    permission_name varchar(100) not null,
+    module_id       int          not null,
+    action_id       int          not null
+);
+
+create table role
+(
+    id          int auto_increment,
+    role_name   varchar(100) null,
+    permissions json         not null,
+    constraint role_pk
+        primary key (id)
+);
+
+create table user
+(
+    id       int auto_increment
+        primary key,
+    name     varchar(255) not null,
+    password varchar(255) not null,
+    role     json         not null
+);
+
 
 
