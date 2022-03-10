@@ -19,31 +19,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    /**
-     * 注意这里的SecurityManager是org.apache.shiro.mgt.SecurityManager这个包下面的
-     */
-    @Bean(name = "securityManager")
-    public SecurityManager securityManager(UserRealm userRealm) {
-        DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager();
-        webSecurityManager.setRealm(userRealm);
-        webSecurityManager.setRememberMeManager(null);
-        return webSecurityManager;
-    }
-
-    @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-        factoryBean.setSecurityManager(securityManager);
-
-        //设置拦截顺序和拦截器
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/user/login", "anon");
-        filterChainDefinitionMap.put("/user/register", "anon");
-        factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-        return factoryBean;
-    }
-
     // 如果@RequiresAuthentication和@RequiresPermissions不生效 添加下面三个函数
 
     @Bean("lifecycleBeanPostProcessor")
@@ -64,6 +39,31 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * 注意这里的SecurityManager是org.apache.shiro.mgt.SecurityManager这个包下面的
+     */
+    @Bean(name = "securityManager")
+    public SecurityManager securityManager(UserRealm userRealm) {
+        DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager();
+        webSecurityManager.setRealm(userRealm);
+        webSecurityManager.setRememberMeManager(null);
+        return webSecurityManager;
+    }
+
+    @Bean(name = "shiroFilter")
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+        factoryBean.setSecurityManager(securityManager);
+
+        //设置拦截顺序和拦截器
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/register", "anon");
+        factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
+        return factoryBean;
     }
 }
 

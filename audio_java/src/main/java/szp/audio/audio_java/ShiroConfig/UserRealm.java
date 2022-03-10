@@ -49,7 +49,7 @@ public class UserRealm extends AuthorizingRealm {
         if (!password.equals(userInfo.getPassword())) {
             throw new IncorrectCredentialsException();
         }
-        return new SimpleAuthenticationInfo(userName, password, getName());
+        return new SimpleAuthenticationInfo(userInfo, password, getName());
     }
 
     /**
@@ -59,8 +59,8 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        // 这里取出的是上面SimpleAuthenticationInfo第一个参数
-        String userName = (String) principalCollection.getPrimaryPrincipal();
+        User userInfo = (User) principalCollection.getPrimaryPrincipal();
+        String userName = userInfo.getName();
         // 获取用户权限
         Set<Permission> permissions = userService.getUserPermissions(userName);
         Set<String> perms = permissions.stream().map(Permission::getPermissionName).collect(Collectors.toSet());

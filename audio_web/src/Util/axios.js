@@ -1,8 +1,10 @@
 import axios from "axios";
 import baseUrl from "./url";
 
+axios.defaults.withCredentials = true;
+
 const axiosInstance = axios.create({
-    baseURL: baseUrl
+    baseURL: baseUrl,
 })
 
 function sendGet(url, params = {}) {
@@ -15,7 +17,7 @@ function sendGet(url, params = {}) {
     });
 }
 
-function sendFile(url,data={}){
+function sendFile(url, data = {}) {
     return new Promise((resolve, reject) => {
         axiosInstance.post(url, data).then(res => {
             resolve(res);
@@ -25,4 +27,4 @@ function sendFile(url,data={}){
     });
 }
 
-export {sendGet,sendFile}
+export {sendGet, sendFile}

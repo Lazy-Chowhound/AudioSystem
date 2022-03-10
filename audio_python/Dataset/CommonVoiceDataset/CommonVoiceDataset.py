@@ -400,7 +400,7 @@ class CommonVoiceDataset:
         获取测试集
         :return:
         """
-        testTSV = self.dataset_path + "test.tsv"
+        testTSV = self.dataset_path + "Test.tsv"
         audios = []
         train = pd.read_csv(os.path.join(testTSV), sep='\t', header=0)
         for index, row in train.iterrows():
