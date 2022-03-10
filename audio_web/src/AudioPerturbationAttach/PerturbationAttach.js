@@ -119,7 +119,7 @@ class PerturbationAttach extends React.Component {
         name = name.substring(0, name.indexOf(".")) + "_"
             + this.patternToName[pattern] + name.substring(name.indexOf("."))
         if (pattern !== "Gaussian noise") {
-            patternType = patternType.replace(" ", "_").toLowerCase()
+            patternType = patternType.replaceAll(" ", "_").toLowerCase()
             name = name.substring(0, name.indexOf(".")) + "_" + patternType + name.substring(name.indexOf("."))
         }
         return name
