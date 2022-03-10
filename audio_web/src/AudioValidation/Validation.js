@@ -13,8 +13,8 @@ class Validation extends React.Component {
         super(props);
         this.state = {
             dataSource: [],
-            loading: true,
-            dataset: "",
+            loading: false,
+            dataset: null,
             options: [],
             currentPage: 1,
             pageSize: 5,
@@ -73,8 +73,7 @@ class Validation extends React.Component {
     componentDidMount() {
         getAudioSet().then(res => {
             this.setState({
-                options: res,
-                dataset: res[0]
+                options: res
             }, () => {
                 this.getModels()
             })
@@ -87,10 +86,7 @@ class Validation extends React.Component {
         sendGet("/models").then(res => {
             const data = JSON.parse(res.data.data)
             this.setState({
-                modelList: data,
-                currentModel: data[1]
-            }, () => {
-                this.getValidationResultsByPage()
+                modelList: data
             })
         }).catch(error => {
             message.error(error).then()
@@ -309,10 +305,10 @@ class Validation extends React.Component {
 
         return (
             <div style={{whiteSpace: "pre", padding: 10}}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
+                <div style={{display: "flex", justifyContent: "space-between", marginBottom: "5px"}}>
                     <div>
                         <span>数据集:</span>
-                        <Select value={this.state.dataset} bordered={false} size={"large"}
+                        <Select placeholder="选择数据集" value={this.state.dataset} bordered={false}
                                 onChange={this.datasetChange}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
@@ -322,7 +318,8 @@ class Validation extends React.Component {
                     }} type="primary">上传模型</Button>
                     <div>
                         <span>模型:</span>
-                        <Select value={this.state.currentModel} bordered={false} onChange={this.modalChange}>
+                        <Select placeholder="选择模型" value={this.state.currentModel} bordered={false}
+                                onChange={this.modalChange}>
                             {this.state.modelList.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
                     </div>
