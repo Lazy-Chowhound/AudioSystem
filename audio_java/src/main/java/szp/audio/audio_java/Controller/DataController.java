@@ -174,6 +174,9 @@ public class DataController {
     /**
      * 获取扰动操作记录
      */
+    @RequiresAuthentication
+    @RequiresPermissions("B:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/operationHistory")
     public Result getOperationHistories() {
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
@@ -184,6 +187,9 @@ public class DataController {
     /**
      * 删除某条扰动修改历史记录
      */
+    @RequiresAuthentication
+    @RequiresPermissions("B:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/deleteOperationHistory")
     public Result deleteOperationHistories(@RequestParam("dataset") String dataset,
                                            @RequestParam("audioName") String audioName,
@@ -200,6 +206,9 @@ public class DataController {
     /**
      * 清空扰动修改历史记录
      */
+    @RequiresAuthentication
+    @RequiresPermissions("B:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/clearOperationHistory")
     public Result clearOperationHistory() {
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();

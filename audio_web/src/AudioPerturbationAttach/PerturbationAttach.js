@@ -338,21 +338,25 @@ class PerturbationAttach extends React.Component {
 
     getOperationHistory = () => {
         sendGet("/operationHistory").then(res => {
-            const data = JSON.parse(res.data.data)
-            const histories = []
-            for (let i = 0; i < data.length; i++) {
-                const history = {}
-                history['key'] = data[i]['id']
-                history['dataset'] = data[i]['dataset']
-                history['audioName'] = data[i]['audioName']
-                history['formerType'] = data[i]['formerType']
-                history['latterType'] = data[i]['latterType']
-                history['time'] = formatTime(data[i]['time'])
-                histories.push(history)
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+            } else {
+                const data = JSON.parse(res.data.data)
+                const histories = []
+                for (let i = 0; i < data.length; i++) {
+                    const history = {}
+                    history['key'] = data[i]['id']
+                    history['dataset'] = data[i]['dataset']
+                    history['audioName'] = data[i]['audioName']
+                    history['formerType'] = data[i]['formerType']
+                    history['latterType'] = data[i]['latterType']
+                    history['time'] = formatTime(data[i]['time'])
+                    histories.push(history)
+                }
+                this.setState({
+                    operationHistory: histories
+                })
             }
-            this.setState({
-                operationHistory: histories
-            })
         }).catch(() => {
             message.error("获取历史记录失败").then()
         })
