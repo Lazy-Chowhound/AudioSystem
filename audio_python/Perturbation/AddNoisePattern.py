@@ -131,7 +131,7 @@ def add_music(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_sound_level(audio_name, pattern_type)
+    result = dataset_instance.add_music(audio_name, pattern_type)
     return RpcResult.ok(result)
 
 
