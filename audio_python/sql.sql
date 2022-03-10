@@ -16,6 +16,7 @@ create table modelHistory
     id   int auto_increment,
     name varchar(100) not null,
     time datetime     not null,
+    user varchar(100) not null;
     constraint ModelUploadHistory_pk
         primary key (id)
 );

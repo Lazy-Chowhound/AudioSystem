@@ -2,22 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="szp.audio.audio_java.Dao.ModelDao">
     <insert id="insertModelUploadHistory">
-        insert into modelHistory(name, time)
-        VALUES (#{name}, #{date})
+        insert into modelHistory(name, time, user)
+        VALUES (#{name}, #{date}, #{userName})
     </insert>
 
     <select id="getModelHistories" resultType="szp.audio.audio_java.Entity.ModelHistory">
         select id, name, time
         from modelHistory
+        where user = #{userName}
     </select>
 
     <delete id="deleteHistory">
         delete
         from modelhistory
         where name = #{name}
+          and user = #{userName}
     </delete>
 
     <update id="clearHistory">
-        truncate table modelHistory
+        delete
+        from modelHistory
+        where user = #{userName}
     </update>
 </mapper>

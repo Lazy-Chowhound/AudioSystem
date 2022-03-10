@@ -132,10 +132,15 @@ public class DataController {
     /**
      * 上传模型
      */
+    @RequiresAuthentication
+    @RequiresPermissions("C:INSERT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/uploadModel")
     public Result uploadModel(@RequestParam("file") MultipartFile file) {
         Path filePath = mkPath(file, modelPath);
-        modelService.insertModelUploadHistory(file.getOriginalFilename(), new Date());
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        System.out.println(userInfo.getName());
+        modelService.insertModelUploadHistory(file.getOriginalFilename(), new Date(), userInfo.getName());
         try {
             file.transferTo(filePath);
         } catch (IOException e) {
@@ -147,27 +152,39 @@ public class DataController {
     /**
      * 获取模型上传历史记录
      */
+    @RequiresAuthentication
+    @RequiresPermissions("C:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/uploadModelHistory")
     public Result getUploadModelHistory() {
-        List<ModelHistory> modelHistories = modelService.getModelHistories();
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        List<ModelHistory> modelHistories = modelService.getModelHistories(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(modelHistories));
     }
 
     /**
      * 删除某条模型上传历史记录
      */
+    @RequiresAuthentication
+    @RequiresPermissions("C:DELETE")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/deleteModelHistory")
     public Result deleteUploadModelHistory(@RequestParam("name") String name) {
-        modelService.deleteHistory(name);
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        modelService.deleteHistory(name, userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
     }
 
     /**
      * 清空模型上传历史记录
      */
+    @RequiresAuthentication
+    @RequiresPermissions("C:DELETE")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/clearModelHistory")
     public Result clearUploadModelHistory() {
-        modelService.clearHistory();
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        modelService.clearHistory(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
     }
 

@@ -23,8 +23,8 @@ class Validation extends React.Component {
             uploading: false,
             modelList: [],
             currentModel: null,
-            preOverallER: "",
-            postOverallER: "",
+            preOverallER: 0,
+            postOverallER: 0,
             modalVisible: false,
             uploadHistory: [],
             hasSelected: false,
@@ -93,7 +93,19 @@ class Validation extends React.Component {
         })
     }
 
+    changePage = (page) => {
+        this.setState({
+            currentPage: page.current
+        }, () => {
+            this.getValidationResultsByPage()
+        })
+    }
+
     getValidationResultsByPage = () => {
+        if (this.state.currentModel === null) {
+            message.error("未选择模型").then()
+            return
+        }
         this.setState({
             loading: true
         })
@@ -136,8 +148,6 @@ class Validation extends React.Component {
     datasetChange = (e) => {
         this.setState({
             dataset: e
-        }, () => {
-            this.getValidationResultsByPage()
         })
     }
 
@@ -165,7 +175,7 @@ class Validation extends React.Component {
         this.getModels()
     }
 
-    upload = () => {
+    upload = async () => {
         if (this.state.fileList.length === 0) {
             message.error("尚未选择任何模型").then()
         } else {
@@ -173,20 +183,22 @@ class Validation extends React.Component {
             for (let i = 0; i < this.state.fileList.length; i++) {
                 const data = new FormData();
                 data.append("file", this.state.fileList[i])
-                sendFile("/uploadModel", data,
+                await sendFile("/uploadModel", data,
                     {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
                         if (res.data.code === 400) {
+                            message.error(res.data.data).then()
                             uploadSuccess = false;
                         }
                     }
                 ).catch(err => {
                     message.error(err).then()
                 })
+                if (!uploadSuccess) {
+                    break;
+                }
             }
             if (uploadSuccess) {
                 message.success("上传成功").then()
-            } else {
-                message.error("上传失败").then()
             }
             this.setState({
                 hasSelected: false,
@@ -205,18 +217,22 @@ class Validation extends React.Component {
 
     getModelUploadHistory = () => {
         sendGet("/uploadModelHistory").then(res => {
-            const data = JSON.parse(res.data.data)
-            const histories = []
-            for (let i = 0; i < data.length; i++) {
-                const history = {}
-                history['key'] = data[i]['id']
-                history['name'] = data[i]['name']
-                history['time'] = formatTime(data[i]['time'])
-                histories.push(history)
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+            } else {
+                const data = JSON.parse(res.data.data)
+                const histories = []
+                for (let i = 0; i < data.length; i++) {
+                    const history = {}
+                    history['key'] = data[i]['id']
+                    history['name'] = data[i]['name']
+                    history['time'] = formatTime(data[i]['time'])
+                    histories.push(history)
+                }
+                this.setState({
+                    uploadHistory: histories
+                })
             }
-            this.setState({
-                uploadHistory: histories
-            })
         }).catch(() => {
             message.error("获取历史记录失败").then()
         })
@@ -268,6 +284,13 @@ class Validation extends React.Component {
         }).catch(error => {
             message.error(error).then()
         })
+    }
+
+    startValidation = () => {
+        this.setState({
+            currentPage: 1
+        })
+        this.getValidationResultsByPage()
     }
 
     render() {
@@ -328,7 +351,7 @@ class Validation extends React.Component {
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false
-                       }} summary={() => (summaryRow)} expandable={{
+                       }} onChange={this.changePage} summary={() => (summaryRow)} expandable={{
                     expandedRowRender: record => {
                         return (
                             <div>
@@ -347,6 +370,7 @@ class Validation extends React.Component {
                     rowExpandable: () => true
                 }}
                 />
+                <Button style={{marginTop: "20px"}} type={"primary"} onClick={this.startValidation}>开始验证</Button>
                 <Modal visible={this.state.modalVisible} title={modalTitle} onCancel={this.handleCancel}
                        footer={[<Button type={"primary"} onClick={this.upload}>点击上传</Button>,
                            <Button onClick={this.handleCancel}>取消上传</Button>]} width={550}>

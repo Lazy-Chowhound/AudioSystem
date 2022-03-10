@@ -1,6 +1,10 @@
 package szp.audio.audio_java.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +39,11 @@ public class ValidationController {
     }
 
     /**
-     * 按夜获取验证结果
+     * 按页获取验证结果
      */
+    @RequiresAuthentication
+    @RequiresPermissions("C:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/validationResultsByPage")
     public Result getValidationResultsByPage(@RequestParam(value = "audioSet") String dataset,
                                              @RequestParam(value = "model") String modelName,
