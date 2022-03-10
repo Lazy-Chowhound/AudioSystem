@@ -24,15 +24,17 @@ class UploadForm extends React.Component {
             this.setState({
                 uploading: true
             })
-            if (!this.uploadDatasetDescription(values) || !this.uploadDataset()) {
-                message.error("上传失败").then()
-            } else {
-                this.setState({
-                    hasSelectDataset: false,
-                })
-                this.state.formRef.current.resetFields();
-                message.success("上传成功").then()
-            }
+            this.uploadDatasetDescription(values).then(res => {
+                if (res) {
+                    this.uploadDataset().then(() => {
+                        this.setState({
+                            hasSelectDataset: false,
+                        })
+                        this.state.formRef.current.resetFields();
+                        message.success("上传成功").then()
+                    })
+                }
+            })
             this.setState({
                 uploading: false,
             })
@@ -53,8 +55,7 @@ class UploadForm extends React.Component {
         return false;
     }
 
-    uploadDatasetDescription = (values) => {
-        let uploadSuccess = true;
+    uploadDatasetDescription = async (values) => {
         const dataset = values['datasetName']
         const language = values['language']
         const size = values['size']
@@ -62,7 +63,8 @@ class UploadForm extends React.Component {
         const people = values["people"]
         const form = values['form']
         const description = values['description']
-        sendGet("/uploadDatasetDescription", {
+        let flag = true;
+        await sendGet("/uploadDatasetDescription", {
             params: {
                 dataset: dataset,
                 language: language,
@@ -74,31 +76,32 @@ class UploadForm extends React.Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                uploadSuccess = false;
+                message.error(res.data.data).then()
+                flag = false;
             }
         }).catch(() => {
-                uploadSuccess = false;
+                flag = false;
             }
         )
-        return uploadSuccess;
+        return flag;
     }
 
-    uploadDataset = () => {
-        let uploadSuccess = true;
+    uploadDataset = async () => {
         for (let i = 0; i < this.state.fileList.length; i++) {
             const data = new FormData();
             data.append("file", this.state.fileList[i])
             sendFile("/uploadDataset", data,
                 {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
                     if (res.data.code === 400) {
-                        uploadSuccess = false;
+                        message.error(res.data.data).then()
+                        return false;
                     }
                 }
             ).catch(() => {
-                uploadSuccess = false;
+                return false;
             })
         }
-        return uploadSuccess;
+        return true;
     }
 
     checkSize = () => {

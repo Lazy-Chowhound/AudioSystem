@@ -60,7 +60,7 @@ public class AudioController {
      */
     @RequiresAuthentication
     @RequiresPermissions("A:SELECT")
-    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
+    @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/audioClipsPropertiesByPage")
     public Result getAudioClipsPropertiesByPage(@RequestParam(value = "audioSet") String dataset,
                                                 @RequestParam(value = "page") String page,
@@ -78,6 +78,9 @@ public class AudioController {
     /**
      * 获取波形图
      */
+    @RequiresAuthentication
+    @RequiresPermissions("A:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/waveFormGraph")
     public Result getWaveFormGraph(@RequestParam(value = "audioSet") String audioSet,
                                    @RequestParam(value = "audioName") String audioName) {
@@ -92,6 +95,9 @@ public class AudioController {
     /**
      * 获取 Mel 频谱图
      */
+    @RequiresAuthentication
+    @RequiresPermissions("A:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/melSpectrum")
     public Result getMelSpectrum(@RequestParam(value = "audioSet") String audioSet,
                                  @RequestParam(value = "audioName") String audioName) {

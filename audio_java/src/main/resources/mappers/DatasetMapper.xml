@@ -7,22 +7,26 @@
     </insert>
 
     <insert id="insertDatasetUploadHistory">
-        insert into datasethistory(name, time)
-        VALUES (#{name}, #{date})
+        insert into datasethistory(name, time, user)
+        VALUES (#{name}, #{date}, #{userName})
     </insert>
 
     <select id="getDatasetHistories" resultType="szp.audio.audio_java.Entity.DatasetHistory">
         select id, name, time
         from datasethistory
+        where user = #{userName}
     </select>
 
     <delete id="deleteHistory">
         delete
         from datasethistory
         where name = #{name}
+          and user = #{userName}
     </delete>
 
     <update id="clearHistory">
-        truncate table datasethistory
+        delete
+        from datasethistory
+        where user = #{userName}
     </update>
 </mapper>

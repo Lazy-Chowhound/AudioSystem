@@ -24,22 +24,22 @@ public class DatasetServiceImpl implements DatasetService {
     }
 
     @Override
-    public void insertDatasetUploadHistory(String name, Date date) {
-        datasetDao.insertDatasetUploadHistory(name, date);
+    public void insertDatasetUploadHistory(String name, Date date, String userName) {
+        datasetDao.insertDatasetUploadHistory(name, date, userName);
     }
 
     @Override
-    public List<DatasetHistory> getDatasetHistories() {
-        return datasetDao.getDatasetHistories();
+    public List<DatasetHistory> getDatasetHistories(String userName) {
+        return datasetDao.getDatasetHistories(userName);
     }
 
     @Override
-    public void deleteHistory(String name) {
-        datasetDao.deleteHistory(name);
+    public void deleteHistory(String name, String userName) {
+        datasetDao.deleteHistory(name, userName);
     }
 
     @Override
-    public void clearHistory() {
-        datasetDao.clearHistory();
+    public void clearHistory(String userName) {
+        datasetDao.clearHistory(userName);
     }
 }

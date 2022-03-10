@@ -21,6 +21,7 @@ class AudioList extends React.Component {
             loading: true,
             uploadVisible: false,
             drawerVisible: false,
+            uploadHistory: []
         };
     }
 
@@ -62,7 +63,7 @@ class AudioList extends React.Component {
         {
             title: "描述",
             dataIndex: "distribution",
-            width:500,
+            width: 500,
             ellipsis: true
         },
         {
@@ -139,18 +140,22 @@ class AudioList extends React.Component {
 
     getDatasetUploadHistory = () => {
         sendGet("/uploadDatasetHistory").then(res => {
-            const data = JSON.parse(res.data.data)
-            const histories = []
-            for (let i = 0; i < data.length; i++) {
-                const history = {}
-                history['key'] = data[i]['id']
-                history['name'] = data[i]['name']
-                history['time'] = formatTime(data[i]['time'])
-                histories.push(history)
+            if (res.data.code === 400) {
+                message.error("没有相关权限").then()
+            } else {
+                const data = JSON.parse(res.data.data)
+                const histories = []
+                for (let i = 0; i < data.length; i++) {
+                    const history = {}
+                    history['key'] = data[i]['id']
+                    history['name'] = data[i]['name']
+                    history['time'] = formatTime(data[i]['time'])
+                    histories.push(history)
+                }
+                this.setState({
+                    uploadHistory: histories
+                })
             }
-            this.setState({
-                uploadHistory: histories
-            })
         }).catch(() => {
             message.error("获取历史记录失败").then()
         })
@@ -162,14 +167,18 @@ class AudioList extends React.Component {
 
     clearHistory = () => {
         if (this.state.uploadHistory.length !== 0) {
-            sendGet("/clearDatasetHistory").then(() => {
-                notification.success({
-                    message: '清空历史成功',
-                    duration: 1.0
-                })
-                this.setState({
-                    uploadHistory: []
-                })
+            sendGet("/clearDatasetHistory").then(res => {
+                if (res.data.code === 400) {
+                    message.error("没有相关权限").then()
+                } else {
+                    notification.success({
+                        message: '清空历史成功',
+                        duration: 1.0
+                    })
+                    this.setState({
+                        uploadHistory: []
+                    })
+                }
             }).catch(err => {
                 message.error(err).then()
             })
