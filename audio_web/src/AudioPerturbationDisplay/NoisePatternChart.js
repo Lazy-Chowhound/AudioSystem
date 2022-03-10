@@ -20,7 +20,7 @@ class NoisePatternChart extends Component {
     }
 
     componentDidMount() {
-        if (this.props.dataset !== "") {
+        if (this.props.dataset !== null) {
             sendGet("/patternSummary", {
                 params: {
                     dataset: this.props.dataset
@@ -92,7 +92,7 @@ class NoisePatternChart extends Component {
 
     render() {
         return (
-            <ReactEcharts style={{marginTop: 20}} option={this.getOption()}/>
+            <ReactEcharts style={{width: "1242px", marginTop: 20}} option={this.getOption()}/>
         )
     }
 }
