@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(UnsupportedTokenException.class)
     public Result unsupportedTokenExceptionHandler() {
-        return Result.fail(StatusCode.FAIL.getStatus(), "无效的token，请重新登录");
+        return Result.fail(StatusCode.FAIL.getStatus(), "处于未登录状态");
     }
 
     @ResponseBody

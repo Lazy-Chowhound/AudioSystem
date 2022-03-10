@@ -176,7 +176,8 @@ public class DataController {
      */
     @RequestMapping("/operationHistory")
     public Result getOperationHistories() {
-        List<OperationHistory> operationHistories = operationService.getOperationHistories();
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        List<OperationHistory> operationHistories = operationService.getOperationHistories(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(operationHistories));
     }
 
@@ -189,9 +190,9 @@ public class DataController {
                                            @RequestParam("formerType") String formerType,
                                            @RequestParam("latterType") String latterType,
                                            @RequestParam("time") String time) {
-        System.out.println(time);
         Date date = new Date(Long.parseLong(time));
-        operationService.deleteHistory(dataset, audioName, formerType, latterType, date);
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        operationService.deleteHistory(dataset, audioName, formerType, latterType, date, userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
     }
 
@@ -201,7 +202,8 @@ public class DataController {
      */
     @RequestMapping("/clearOperationHistory")
     public Result clearOperationHistory() {
-        operationService.clearHistory();
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        operationService.clearHistory(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
     }
 

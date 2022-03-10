@@ -1,6 +1,10 @@
 package szp.audio.audio_java.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +40,9 @@ public class PatternInfoController {
     /**
      * 获取扰动详情
      */
+    @RequiresAuthentication
+    @RequiresPermissions("B:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/patternTypeSummary")
     public Result getPatternTypeSummary(@RequestParam(value = "dataset") String dataset,
                                         @RequestParam(value = "pattern") String pattern) {

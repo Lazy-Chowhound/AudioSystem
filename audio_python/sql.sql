@@ -38,7 +38,8 @@ create table operationhistory
     audioName  varchar(100) not null,
     time       datetime     not null,
     formerType varchar(100) not null,
-    latterType varchar(100) not null
+    latterType varchar(100) not null,
+    user varchar(100) not null;
 );
 
 create table action

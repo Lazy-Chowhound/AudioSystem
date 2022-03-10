@@ -19,22 +19,22 @@ public class OperationServiceImpl implements OperationService {
     private OperationDao operationDao;
 
     @Override
-    public void insertOperationHistory(String dataset, String audioName, String formerType, String latterType, Date date) {
-        operationDao.insertOperationHistory(dataset, audioName, formerType, latterType, date);
+    public void insertOperationHistory(String dataset, String audioName, String formerType, String latterType, Date date, String userName) {
+        operationDao.insertOperationHistory(dataset, audioName, formerType, latterType, date, userName);
     }
 
     @Override
-    public List<OperationHistory> getOperationHistories() {
-        return operationDao.getOperationHistories();
+    public List<OperationHistory> getOperationHistories(String userName) {
+        return operationDao.getOperationHistories(userName);
     }
 
     @Override
-    public void deleteHistory(String dataset, String audioName, String formerType, String latterType, Date date) {
-        operationDao.deleteHistory(dataset, audioName, formerType, latterType, date);
+    public void deleteHistory(String dataset, String audioName, String formerType, String latterType, Date date, String userName) {
+        operationDao.deleteHistory(dataset, audioName, formerType, latterType, date, userName);
     }
 
     @Override
-    public void clearHistory() {
-        operationDao.clearHistory();
+    public void clearHistory(String userName) {
+        operationDao.clearHistory(userName);
     }
 }

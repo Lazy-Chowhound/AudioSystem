@@ -41,7 +41,7 @@ class PerturbationAttach extends React.Component {
             options: [],
             pageSize: 5,
             total: 0,
-            loading: true,
+            loading: false,
             drawerVisible: false,
             historyVisible: false,
             operationHistory: []
@@ -108,7 +108,6 @@ class PerturbationAttach extends React.Component {
 
     componentDidMount() {
         this.getAudioSetList()
-        this.getPatternDetail()
         this.setState({
             operationDone: false,
             operationCancel: false,
@@ -221,13 +220,20 @@ class PerturbationAttach extends React.Component {
             params: {
                 dataset: this.state.dataset
             }
-        }).then(r => {
-                const data = JSON.parse(r.data.data)
-                this.setState({
-                    dataSource: data,
-                    total: data.length,
-                    loading: false
-                })
+        }).then(res => {
+                if (res.data.code === 400) {
+                    message.error(res.data.data).then()
+                    this.setState({
+                        loading: false
+                    })
+                } else {
+                    const data = JSON.parse(res.data.data)
+                    this.setState({
+                        dataSource: data,
+                        total: data.length,
+                        loading: false
+                    })
+                }
             }
         ).catch(err => {
             message.error(err).then()

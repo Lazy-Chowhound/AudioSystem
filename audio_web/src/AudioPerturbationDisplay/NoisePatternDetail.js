@@ -10,12 +10,12 @@ class NoisePatternDetail extends React.Component {
         this.state = {
             legend: [],
             info: [],
-            pattern: "Sound level"
+            pattern: ""
         }
     }
 
     componentDidMount() {
-        this.getDetail()
+
     }
 
     patternChange = (e) => {
@@ -88,7 +88,7 @@ class NoisePatternDetail extends React.Component {
         return (
             <div>
                 <div style={{marginTop: -20}}>
-                    <Select defaultValue="Sound level" bordered={false} onChange={this.patternChange}>
+                    <Select defaultValue="请选择具体扰动" bordered={false} onChange={this.patternChange}>
                         <Select.Option value="Sound level">Sound level</Select.Option>
                         <Select.Option value="Gaussian noise">Gaussian noise</Select.Option>
                         <Select.Option value="Animal">Animal</Select.Option>
@@ -99,7 +99,7 @@ class NoisePatternDetail extends React.Component {
                         <Select.Option value="Music">Music</Select.Option>
                     </Select>
                 </div>
-                <ReactEcharts style={{height:"300px",width:"702px"}} option={this.getOption()}/>
+                <ReactEcharts style={{height: "300px", width: "702px"}} option={this.getOption()}/>
             </div>
         )
     }

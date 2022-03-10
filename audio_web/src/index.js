@@ -40,7 +40,7 @@ class Index extends React.Component {
             }
         }).then(res => {
             if (res.data.code === 400) {
-                message.error(res.data.data).then()
+                message.warn(res.data.data).then()
             } else {
                 const data = res.data.data.split(" ");
                 const token = data[0];
@@ -183,6 +183,7 @@ class Index extends React.Component {
             })
             //清除token
             localStorage.removeItem("token")
+            window.location.reload()
         }).catch(() => {
             message.error("登出失败").then()
         })
