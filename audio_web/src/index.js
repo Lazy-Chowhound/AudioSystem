@@ -167,6 +167,7 @@ class Index extends React.Component {
                 //保存token
                 const token = res.data.data
                 localStorage.setItem("token", token);
+                window.location.reload()
             } else {
                 message.warn(res.data.data).then()
             }
