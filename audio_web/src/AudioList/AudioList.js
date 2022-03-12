@@ -62,7 +62,7 @@ class AudioList extends React.Component {
         },
         {
             title: "描述",
-            dataIndex: "distribution",
+            dataIndex: "description",
             width: 500,
             ellipsis: true
         },

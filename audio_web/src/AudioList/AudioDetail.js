@@ -65,7 +65,7 @@ class AudioDetail extends React.Component {
         },
         {
             title: "波形图",
-            dataIndex: "distribution",
+            dataIndex: "waveform",
             render: (text, record) =>
                 <Button type={"link"} size={"small"} onClick={() => {
                     this.showWaveForm(text, record)
@@ -74,7 +74,7 @@ class AudioDetail extends React.Component {
         },
         {
             title: "频谱图",
-            dataIndex: "list",
+            dataIndex: "spectrum",
             render: (text, record) =>
                 <Button type={"link"} size={"small"} onClick={() => {
                     this.showMelSpectrum(text, record)

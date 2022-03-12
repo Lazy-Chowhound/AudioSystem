@@ -23,7 +23,7 @@ def get_audio_sets_properties():
         audio_property["hour"] = description[4]
         audio_property["people"] = description[5]
         audio_property["form"] = description[6]
-        audio_property["distribution"] = description[7]
+        audio_property["description"] = description[7]
         audio_set.append(audio_property)
     return RpcResult.ok(json.dumps(audio_set, ensure_ascii=False))
 
@@ -64,7 +64,7 @@ def get_audio_set_description(dataset):
                               passwd="061210", db="audioset", charset="utf8")
     cursor = connect.cursor()
     cursor.execute(
-        "select id,name,language,size,hour,people,form,distribution from audio where name = '%s'" % (dataset,))
+        "select id,name,language,size,hour,people,form,description from audio where name = '%s'" % (dataset,))
     description = cursor.fetchone()
     cursor.close()
     connect.close()

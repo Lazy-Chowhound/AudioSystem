@@ -8,7 +8,7 @@ create table audiosetproperty
     hour         float         not null,
     people       int           not null,
     form         varchar(10)   not null,
-    distribution varchar(1000) not null
+    description varchar(1000) not null
 );
 
 create table modelHistory
