@@ -79,17 +79,21 @@ public class UserController {
             // 双token均过期
             if (Boolean.FALSE.equals(redisTemplate.hasKey(userName))) {
                 throw new TokenExpiredException("token已过期");
+            } else {
+                // 用户token过期但refresh token没有，则刷新两个token，然后将新的token返回给用户
+                String newUserToken = jwtUtil.createUserToken(userName, password);
+                String newRefreshToken = jwtUtil.createRefreshToken(userName, password);
+                redisTemplate.delete(userName);
+                redisTemplate.opsForValue().set(userName, newRefreshToken, refreshTime, TimeUnit.DAYS);
+                Subject subject = SecurityUtils.getSubject();
+                subject.login(new AccessToken(newUserToken));
+                return Result.success(StatusCode.SUCCESS.getStatus(), newUserToken + " " + userName);
             }
         } catch (Exception exception) {
             throw new UnsupportedTokenException();
         }
-        // 用户token过期但refresh token没有，则刷新两个token，然后将新的token返回给用户
-        String newUserToken = jwtUtil.createUserToken(userName, password);
-        String newRefreshToken = jwtUtil.createRefreshToken(userName, password);
-        redisTemplate.delete(userName);
-        redisTemplate.opsForValue().set(userName, newRefreshToken, refreshTime, TimeUnit.DAYS);
         Subject subject = SecurityUtils.getSubject();
-        subject.login(new AccessToken(newUserToken));
-        return Result.success(StatusCode.SUCCESS.getStatus(), newUserToken + " " + userName);
+        subject.login(new AccessToken(token));
+        return Result.success(StatusCode.SUCCESS.getStatus(), token + " " + userName);
     }
 }
