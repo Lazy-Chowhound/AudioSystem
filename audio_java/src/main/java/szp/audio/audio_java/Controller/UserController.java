@@ -52,10 +52,10 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         String token = jwtUtil.createUserToken(userName, password);
         String refreshToken = jwtUtil.createRefreshToken(userName, password);
-        // token存入redis
-        redisTemplate.opsForValue().set(userName, refreshToken, refreshTime, TimeUnit.DAYS);
         AccessToken accessToken = new AccessToken(token);
         subject.login(accessToken);
+        // token存入redis
+        redisTemplate.opsForValue().set(userName, refreshToken, refreshTime, TimeUnit.DAYS);
         return Result.success(StatusCode.SUCCESS.getStatus(), token);
     }
 
