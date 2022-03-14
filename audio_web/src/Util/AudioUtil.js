@@ -1,7 +1,6 @@
 import {sendGet} from "./axios";
 import baseUrl from "./url";
 import {clips_path, noise_clips_path} from "./Path";
-import moment from "moment";
 
 async function getAudioSet() {
     const ops = []
