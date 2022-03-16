@@ -8,6 +8,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import szp.audio.audio_java.Service.DatasetService;
 import szp.audio.audio_java.Service.ModelService;
 import szp.audio.audio_java.Service.OperationService;
 import szp.audio.audio_java.Util.Result;
+import szp.audio.audio_java.ShiroConfig.ShiroUtil;
 import szp.audio.audio_java.Util.StatusCode;
 
 import java.io.File;
@@ -50,6 +52,9 @@ public class DataController {
     @Value("${model.path}")
     private String modelPath;
 
+    @Autowired
+    private ShiroUtil shiroUtil;
+
     /**
      * 上传数据集属性
      */
@@ -57,13 +62,15 @@ public class DataController {
     @RequiresPermissions("A:INSERT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/uploadDatasetDescription")
-    public Result uploadDatasetDescription(@RequestParam("dataset") String dataset,
+    public Result uploadDatasetDescription(@RequestHeader("Authorization") String token,
+                                           @RequestParam("dataset") String dataset,
                                            @RequestParam("language") String language,
                                            @RequestParam("size") String size,
                                            @RequestParam("hour") float hour,
                                            @RequestParam("people") int people,
                                            @RequestParam("form") String form,
                                            @RequestParam("description") String description) {
+        shiroUtil.verifyUserToken(token);
         int res = datasetService.insertDataset(dataset, language, size, hour, people, form, description);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         datasetService.insertDatasetUploadHistory(dataset, new Date(), userInfo.getName());
@@ -97,7 +104,8 @@ public class DataController {
     @RequiresPermissions("A:SELECT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/uploadDatasetHistory")
-    public Result getUploadDatasetHistory() {
+    public Result getUploadDatasetHistory(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         List<DatasetHistory> datasetHistories = datasetService.getDatasetHistories(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(datasetHistories));
@@ -110,7 +118,9 @@ public class DataController {
     @RequiresPermissions("A:DELETE")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/deleteDatasetHistory")
-    public Result deleteUploadDatasetHistory(@RequestParam("name") String name) {
+    public Result deleteUploadDatasetHistory(@RequestHeader("Authorization") String token,
+                                             @RequestParam("name") String name) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         datasetService.deleteHistory(name, userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
@@ -123,7 +133,8 @@ public class DataController {
     @RequiresPermissions("A:DELETE")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/clearDatasetHistory")
-    public Result clearUploadDatasetHistory() {
+    public Result clearUploadDatasetHistory(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         datasetService.clearHistory(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
@@ -136,7 +147,9 @@ public class DataController {
     @RequiresPermissions("C:INSERT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/uploadModel")
-    public Result uploadModel(@RequestParam("file") MultipartFile file) {
+    public Result uploadModel(@RequestHeader("Authorization") String token,
+                              @RequestParam("file") MultipartFile file) {
+        shiroUtil.verifyUserToken(token);
         Path filePath = mkPath(file, modelPath);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         System.out.println(userInfo.getName());
@@ -156,7 +169,8 @@ public class DataController {
     @RequiresPermissions("C:SELECT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/uploadModelHistory")
-    public Result getUploadModelHistory() {
+    public Result getUploadModelHistory(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         List<ModelHistory> modelHistories = modelService.getModelHistories(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(modelHistories));
@@ -169,7 +183,9 @@ public class DataController {
     @RequiresPermissions("C:DELETE")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/deleteModelHistory")
-    public Result deleteUploadModelHistory(@RequestParam("name") String name) {
+    public Result deleteUploadModelHistory(@RequestHeader("Authorization") String token,
+                                           @RequestParam("name") String name) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         modelService.deleteHistory(name, userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Delete Success");
@@ -182,7 +198,8 @@ public class DataController {
     @RequiresPermissions("C:DELETE")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/clearModelHistory")
-    public Result clearUploadModelHistory() {
+    public Result clearUploadModelHistory(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         modelService.clearHistory(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");
@@ -195,7 +212,8 @@ public class DataController {
     @RequiresPermissions("B:SELECT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/operationHistory")
-    public Result getOperationHistories() {
+    public Result getOperationHistories(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         List<OperationHistory> operationHistories = operationService.getOperationHistories(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), JSON.toJSONString(operationHistories));
@@ -208,11 +226,13 @@ public class DataController {
     @RequiresPermissions("B:SELECT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/deleteOperationHistory")
-    public Result deleteOperationHistories(@RequestParam("dataset") String dataset,
+    public Result deleteOperationHistories(@RequestHeader("Authorization") String token,
+                                           @RequestParam("dataset") String dataset,
                                            @RequestParam("audioName") String audioName,
                                            @RequestParam("formerType") String formerType,
                                            @RequestParam("latterType") String latterType,
                                            @RequestParam("time") String time) {
+        shiroUtil.verifyUserToken(token);
         Date date = new Date(Long.parseLong(time));
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         operationService.deleteHistory(dataset, audioName, formerType, latterType, date, userInfo.getName());
@@ -227,7 +247,8 @@ public class DataController {
     @RequiresPermissions("B:SELECT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/clearOperationHistory")
-    public Result clearOperationHistory() {
+    public Result clearOperationHistory(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         operationService.clearHistory(userInfo.getName());
         return Result.success(StatusCode.SUCCESS.getStatus(), "Clear Success");

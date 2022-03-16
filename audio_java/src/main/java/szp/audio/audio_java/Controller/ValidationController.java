@@ -7,11 +7,13 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import szp.audio.audio_java.Rpc.RpcUtil;
 import szp.audio.audio_java.Util.Result;
+import szp.audio.audio_java.ShiroConfig.ShiroUtil;
 import szp.audio.audio_java.Util.StatusCode;
 
 /**
@@ -23,6 +25,9 @@ public class ValidationController {
 
     @Autowired
     private RpcUtil rpcUtil;
+
+    @Autowired
+    private ShiroUtil shiroUtil;
 
     /**
      * 获取已有模型
@@ -45,10 +50,12 @@ public class ValidationController {
     @RequiresPermissions("C:SELECT")
     @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/validationResultsByPage")
-    public Result getValidationResultsByPage(@RequestParam(value = "audioSet") String dataset,
+    public Result getValidationResultsByPage(@RequestHeader("Authorization") String token,
+                                             @RequestParam(value = "audioSet") String dataset,
                                              @RequestParam(value = "model") String modelName,
                                              @RequestParam(value = "page") String page,
                                              @RequestParam(value = "pageSize") String pageSize) {
+        shiroUtil.verifyUserToken(token);
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_validation_results_by_page",
                     dataset, modelName, page, pageSize);

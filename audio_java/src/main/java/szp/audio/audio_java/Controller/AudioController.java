@@ -7,11 +7,13 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.xmlrpc.XmlRpcException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import szp.audio.audio_java.Rpc.RpcUtil;
 import szp.audio.audio_java.Util.Result;
+import szp.audio.audio_java.ShiroConfig.ShiroUtil;
 import szp.audio.audio_java.Util.StatusCode;
 
 /**
@@ -22,6 +24,9 @@ public class AudioController {
 
     @Autowired
     private RpcUtil rpcUtil;
+
+    @Autowired
+    private ShiroUtil shiroUtil;
 
     /**
      * 获取音频数据集列表
@@ -52,15 +57,18 @@ public class AudioController {
     }
 
     /**
-     * 获取音频属性
+     * 获取音频列表和属性
      */
     @RequiresAuthentication
     @RequiresPermissions("A:SELECT")
     @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/audioClipsPropertiesByPage")
-    public Result getAudioClipsPropertiesByPage(@RequestParam(value = "audioSet") String dataset,
+    public Result getAudioClipsPropertiesByPage(@RequestHeader("Authorization") String token,
+                                                @RequestParam(value = "audioSet") String dataset,
                                                 @RequestParam(value = "page") String page,
                                                 @RequestParam(value = "pageSize") String pageSize) {
+
+        shiroUtil.verifyUserToken(token);
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_audio_clips_properties_by_page",
                     dataset, page, pageSize);
@@ -78,8 +86,10 @@ public class AudioController {
     @RequiresPermissions("A:SELECT")
     @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/waveFormGraph")
-    public Result getWaveFormGraph(@RequestParam(value = "audioSet") String audioSet,
+    public Result getWaveFormGraph(@RequestHeader("Authorization") String token,
+                                   @RequestParam(value = "audioSet") String audioSet,
                                    @RequestParam(value = "audioName") String audioName) {
+        shiroUtil.verifyUserToken(token);
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_waveform_graph", audioSet, audioName);
             return Result.success(StatusCode.SUCCESS.getStatus(), jsonObject.getString("data"));
@@ -95,8 +105,10 @@ public class AudioController {
     @RequiresPermissions("A:SELECT")
     @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/melSpectrum")
-    public Result getMelSpectrum(@RequestParam(value = "audioSet") String audioSet,
+    public Result getMelSpectrum(@RequestHeader("Authorization") String token,
+                                 @RequestParam(value = "audioSet") String audioSet,
                                  @RequestParam(value = "audioName") String audioName) {
+        shiroUtil.verifyUserToken(token);
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_mel_spectrum", audioSet, audioName);
             return Result.success(StatusCode.SUCCESS.getStatus(), jsonObject.getString("data"));
