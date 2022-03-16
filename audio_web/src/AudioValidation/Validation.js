@@ -106,6 +106,10 @@ class Validation extends React.Component {
             message.error("未选择模型").then()
             return
         }
+        if (this.state.dataset === null) {
+            message.error("未选择数据集").then()
+            return
+        }
         this.setState({
             loading: true
         })
