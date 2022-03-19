@@ -8,23 +8,18 @@ from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
 from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import write_noise_audio
+from Dataset.Dataset import Dataset
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
 from Validation.Indicator import cer, cer_overall
 
 
-class CommonVoiceDataset:
+class CommonVoiceDataset(Dataset):
     def __init__(self, dataset):
-        self.dataset = dataset
+        Dataset.__init__(self, dataset)
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
         self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
-        self.model = None
-        self.processor = None
-        self.model_path = MODEL_PATH
-        self.real_text_list = []
-        self.previous_text_list = []
-        self.post_text_list = []
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -409,6 +404,12 @@ class CommonVoiceDataset:
         return audios
 
     def get_validation_results_by_page(self, page, page_size):
+        """
+        分页获取验证结果
+        :param page: 页数
+        :param page_size: 分页大小
+        :return:
+        """
         validation_results = []
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
