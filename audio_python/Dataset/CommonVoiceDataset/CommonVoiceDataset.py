@@ -74,12 +74,12 @@ class CommonVoiceDataset(Dataset):
         audio_property['name'] = audio_name
         audio_property['size'] = str(self.get_duration(audio)) + "秒"
         audio_property['channel'] = "单" if self.get_channels(audio) == 1 else "双"
-        audio_property['sampleRate'] = str(self.getSamplingRate(audio)) + "Hz"
+        audio_property['sampleRate'] = str(self.get_sample_rate(audio)) + "Hz"
         audio_property['bitDepth'] = str(self.get_bit_depth(audio)) + "bit"
         audio_property['content'] = self.get_audio_clip_content(audio_name)
         return audio_property
 
-    def getSamplingRate(self, audio):
+    def get_sample_rate(self, audio):
         """
         获取音频的采样率
         :param audio: 音频绝对路径

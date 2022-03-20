@@ -40,7 +40,7 @@ class Dataset:
         audio_property = {}
         return audio_property
 
-    def getSamplingRate(self, audio):
+    def get_sample_rate(self, audio):
         """
         获取音频的采样率
         :param audio: 音频绝对路径
