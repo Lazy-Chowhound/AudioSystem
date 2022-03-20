@@ -149,6 +149,7 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
     return RpcResult.ok(result)
 
 
+@rpcApi
 def add_randomly_multiProcess(dataset, process_num):
     """
     多线程添加扰动
