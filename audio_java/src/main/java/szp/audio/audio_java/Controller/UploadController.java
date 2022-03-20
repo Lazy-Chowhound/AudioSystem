@@ -100,7 +100,6 @@ public class UploadController {
         shiroUtil.verifyUserToken(token);
         Path filePath = mkPath(file, modelPath);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
-        System.out.println(userInfo.getName());
         modelService.insertModelUploadHistory(file.getOriginalFilename(), new Date(), userInfo.getName());
         try {
             file.transferTo(filePath);
