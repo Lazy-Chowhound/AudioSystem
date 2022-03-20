@@ -8,7 +8,7 @@ from Util.RpcResult import RpcResult
 @rpcApi
 def get_pattern_summary(dataset):
     """
-    获取某个数据集扰动大类的详情
+    获取某个数据集扰动类别的详情
     :param dataset: cv-corpus-chinese
     :return:
     """
