@@ -1,21 +1,28 @@
 import json
-import os
+
+import pymysql
 
 from Dataset.DatasetList import get_dataset_instance
 from Util.Annotation import rpcApi
-from Util.AudioUtil import MODEL_PATH
 from Util.RpcResult import RpcResult
 
 
 @rpcApi
-def get_models():
+def get_models(user_name):
     """
-    获取所有模型
+    获取用户上传模型
     :return:
     """
     model_list = []
-    for model in os.listdir(MODEL_PATH):
-        model_list.append(model)
+    connect = pymysql.Connect(host="localhost", port=3306, user="root",
+                              passwd="061210", db="audioset", charset="utf8")
+    cursor = connect.cursor()
+    cursor.execute(
+        "select name from modelhistory where user = '%s'" % (user_name,))
+    for item in cursor.fetchall():
+        model_list.append(item[0])
+    cursor.close()
+    connect.close()
     return RpcResult.ok(json.dumps(model_list, ensure_ascii=False))
 
 

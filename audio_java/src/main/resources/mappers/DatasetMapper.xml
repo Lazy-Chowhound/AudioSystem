@@ -2,31 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="szp.audio.audio_java.Dao.DatasetDao">
     <insert id="insertDataset">
-        insert into audio(name, language, size, hour, people, form, distribution)
+        insert into audio(name, language, size, hour, people, form, description)
         VALUES (#{datasetName}, #{language}, #{size}, #{hour}, #{people}, #{form}, #{description})
     </insert>
 
     <insert id="insertDatasetUploadHistory">
-        insert into datasethistory(name, time, user)
-        VALUES (#{name}, #{date}, #{userName})
+        insert into datasethistory(name, time, user, status)
+        VALUES (#{name}, #{date}, #{userName}, 1)
     </insert>
 
     <select id="getDatasetHistories" resultType="szp.audio.audio_java.Entity.DatasetHistory">
         select id, name, time
         from datasethistory
         where user = #{userName}
+          and status = 1
     </select>
 
-    <delete id="deleteHistory">
-        delete
-        from datasethistory
+    <update id="deleteHistory">
+        update datasethistory
+        set status = 0
         where name = #{name}
           and user = #{userName}
-    </delete>
+    </update>
 
     <update id="clearHistory">
-        delete
-        from datasethistory
+        update datasethistory
+        set status = 0
         where user = #{userName}
     </update>
 </mapper>

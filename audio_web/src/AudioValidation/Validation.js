@@ -28,7 +28,8 @@ class Validation extends React.Component {
             modalVisible: false,
             uploadHistory: [],
             hasSelected: false,
-            drawerVisible: false
+            drawerVisible: false,
+            modelName: null,
         }
     }
 
@@ -163,10 +164,9 @@ class Validation extends React.Component {
 
     beforeUpload = (file, fileList) => {
         this.setState({
-            fileList: fileList
-        })
-        this.setState({
-            hasSelected: true
+            fileList: fileList,
+            hasSelected: true,
+            modelName: fileList[0]['webkitRelativePath'].split("/")[0]
         })
         return false;
     }
@@ -174,7 +174,8 @@ class Validation extends React.Component {
     handleCancel = () => {
         this.setState({
             modalVisible: false,
-            hasSelected: false
+            hasSelected: false,
+            fileList: []
         })
         this.getModels()
     }
@@ -182,33 +183,63 @@ class Validation extends React.Component {
     upload = async () => {
         if (this.state.fileList.length === 0) {
             message.error("尚未选择任何模型").then()
+        } else if (this.state.modelName === null || this.state.modelName.length === 0) {
+            message.error("请输入模型名").then()
         } else {
-            let uploadSuccess = true;
-            for (let i = 0; i < this.state.fileList.length; i++) {
-                const data = new FormData();
-                data.append("file", this.state.fileList[i])
-                await sendFile("/uploadModel", data,
-                    {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
-                        if (res.data.code === 400) {
-                            message.error(res.data.data).then()
-                            uploadSuccess = false;
-                        }
-                    }
-                ).catch(err => {
-                    message.error(err).then()
-                })
-                if (!uploadSuccess) {
-                    break;
-                }
-            }
-            if (uploadSuccess) {
-                message.success("上传成功").then()
-            }
             this.setState({
-                hasSelected: false,
-                fileList: []
+                uploading: true
+            })
+            this.uploadModel().then(res => {
+                if (res) {
+                    this.insertUploadHistory().then(resp => {
+                        if (resp) {
+                            message.success("上传成功").then()
+                            this.setState({
+                                hasSelected: false,
+                                fileList: [],
+                                uploading: false,
+                                modelName: null,
+                            })
+                        }
+                    })
+                }
             })
         }
+    }
+
+    insertUploadHistory = async () => {
+        await sendGet("/modelHistory", {
+            params: {
+                model: this.state.modelName
+            }
+        }).then(res => {
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+                return false;
+            }
+        }).catch(() => {
+                return false;
+            }
+        )
+        return true;
+    }
+
+    uploadModel = async () => {
+        for (let i = 0; i < this.state.fileList.length; i++) {
+            const data = new FormData();
+            data.append("file", this.state.fileList[i])
+            await sendFile("/uploadModel", data,
+                {headers: {'Content-Type': 'multipart/form-data'}}).then(res => {
+                    if (res.data.code === 400) {
+                        message.error(res.data.data).then()
+                        return false;
+                    }
+                }
+            ).catch(() => {
+                return false;
+            })
+        }
+        return true;
     }
 
     showHistory = () => {
@@ -376,9 +407,11 @@ class Validation extends React.Component {
                 />
                 <Button style={{marginTop: "20px"}} type={"primary"} onClick={this.startValidation}>开始验证</Button>
                 <Modal visible={this.state.modalVisible} title={modalTitle} onCancel={this.handleCancel}
-                       footer={[<Button type={"primary"} onClick={this.upload}>点击上传</Button>,
+                       footer={[<Button type={"primary"} onClick={this.upload}
+                                        loading={this.state.uploading}>{this.state.uploading ? "上传中" : "点击上传"}</Button>,
                            <Button onClick={this.handleCancel}>取消上传</Button>]} width={550}>
-                    <Dragger style={{height: "400px"}} beforeUpload={this.beforeUpload} directory
+                    <div>模型名称: {this.state.modelName}</div>
+                    <Dragger style={{marginTop: "20px", height: "400px"}} beforeUpload={this.beforeUpload} directory
                              showUploadList={false}>
                         <p className="ant-upload-drag-icon">
                             {this.state.hasSelected ? <CheckOutlined/> : <InboxOutlined/>}

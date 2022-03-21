@@ -89,6 +89,21 @@ public class UploadController {
     }
 
     /**
+     * 上传模型记录
+     */
+    @RequiresAuthentication
+    @RequiresPermissions("C:INSERT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
+    @RequestMapping("/modelHistory")
+    public Result uploadModelHistory(@RequestHeader("Authorization") String token,
+                                     @RequestParam("model") String model) {
+        shiroUtil.verifyUserToken(token);
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        modelService.insertModelUploadHistory(model, new Date(), userInfo.getName());
+        return Result.success(StatusCode.SUCCESS.getStatus(), "Insert Model History Success");
+    }
+
+    /**
      * 上传模型
      */
     @RequiresAuthentication
@@ -100,7 +115,6 @@ public class UploadController {
         shiroUtil.verifyUserToken(token);
         Path filePath = mkPath(file, modelPath);
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
-        modelService.insertModelUploadHistory(file.getOriginalFilename(), new Date(), userInfo.getName());
         try {
             file.transferTo(filePath);
         } catch (IOException e) {

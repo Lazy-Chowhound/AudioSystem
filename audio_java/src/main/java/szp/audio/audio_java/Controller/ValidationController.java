@@ -1,6 +1,7 @@
 package szp.audio.audio_java.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import szp.audio.audio_java.Entity.User;
 import szp.audio.audio_java.Rpc.RpcUtil;
-import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.ShiroConfig.ShiroUtil;
+import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.Util.StatusCode;
 
 /**
@@ -32,10 +34,14 @@ public class ValidationController {
     /**
      * 获取已有模型
      */
+    @RequiresAuthentication
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
     @RequestMapping("/models")
-    public Result getModels() {
+    public Result getModels(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("get_models");
+            JSONObject jsonObject = rpcUtil.sendRequest("get_models", userInfo.getName());
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {

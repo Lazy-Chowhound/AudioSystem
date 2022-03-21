@@ -1,32 +1,34 @@
 create table audiosetproperty
 (
-    id           int auto_increment
+    id          int auto_increment
         primary key,
-    name         varchar(50)   not null,
-    language     varchar(20)   not null,
-    size         varchar(10)   not null,
-    hour         float         not null,
-    people       int           not null,
-    form         varchar(10)   not null,
+    name        varchar(50)   not null,
+    language    varchar(20)   not null,
+    size        varchar(10)   not null,
+    hour        float         not null,
+    people      int           not null,
+    form        varchar(10)   not null,
     description varchar(1000) not null
 );
 
 create table modelHistory
 (
-    id   int auto_increment,
-    name varchar(100) not null,
-    time datetime     not null,
-    user varchar(100) not null;
+    id     int auto_increment,
+    name   varchar(100) not null,
+    time   datetime     not null,
+    user   varchar(100) not null,
+    status int          not null,
     constraint ModelUploadHistory_pk
         primary key (id)
 );
 
 create table datasetHistory
 (
-    id   int auto_increment,
-    name varchar(50) not null,
-    time datetime    not null,
-    user varchar(100) not null;
+    id     int auto_increment,
+    name   varchar(50)  not null,
+    time   datetime     not null,
+    user   varchar(100) not null,
+    status int          not null,
     constraint datasetHistory_pk
         primary key (id)
 );
@@ -40,7 +42,8 @@ create table operationhistory
     time       datetime     not null,
     formerType varchar(100) not null,
     latterType varchar(100) not null,
-    user varchar(100) not null;
+    user       varchar(100) not null,
+    status     int          not null
 );
 
 create table action

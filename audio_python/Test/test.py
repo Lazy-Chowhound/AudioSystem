@@ -37,12 +37,4 @@ def get_noise_text(order, model, start, end):
 
 
 if __name__ == '__main__':
-    with open(r"C:\Users\Nakano Miku\Desktop\毕设.postman_test_run.json", "r", encoding="utf-8") as f:
-        json_data = json.load(f)
-        res = json_data["results"]
-        for item in res:
-            print(item["name"])
-            times = item['times']
-            print(min(times))
-            print(max(times))
-            print(mean(times))
+    pass

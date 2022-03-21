@@ -26,12 +26,14 @@ class UploadForm extends React.Component {
             })
             this.uploadDatasetDescription(values).then(res => {
                 if (res) {
-                    this.uploadDataset().then(() => {
-                        this.setState({
-                            hasSelectDataset: false,
-                        })
-                        this.state.formRef.current.resetFields();
-                        message.success("上传成功").then()
+                    this.uploadDataset().then(resp => {
+                        if (resp) {
+                            this.setState({
+                                hasSelectDataset: false,
+                            })
+                            this.state.formRef.current.resetFields();
+                            message.success("上传成功").then()
+                        }
                     })
                 }
             })
@@ -63,7 +65,6 @@ class UploadForm extends React.Component {
         const people = values["people"]
         const form = values['form']
         const description = values['description']
-        let flag = true;
         await sendGet("/uploadDatasetDescription", {
             params: {
                 dataset: dataset,
@@ -77,13 +78,13 @@ class UploadForm extends React.Component {
         }).then(res => {
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
-                flag = false;
+                return false;
             }
         }).catch(() => {
-                flag = false;
+                return false;
             }
         )
-        return flag;
+        return true;
     }
 
     uploadDataset = async () => {
