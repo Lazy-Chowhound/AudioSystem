@@ -29,3 +29,14 @@ def transform_wav_to_mp3(path, audio_name):
     audio_name = audio_name.replace(".wav", ".mp3")
     audio.export(path + audio_name, format="mp3")
     return path, audio_name
+
+
+def make_noise_audio_clips_dirs(path):
+    """
+    根据文件路径，生成所需文件夹
+    :param path: D:/AudioSystem/NoiseAudio/cv-corpus-chinese/clips/xxx.mp3
+    :return:
+    """
+    noise_audio_dir = path[0:path.rfind("/")]
+    if not os.path.exists(noise_audio_dir):
+        os.makedirs(noise_audio_dir)

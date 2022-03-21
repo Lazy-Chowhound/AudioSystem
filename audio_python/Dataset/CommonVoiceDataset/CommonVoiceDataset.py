@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
-from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import write_noise_audio
+from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import write_noise_audio, make_noise_audio_clips_dirs
 from Dataset.Dataset import Dataset
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
@@ -230,10 +230,10 @@ class CommonVoiceDataset(Dataset):
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         noise_audio = gaussian_white_noise(sig, snr=5)
-        wave_path = self.noise_clips_path
         wave_name = audio_name.replace(".mp3", ".wav")
         noise_wave_name = add_tag(wave_name, "gaussian_white_noise")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_sound_level(self, audio_name, pattern_type):
         """
@@ -244,7 +244,6 @@ class CommonVoiceDataset(Dataset):
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         noise_audio = sig
-        wave_path = self.noise_clips_path
         if pattern_type == "Louder":
             noise_audio = louder(sig)
         elif pattern_type == "Quieter":
@@ -257,8 +256,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "sound_level"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
@@ -268,7 +267,6 @@ class CommonVoiceDataset(Dataset):
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
-        wave_path = self.noise_clips_path
         if pattern_type in natural_sounds_pattern_types:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Natural Sounds", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
@@ -276,8 +274,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "natural_sounds"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_animal(self, audio_name, pattern_type):
         """
@@ -286,9 +284,7 @@ class CommonVoiceDataset(Dataset):
         :param pattern_type:
         :return:
         """
-        path = self.clips_path
-        sig, sr = librosa.load(path + audio_name, sr=None)
-        wave_path = self.noise_clips_path
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         if pattern_type in animal_pattern_types:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Animal", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
@@ -296,8 +292,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "animal"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
@@ -306,9 +302,7 @@ class CommonVoiceDataset(Dataset):
         :param pattern_type:
         :return:
         """
-        path = self.clips_path
-        sig, sr = librosa.load(path + audio_name, sr=None)
-        wave_path = self.noise_clips_path
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         if pattern_type in sound_of_things_pattern_types:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Sound of things", pattern_type), sr=sr,
                                                mono=True)
@@ -317,8 +311,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "sound_of_things"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
@@ -327,9 +321,7 @@ class CommonVoiceDataset(Dataset):
         :param pattern_type:
         :return:
         """
-        path = self.clips_path
-        sig, sr = librosa.load(path + audio_name, sr=None)
-        wave_path = self.noise_clips_path
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         if pattern_type in human_sounds_pattern_types:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Human sounds", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
@@ -337,8 +329,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "human_sounds"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_music(self, audio_name, pattern_type):
         """
@@ -347,9 +339,7 @@ class CommonVoiceDataset(Dataset):
         :param pattern_type:
         :return:
         """
-        path = self.clips_path
-        sig, sr = librosa.load(path + audio_name, sr=None)
-        wave_path = self.noise_clips_path
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         if pattern_type in music_pattern_types:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Music", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
@@ -357,8 +347,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "music"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
@@ -367,9 +357,7 @@ class CommonVoiceDataset(Dataset):
         :param pattern_type:
         :return:
         """
-        path = self.clips_path
-        sig, sr = librosa.load(path + audio_name, sr=None)
-        wave_path = self.noise_clips_path
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         if pattern_type in source_ambiguous_sounds_pattern_types:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Source-ambiguous sounds", pattern_type), sr=sr,
                                                mono=True)
@@ -378,8 +366,8 @@ class CommonVoiceDataset(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"),
                                   pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        write_noise_audio(wave_path, noise_wave_name, noise_audio, sr)
-        return ""
+        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
 
     def get_name_and_pattern_tag(self, name):
         """
