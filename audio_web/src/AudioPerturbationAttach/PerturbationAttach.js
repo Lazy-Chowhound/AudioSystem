@@ -16,7 +16,7 @@ import {
 import PatternDisplay from "./PatternDisplay";
 import {
     CloudUploadOutlined,
-    QuestionCircleOutlined,
+    QuestionCircleOutlined, SyncOutlined,
 } from "@ant-design/icons";
 import {sendGet} from "../Util/axios";
 import {formatTime, formatTimeStamp, getAudioSet, getNoiseAudioUrl} from "../Util/AudioUtil";
@@ -44,7 +44,9 @@ class PerturbationAttach extends React.Component {
             loading: false,
             drawerVisible: false,
             historyVisible: false,
-            operationHistory: []
+            operationHistory: [],
+            clipsNum: 0,
+            noiseClipsNum: 0,
         };
     }
 
@@ -247,6 +249,7 @@ class PerturbationAttach extends React.Component {
             loading: true
         }, () => {
             this.getPatternDetail()
+            this.getClipsAndNoiseClips()
         })
     }
 
@@ -410,6 +413,57 @@ class PerturbationAttach extends React.Component {
         })
     }
 
+    addNoiseRandom = () => {
+        if (this.state.dataset === null) {
+            message.warning("未选择数据集").then()
+        } else if (this.state.noiseClipsNum !== 0) {
+            message.warning("已经添加过，请勿重复添加").then()
+        } else {
+            sendGet("/addNoiseRandomlyMultiProcess", {
+                params: {
+                    dataset: this.state.dataset
+                }
+            }).then(res => {
+                if (res.data.code === 400) {
+                    message.error(res.data.data).then()
+                } else {
+                    message.success("开始添加").then()
+                }
+            }).catch(error => {
+                message.error(error).then()
+            })
+        }
+    }
+
+    getClipsAndNoiseClips = () => {
+        sendGet("/clipsAndNoiseClips", {
+            params: {
+                dataset: this.state.dataset
+            }
+        }).then(res => {
+            if (res.data.code === 400) {
+                message.error(res.data.data).then()
+            } else {
+                const data = JSON.parse(res.data.data)
+                this.setState({
+                    clipsNum: data[0],
+                    noiseClipsNum: data[1]
+                })
+            }
+        }).catch(err => {
+            message.error(err).then()
+        })
+    }
+
+    refreshNum = () => {
+        if (this.state.dataset === null) {
+            message.warning("未选择数据集").then()
+        } else {
+            this.getClipsAndNoiseClips()
+            message.success("刷新成功").then()
+        }
+    }
+
     render() {
         const {selectedRowKeys} = this.state;
         const locales = {selectionAll: "全选", selectNone: "清空所有", filterConfirm: '确定', filterReset: '重置'}
@@ -480,6 +534,15 @@ class PerturbationAttach extends React.Component {
                         </Tooltip>
                         <Button style={{marginLeft: "100px"}} onClick={this.showHistory}
                                 type={"primary"}>查看操作历史</Button>
+                        <Button style={{marginLeft: "100px"}} onClick={this.addNoiseRandom}
+                                type={"primary"}>随机添加扰动</Button>
+                        <span
+                            style={{marginLeft: "100px"}}>{"现有扰动音频数量"}/{"原音频数量"}：{this.state.noiseClipsNum}/{this.state.clipsNum}</span>
+                        <Tooltip title="刷新">
+                            <Button style={{marginLeft: "10px"}} size={"small"} onClick={this.refreshNum}
+                                    type="primary" shape="circle"
+                                    icon={<SyncOutlined/>}/>
+                        </Tooltip>
                     </div>
                     <Table rowSelection={rowSelection} columns={this.columns} dataSource={this.state.dataSource}
                            locale={locales} summary={() => (summaryRow)} loading={this.state.loading}

@@ -1,3 +1,4 @@
+import glob
 import os
 
 import librosa.display
@@ -377,6 +378,14 @@ class CommonVoiceDataset(Dataset):
         """
         num = re.findall("\\d+", name)[0]
         return name[0:name.find(num) + len(num)] + ".mp3", name[name.find(num) + len(num) + 1:name.find(".")]
+
+    def get_num_of_clips_and_noise_clips(self):
+        """
+        获取原音频数量扰动音频的数量
+        :return:
+        """
+        num_list = [len(self.get_audio_clips_list()), len(self.get_noise_audio_clips_list())]
+        return num_list
 
     def get_testset_audio_clips_list(self):
         """

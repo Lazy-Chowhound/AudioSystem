@@ -297,6 +297,42 @@ public class NoisePatternController {
         }
     }
 
+    /**
+     * 获取现扰动音频数量和原音频数量
+     */
+    @RequiresAuthentication
+    @RequiresPermissions(value = {"B:SELECT"})
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
+    @RequestMapping("/clipsAndNoiseClips")
+    public Result getNumOfClipsAndNoiseClips(@RequestHeader("Authorization") String token,
+                                             @RequestParam("dataset") String dataset) {
+        shiroUtil.verifyUserToken(token);
+        try {
+            JSONObject jsonObject = rpcUtil.sendRequest("get_num_of_clips_and_noise_clips",
+                    dataset);
+            return Result.success(StatusCode.SUCCESS.getStatus(), JSONObject.toJSONString(jsonObject.getJSONArray("data")));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+
+    }
+
+    @RequiresAuthentication
+    @RequiresPermissions(value = {"B:UPDATE", "B:INSERT"}, logical = Logical.AND)
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
+    @RequestMapping("/addNoiseRandomlyMultiProcess")
+    public Result addRandomlyMultiProcess(@RequestHeader("Authorization") String token,
+                                          @RequestParam("dataset") String dataset) {
+        shiroUtil.verifyUserToken(token);
+        try {
+            JSONObject jsonObject = rpcUtil.sendRequest("add_randomly_multiProcess",
+                    dataset, "8");
+            return Result.success(StatusCode.SUCCESS.getStatus(), "");
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
     private void removeCurrentNoiseAudioClip(String dataset, String audioName,
                                              String currentPattern, String currentPatternType) throws XmlRpcException {
         if (currentPatternType == null) {

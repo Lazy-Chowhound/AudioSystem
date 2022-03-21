@@ -12,6 +12,17 @@ from Util.RpcResult import RpcResult
 
 
 @rpcApi
+def get_num_of_clips_and_noise_clips(dataset):
+    """
+    获取原音频数量扰动音频的数量
+    :param dataset:
+    :return:
+    """
+    dataset_instance = get_dataset_instance(dataset)
+    return RpcResult.ok(json.dumps(dataset_instance.get_num_of_clips_and_noise_clips()))
+
+
+@rpcApi
 def get_audio_clips_pattern(dataset):
     """
     添加扰动时获取某数据集所有音频扰动情况
