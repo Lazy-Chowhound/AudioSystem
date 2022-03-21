@@ -42,12 +42,12 @@ class CommonVoiceDataset(Dataset):
         获取目录下所有音频文件名
         :return:
         """
-        audioList = []
+        audio_list = []
         for root, dirs, files in os.walk(self.clips_path):
             for file in files:
                 if os.path.splitext(file)[1] == '.mp3':
-                    audioList.append(file)
-        return audioList
+                    audio_list.append(file)
+        return audio_list
 
     def get_audio_clip_content(self, audio_name):
         """
