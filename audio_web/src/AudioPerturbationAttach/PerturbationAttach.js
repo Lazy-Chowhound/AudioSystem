@@ -107,10 +107,12 @@ class PerturbationAttach extends React.Component {
         }];
 
     componentDidMount() {
-        this.getAudioSetList()
-        this.setState({
-            operationDone: false,
-            operationCancel: false,
+        getAudioSet().then(res => {
+            this.setState({
+                options: res,
+            })
+        }).catch(error => {
+            message.error(error).then()
         })
     }
 
@@ -203,16 +205,6 @@ class PerturbationAttach extends React.Component {
                 }
             }
         }
-    }
-
-    getAudioSetList = () => {
-        getAudioSet().then(res => {
-            this.setState({
-                options: res,
-            })
-        }).catch(error => {
-            message.error(error).then()
-        })
     }
 
     getPatternDetail = () => {

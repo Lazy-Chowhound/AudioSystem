@@ -18,7 +18,7 @@ class AudioList extends React.Component {
             total: null,
             currentPage: 1,
             pageSize: 3,
-            loading: true,
+            loading: false,
             uploadVisible: false,
             drawerVisible: false,
             uploadHistory: []
@@ -81,6 +81,9 @@ class AudioList extends React.Component {
     }
 
     getAudioSetProperties = () => {
+        this.setState({
+            loading: true
+        })
         sendGet("/audioSetsProperties").then(res => {
             if (res.data.code === 400) {
                 message.error(res.data.data).then()
