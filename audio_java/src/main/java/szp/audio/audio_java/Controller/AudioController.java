@@ -1,6 +1,7 @@
 package szp.audio.audio_java.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import szp.audio.audio_java.Entity.User;
 import szp.audio.audio_java.Rpc.RpcUtil;
 import szp.audio.audio_java.Util.Result;
 import szp.audio.audio_java.ShiroConfig.ShiroUtil;
@@ -31,10 +33,14 @@ public class AudioController {
     /**
      * 获取音频数据集列表
      */
+    @RequiresAuthentication
+    @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/audioSetsList")
-    public Result getAudioSetsList() {
+    public Result getAudioSetsList(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_list");
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_list", userInfo.getName());
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
@@ -45,10 +51,14 @@ public class AudioController {
     /**
      * 获取音频数据集属性
      */
+    @RequiresAuthentication
+    @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
     @RequestMapping("/audioSetsProperties")
-    public Result getAudioSetsProperties() {
+    public Result getAudioSetsProperties(@RequestHeader("Authorization") String token) {
+        shiroUtil.verifyUserToken(token);
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
         try {
-            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_properties");
+            JSONObject jsonObject = rpcUtil.sendRequest("get_audio_sets_properties", userInfo.getName());
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {

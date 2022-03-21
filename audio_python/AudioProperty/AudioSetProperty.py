@@ -7,13 +7,14 @@ from Util.RpcResult import RpcResult
 
 
 @rpcApi
-def get_audio_sets_properties():
+def get_audio_sets_properties(user_name):
     """
-    获取所有音频数据集及其所有属性
+    获取用户音频数据集及其所有属性
+    :param user_name: 用户名
     :return:
     """
     audio_set = []
-    for audio in get_audio_sets_list_from_db():
+    for audio in get_audio_sets_list_from_db(user_name):
         audio_property = {}
         description = get_audio_set_description(audio)
         audio_property["key"] = description[0]
@@ -29,24 +30,27 @@ def get_audio_sets_properties():
 
 
 @rpcApi
-def get_audio_sets_list():
+def get_audio_sets_list(user_name):
     """
-    获取目录下的音频数据集
+    获取用户上传的数据集列表
+    :param user_name: 用户名
     :return:
     """
-    return RpcResult.ok(get_audio_sets_list_from_db())
+    return RpcResult.ok(get_audio_sets_list_from_db(user_name))
 
 
-def get_audio_sets_list_from_db():
+def get_audio_sets_list_from_db(user_name):
     """
-    获取数据集列表
+    获取用户数据集列表
     :return: ['cv-corpus-chinese','timit',....]
     """
     audio_list = []
     connect = pymysql.Connect(host="localhost", port=3306, user="root",
                               passwd="061210", db="audioset", charset="utf8")
     cursor = connect.cursor()
-    cursor.execute("select name from audio")
+    cursor.execute(
+        "select audio.name from audio,datasethistory where audio.name = datasethistory.name "
+        "and datasethistory.user='%s'" % (user_name,))
     for item in cursor.fetchall():
         audio_list.append(item[0])
     cursor.close()
