@@ -132,8 +132,8 @@ class PatternDisplay extends React.Component {
                     label: "Pitch",
                 },
                 {
-                    value: "Faster",
-                    label: "Faster",
+                    value: "Speed",
+                    label: "Speed",
                 },
             ],
         },

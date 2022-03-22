@@ -173,7 +173,7 @@ class PatternDrawer extends React.Component {
                                    className="site-collapse-custom-panel">
                                 <p>{"改变声音的音调高低"}</p>
                             </Panel>
-                            <Panel style={{whiteSpace: "pre-wrap"}} header="Faster" key="Faster"
+                            <Panel style={{whiteSpace: "pre-wrap"}} header="Speed" key="Speed"
                                    className="site-collapse-custom-panel">
                                 <p>{"倍速播放"}</p>
                             </Panel>
