@@ -244,8 +244,8 @@ class Index extends React.Component {
                             </Breadcrumb>
                             <div className="site-layout-background" style={{minHeight: 400}}>
                                 <Routes>
-                                    <Route exact path="/" element={<AudioList/>}/>
-                                    <Route exact path="/list" element={<AudioList/>}/>
+                                    <Route exact path="/" element={<AudioList key={this.state.isLogin}/>}/>
+                                    <Route exact path="/list" element={<AudioList key={this.state.isLogin}/>}/>
                                     <Route exact path="/perturbationAttach" element={<PerturbationAttach/>}/>
                                     <Route exact path="/perturbationDisplay" element={<PerturbationDisplay/>}/>
                                     <Route exact path="/validation" element={<Validation/>}/>
