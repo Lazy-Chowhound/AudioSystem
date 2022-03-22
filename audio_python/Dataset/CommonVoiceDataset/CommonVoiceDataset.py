@@ -428,7 +428,7 @@ class CommonVoiceDataset(Dataset):
         """
         validation_result = {}
         validation_result['name'] = audio_name
-        validation_result['realText'] = self.get_audio_clip_content(audio_name)
+        validation_result['realText'] = self.formalize(self.get_audio_clip_content(audio_name))
         validation_result['previousText'] = self.get_audio_clip_transcription(audio_name)
         validation_result['preER'] = round(cer(validation_result['realText'], validation_result['previousText']), 2)
         noise_audio_name = self.get_noise_clip_name(audio_name)
