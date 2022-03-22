@@ -27,9 +27,7 @@ def gaussian_white_noise(wave_data, snr):
     P_noise = P_signal / 10 ** (snr / 10.0)  # 噪声功率
     noise = np.random.normal(0, 1, size=len(wave_data))
     noise = normalize(noise)
-    noiseAudio = wave_data + noise * np.sqrt(P_noise)
-    noiseAudio = noiseAudio.astype(data_type)
-    return noiseAudio
+    return noise * np.sqrt(P_noise).astype(data_type)
 
 
 def louder(wave_data):

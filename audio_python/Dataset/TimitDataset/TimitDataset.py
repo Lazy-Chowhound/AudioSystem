@@ -239,7 +239,7 @@ class TimitDataset(Dataset):
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
-        noise_audio = gaussian_white_noise(sig, snr=5)
+        noise_audio = sig + gaussian_white_noise(sig, snr=5)
         noise_audio_name = add_tag(audio_name, "gaussian_white_noise")
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_noise_audio_clips_dirs(noise_audio_path)

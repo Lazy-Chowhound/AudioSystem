@@ -1,4 +1,3 @@
-import glob
 import os
 
 import librosa.display
@@ -230,7 +229,7 @@ class CommonVoiceDataset(Dataset):
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
-        noise_audio = gaussian_white_noise(sig, snr=5)
+        noise_audio = sig + gaussian_white_noise(sig, snr=5)
         wave_name = audio_name.replace(".mp3", ".wav")
         noise_wave_name = add_tag(wave_name, "gaussian_white_noise")
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
