@@ -72,8 +72,8 @@ def add_sound_level(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_sound_level(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_sound_level(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
@@ -86,8 +86,8 @@ def add_natural_sounds(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_natural_sounds(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_natural_sounds(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
@@ -100,8 +100,8 @@ def add_animal(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_animal(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_animal(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
@@ -114,8 +114,8 @@ def add_sound_of_things(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_sound_of_things(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_sound_of_things(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
@@ -128,8 +128,8 @@ def add_human_sounds(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_human_sounds(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_human_sounds(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
@@ -142,8 +142,8 @@ def add_music(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_music(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_music(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
@@ -156,8 +156,8 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    result = dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type)
-    return RpcResult.ok(result)
+    dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type)
+    return RpcResult.ok("")
 
 
 @rpcApi
