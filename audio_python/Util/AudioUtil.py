@@ -1,10 +1,9 @@
 import re
 
+# 项目路径
 import librosa
 import soundfile
-from moviepy.audio.io.AudioFileClip import AudioFileClip
 
-# 项目路径
 PROJECT_PATH = "D:/AudioSystem/"
 # 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
@@ -101,20 +100,6 @@ def get_pattern_info_from_name(pattern_tag):
 
 def get_source_noises_path(pattern, pattern_type):
     return SOURCE_NOISES_PATH + pattern + "/" + pattern_type + ".wav"
-
-
-def extract_audio(source_path, start, end, pattern_type, target_path):
-    """
-    从视频中提取音频
-    :param source_path:
-    :param start: 开始的秒数
-    :param end: 结束的秒数
-    :param pattern_type:
-    :param target_path: 输出路径 形如 C:/Users/Nakano Miku/Desktop/audio/
-    :return:
-    """
-    audio_background = AudioFileClip(source_path).subclip(start, end)
-    audio_background.write_audiofile(target_path + pattern_type + ".wav", fps=48000)
 
 
 def cut_audio(path, start, end=None):

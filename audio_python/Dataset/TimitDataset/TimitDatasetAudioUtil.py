@@ -1,6 +1,8 @@
 import glob
 import os.path
 
+from moviepy.audio.io.AudioFileClip import AudioFileClip
+from pytube import YouTube
 from sphfile import SPHFile
 
 from Util.AudioUtil import AUDIO_SETS_PATH
@@ -68,3 +70,29 @@ def remove_duplicate_audios():
             if len(value) >= 2:
                 for x in range(1, len(value)):
                     os.remove(path + audio_dir + value[x])
+
+
+def download_video_from_Youtube(url, path):
+    """
+    从Youtube上下载视频
+    :param url: 视频地址
+    :param path: 下载目录
+    :return:
+    """
+    yt = YouTube(url)
+    yt.streams.filter(file_extension="mp4").first().download(path)
+
+
+def extract_audio(source_path, start, end, pattern_type, target_path):
+    """
+    从视频中提取音频
+    :param source_path:
+    :param start: 开始的秒数
+    :param end: 结束的秒数
+    :param pattern_type:
+    :param target_path: 输出路径 形如 C:/Users/Nakano Miku/Desktop/audio/
+    :return:
+    """
+    audio_background = AudioFileClip(source_path).subclip(start, end)
+    audio_background.write_audiofile(target_path + pattern_type + ".wav", fps=48000)
+
