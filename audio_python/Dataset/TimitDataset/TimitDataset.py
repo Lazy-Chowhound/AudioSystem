@@ -22,7 +22,8 @@ class TimitDataset(Dataset):
         self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
         self.wer_dict = {"wav2vec2-large-960h": [0.12667034026725443, 0.5199752031960325],
-                         "wav2vec2-large-lv60-timit-asr": []}
+                         "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0.604024533112811],
+                         "wav2vec2-base-timit-asr": [0.2555992006064365, 0.7269657501205982]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -447,7 +448,7 @@ class TimitDataset(Dataset):
         """
         validation_result = {}
         validation_result['name'] = audio_name
-        validation_result['realText'] = self.get_audio_clip_content(audio_name)
+        validation_result['realText'] = self.formalize(self.get_audio_clip_content(audio_name))
         validation_result['previousText'] = self.get_audio_clip_transcription(audio_name)
         validation_result['preER'] = round(wer(validation_result['realText'], validation_result['previousText']), 2)
         noise_audio_name = self.get_noise_clip_name(audio_name)
@@ -528,10 +529,21 @@ class TimitDataset(Dataset):
             if file.startswith(prefix):
                 return audio_name[0:audio_name.rfind("/") + 1] + file
 
+    def judge_model(self, model):
+        """
+        判断模型适不适用于该数据集
+        :param model:
+        :return:
+        """
+        return model in self.wer_dict.keys()
+
     def formalize(self, sentence):
         """
         规范化句子
         :param sentence:
         :return:
         """
-        return sentence.lower().capitalize()
+        sentence = sentence.lower().capitalize()
+        CHARS_TO_IGNORE = [",", "-", "--", "?", "."]
+        chars_to_ignore_regex = f"[{re.escape(''.join(CHARS_TO_IGNORE))}]"
+        return re.sub(chars_to_ignore_regex, "", sentence)

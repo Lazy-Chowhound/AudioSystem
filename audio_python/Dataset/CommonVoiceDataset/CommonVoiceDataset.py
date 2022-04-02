@@ -512,6 +512,14 @@ class CommonVoiceDataset(Dataset):
             if file.startswith(audio_name[0:audio_name.find(".")]):
                 return file
 
+    def judge_model(self, model):
+        """
+        判断模型适不适用于该数据集
+        :param model:
+        :return:
+        """
+        return model in self.cer_dict.keys()
+
     def formalize(self, sentence):
         """
         规范化文本

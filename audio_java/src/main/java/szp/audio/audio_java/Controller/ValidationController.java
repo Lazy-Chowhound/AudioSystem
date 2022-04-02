@@ -65,6 +65,9 @@ public class ValidationController {
         try {
             JSONObject jsonObject = rpcUtil.sendRequest("get_validation_results_by_page",
                     dataset, modelName, page, pageSize);
+            if (jsonObject.getString("code").equals("400")) {
+                return Result.fail(StatusCode.FAIL.getStatus(), "模型不适用于该数据集");
+            }
             return Result.success(StatusCode.SUCCESS.getStatus(),
                     JSONObject.toJSONString(jsonObject.getJSONArray("data")));
         } catch (XmlRpcException xmlRpcException) {
