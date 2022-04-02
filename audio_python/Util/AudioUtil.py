@@ -91,7 +91,7 @@ def get_pattern_info_from_name(pattern_tag):
     else:
         for key, value in name_to_pattern.items():
             if key in pattern_tag:
-                return name_to_pattern[key], suffix_to_pattern_type(pattern_tag.replace(key + "_", ""))
+                return name_to_pattern[key], suffix_to_pattern_type(pattern_tag.replace(key + "_", "", 1))
 
 
 def get_source_noises_path(pattern, pattern_type):
