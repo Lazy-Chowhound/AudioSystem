@@ -20,6 +20,7 @@ class CommonVoiceDataset(Dataset):
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
         self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
+        self.model_dict = {"wav2vec2.0 Model": ["wav2vec2-large-xlsr-53-chinese-zh-cn"]}
         self.cer_dict = {"wav2vec2-large-xlsr-53-chinese-zh-cn": [0.1636319890171324, 0.43685204973427405]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
@@ -417,77 +418,84 @@ class CommonVoiceDataset(Dataset):
         validation_results.append({"preOverallER": pre_overall_cer})
         validation_results.append({"postOverallER": post_overall_cer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
-            audio_result = self.get_validation_result(audio_list[index])
+            audio_result = self.get_validation_result(audio_list[index], model)
             audio_result['key'] = index + 1
             validation_results.append(audio_result)
         return validation_results
 
-    def get_validation_result(self, audio_name):
+    def get_validation_result(self, audio_name, model_name):
         """
         计算某一音频的所有验证内容
         :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param model_name: 模型名
         :return:
         """
         validation_result = {}
         validation_result['name'] = audio_name
         validation_result['realText'] = self.formalize(self.get_audio_clip_content(audio_name))
-        validation_result['previousText'] = self.get_audio_clip_transcription(audio_name)
+        validation_result['previousText'] = self.get_audio_clip_transcription(audio_name, model_name)
         validation_result['preER'] = round(cer(validation_result['realText'], validation_result['previousText']), 2)
         noise_audio_name = self.get_noise_clip_name(audio_name)
         validation_result['noise_audio_name'] = noise_audio_name
-        validation_result['posteriorText'] = self.get_noise_audio_clip_transcription(noise_audio_name)
+        validation_result['posteriorText'] = self.get_noise_audio_clip_transcription(noise_audio_name, model_name)
         validation_result['postER'] = round(cer(validation_result['realText'], validation_result['posteriorText']), 2)
         return validation_result
 
-    def get_audio_clip_transcription(self, audio_name):
+    def get_audio_clip_transcription(self, audio_name, model_name):
         """
         获取原音频识别出的内容
         :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param model_name: 模型名
         :return:
         """
         audio, rate = librosa.load(self.clips_path + audio_name, sr=16000)
-        inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
-        with torch.no_grad():
-            logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
-        predicted_ids = torch.argmax(logits, dim=-1)
-        predicted_sentences = self.processor.batch_decode(predicted_ids)
-        return self.formalize(predicted_sentences[0])
+        if model_name in self.model_dict.get("wav2vec2.0 Model"):
+            inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
+            with torch.no_grad():
+                logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
+            predicted_ids = torch.argmax(logits, dim=-1)
+            predicted_sentences = self.processor.batch_decode(predicted_ids)
+            return self.formalize(predicted_sentences[0])
 
-    def get_noise_audio_clip_transcription(self, audio_name):
+    def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
         获取扰动音频识别出的内容
         :param audio_name: common_voice_zh-CN_18524189_sound_level_pitch.mp3
+        :param model_name: 模型名
         :return:
         """
         audio, rate = librosa.load(self.noise_clips_path + audio_name, sr=16000)
-        inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
-        with torch.no_grad():
-            logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
-        predicted_ids = torch.argmax(logits, dim=-1)
-        predicted_sentences = self.processor.batch_decode(predicted_ids)
-        return self.formalize(predicted_sentences[0])
+        if model_name in self.model_dict.get("wav2vec2.0 Model"):
+            inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
+            with torch.no_grad():
+                logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
+            predicted_ids = torch.argmax(logits, dim=-1)
+            predicted_sentences = self.processor.batch_decode(predicted_ids)
+            return self.formalize(predicted_sentences[0])
 
-    def get_dataset_er(self):
+    def get_dataset_er(self, model_name):
         """
         获取数据集总体上的 WER/CER
+        :param model_name: 模型名
         :return:
         """
         if len(self.real_text_list) == 0 or len(self.previous_text_list) == 0 or len(self.post_text_list) == 0:
-            self.get_dataset_texts()
+            self.get_dataset_texts(model_name)
         return cer_overall(self.real_text_list, self.previous_text_list), cer_overall(self.real_text_list,
                                                                                       self.post_text_list)
 
-    def get_dataset_texts(self):
+    def get_dataset_texts(self, model_name):
         """
         获取训练集上所欲音频的前后文本
+        :param model_name: 模型名
         :return:
         """
         audio_list = self.get_testset_audio_clips_list()
         for audio in audio_list:
             self.real_text_list.append(self.get_audio_clip_content(audio))
-            self.previous_text_list.append(self.get_audio_clip_transcription(audio))
+            self.previous_text_list.append(self.get_audio_clip_transcription(audio, model_name))
             noise_audio = self.get_noise_clip_name(audio)
-            self.post_text_list.append(self.get_noise_audio_clip_transcription(noise_audio))
+            self.post_text_list.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
 
     def load_model(self, model_name):
         """
@@ -498,8 +506,9 @@ class CommonVoiceDataset(Dataset):
         if not os.path.exists(self.model_path + model_name):
             return False
         if self.model is None or self.processor is None:
-            self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
-            self.model = Wav2Vec2ForCTC.from_pretrained(self.model_path + model_name)
+            if model_name in self.model_dict.get("wav2vec2.0 Model"):
+                self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
+                self.model = Wav2Vec2ForCTC.from_pretrained(self.model_path + model_name)
         return True
 
     def get_noise_clip_name(self, audio_name):
@@ -515,10 +524,13 @@ class CommonVoiceDataset(Dataset):
     def judge_model(self, model):
         """
         判断模型适不适用于该数据集
-        :param model:
+        :param model:模型名
         :return:
         """
-        return model in self.cer_dict.keys()
+        for (key, value) in self.model_dict.items():
+            if model in value:
+                return True
+        return False
 
     def formalize(self, sentence):
         """

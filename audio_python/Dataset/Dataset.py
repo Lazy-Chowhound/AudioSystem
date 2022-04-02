@@ -201,7 +201,7 @@ class Dataset:
         audios = []
         return audios
 
-    def get_validation_results_by_page(self,model, page, page_size):
+    def get_validation_results_by_page(self, model, page, page_size):
         """
         分页获取验证结果
         :param model: 模型名
@@ -211,36 +211,41 @@ class Dataset:
         validation_results = []
         return validation_results
 
-    def get_validation_result(self, audio_name):
+    def get_validation_result(self, audio_name, model_name):
         """
         计算某一音频的所有验证内容
         :param audio_name: 音频名
+        :param model_name: 模型名
         """
         validation_result = {}
         return validation_result
 
-    def get_audio_clip_transcription(self, audio_name):
+    def get_audio_clip_transcription(self, audio_name, model_name):
         """
         获取原音频识别出的内容
         :param audio_name: 音频名
+        :param model_name: 模型名
         """
         pass
 
-    def get_noise_audio_clip_transcription(self, audio_name):
+    def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
         获取扰动音频识别出的内容
         :param audio_name: 音频名
+        :param model_name: 模型名
         """
         pass
 
-    def get_dataset_er(self):
+    def get_dataset_er(self, model_name):
         """
         获取数据集总体上的 WER/CER
+        :param model_name: 模型名
         """
         pass
 
-    def get_dataset_texts(self):
+    def get_dataset_texts(self, model_name):
         """
+        :param model_name: 模型名
         :return:
         """
         pass
@@ -256,6 +261,14 @@ class Dataset:
         """
         获取原音频对应的扰动音频名称
         :param audio_name: 音频名
+        """
+        pass
+
+    def judge_model(self, model):
+        """
+        判断模型适不适用于该数据集
+        :param model:模型名
+        :return:
         """
         pass
 
