@@ -134,9 +134,9 @@ def get_pattern_types_dict():
     return p_t_dict
 
 
-def draw_pesq_chart():
+def draw_quality_and_intelligibility_chart():
     """
-    音频质量和可懂度图
+    common voice 音频质量和可懂度图
     :return:
     """
     p_t_dict = get_pattern_types_dict()
