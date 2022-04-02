@@ -45,7 +45,7 @@ def get_validation_results_by_page(dataset, model_name, page, page_size):
     try:
         dataset_instance = get_dataset_instance(dataset)
         dataset_instance.load_model(model_name)
-        results = dataset_instance.get_validation_results_by_page(page, page_size)
+        results = dataset_instance.get_validation_results_by_page(model_name, page, page_size)
         return RpcResult.ok(json.dumps(results, ensure_ascii=False))
     except Exception as e:
         return RpcResult.error(e)

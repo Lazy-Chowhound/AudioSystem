@@ -21,6 +21,8 @@ class TimitDataset(Dataset):
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
         self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
+        self.wer_dict = {"wav2vec2-large-960h": [0.12667034026725443, 0.5199752031960325],
+                         "wav2vec2-large-lv60-timit-asr": []}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -414,9 +416,10 @@ class TimitDataset(Dataset):
                 audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
         return audios
 
-    def get_validation_results_by_page(self, page, page_size):
+    def get_validation_results_by_page(self, model, page, page_size):
         """
         分页获取验证结果
+        :param model: 模型名
         :param page: 页数
         :param page_size: 分页大小
         :return:
@@ -424,9 +427,10 @@ class TimitDataset(Dataset):
         validation_results = []
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
-        # 实时计算 由于时间太长这里就直接写死 0.12667034026725443 0.5199752031960325
+        # 实时计算 由于时间太长这里就直接写死
         # pre_overall_wer, post_overall_wer = self.get_dataset_er()
-        pre_overall_wer, post_overall_wer = 0.127, 0.519
+        pre_overall_wer, post_overall_wer = round(self.wer_dict.get("model")[0], 3), round(
+            self.wer_dict.get("model")[1], 3)
         validation_results.append({"preOverallER": pre_overall_wer})
         validation_results.append({"postOverallER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):

@@ -201,9 +201,10 @@ class Dataset:
         audios = []
         return audios
 
-    def get_validation_results_by_page(self, page, page_size):
+    def get_validation_results_by_page(self,model, page, page_size):
         """
         分页获取验证结果
+        :param model: 模型名
         :param page: 页数
         :param page_size: 分页大小
         """
