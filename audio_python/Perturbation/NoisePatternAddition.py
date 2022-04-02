@@ -6,8 +6,7 @@ from multiprocessing import Pool
 
 from Dataset.DatasetList import get_dataset_instance
 from Util.Annotation import rpcApi
-from Util.AudioUtil import sound_level_pattern_types, animal_pattern_types, sound_of_things_pattern_types, \
-    human_sounds_pattern_types, natural_sounds_pattern_types, source_ambiguous_sounds_pattern_types, music_pattern_types
+from Util.AudioUtil import pattern_types_dict
 from Util.RpcResult import RpcResult
 
 
@@ -205,25 +204,25 @@ def add_pattern_randomly(dataset, file):
         if p == 1:
             add_gaussian_noise(dataset, file)
         elif p == 2:
-            ptype = sound_level_pattern_types
+            ptype = pattern_types_dict["Sound level"]
             add_sound_level(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 3:
-            ptype = animal_pattern_types
+            ptype = pattern_types_dict["Animal"]
             add_animal(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 4:
-            ptype = sound_of_things_pattern_types
+            ptype = pattern_types_dict["Sound of things"]
             add_sound_of_things(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 5:
-            ptype = human_sounds_pattern_types
+            ptype = pattern_types_dict["Human sounds"]
             add_human_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 6:
-            ptype = natural_sounds_pattern_types
+            ptype = pattern_types_dict["Natural sounds"]
             add_natural_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 7:
-            ptype = music_pattern_types
+            ptype = pattern_types_dict["Music"]
             add_music(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 8:
-            ptype = source_ambiguous_sounds_pattern_types
+            ptype = pattern_types_dict["Source-ambiguous sounds"]
             add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
     except Exception as e:
         print(dataset + ":" + file + " fail ", e)

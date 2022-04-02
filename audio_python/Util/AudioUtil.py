@@ -1,9 +1,9 @@
 import re
 
-# 项目路径
 import librosa
 import soundfile
 
+# 项目路径
 PROJECT_PATH = "D:/AudioSystem/"
 # 数据集路径
 AUDIO_SETS_PATH = PROJECT_PATH + "Audio/"
@@ -36,23 +36,19 @@ name_to_pattern = {"gaussian_white_noise": "Gaussian noise",
                    "human_sounds": "Human sounds",
                    "music": "Music"}
 
-sound_level_pattern_types = ["Louder", "Quieter", "Pitch", "Speed"]
-
-animal_pattern_types = ["Pets", "Livestock", "Wild animals"]
-
-sound_of_things_pattern_types = ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Tools",
-                                 "Explosion", "Wood", "Glass", "Liquid", "Miscellaneous sources",
-                                 "Specific impact sounds"]
-
-human_sounds_pattern_types = ["Human voice", "Whistling", "Respiratory sounds", "Human locomotion", "Hands",
-                              "Heartbeat", "Human group actions", "Digestive", "Otoacoustic emission"]
-
-natural_sounds_pattern_types = ["Wind", "Thunderstorm", "Water", "Fire"]
-
-music_pattern_types = ["Musical instrument", "Music genre", "Musical concepts", "Music role", "Music mood"]
-
-source_ambiguous_sounds_pattern_types = ["Generic impact sounds", "Surface contact", "Deformable shell",
-                                         "Onomatopoeia", "Silence", "Other sourceless"]
+pattern_types_dict = {
+    "Sound level": ["Louder", "Quieter", "Pitch", "Speed"],
+    "Animal": ["Pets", "Livestock", "Wild animals"],
+    "Source-ambiguous sounds": ["Generic impact sounds", "Surface contact", "Deformable shell",
+                                "Onomatopoeia", "Silence", "Other sourceless"],
+    "Natural sounds": ["Wind", "Thunderstorm", "Water", "Fire"],
+    "Sound of things": ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Tools",
+                        "Explosion", "Wood", "Glass", "Liquid", "Miscellaneous sources",
+                        "Specific impact sounds"],
+    "Human sounds": ["Human voice", "Whistling", "Respiratory sounds", "Human locomotion", "Hands",
+                     "Heartbeat", "Human group actions", "Digestive", "Otoacoustic emission"],
+    "Music": ["Musical instrument", "Music genre", "Musical concepts", "Music role", "Music mood"]
+}
 
 
 def add_tag(name, tag):
