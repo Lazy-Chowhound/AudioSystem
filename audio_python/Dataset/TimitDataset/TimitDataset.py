@@ -434,8 +434,8 @@ class TimitDataset(Dataset):
         validation_results.append({"total": len(audio_list)})
         # 实时计算 由于时间太长这里就直接写死
         # pre_overall_wer, post_overall_wer = self.get_dataset_er()
-        pre_overall_wer, post_overall_wer = round(self.wer_dict.get("model")[0], 3), round(
-            self.wer_dict.get("model")[1], 3)
+        pre_overall_wer, post_overall_wer = round(self.wer_dict.get(model)[0], 3), round(
+            self.wer_dict.get(model)[1], 3)
         validation_results.append({"preOverallER": pre_overall_wer})
         validation_results.append({"postOverallER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
