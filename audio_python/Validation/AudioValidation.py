@@ -173,3 +173,22 @@ def draw_quality_and_intelligibility_chart():
     plt.xlabel("音频序号")
     plt.ylabel("分数")
     plt.show()
+
+
+def draw_wer_chart():
+    x = ["wav2vec2-\nlarge-960h", "wav2vec2-\nlarge-lv60-\ntimit-asr", "wav2vec2-\nbase-timit-\nasr", "s2t-small-\nlibrispeech-\nasr",
+         "s2t-medium-\nlibrispeech-\nasr", "s2t-large-\nlibrispeech-\nasr"]
+    y1 = [0.12667034026725443, 0.1386534353249259, 0.2555992006064365, 0.10778030459651299, 0.11412032251395493,
+          0.10281855144373234]
+    y2 = [0.5199752031960325, 0.604024533112811, 0.7269657501205982, 1.0998552821997105, 1.0808352284473848,
+          1.061953001171525]
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.plot(x, y1, label="原wer")
+    plt.plot(x, y2, label="现wer")
+    plt.legend()
+    plt.ylabel("wer")
+    plt.show()
+
+
+if __name__ == '__main__':
+    draw_wer_chart()

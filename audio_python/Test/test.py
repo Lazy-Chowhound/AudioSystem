@@ -3,6 +3,7 @@ import os
 from Dataset import DatasetList
 from Dataset.TimitDataset.TimitDataset import TimitDataset
 from Util.AudioUtil import PROJECT_PATH
+from Validation.Indicator import wer_overall
 
 
 def get_not_10_timit_noise_dirs():
@@ -25,14 +26,14 @@ def get_duplicate_add_noise_clips():
     print(len(s))
 
 
-def get_real_text(order, model, start, end, dataset):
+def get_real_text(order, start, end, dataset, directory):
     """
     将原音频内容写入txt
     :param order: 序号
-    :param model: 模型名
     :param start: 开始音频序号
     :param end: 结束音频序号
     :param dataset: 数据集名
+    :param directory: 路径
     :return:
     """
     dataset_instance = DatasetList.get_dataset_instance(dataset)
@@ -42,8 +43,7 @@ def get_real_text(order, model, start, end, dataset):
         end = len(test_list)
     for audio in test_list[start:end]:
         try:
-            directory = PROJECT_PATH + "Text/" + dataset + "-" + model + "/"
-            with open(directory + "realText" + str(order) + ".txt", "a", encoding="utf-8") as f:
+            with open(directory + r"\realText" + str(order) + ".txt", "a", encoding="utf-8") as f:
                 txt = dataset_instance.get_audio_clip_content(audio)
                 txt = dataset_instance.formalize(txt)
                 f.writelines(audio + " " + txt + "\n")
@@ -52,7 +52,7 @@ def get_real_text(order, model, start, end, dataset):
     print(error_list)
 
 
-def get_clean_text(order, model, start, end, dataset):
+def get_clean_text(order, model, start, end, dataset, directory):
     """
     将原音频识别出的内容写入txt
     :param order: 序号
@@ -60,6 +60,7 @@ def get_clean_text(order, model, start, end, dataset):
     :param start: 开始音频序号
     :param end: 结束音频序号
     :param dataset: 数据集名
+    :param directory: 路径
     :return:
     """
     dataset_instance = DatasetList.get_dataset_instance(dataset)
@@ -72,8 +73,7 @@ def get_clean_text(order, model, start, end, dataset):
         end = len(test_list)
     for audio in test_list[start:end]:
         try:
-            directory = PROJECT_PATH + "Text/" + dataset + "-" + model + "/"
-            with open(directory + "previousText" + str(order) + ".txt", "a", encoding="utf-8") as f:
+            with open(directory + r"\previousText" + str(order) + ".txt", "a", encoding="utf-8") as f:
                 txt = dataset_instance.get_audio_clip_transcription(audio, model)
                 txt = dataset_instance.formalize(txt)
                 f.writelines(audio + " " + txt + "\n")
@@ -82,7 +82,7 @@ def get_clean_text(order, model, start, end, dataset):
     print(error_list)
 
 
-def get_noise_text(order, model, start, end, dataset):
+def get_noise_text(order, model, start, end, dataset, directory):
     """
     将扰动音频识别出的内容写入txt
     :param order: 序号
@@ -90,6 +90,7 @@ def get_noise_text(order, model, start, end, dataset):
     :param start: 开始音频序号
     :param end: 结束音频序号
     :param dataset: 数据集名
+    :param directory: 路径
     :return:
     """
     dataset_instance = DatasetList.get_dataset_instance(dataset)
@@ -102,8 +103,7 @@ def get_noise_text(order, model, start, end, dataset):
         end = len(test_list)
     for audio in test_list[start:end]:
         try:
-            directory = PROJECT_PATH + "Text/" + dataset + "-" + model + "/"
-            with open(directory + "postText" + str(order) + ".txt", "a", encoding="utf-8") as f:
+            with open(directory + r"\postText" + str(order) + ".txt", "a", encoding="utf-8") as f:
                 noise_audio = dataset_instance.get_noise_clip_name(audio)
                 txt = dataset_instance.get_noise_audio_clip_transcription(noise_audio, model)
                 txt = dataset_instance.formalize(txt)

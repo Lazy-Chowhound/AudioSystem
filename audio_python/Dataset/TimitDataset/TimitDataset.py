@@ -23,11 +23,14 @@ class TimitDataset(Dataset):
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
         self.model_dict = {
             "wav2vec2.0 Model": ["wav2vec2-large-960h", "wav2vec2-large-lv60-timit-asr", "wav2vec2-base-timit-asr"],
-            "S2T Model": ["s2t-small-librispeech-asr"]}
+            "S2T Model": ["s2t-small-librispeech-asr", "s2t-medium-librispeech-asr", "s2t-large-librispeech-asr",
+                          "s2t-large-librispeech-asr1", "s2t-large-librispeech-asr2"]}
         self.wer_dict = {"wav2vec2-large-960h": [0.12667034026725443, 0.5199752031960325],
                          "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0.604024533112811],
                          "wav2vec2-base-timit-asr": [0.2555992006064365, 0.7269657501205982],
-                         "s2t-small-librispeech-asr": [0.10778030459651299, 1.0998552821997105]}
+                         "s2t-small-librispeech-asr": [0.10778030459651299, 1.0998552821997105],
+                         "s2t-medium-librispeech-asr": [0.11412032251395493, 1.0808352284473848],
+                         "s2t-large-librispeech-asr": [0.10281855144373234, 1.061953001171525]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
