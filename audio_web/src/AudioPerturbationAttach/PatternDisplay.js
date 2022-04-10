@@ -215,6 +215,10 @@ class PatternDisplay extends React.Component {
                     value: "Onomatopoeia",
                     label: "Onomatopoeia",
                 },
+                {
+                    value: "Other sourceless",
+                    label: "Other sourceless"
+                }
             ],
         }
     ];

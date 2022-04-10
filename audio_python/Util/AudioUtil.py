@@ -40,7 +40,7 @@ pattern_types_dict = {
     "Sound level": ["Louder", "Quieter", "Pitch", "Speed"],
     "Animal": ["Pets", "Livestock", "Wild animals"],
     "Source-ambiguous sounds": ["Generic impact sounds", "Surface contact", "Deformable shell",
-                                "Onomatopoeia", "Silence", "Other sourceless"],
+                                "Onomatopoeia", "Other sourceless"],
     "Natural sounds": ["Wind", "Thunderstorm", "Water", "Fire"],
     "Sound of things": ["Vehicle", "Engine", "Domestic sounds", "Bell", "Alarm", "Mechanisms", "Tools",
                         "Explosion", "Wood", "Glass", "Liquid", "Miscellaneous sources",
