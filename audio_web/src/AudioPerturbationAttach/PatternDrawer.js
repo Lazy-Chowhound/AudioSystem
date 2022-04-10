@@ -179,7 +179,7 @@ class PatternDrawer extends React.Component {
                             </Panel>
                         </Collapse>
                     </Panel>
-                    <Panel style={{whiteSpace: "pre-wrap"}} header="Sounds of things" key="Sounds of things"
+                    <Panel style={{whiteSpace: "pre-wrap"}} header="Sound of things" key="Sounds of things"
                            className="site-collapse-custom-panel">
                         <p>{this.formatText("听众能够立即明白由声音是由何种特定对象发出的一组声音类别（而不是更字面意义上的“声音”）")}</p>
                         <Collapse accordion bordered={false}

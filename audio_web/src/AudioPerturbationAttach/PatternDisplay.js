@@ -138,8 +138,8 @@ class PatternDisplay extends React.Component {
             ],
         },
         {
-            value: "Sounds of things",
-            label: "Sounds of things",
+            value: "Sound of things",
+            label: "Sound of things",
             children: [
                 {
                     value: "Vehicle",
