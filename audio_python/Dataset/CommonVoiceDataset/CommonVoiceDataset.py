@@ -142,7 +142,7 @@ class CommonVoiceDataset(Dataset):
         sig, sr = librosa.load(audio, sr=None)
         S = librosa.feature.melspectrogram(y=sig, sr=sr)
         plt.figure(figsize=(8, 5))
-        librosa.display.specshow(librosa.power_to_db(S, ref=np.max),
+        librosa.display.specshow(librosa.amplitude_to_db(S, ref=np.max),
                                  y_axis='mel', fmax=8000, x_axis='time')
         plt.colorbar(format='%+2.0f dB')
         plt.title('Mel spectrogram')
