@@ -75,5 +75,5 @@ def add_noise(wave_data, noise_data):
         noise_data = noise_data[:audioLength]
     # 归一化
     wave_data = wave_data * 1.0 / (max(abs(wave_data)))
-    noise_data = noise_data * 1.0 / (max(abs(noise_data)))
+    noise_data = noise_data * 0.3 / (max(abs(noise_data)))
     return wave_data + noise_data
