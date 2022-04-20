@@ -162,7 +162,7 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
 @rpcApi
 def add_randomly_multiProcess(dataset, process_num):
     """
-    多线程添加扰动
+    数据集全部音频多线程添加扰动
     :param process_num: 进程数
     :param dataset: cv-corpus-chinese or timit
     :return:
@@ -174,6 +174,25 @@ def add_randomly_multiProcess(dataset, process_num):
     for i in range(0, process_num):
         pool.apply_async(add_pattern_range,
                          args=(dataset, audio_list, i * task_slice, min((i + 1) * task_slice, len(audio_list)),))
+    pool.close()
+    pool.join()
+
+
+def add_pertubation_test_set(dataset, process_num):
+    """
+    测试集多线程添加扰动
+    :param dataset:
+    :param process_num:
+    :return:
+    """
+    dataset_instance = get_dataset_instance(dataset)
+    test_list = dataset_instance.get_testset_audio_clips_list()
+    task_slice = math.ceil(len(test_list) / process_num)
+    pool = Pool(process_num)
+    for i in range(0, process_num):
+        pool.apply_async(add_pattern_range,
+                         args=(dataset, test_list, i * task_slice,
+                               min((i + 1) * task_slice, len(test_list)),))
     pool.close()
     pool.join()
 
