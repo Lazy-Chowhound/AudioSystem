@@ -9,7 +9,7 @@ from pydub import AudioSegment
 from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq
 
 from Dataset.Dataset import Dataset
-from Dataset.TimitDataset.TimitDatasetAudioUtil import make_noise_audio_clips_dirs
+from Dataset.TimitDataset.TimitDatasetUtil import make_noise_audio_clips_dirs
 from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
 from Util.AudioUtil import *
 from Validation.Indicator import wer, wer_overall

@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
-from Dataset.CommonVoiceDataset.CommonVoiceDatasetAudioUtil import write_noise_audio, make_noise_audio_clips_dirs
+from Dataset.CommonVoiceDataset.CommonVoiceDatasetUtil import write_noise_audio, make_noise_audio_clips_dirs
 from Dataset.Dataset import Dataset
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
