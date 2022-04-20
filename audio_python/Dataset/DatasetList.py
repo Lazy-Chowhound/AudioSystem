@@ -12,5 +12,9 @@ def get_dataset_instance(dataset):
     """
     if dataset == "cv-corpus-chinese":
         return CommonVoiceDataset("cv-corpus-chinese")
+    elif dataset == "cv-corpus-deutsch":
+        return CommonVoiceDataset("cv-corpus-deutsch")
+    elif dataset == "cv-corpus-japanese":
+        return CommonVoiceDataset("cv-corpus-japanese")
     elif dataset == "timit":
         return TimitDataset("timit")
