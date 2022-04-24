@@ -181,8 +181,8 @@ def add_randomly_multiProcess(dataset, process_num):
 def add_pertubation_test_set(dataset, process_num):
     """
     测试集多线程添加扰动
-    :param dataset:
-    :param process_num:
+    :param dataset: 数据集名称
+    :param process_num: 线程数
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)

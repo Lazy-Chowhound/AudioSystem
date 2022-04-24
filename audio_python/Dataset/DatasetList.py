@@ -1,3 +1,4 @@
+from Dataset.AiShell.AiShell import AiShell
 from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
 from Dataset.TimitDataset.TimitDataset import TimitDataset
 
@@ -18,3 +19,5 @@ def get_dataset_instance(dataset):
         return CommonVoiceDataset("cv-corpus-japanese")
     elif dataset == "timit":
         return TimitDataset("timit")
+    elif dataset == "data_aishell":
+        return AiShell("data_aishell")

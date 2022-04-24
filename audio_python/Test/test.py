@@ -1,9 +1,9 @@
 import os
 
 from Dataset import DatasetList
+from Dataset.AiShell.AiShell import AiShell
 from Dataset.TimitDataset.TimitDataset import TimitDataset
-from Util.AudioUtil import PROJECT_PATH
-from Validation.Indicator import wer_overall
+from Perturbation.NoisePatternAddition import add_pertubation_test_set
 
 
 def get_not_10_timit_noise_dirs():
@@ -130,4 +130,4 @@ def get_text_list(path, dataset):
 
 
 if __name__ == '__main__':
-    pass
+    add_pertubation_test_set("data_aishell", 8)
