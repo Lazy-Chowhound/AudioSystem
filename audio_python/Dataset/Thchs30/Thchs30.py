@@ -5,22 +5,22 @@ import soundfile
 
 from Dataset.AiShell.AiShellUtil import make_dirs
 from Dataset.Dataset import Dataset
-from Perturbation.AudioProcess import add_noise, louder, quieter, change_pitch, gaussian_white_noise
-from Util.AudioUtil import AUDIO_SETS_PATH, NOISE_AUDIO_SETS_PATH, pattern_types_dict, add_tag, pattern_type_to_suffix, \
-    get_source_noises_path, get_audio_form
+from Perturbation.AudioProcess import add_noise, quieter, change_pitch, louder, gaussian_white_noise
+from Util.AudioUtil import AUDIO_SETS_PATH, NOISE_AUDIO_SETS_PATH, add_tag, get_source_noises_path, pattern_types_dict, \
+    pattern_type_to_suffix, get_audio_form
 
 
-class AiShell(Dataset):
+class Thchs30(Dataset):
     def __init__(self, dataset):
         Dataset.__init__(self, dataset)
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
-        self.clips_path = AUDIO_SETS_PATH + dataset + "/wav/"
-        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/wav/"
+        self.clips_path = AUDIO_SETS_PATH + dataset + "/"
+        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/"
 
     def add_gaussian_noise(self, audio_name):
         """
         添加高斯白噪声
-        :param audio_name: test/D32_994.wav
+        :param audio_name: test/S0764/BAC009S0764W0121.wav
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -33,7 +33,7 @@ class AiShell(Dataset):
     def add_sound_level(self, audio_name, pattern_type):
         """
         添加 sound level 扰动
-        :param audio_name: test/D32_994.wav
+        :param audio_name: test/S0764/BAC009S0764W0121.wav
         :param pattern_type: 具体扰动
         :return:
         """
@@ -58,7 +58,7 @@ class AiShell(Dataset):
     def add_natural_sounds(self, audio_name, pattern_type):
         """
         添加 natural sound 扰动
-        :param audio_name: test/D32_994.wav
+        :param audio_name: test/S0764/BAC009S0764W0121.wav
         :param pattern_type:
         :return:
         """
@@ -77,7 +77,7 @@ class AiShell(Dataset):
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name: test/D32_994.wav
+        :param audio_name: test/S0764/BAC009S0764W0121.wav
         :param pattern_type:
         :return:
         """
@@ -96,7 +96,7 @@ class AiShell(Dataset):
     def add_sound_of_things(self, audio_name, pattern_type):
         """
         添加 sound of things 扰动
-        :param audio_name: test/D32_994.wav
+        :param audio_name: test/S0764/BAC009S0764W0121.wav
         :param pattern_type:
         :return:
         """
@@ -116,7 +116,7 @@ class AiShell(Dataset):
     def add_human_sounds(self, audio_name, pattern_type):
         """
         添加 human sounds 扰动
-        :param audio_name: test/D32_994.wav
+        :param audio_name: 形如 test/S0764/BAC009S0764W0121.wav
         :param pattern_type:
         :return:
         """
@@ -135,7 +135,7 @@ class AiShell(Dataset):
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name: test/test/D32_994.wav
+        :param audio_name: 形如 test/S0764/BAC009S0764W0121.wav
         :param pattern_type:
         :return:
         """
@@ -154,7 +154,7 @@ class AiShell(Dataset):
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
         添加 source_ambiguous_sounds 扰动
-        :param audio_name: test/D32_994.wav
+        :param audio_name: test/S0764/BAC009S0764W0121.wav
         :param pattern_type:
         :return:
         """
@@ -173,7 +173,7 @@ class AiShell(Dataset):
 
     def get_testset_audio_clips_list(self):
         testset_path = self.clips_path + "test/"
-        audio_list = glob.glob(testset_path + "*/*.wav")
+        audio_list = glob.glob(testset_path + "*.wav")
         audios = []
         for audio in audio_list:
             if get_audio_form(audio) == "wav":
