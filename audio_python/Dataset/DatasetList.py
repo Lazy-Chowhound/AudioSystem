@@ -1,5 +1,6 @@
 from Dataset.AiShell.AiShell import AiShell
 from Dataset.CommonVoice.CommonVoice import CommonVoice
+from Dataset.TUDA.TUDA import TUDA
 from Dataset.Thchs30.Thchs30 import Thchs30
 from Dataset.Timit.Timit import Timit
 
@@ -12,15 +13,13 @@ def get_dataset_instance(dataset):
     :param dataset:
     :return:
     """
-    if dataset == "cv-corpus-chinese":
-        return CommonVoice("cv-corpus-chinese")
-    elif dataset == "cv-corpus-deutsch":
-        return CommonVoice("cv-corpus-deutsch")
-    elif dataset == "cv-corpus-japanese":
-        return CommonVoice("cv-corpus-japanese")
+    if dataset.startswith("cv-corpus"):
+        return CommonVoice(dataset)
     elif dataset == "timit":
-        return Timit("timit")
+        return Timit(dataset)
     elif dataset == "data_aishell":
-        return AiShell("data_aishell")
+        return AiShell(dataset)
     elif dataset == "data_thchs30":
-        return Thchs30("data_thchs30")
+        return Thchs30(dataset)
+    elif dataset == "german-speechdata-package-v2":
+        return TUDA(dataset)
