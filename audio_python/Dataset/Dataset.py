@@ -1,4 +1,9 @@
-from Util.AudioUtil import MODEL_PATH
+import librosa
+import soundfile
+
+from Dataset.DatasetUtil import make_dirs
+from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
+from Util.AudioUtil import MODEL_PATH, add_tag, pattern_type_to_suffix, get_source_noises_path, pattern_types_dict
 
 
 class Dataset:
@@ -10,6 +15,8 @@ class Dataset:
         self.real_text_list = []
         self.previous_text_list = []
         self.post_text_list = []
+        self.clips_path = ""
+        self.noise_clips_path = ""
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -125,66 +132,156 @@ class Dataset:
     def add_gaussian_noise(self, audio_name):
         """
         添加高斯白噪声
-        :param audio_name: 音频名
+        :param audio_name:
         :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        noise_audio = sig + gaussian_white_noise(sig, snr=5)
+        noise_audio_name = add_tag(audio_name, "gaussian_white_noise")
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_sound_level(self, audio_name, pattern_type):
         """
         添加 sound level 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type: 具体扰动
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        noise_audio = sig
+        if pattern_type == "Louder":
+            noise_audio = louder(sig)
+        elif pattern_type == "Quieter":
+            noise_audio = quieter(sig)
+        elif pattern_type == "Pitch":
+            noise_audio = change_pitch(sig, sr)
+        elif pattern_type == "Speed":
+            sr = sr * 2
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
         添加 natural sound 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type:
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in pattern_types_dict.get("Natural sounds"):
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Natural Sounds", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type:
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in pattern_types_dict.get("Animal"):
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Animal", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "animal"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
         添加 sound of things 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type:
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in pattern_types_dict.get("Sound of things"):
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Sound of things", pattern_type), sr=sr,
+                                               mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
         添加 human sounds 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type:
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in pattern_types_dict.get("Human sounds"):
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Human sounds", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type:
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in pattern_types_dict.get("Music"):
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Music", pattern_type), sr=sr, mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
         添加 source_ambiguous_sounds 扰动
-        :param audio_name: 音频名
+        :param audio_name:
         :param pattern_type:
+        :return:
         """
-        pass
+        sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
+        if pattern_type in pattern_types_dict.get("Source-ambiguous sounds"):
+            noise_sig, noise_sr = librosa.load(get_source_noises_path("Source-ambiguous sounds", pattern_type), sr=sr,
+                                               mono=True)
+            noise_audio = add_noise(sig, noise_sig)
+        else:
+            return "patternType error"
+        noise_audio_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def get_name_and_pattern_tag(self, name):
         """

@@ -17,18 +17,3 @@ def unzip_tgz(path):
         tf = tarfile.open(file)
         tf.extractall(path)
         print(file + "已被解压")
-
-
-def make_dirs(path):
-    """
-    根据文件路径，生成所需文件夹
-    :param path:
-    :return:
-    """
-    target_dir = path[0:path.rfind("/")]
-    if not os.path.exists(target_dir):
-        os.makedirs(target_dir)
-
-
-if __name__ == '__main__':
-    unzip_tgz("D:/AudioSystem/Audio/data_aishell/wav/")
