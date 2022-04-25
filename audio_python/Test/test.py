@@ -1,29 +1,5 @@
-import os
-
 from Dataset import DatasetList
-from Dataset.AiShell.AiShell import AiShell
-from Dataset.TimitDataset.TimitDataset import TimitDataset
-from Perturbation.NoisePatternAddition import add_pertubation_test_set
-
-
-def get_not_10_timit_noise_dirs():
-    res = []
-    path = "D:/AudioSystem/NoiseAudio/timit/lisa/data/timit/raw/TIMIT/TEST/"
-    for file in os.listdir(path):
-        for nextfile in os.listdir(path + file):
-            if len(os.listdir(path + file + "/" + nextfile)) != 10:
-                res.append(path + file + "/" + nextfile)
-    return res
-
-
-def get_duplicate_add_noise_clips():
-    td = TimitDataset("timit")
-
-    r = td.get_noise_audio_clips_list()
-    s = set()
-    for item in r:
-        s.add(item[0:item.find("_n") + 2])
-    print(len(s))
+from Perturbation.NoisePatternAddition import add_randomly_multiProcess
 
 
 def get_real_text(order, start, end, dataset, directory):
@@ -130,4 +106,4 @@ def get_text_list(path, dataset):
 
 
 if __name__ == '__main__':
-    add_pertubation_test_set("data_aishell", 8)
+    add_randomly_multiProcess("data_thchs30", 6, "test")
