@@ -160,12 +160,12 @@ class Dataset:
         elif pattern_type == "Speed":
             sr = sr * 2
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
@@ -179,12 +179,12 @@ class Dataset:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Natural Sounds", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def add_animal(self, audio_name, pattern_type):
         """
@@ -198,12 +198,12 @@ class Dataset:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Animal", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "animal"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
@@ -218,12 +218,12 @@ class Dataset:
                                                mono=True)
             noise_audio = add_noise(sig, noise_sig)
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
@@ -237,12 +237,12 @@ class Dataset:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Human sounds", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def add_music(self, audio_name, pattern_type):
         """
@@ -256,12 +256,12 @@ class Dataset:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Music", pattern_type), sr=sr, mono=True)
             noise_audio = add_noise(sig, noise_sig)
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
@@ -276,12 +276,12 @@ class Dataset:
                                                mono=True)
             noise_audio = add_noise(sig, noise_sig)
         else:
-            return "patternType error"
+            print("patternType error")
+            return
         noise_audio_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
         soundfile.write(noise_audio_path, noise_audio, sr)
-        return ""
 
     def get_name_and_pattern_tag(self, name):
         """
