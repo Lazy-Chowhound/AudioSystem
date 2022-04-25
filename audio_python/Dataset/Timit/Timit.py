@@ -1,27 +1,36 @@
+import glob
 import os
 
 import librosa.display
-import pandas as pd
+import numpy as np
 import torch
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
-from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
+from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq
 
-from Dataset.CommonVoiceDataset.CommonVoiceDatasetUtil import write_noise_audio, make_noise_audio_clips_dirs
 from Dataset.Dataset import Dataset
-from Perturbation.AudioProcess import *
+from Dataset.Timit.TimitUtil import make_noise_audio_clips_dirs
+from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
 from Util.AudioUtil import *
-from Validation.Indicator import cer, cer_overall
+from Validation.Indicator import wer, wer_overall
 
 
-class CommonVoiceDataset(Dataset):
+class Timit(Dataset):
     def __init__(self, dataset):
         Dataset.__init__(self, dataset)
         self.dataset_path = AUDIO_SETS_PATH + dataset + "/"
-        self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
-        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
-        self.model_dict = {"wav2vec2.0 Model": ["wav2vec2-large-xlsr-53-chinese-zh-cn"]}
-        self.cer_dict = {"wav2vec2-large-xlsr-53-chinese-zh-cn": [0.1636319890171324, 0.43685204973427405]}
+        self.clips_path = AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
+        self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
+        self.model_dict = {
+            "wav2vec2.0 Model": ["wav2vec2-large-960h", "wav2vec2-large-lv60-timit-asr", "wav2vec2-base-timit-asr"],
+            "S2T Model": ["s2t-small-librispeech-asr", "s2t-medium-librispeech-asr", "s2t-large-librispeech-asr",
+                          "s2t-large-librispeech-asr1", "s2t-large-librispeech-asr2"]}
+        self.wer_dict = {"wav2vec2-large-960h": [0.12667034026725443, 0.5199752031960325],
+                         "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0.604024533112811],
+                         "wav2vec2-base-timit-asr": [0.2555992006064365, 0.7269657501205982],
+                         "s2t-small-librispeech-asr": [0.10778030459651299, 1.0998552821997105],
+                         "s2t-medium-librispeech-asr": [0.11412032251395493, 1.0808352284473848],
+                         "s2t-large-librispeech-asr": [0.10281855144373234, 1.061953001171525]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -42,33 +51,32 @@ class CommonVoiceDataset(Dataset):
     def get_audio_clips_list(self):
         """
         获取目录下所有音频文件名
-        :return:
+        :return:[TRAIN/DR1/FCJF0/SA1_n.wav]
         """
-        audio_list = []
-        for root, dirs, files in os.walk(self.clips_path):
-            for file in files:
-                if os.path.splitext(file)[1] == '.mp3':
-                    audio_list.append(file)
-        return audio_list
+        audio_list = glob.glob(self.clips_path + "*/*/*/*.wav")
+        audios = []
+        for audio in audio_list:
+            if get_audio_form(audio) == "wav":
+                audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
+        return audios
 
     def get_audio_clip_content(self, audio_name):
         """
         获取指定数据集音频的详情
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
-        files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
-        for file in files:
-            train = pd.read_csv(os.path.join(self.dataset_path, file), sep='\t', header=0)
-            for index, row in train.iterrows():
-                if audio_name in row['path']:
-                    detail = dict(row.items())
-                    return detail['sentence']
+        txtPath = self.clips_path + audio_name.replace("_n.wav", ".TXT")
+        with open(txtPath, "r") as f:
+            line = f.readline()
+            content = line.split(" ")[2:]
+            content = " ".join(content).replace("\n", "")
+        return content[0:len(content) - 1]
 
     def get_audio_clip_properties(self, audio_name):
         """
         获取某条音频所有属性
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name:TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = self.clips_path + audio_name
@@ -105,7 +113,7 @@ class CommonVoiceDataset(Dataset):
         :param audio: 音频绝对路径
         :return:
         """
-        song = AudioSegment.from_mp3(audio)
+        song = AudioSegment.from_wav(audio)
         return song.channels
 
     def get_bit_depth(self, audio):
@@ -114,13 +122,13 @@ class CommonVoiceDataset(Dataset):
         :param audio: 音频绝对路径
         :return:
         """
-        song = AudioSegment.from_mp3(audio)
+        song = AudioSegment.from_wav(audio)
         return song.sample_width * 8
 
     def get_waveform_graph(self, audio_name):
         """
         生成波形图
-        :param audio_name: 音频名
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -129,13 +137,15 @@ class CommonVoiceDataset(Dataset):
         librosa.display.waveshow(sig, sr=sr)
         plt.ylabel('Amplitude')
         savingPath = WAVEFORM_GRAPH_PATH + audio_name + ".jpg"
+        if not os.path.exists(savingPath[0:savingPath.rfind("/")]):
+            os.makedirs(savingPath[0:savingPath.rfind("/")])
         plt.savefig(savingPath)
         return savingPath
 
     def get_mel_spectrum(self, audio_name):
         """
         生成 Mel频谱图
-        :param audio_name: 音频名
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -148,15 +158,20 @@ class CommonVoiceDataset(Dataset):
         plt.title('Mel spectrogram')
         plt.tight_layout()
         savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
+        if not os.path.exists(savingPath[0:savingPath.rfind("/")]):
+            os.makedirs(savingPath[0:savingPath.rfind("/")])
         plt.savefig(savingPath)
         return savingPath
 
     def get_noise_audio_clips_list(self):
         """
         获取扰动音频列表
-        :return: [common_voice_zh-CN_18531538_gaussian_white_noise.mp3]
+        :return: [TRAIN/DR1/FCJF0/SA1_n_gaussian_white_noise.wav]
         """
-        return os.listdir(self.noise_clips_path)
+        noise_clips = glob.glob(self.noise_clips_path + "*/*/*/*.wav")
+        for index in range(0, len(noise_clips)):
+            noise_clips[index] = noise_clips[index].replace("\\", "/").replace(self.noise_clips_path, "")
+        return noise_clips
 
     def get_pattern_summary(self):
         """
@@ -164,7 +179,8 @@ class CommonVoiceDataset(Dataset):
         :return:
         """
         pattern_summary = {}
-        for clip in self.get_noise_audio_clips_list():
+        noise_clips = self.get_noise_audio_clips_list()
+        for clip in noise_clips:
             for key, value in pattern_to_name.items():
                 if value in clip:
                     if key in pattern_summary.keys():
@@ -182,14 +198,15 @@ class CommonVoiceDataset(Dataset):
         """
         pattern_type_summary = {}
         name = pattern_to_name[pattern]
-        for file in os.listdir(self.noise_clips_path):
-            if name in file:
+        noise_clips = self.get_noise_audio_clips_list()
+        for clip in noise_clips:
+            if name in clip:
                 if name == "gaussian_white_noise":
                     pattern_type = name
                 else:
-                    beg = file.index(name) + len(name) + 1
-                    end = file.index(".")
-                    pattern_type = file[beg:end]
+                    beg = clip.index(name) + len(name) + 1
+                    end = clip.index(".")
+                    pattern_type = clip[beg:end]
                 if pattern_type in pattern_type_summary.keys():
                     pattern_type_summary[pattern_type] = pattern_type_summary[pattern_type] + 1
                 else:
@@ -203,7 +220,8 @@ class CommonVoiceDataset(Dataset):
         """
         audio_set_pattern = []
         key = 0
-        for clip in self.get_noise_audio_clips_list():
+        noise_clips = self.get_noise_audio_clips_list()
+        for clip in noise_clips:
             pattern_info = {"key": key}
             key += 1
             pattern_info["name"], pattern_tag = self.get_name_and_pattern_tag(clip)
@@ -214,7 +232,7 @@ class CommonVoiceDataset(Dataset):
     def remove_current_noise_audio_clip(self, audio_name, pattern, pattern_type=None):
         """
         删除现有的扰动音频
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern: Animal
         :param pattern_type: Wild animals
         :return:
@@ -227,21 +245,21 @@ class CommonVoiceDataset(Dataset):
     def add_gaussian_noise(self, audio_name):
         """
         添加高斯白噪声
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         noise_audio = sig + gaussian_white_noise(sig, snr=5)
-        wave_name = audio_name.replace(".mp3", ".wav")
-        noise_wave_name = add_tag(wave_name, "gaussian_white_noise")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(audio_name, "gaussian_white_noise")
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_sound_level(self, audio_name, pattern_type):
         """
         添加 sound level 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -256,15 +274,16 @@ class CommonVoiceDataset(Dataset):
             sr = sr * 2
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "sound_level"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
         添加 natural sound 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -274,15 +293,16 @@ class CommonVoiceDataset(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "natural_sounds"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -292,15 +312,16 @@ class CommonVoiceDataset(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "animal"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "animal"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
         添加 sound of things 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -311,15 +332,16 @@ class CommonVoiceDataset(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "sound_of_things"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
         添加 human sounds 扰动
-        :param audio_name: 形如 common_voice_zh-CN_18524189.mp3
+        :param audio_name: 形如 TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -329,15 +351,16 @@ class CommonVoiceDataset(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "human_sounds"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name: 形如 common_voice_zh-CN_18524189.mp3
+        :param audio_name: 形如 TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -347,15 +370,16 @@ class CommonVoiceDataset(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "music"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
         添加 source_ambiguous_sounds 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
         :param pattern_type:
         :return:
         """
@@ -366,19 +390,19 @@ class CommonVoiceDataset(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        noise_audio_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
+        noise_audio_path = self.noise_clips_path + noise_audio_name
+        make_noise_audio_clips_dirs(noise_audio_path)
+        soundfile.write(noise_audio_path, noise_audio, sr)
+        return ""
 
     def get_name_and_pattern_tag(self, name):
         """
         从扰动名字中获取原本的名字和扰动标签
-        :param name: common_voice_zh-CN_18524189_gaussian_white_noise.mp3
-        :return: common_voice_zh-CN_18524189.mp3,gaussian_white_noise
+        :param name: TEST/DR1/FAKS0/SA2_n_human_sounds_respiratory_sounds.wav
+        :return: TEST/DR1/FAKS0/SA2_n.wav,human_sounds_respiratory_sounds
         """
-        num = re.findall("\\d+", name)[0]
-        return name[0:name.find(num) + len(num)] + ".mp3", name[name.find(num) + len(num) + 1:name.find(".")]
+        return name[0:name.find("_n") + 2] + ".wav", name[name.find("_n") + 3:name.find(".")]
 
     def get_num_of_clips_and_noise_clips(self):
         """
@@ -393,12 +417,11 @@ class CommonVoiceDataset(Dataset):
         获取测试集
         :return:
         """
-        testTSV = self.dataset_path + "test.tsv"
+        audio_list = glob.glob(self.clips_path + "TEST/*/*/*.wav")
         audios = []
-        train = pd.read_csv(os.path.join(testTSV), sep='\t', header=0)
-        for index, row in train.iterrows():
-            detail = dict(row.items())
-            audios.append(detail['path'])
+        for audio in audio_list:
+            if get_audio_form(audio) == "wav":
+                audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
         return audios
 
     def get_validation_results_by_page(self, model, page, page_size):
@@ -413,10 +436,11 @@ class CommonVoiceDataset(Dataset):
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
         # 实时计算 由于时间太长这里就直接写死
-        # pre_overall_cer, post_overall_cer = self.get_dataset_er()
-        pre_overall_cer, post_overall_cer = round(self.cer_dict.get(model)[0], 3), round(self.cer_dict.get(model)[1], 3)
-        validation_results.append({"preOverallER": pre_overall_cer})
-        validation_results.append({"postOverallER": post_overall_cer})
+        # pre_overall_wer, post_overall_wer = self.get_dataset_er()
+        pre_overall_wer, post_overall_wer = round(self.wer_dict.get(model)[0], 3), round(
+            self.wer_dict.get(model)[1], 3)
+        validation_results.append({"preOverallER": pre_overall_wer})
+        validation_results.append({"postOverallER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size), min(int(page) * int(page_size), len(audio_list))):
             audio_result = self.get_validation_result(audio_list[index], model)
             audio_result['key'] = index + 1
@@ -426,7 +450,7 @@ class CommonVoiceDataset(Dataset):
     def get_validation_result(self, audio_name, model_name):
         """
         计算某一音频的所有验证内容
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
         :param model_name: 模型名
         :return:
         """
@@ -434,44 +458,52 @@ class CommonVoiceDataset(Dataset):
         validation_result['name'] = audio_name
         validation_result['realText'] = self.formalize(self.get_audio_clip_content(audio_name))
         validation_result['previousText'] = self.get_audio_clip_transcription(audio_name, model_name)
-        validation_result['preER'] = round(cer(validation_result['realText'], validation_result['previousText']), 2)
+        validation_result['preER'] = round(wer(validation_result['realText'], validation_result['previousText']), 2)
         noise_audio_name = self.get_noise_clip_name(audio_name)
         validation_result['noise_audio_name'] = noise_audio_name
         validation_result['posteriorText'] = self.get_noise_audio_clip_transcription(noise_audio_name, model_name)
-        validation_result['postER'] = round(cer(validation_result['realText'], validation_result['posteriorText']), 2)
+        validation_result['postER'] = round(wer(validation_result['realText'], validation_result['posteriorText']), 2)
         return validation_result
 
     def get_audio_clip_transcription(self, audio_name, model_name):
         """
         获取原音频识别出的内容
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
         :param model_name: 模型名
         :return:
         """
         audio, rate = librosa.load(self.clips_path + audio_name, sr=16000)
         if model_name in self.model_dict.get("wav2vec2.0 Model"):
-            inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
-            with torch.no_grad():
-                logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
+            input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
+            logits = self.model(input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)
-            predicted_sentences = self.processor.batch_decode(predicted_ids)
-            return self.formalize(predicted_sentences[0])
+            transcription = self.processor.batch_decode(predicted_ids)
+            return self.formalize(transcription[0])
+        elif model_name in self.model_dict.get("S2T Model"):
+            input_features = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_features
+            generated_ids = self.model.generate(input_features=input_features)
+            transcription = self.processor.batch_decode(generated_ids)
+            return self.formalize(transcription[0])
 
     def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
         获取扰动音频识别出的内容
-        :param audio_name: common_voice_zh-CN_18524189_sound_level_pitch.mp3
-        :param model_name: 模型名
+        :param audio_name: TEST/DR1/FAKS0/SA1_n_natural_sounds_wind.wav
+        :param model_name:模型名
         :return:
         """
         audio, rate = librosa.load(self.noise_clips_path + audio_name, sr=16000)
         if model_name in self.model_dict.get("wav2vec2.0 Model"):
-            inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
-            with torch.no_grad():
-                logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
+            input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
+            logits = self.model(input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)
-            predicted_sentences = self.processor.batch_decode(predicted_ids)
-            return self.formalize(predicted_sentences[0])
+            transcription = self.processor.batch_decode(predicted_ids)
+            return self.formalize(transcription[0])
+        elif model_name in self.model_dict.get("S2T Model"):
+            input_features = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_features
+            generated_ids = self.model.generate(input_features=input_features)
+            transcription = self.processor.batch_decode(generated_ids)
+            return self.formalize(transcription[0])
 
     def get_dataset_er(self, model_name):
         """
@@ -481,12 +513,11 @@ class CommonVoiceDataset(Dataset):
         """
         if len(self.real_text_list) == 0 or len(self.previous_text_list) == 0 or len(self.post_text_list) == 0:
             self.get_dataset_texts(model_name)
-        return cer_overall(self.real_text_list, self.previous_text_list), cer_overall(self.real_text_list,
+        return wer_overall(self.real_text_list, self.previous_text_list), wer_overall(self.real_text_list,
                                                                                       self.post_text_list)
 
     def get_dataset_texts(self, model_name):
         """
-        获取训练集上所欲音频的前后文本
         :param model_name: 模型名
         :return:
         """
@@ -500,26 +531,31 @@ class CommonVoiceDataset(Dataset):
     def load_model(self, model_name):
         """
         加载模型
-        :param model_name: wav2vec2-large-xlsr-53-chinese-zh-cn
+        :param model_name: wav2vec2-large-960h
         :return:
         """
         if not os.path.exists(self.model_path + model_name):
             return False
-        if self.model is None or self.processor is None:
+        if self.processor is None and self.model is None:
             if model_name in self.model_dict.get("wav2vec2.0 Model"):
-                self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
-                self.model = Wav2Vec2ForCTC.from_pretrained(self.model_path + model_name)
+                self.processor = AutoProcessor.from_pretrained(self.model_path + model_name)
+                self.model = AutoModelForCTC.from_pretrained(self.model_path + model_name)
+            elif model_name in self.model_dict.get("S2T Model"):
+                self.processor = AutoProcessor.from_pretrained(self.model_path + model_name)
+                self.model = AutoModelForSpeechSeq2Seq.from_pretrained(self.model_path + model_name)
         return True
 
     def get_noise_clip_name(self, audio_name):
         """
         获取原音频对应的扰动音频名称
-        :param audio_name: deepspeech-0.9.3-models
+        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
         :return:
         """
-        for file in os.listdir(self.noise_clips_path):
-            if file.startswith(audio_name[0:audio_name.find(".")]):
-                return file
+        path = self.noise_clips_path + audio_name[0:audio_name.rfind("/") + 1]
+        prefix = audio_name[audio_name.rfind("/") + 1:audio_name.find(".")]
+        for file in os.listdir(path):
+            if file.startswith(prefix):
+                return audio_name[0:audio_name.rfind("/") + 1] + file
 
     def judge_model(self, model):
         """
@@ -534,15 +570,11 @@ class CommonVoiceDataset(Dataset):
 
     def formalize(self, sentence):
         """
-        规范化文本
+        规范化句子
         :param sentence:
         :return:
         """
-        CHARS_TO_IGNORE = [",", "?", "¿", ".", "!", "¡", ";", "；", ":", '""', "%", '"', "�", "ʿ", "·", "჻", "~",
-                           "՞", "؟", "،", "।", "॥", "«", "»", "„", "“", "”", "「", "」", "‘", "’", "《", "》", "(", ")",
-                           "[", "]", "{", "}", "=", "`", "_", "+", "<", ">", "…", "–", "°", "´", "ʾ", "‹", "›", "©",
-                           "®", "—", "→", "。", "、", "﹂", "﹁", "‧", "～", "﹏", "，", "｛", "｝", "（", "）", "［", "］",
-                           "【", "】", "‥", "〽", "『", "』", "〝", "〟", "⟨", "⟩", "〜", "：", "！", "？", "♪", "؛", "/", "\\",
-                           "º", "−", "^", "'", "ʻ", "ˆ", "<unk>"]
+        sentence = sentence.lower().capitalize()
+        CHARS_TO_IGNORE = [",", "-", "--", "?", "."]
         chars_to_ignore_regex = f"[{re.escape(''.join(CHARS_TO_IGNORE))}]"
         return re.sub(chars_to_ignore_regex, "", sentence)

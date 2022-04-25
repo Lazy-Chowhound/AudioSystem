@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 from pesq import pesq
 from pysepm import stoi
 
-from Dataset.CommonVoiceDataset.CommonVoiceDataset import CommonVoiceDataset
+from Dataset.CommonVoice.CommonVoice import CommonVoice
 from Util.AudioUtil import pattern_to_name, pattern_types_dict, get_pattern_info_from_name
 
 
@@ -79,7 +79,7 @@ def get_pattern_types_dict():
             p_t_dict[item] = {}
             for sub_item in pattern_types_dict.get(item):
                 p_t_dict[item][sub_item] = []
-    cvd = CommonVoiceDataset("cv-corpus-chinese")
+    cvd = CommonVoice("cv-corpus-chinese")
     noise_audios = cvd.get_noise_audio_clips_list()
     for noise_audio in noise_audios:
         audio, pattern_tag = cvd.get_name_and_pattern_tag(noise_audio)
