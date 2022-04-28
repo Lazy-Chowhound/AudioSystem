@@ -270,6 +270,18 @@ class Timit(Dataset):
                 audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
         return audios
 
+    def get_trainset_audio_clips_list(self):
+        """
+        获取训练集
+        :return:
+        """
+        audio_list = glob.glob(self.clips_path + "TRAIN/*/*/*.wav")
+        audios = []
+        for audio in audio_list:
+            if get_audio_form(audio) == "wav":
+                audios.append(audio.replace("\\", "/").replace(self.clips_path, ""))
+        return audios
+
     def get_validation_results_by_page(self, model, page, page_size):
         """
         分页获取验证结果

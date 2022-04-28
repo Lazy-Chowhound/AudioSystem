@@ -401,6 +401,19 @@ class CommonVoice(Dataset):
             audios.append(detail['path'])
         return audios
 
+    def get_trainset_audio_clips_list(self):
+        """
+        获取训练集
+        :return:
+        """
+        testTSV = self.dataset_path + "train.tsv"
+        audios = []
+        train = pd.read_csv(os.path.join(testTSV), sep='\t', header=0)
+        for index, row in train.iterrows():
+            detail = dict(row.items())
+            audios.append(detail['path'])
+        return audios
+
     def get_validation_results_by_page(self, model, page, page_size):
         """
         分页获取验证结果

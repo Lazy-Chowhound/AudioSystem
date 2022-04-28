@@ -174,6 +174,8 @@ def add_randomly_multiProcess(dataset, process_num, set_type="all"):
         audio_list = dataset_instance.get_audio_clips_list()
     elif set_type == "test":
         audio_list = dataset_instance.get_testset_audio_clips_list()
+    elif set_type == "train":
+        audio_list = dataset_instance.get_trainset_audio_clips_list()
     task_slice = math.ceil(len(audio_list) / process_num)
     pool = Pool(process_num)
     for i in range(0, process_num):
