@@ -160,12 +160,13 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
 
 
 @rpcApi
-def add_randomly_multiProcess(dataset, process_num, set_type="all"):
+def add_randomly_multiProcess(dataset, process_num, set_type="all", given_list=None):
     """
     数据集全部音频多线程添加扰动
     :param process_num: 进程数
     :param dataset: 数据集名称
     :param set_type: test/dev/train/all
+    :param given_list: 给定音频列表
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -176,6 +177,8 @@ def add_randomly_multiProcess(dataset, process_num, set_type="all"):
         audio_list = dataset_instance.get_testset_audio_clips_list()
     elif set_type == "train":
         audio_list = dataset_instance.get_trainset_audio_clips_list()
+    elif set_type == "certain":
+        audio_list = given_list
     task_slice = math.ceil(len(audio_list) / process_num)
     pool = Pool(process_num)
     for i in range(0, process_num):
