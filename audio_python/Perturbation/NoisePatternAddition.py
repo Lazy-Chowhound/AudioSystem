@@ -229,5 +229,6 @@ def add_pattern_randomly(dataset, file):
         elif p == 8:
             ptype = pattern_types_dict["Source-ambiguous sounds"]
             add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+        print(file + "已加噪")
     except Exception as e:
         print(dataset + ":" + file + " fail ", e)
