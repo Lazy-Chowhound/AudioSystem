@@ -43,8 +43,8 @@ def load_ontology(path="C:/Users/Nakano Miku/Desktop/毕业论文/资料/ontolog
 def get_json_from_id(json_id, json_data):
     """
     根据id获取json字典
-    :param json_id:
-    :param json_data:
+    :param json_id: json数据的id
+    :param json_data: 原json数据
     :return:
     """
     for item in json_data:

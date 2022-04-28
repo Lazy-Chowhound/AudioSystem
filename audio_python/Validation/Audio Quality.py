@@ -24,8 +24,8 @@ def get_pesq(clean_audio, noise_audio):
 def get_WSS(clean_audio, noise_audio):
     """
     计算语音的 WSS 值，值越小越好
-    :param clean_audio:
-    :param noise_audio:
+    :param clean_audio: 原音频序列
+    :param noise_audio: 现音频系列
     :return:
     """
     clean_sig, sr1 = librosa.load(clean_audio, sr=None)
@@ -37,8 +37,8 @@ def get_WSS(clean_audio, noise_audio):
 def get_stoi(clean_audio, noise_audio):
     """
     计算语音的 STOI 值，范围[0,1]，值越大，可懂度越高.
-    :param clean_audio:
-    :param noise_audio:
+    :param clean_audio: 原音频序列
+    :param noise_audio: 现音频系列
     :return:
     """
     clean_sig, sr1 = librosa.load(clean_audio, sr=None)
@@ -50,8 +50,8 @@ def get_stoi(clean_audio, noise_audio):
 def get_NCM(clean_audio, noise_audio):
     """
     计算语音的 NCM 值
-    :param clean_audio:
-    :param noise_audio:
+    :param clean_audio: 原音频序列
+    :param noise_audio: 现音频系列
     :return:
     """
     clean_sig, sr1 = librosa.load(clean_audio, sr=16000)

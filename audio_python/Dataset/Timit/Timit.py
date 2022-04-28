@@ -9,8 +9,6 @@ from pydub import AudioSegment
 from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq
 
 from Dataset.Dataset import Dataset
-from Dataset.Timit.TimitUtil import make_noise_audio_clips_dirs
-from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
 from Util.AudioUtil import *
 from Validation.Indicator import wer, wer_overall
 
@@ -63,7 +61,7 @@ class Timit(Dataset):
     def get_audio_clip_content(self, audio_name):
         """
         获取指定数据集音频的详情
-        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         txtPath = self.clips_path + audio_name.replace("_n.wav", ".TXT")
@@ -76,7 +74,7 @@ class Timit(Dataset):
     def get_audio_clip_properties(self, audio_name):
         """
         获取某条音频所有属性
-        :param audio_name:TRAIN/DR1/FCJF0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = self.clips_path + audio_name
@@ -128,7 +126,7 @@ class Timit(Dataset):
     def get_waveform_graph(self, audio_name):
         """
         生成波形图
-        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -145,7 +143,7 @@ class Timit(Dataset):
     def get_mel_spectrum(self, audio_name):
         """
         生成 Mel频谱图
-        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -193,7 +191,7 @@ class Timit(Dataset):
     def get_pattern_type_summary(self, pattern):
         """
         获取某个数据集某个扰动大类的具体扰动类型详情
-        :param pattern: Sound level
+        :param pattern: 扰动类型
         :return:
         """
         pattern_type_summary = {}
@@ -232,9 +230,9 @@ class Timit(Dataset):
     def remove_current_noise_audio_clip(self, audio_name, pattern, pattern_type=None):
         """
         删除现有的扰动音频
-        :param audio_name: TRAIN/DR1/FCJF0/SA1_n.wav
-        :param pattern: Animal
-        :param pattern_type: Wild animals
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
+        :param pattern: 扰动类型
+        :param pattern_type: 具体扰动
         :return:
         """
         audio_name = add_tag(audio_name, pattern_to_name[pattern])
@@ -245,7 +243,7 @@ class Timit(Dataset):
     def get_name_and_pattern_tag(self, name):
         """
         从扰动名字中获取原本的名字和扰动标签
-        :param name: TEST/DR1/FAKS0/SA2_n_human_sounds_respiratory_sounds.wav
+        :param name: 扰动音频名称，TEST/DR1/FAKS0/SA2_n_human_sounds_respiratory_sounds.wav
         :return: TEST/DR1/FAKS0/SA2_n.wav,human_sounds_respiratory_sounds
         """
         return name[0:name.find("_n") + 2] + ".wav", name[name.find("_n") + 3:name.find(".")]
@@ -308,7 +306,7 @@ class Timit(Dataset):
     def get_validation_result(self, audio_name, model_name):
         """
         计算某一音频的所有验证内容
-        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :param model_name: 模型名
         :return:
         """
@@ -326,7 +324,7 @@ class Timit(Dataset):
     def get_audio_clip_transcription(self, audio_name, model_name):
         """
         获取原音频识别出的内容
-        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :param model_name: 模型名
         :return:
         """
@@ -346,7 +344,7 @@ class Timit(Dataset):
     def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
         获取扰动音频识别出的内容
-        :param audio_name: TEST/DR1/FAKS0/SA1_n_natural_sounds_wind.wav
+        :param audio_name: 扰动音频名称，TEST/DR1/FAKS0/SA1_n_natural_sounds_wind.wav
         :param model_name:模型名
         :return:
         """
@@ -389,7 +387,7 @@ class Timit(Dataset):
     def load_model(self, model_name):
         """
         加载模型
-        :param model_name: wav2vec2-large-960h
+        :param model_name: 模型名
         :return:
         """
         if not os.path.exists(self.model_path + model_name):
@@ -406,7 +404,7 @@ class Timit(Dataset):
     def get_noise_clip_name(self, audio_name):
         """
         获取原音频对应的扰动音频名称
-        :param audio_name: TEST/DR1/FAKS0/SA1_n.wav
+        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
         :return:
         """
         path = self.noise_clips_path + audio_name[0:audio_name.rfind("/") + 1]
@@ -418,7 +416,7 @@ class Timit(Dataset):
     def judge_model(self, model):
         """
         判断模型适不适用于该数据集
-        :param model:模型名
+        :param model: 模型名
         :return:
         """
         for (key, value) in self.model_dict.items():
@@ -429,7 +427,7 @@ class Timit(Dataset):
     def formalize(self, sentence):
         """
         规范化句子
-        :param sentence:
+        :param sentence: 识别出的内容
         :return:
         """
         sentence = sentence.lower().capitalize()

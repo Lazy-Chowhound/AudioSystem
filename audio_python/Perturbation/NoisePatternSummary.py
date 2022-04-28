@@ -9,7 +9,7 @@ from Util.RpcResult import RpcResult
 def get_pattern_summary(dataset):
     """
     获取某个数据集扰动类别的详情
-    :param dataset: cv-corpus-chinese
+    :param dataset: 数据集名称
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -21,8 +21,8 @@ def get_pattern_summary(dataset):
 def get_pattern_type_summary(dataset, pattern):
     """
     获取某个数据集某个扰动大类的具体扰动类型详情
-    :param dataset: cv-corpus-chinese
-    :param pattern: Sound level
+    :param dataset: 数据集名称
+    :param pattern: 扰动类别
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)

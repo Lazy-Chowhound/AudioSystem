@@ -5,7 +5,8 @@ from Dataset.TUDA.TUDA import TUDA
 from Dataset.Thchs30.Thchs30 import Thchs30
 from Dataset.Timit.Timit import Timit
 
-dataset_list = ["cv-corpus-chinese", "timit"]
+dataset_list = ["cv-corpus-chinese", "timit", "data_aishell",
+                "data_thchs30", "german-speechdata-package-v2", "jsut"]
 
 
 def get_dataset_instance(dataset):

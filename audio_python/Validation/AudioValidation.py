@@ -11,6 +11,7 @@ from Util.RpcResult import RpcResult
 def get_models(user_name):
     """
     获取用户上传模型
+    :param user_name: 用户名
     :return:
     """
     model_list = []
@@ -29,11 +30,11 @@ def get_models(user_name):
 @rpcApi
 def get_validation_results_by_page(dataset, model_name, page, page_size):
     """
-    获取验证内容
-    :param dataset:
-    :param model_name:
-    :param page:
-    :param page_size:
+    按页获取验证内容
+    :param dataset: 数据集名称
+    :param model_name: 模型名
+    :param page: 第几页
+    :param page_size: 页大小
     :return:
     """
     try:

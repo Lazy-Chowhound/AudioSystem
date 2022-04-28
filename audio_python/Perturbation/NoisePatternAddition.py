@@ -14,7 +14,7 @@ from Util.RpcResult import RpcResult
 def get_num_of_clips_and_noise_clips(dataset):
     """
     获取原音频数量扰动音频的数量
-    :param dataset:
+    :param dataset: 数据集名称
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -25,7 +25,7 @@ def get_num_of_clips_and_noise_clips(dataset):
 def get_audio_clips_pattern(dataset):
     """
     添加扰动时获取某数据集所有音频扰动情况
-    :param dataset: cv-corpus-chinese or timit
+    :param dataset: 数据集名称
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -37,10 +37,10 @@ def get_audio_clips_pattern(dataset):
 def remove_current_noise_audio_clip(dataset, audio_name, pattern, pattern_type=None):
     """
     删除现有的扰动音频
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern: Animal
-    :param pattern_type: Wild animals
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern: 扰动类别
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -52,8 +52,8 @@ def remove_current_noise_audio_clip(dataset, audio_name, pattern, pattern_type=N
 def add_gaussian_noise(dataset, audio_name):
     """
     添加高斯白噪声
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -65,9 +65,9 @@ def add_gaussian_noise(dataset, audio_name):
 def add_sound_level(dataset, audio_name, pattern_type):
     """
     添加 sound level 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type: 具体扰动 {louder:更响,quieter:更静,pitch:英高,speed:变速（更快）}
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -79,9 +79,9 @@ def add_sound_level(dataset, audio_name, pattern_type):
 def add_natural_sounds(dataset, audio_name, pattern_type):
     """
     添加 natural sound 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type:
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -93,9 +93,9 @@ def add_natural_sounds(dataset, audio_name, pattern_type):
 def add_animal(dataset, audio_name, pattern_type):
     """
     添加 animal 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type:
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -107,9 +107,9 @@ def add_animal(dataset, audio_name, pattern_type):
 def add_sound_of_things(dataset, audio_name, pattern_type):
     """
     添加 sound of things 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type:
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -121,9 +121,9 @@ def add_sound_of_things(dataset, audio_name, pattern_type):
 def add_human_sounds(dataset, audio_name, pattern_type):
     """
     添加 human sounds 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: 形如 common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type:
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -135,9 +135,9 @@ def add_human_sounds(dataset, audio_name, pattern_type):
 def add_music(dataset, audio_name, pattern_type):
     """
     添加 music 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: 形如 common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type:
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -149,9 +149,9 @@ def add_music(dataset, audio_name, pattern_type):
 def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
     """
     添加 source_ambiguous_sounds 扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_name: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
-    :param pattern_type:
+    :param dataset: 数据集名称
+    :param audio_name: 音频名称
+    :param pattern_type: 具体扰动
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
@@ -164,7 +164,7 @@ def add_randomly_multiProcess(dataset, process_num, set_type="all"):
     """
     数据集全部音频多线程添加扰动
     :param process_num: 进程数
-    :param dataset: cv-corpus-chinese or timit
+    :param dataset: 数据集名称
     :param set_type: test/dev/train/all
     :return:
     """
@@ -188,8 +188,8 @@ def add_randomly_multiProcess(dataset, process_num, set_type="all"):
 def add_pattern_range(dataset, audio_list, start, end):
     """
     范围添加扰动
-    :param dataset: cv-corpus-chinese or timit
-    :param audio_list:
+    :param dataset: 数据集名称
+    :param audio_list: 音频列表
     :param start: 第几个开始
     :param end: 第几个结束
     :return:
@@ -202,8 +202,8 @@ def add_pattern_range(dataset, audio_list, start, end):
 def add_pattern_randomly(dataset, file):
     """
     随机加噪声
-    :param dataset: cv-corpus-chinese or timit
-    :param file: common_voice_zh-CN_18524189.mp3 or TRAIN/DR1/FCJF0/SA1_n.wav
+    :param dataset: 数据集名称
+    :param file: 音频名称
     :return:
     """
     try:

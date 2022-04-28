@@ -54,7 +54,7 @@ class CommonVoice(Dataset):
     def get_audio_clip_content(self, audio_name):
         """
         获取指定数据集音频的详情
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
         files = ['validated.tsv', 'invalidated.tsv', 'other.tsv']
@@ -68,7 +68,7 @@ class CommonVoice(Dataset):
     def get_audio_clip_properties(self, audio_name):
         """
         获取某条音频所有属性
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
         audio = self.clips_path + audio_name
@@ -120,7 +120,7 @@ class CommonVoice(Dataset):
     def get_waveform_graph(self, audio_name):
         """
         生成波形图
-        :param audio_name: 音频名
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -135,7 +135,7 @@ class CommonVoice(Dataset):
     def get_mel_spectrum(self, audio_name):
         """
         生成 Mel频谱图
-        :param audio_name: 音频名
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
         audio = os.path.join(self.clips_path, audio_name)
@@ -177,7 +177,7 @@ class CommonVoice(Dataset):
     def get_pattern_type_summary(self, pattern):
         """
         获取某个数据集某个扰动大类的具体扰动类型详情
-        :param pattern: Sound level
+        :param pattern: 扰动类别
         :return:
         """
         pattern_type_summary = {}
@@ -214,9 +214,9 @@ class CommonVoice(Dataset):
     def remove_current_noise_audio_clip(self, audio_name, pattern, pattern_type=None):
         """
         删除现有的扰动音频
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern: Animal
-        :param pattern_type: Wild animals
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern: 扰动类别
+        :param pattern_type: 具体扰动
         :return:
         """
         audio_name = add_tag(audio_name, pattern_to_name[pattern])
@@ -227,7 +227,7 @@ class CommonVoice(Dataset):
     def add_gaussian_noise(self, audio_name):
         """
         添加高斯白噪声
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -240,8 +240,8 @@ class CommonVoice(Dataset):
     def add_sound_level(self, audio_name, pattern_type):
         """
         添加 sound level 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -264,8 +264,8 @@ class CommonVoice(Dataset):
     def add_natural_sounds(self, audio_name, pattern_type):
         """
         添加 natural sound 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -282,8 +282,8 @@ class CommonVoice(Dataset):
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -300,8 +300,8 @@ class CommonVoice(Dataset):
     def add_sound_of_things(self, audio_name, pattern_type):
         """
         添加 sound of things 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -319,8 +319,8 @@ class CommonVoice(Dataset):
     def add_human_sounds(self, audio_name, pattern_type):
         """
         添加 human sounds 扰动
-        :param audio_name: 形如 common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -337,8 +337,8 @@ class CommonVoice(Dataset):
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name: 形如 common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -355,8 +355,8 @@ class CommonVoice(Dataset):
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
         添加 source_ambiguous_sounds 扰动
-        :param audio_name: common_voice_zh-CN_18524189.mp3
-        :param pattern_type:
+       :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param pattern_type: 扰动类别
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -374,7 +374,7 @@ class CommonVoice(Dataset):
     def get_name_and_pattern_tag(self, name):
         """
         从扰动名字中获取原本的名字和扰动标签
-        :param name: common_voice_zh-CN_18524189_gaussian_white_noise.mp3
+        :param name: 扰动音频名称，如common_voice_zh-CN_18524189_gaussian_white_noise.mp3
         :return: common_voice_zh-CN_18524189.mp3,gaussian_white_noise
         """
         num = re.findall("\\d+", name)[0]
@@ -457,7 +457,7 @@ class CommonVoice(Dataset):
     def get_audio_clip_transcription(self, audio_name, model_name):
         """
         获取原音频识别出的内容
-        :param audio_name: common_voice_zh-CN_18524189.mp3
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :param model_name: 模型名
         :return:
         """
@@ -473,7 +473,7 @@ class CommonVoice(Dataset):
     def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
         获取扰动音频识别出的内容
-        :param audio_name: common_voice_zh-CN_18524189_sound_level_pitch.mp3
+        :param audio_name: 扰动音频名称，如common_voice_zh-CN_18524189_sound_level_pitch.mp3
         :param model_name: 模型名
         :return:
         """
@@ -513,7 +513,7 @@ class CommonVoice(Dataset):
     def load_model(self, model_name):
         """
         加载模型
-        :param model_name: wav2vec2-large-xlsr-53-chinese-zh-cn
+        :param model_name: 模型名
         :return:
         """
         if not os.path.exists(self.model_path + model_name):
@@ -527,7 +527,7 @@ class CommonVoice(Dataset):
     def get_noise_clip_name(self, audio_name):
         """
         获取原音频对应的扰动音频名称
-        :param audio_name: deepspeech-0.9.3-models
+        :param audio_name: 音频名称，如common_voice_zh-CN_18524189_sound_level_pitch.mp3
         :return:
         """
         for file in os.listdir(self.noise_clips_path):
@@ -537,7 +537,7 @@ class CommonVoice(Dataset):
     def judge_model(self, model):
         """
         判断模型适不适用于该数据集
-        :param model:模型名
+        :param model: 模型名
         :return:
         """
         for (key, value) in self.model_dict.items():
@@ -548,7 +548,7 @@ class CommonVoice(Dataset):
     def formalize(self, sentence):
         """
         规范化文本
-        :param sentence:
+        :param sentence: 识别出的内容
         :return:
         """
         CHARS_TO_IGNORE = [",", "?", "¿", ".", "!", "¡", ";", "；", ":", '""', "%", '"', "�", "ʿ", "·", "჻", "~",

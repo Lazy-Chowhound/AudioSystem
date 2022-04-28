@@ -106,7 +106,7 @@ class Dataset:
     def get_pattern_type_summary(self, pattern):
         """
         获取某个数据集某个扰动大类的具体扰动类型详情
-        :param pattern: Sound level
+        :param pattern: 扰动类别
         """
         pattern_type_summary = {}
         return pattern_type_summary
@@ -123,8 +123,8 @@ class Dataset:
         """
         删除现有的扰动音频
         :param audio_name: 音频名
-        :param pattern: Animal
-        :param pattern_type: Wild animals
+        :param pattern: 扰动类别
+        :param pattern_type: 具体扰动
         :return:
         """
         pass
@@ -132,7 +132,7 @@ class Dataset:
     def add_gaussian_noise(self, audio_name):
         """
         添加高斯白噪声
-        :param audio_name:
+        :param audio_name: 音频名称
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -145,7 +145,7 @@ class Dataset:
     def add_sound_level(self, audio_name, pattern_type):
         """
         添加 sound level 扰动
-        :param audio_name:
+        :param audio_name: 音频名称
         :param pattern_type: 具体扰动
         :return:
         """
@@ -170,8 +170,8 @@ class Dataset:
     def add_natural_sounds(self, audio_name, pattern_type):
         """
         添加 natural sound 扰动
-        :param audio_name:
-        :param pattern_type:
+        :param audio_name: 音频名称
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -189,8 +189,8 @@ class Dataset:
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name:
-        :param pattern_type:
+        :param audio_name: 音频名称
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -208,8 +208,8 @@ class Dataset:
     def add_sound_of_things(self, audio_name, pattern_type):
         """
         添加 sound of things 扰动
-        :param audio_name:
-        :param pattern_type:
+        :param audio_name: 音频名称
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -228,8 +228,8 @@ class Dataset:
     def add_human_sounds(self, audio_name, pattern_type):
         """
         添加 human sounds 扰动
-        :param audio_name:
-        :param pattern_type:
+        :param audio_name: 音频名称
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -247,8 +247,8 @@ class Dataset:
     def add_music(self, audio_name, pattern_type):
         """
         添加 music 扰动
-        :param audio_name:
-        :param pattern_type:
+        :param audio_name: 音频名称
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
@@ -266,8 +266,8 @@ class Dataset:
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
         添加 source_ambiguous_sounds 扰动
-        :param audio_name:
-        :param pattern_type:
+        :param audio_name: 音频名称
+        :param pattern_type: 具体扰动
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
