@@ -1,8 +1,6 @@
 import math
 import subprocess
 
-import requests
-
 
 def split_text(path="D:\AudioSystem\Audio\jtubespeech\word\word\ja\jawiki-latest-pages-articles-multistream-index.txt",
                num=500):
