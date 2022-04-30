@@ -1,12 +1,14 @@
 from Dataset.AiShell.AiShell import AiShell
 from Dataset.CommonVoice.CommonVoice import CommonVoice
 from Dataset.JSUT.JSUT import JSUT
+from Dataset.LibriSpeech import LibriSpeech
 from Dataset.TUDA.TUDA import TUDA
 from Dataset.Thchs30.Thchs30 import Thchs30
 from Dataset.Timit.Timit import Timit
 
 dataset_list = ["cv-corpus-chinese", "timit", "data_aishell",
-                "data_thchs30", "german-speechdata-package-v2", "jsut"]
+                "data_thchs30", "german-speechdata-package-v2", "jsut",
+                "librispeech"]
 
 
 def get_dataset_instance(dataset):
@@ -27,3 +29,5 @@ def get_dataset_instance(dataset):
         return TUDA(dataset)
     elif dataset == "jsut":
         return JSUT(dataset)
+    elif dataset == "librispeech":
+        return LibriSpeech(dataset)
