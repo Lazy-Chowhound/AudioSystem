@@ -114,18 +114,14 @@ def cut_audio(path, start, end=None):
     soundfile.write(path[0: path.find(".")] + "_cut" + ".wav", audio_dst, sr)
 
 
-def get_error_audio_clips(dataset):
+def get_error_audio_clips(source_file_list, target_file_list):
     """
     获取没有成功添加扰动的音频
-    :param dataset: cv-corpus-chinese or timit
+    :param source_file_list:
+    :param target_file_list:
     :return:
     """
-    from Dataset.DatasetList import get_dataset_instance
-    dataset_instance = get_dataset_instance(dataset)
     error_list = []
-    source_file_list = dataset_instance.get_audio_clips_list()
-    target_file_list = dataset_instance.get_noise_audio_clips_list()
-
     i = 0
     j = 0
     while i < len(source_file_list) and j < len(target_file_list):
