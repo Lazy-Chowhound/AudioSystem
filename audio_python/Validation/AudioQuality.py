@@ -1,11 +1,15 @@
 import librosa
+import numpy
 import pysepm
+import seaborn
 from matplotlib import pyplot as plt
 from pesq import pesq
 from pysepm import stoi
 
 from Dataset.CommonVoice.CommonVoice import CommonVoice
-from Util.AudioUtil import pattern_to_name, pattern_types_dict, get_pattern_info_from_name
+from Dataset.DatasetList import get_dataset_instance
+from Perturbation.AudioProcess import calculate_SNR
+from Util.AudioUtil import pattern_to_name, pattern_types_dict, get_pattern_info_from_pattern_tag
 
 
 def get_pesq(clean_audio, noise_audio):
@@ -83,7 +87,7 @@ def get_pattern_types_dict():
     noise_audios = cvd.get_noise_audio_clips_list()
     for noise_audio in noise_audios:
         audio, pattern_tag = cvd.get_name_and_pattern_tag(noise_audio)
-        pattern, pattern_type = get_pattern_info_from_name(pattern_tag)
+        pattern, pattern_type = get_pattern_info_from_pattern_tag(pattern_tag)
         if pattern == "Gaussian noise":
             p_t_dict[pattern].append([audio, noise_audio])
         else:
@@ -144,3 +148,31 @@ def draw_wer_chart():
     plt.legend()
     plt.ylabel("wer")
     plt.show()
+
+
+def calculate_dataset_SNR(dataset):
+    """
+    计算数据集测试集SNR列表
+    :param dataset:
+    :return:
+    """
+    snr_list = []
+    dataset_instance = get_dataset_instance(dataset)
+    noise_test = dataset_instance.get_noise_testset_audio_clips_list()
+    for noise_audio in noise_test:
+        name, pattern_tag = dataset_instance.get_name_and_pattern_tag(noise_audio)
+        if "sound_level" not in pattern_tag:
+            snr = calculate_SNR(dataset_instance.clips_path + name, dataset_instance.noise_clips_path + noise_audio)
+            snr_list.append(snr)
+    return snr_list
+
+
+def SNR_statistic(snr_list):
+    """
+    求SNR统计量，有最大值、最小值、平均值、盒状图
+    :param snr_list:
+    :return:
+    """
+    seaborn.boxplot(data=snr_list)
+    plt.show()
+    return max(snr_list), min(snr_list), numpy.mean(snr_list)
