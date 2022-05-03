@@ -80,9 +80,9 @@ def pattern_type_to_suffix(pattern_type):
     return pattern_type.replace(" ", "_").lower()
 
 
-def get_pattern_info_from_name(pattern_tag):
+def get_pattern_info_from_pattern_tag(pattern_tag):
     """
-    从名称后缀解析出扰动大类和具体类型
+    从名称后缀解析出扰动类别和具体类型
     :param pattern_tag: animal_wild_animals
     :return: animal,wild animals
     """

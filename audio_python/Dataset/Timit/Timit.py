@@ -223,7 +223,7 @@ class Timit(Dataset):
             pattern_info = {"key": key}
             key += 1
             pattern_info["name"], pattern_tag = self.get_name_and_pattern_tag(clip)
-            pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_name(pattern_tag)
+            pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_pattern_tag(pattern_tag)
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
 
