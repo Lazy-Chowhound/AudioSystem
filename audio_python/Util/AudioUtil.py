@@ -176,3 +176,20 @@ def get_audio_form(audio_name):
     :return:
     """
     return audio_name[audio_name.rindex('.') + 1:]
+
+
+def get_str_n_find(string, target_str, num):
+    """
+    找到target_str在string中第num次出现的位置
+    :param string:
+    :param target_str:
+    :param num:
+    :return:
+    """
+    pos = -1
+    while num > 0:
+        pos = string.find(target_str, pos + 1)
+        if pos == -1:
+            return -1
+        num = num - 1
+    return pos
