@@ -67,13 +67,27 @@ def add_noise(wave_data, noise_data):
     :param noise_data: 噪声音频 ndarray
     :return:
     """
-    audioLength = len(wave_data)
+    audio_length = len(wave_data)
     # 先使噪声长度大于等于音频，然后再截取成一样
     if len(wave_data) > len(noise_data):
         noise_data = np.tile(noise_data, math.ceil(len(wave_data) / len(noise_data)))
     if len(wave_data) < len(noise_data):
-        noise_data = noise_data[:audioLength]
+        noise_data = noise_data[:audio_length]
     # 归一化
     wave_data = wave_data * 1.0 / (max(abs(wave_data)))
     noise_data = noise_data * 0.3 / (max(abs(noise_data)))
     return wave_data + noise_data
+
+
+def calculate_SNR(clean_file, original_file):
+    """
+    计算信噪比
+    :param clean_file: 干净语音
+    :param original_file: 含噪声语音
+    :return:
+    """
+    clean_sig, clean_sr = librosa.load(clean_file, sr=None)
+    original_sig, ori_sr = librosa.load(original_file, sr=None)
+    noise_sig = original_sig - clean_sig
+    SNR = 10 * np.log10((np.sum(clean_sig ** 2)) / (np.sum(noise_sig ** 2)))
+    return SNR
