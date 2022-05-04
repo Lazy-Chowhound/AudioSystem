@@ -164,6 +164,7 @@ def calculate_dataset_SNR(dataset):
         if "sound_level" not in pattern_tag:
             snr = calculate_SNR(dataset_instance.clips_path + name, dataset_instance.noise_clips_path + noise_audio)
             snr_list.append(snr)
+            print(noise_audio + "已计算")
     return snr_list
 
 
