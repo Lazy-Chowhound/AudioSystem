@@ -23,8 +23,10 @@ def gaussian_white_noise(wave_data, snr):
     :return:
     """
     data_type = wave_data[0].dtype
-    P_signal = np.sum(abs(wave_data) ** 2) / len(wave_data)  # 信号功率
-    P_noise = P_signal / 10 ** (snr / 10.0)  # 噪声功率
+    # 信号功率
+    P_signal = np.sum(abs(wave_data) ** 2) / len(wave_data)
+    # 噪声功率
+    P_noise = P_signal / 10 ** (snr / 10.0)
     noise = np.random.normal(0, 1, size=len(wave_data))
     noise = normalize(noise)
     return noise * np.sqrt(P_noise).astype(data_type)
@@ -60,9 +62,46 @@ def change_pitch(wave_data, sr):
     return noise_audio
 
 
-def add_noise(wave_data, noise_data):
+def add_noise(wave_data, noise_data, amplitude=0.3):
     """
     音频添加噪声噪声
+    :param wave_data: 原始音频 ndarray
+    :param noise_data: 噪声音频 ndarray
+    :param amplitude: 振幅缩放比
+    :return:
+    """
+    noise_data = align_audio_length(wave_data, noise_data)
+    wave_data = wave_data * 1.0 / (max(abs(wave_data)))
+    noise_data = noise_data * amplitude / (max(abs(noise_data)))
+    return wave_data + noise_data
+
+
+def add_noise_certain_snr(wave_data, noise_data, min_snr, max_snr):
+    """
+    指定信噪比内添加噪声
+    :param wave_data: 原始音频 ndarray
+    :param noise_data: 噪声音频 ndarray
+    :param min_snr: 最低信噪比
+    :param max_snr: 最高信噪比
+    :return:
+    """
+    noise_data = align_audio_length(wave_data, noise_data)
+    snr = random.randint(min_snr, max_snr)
+    print(snr)
+    # 信号功率
+    P_signal = np.sum(abs(wave_data) ** 2) / len(wave_data)
+    # 指定信噪比下的噪声功率
+    P_noise = P_signal / (10 ** (snr / 10))
+    # 目前的噪声功率
+    cur_P_noise = np.sum(abs(noise_data) ** 2) / len(noise_data)
+    # 计算得出缩放噪声数据使得信噪比为指定数值
+    noise_data = noise_data * math.sqrt(P_noise / cur_P_noise)
+    return wave_data + noise_data
+
+
+def align_audio_length(wave_data, noise_data):
+    """
+    使噪声数据和音频数据长度一致
     :param wave_data: 原始音频 ndarray
     :param noise_data: 噪声音频 ndarray
     :return:
@@ -73,10 +112,7 @@ def add_noise(wave_data, noise_data):
         noise_data = np.tile(noise_data, math.ceil(len(wave_data) / len(noise_data)))
     if len(wave_data) < len(noise_data):
         noise_data = noise_data[:audio_length]
-    # 归一化
-    wave_data = wave_data * 1.0 / (max(abs(wave_data)))
-    noise_data = noise_data * 0.3 / (max(abs(noise_data)))
-    return wave_data + noise_data
+    return noise_data
 
 
 def calculate_SNR(clean_file, original_file):
