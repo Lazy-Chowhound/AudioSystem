@@ -87,7 +87,6 @@ def add_noise_certain_snr(wave_data, noise_data, min_snr, max_snr):
     """
     noise_data = align_audio_length(wave_data, noise_data)
     snr = random.randint(min_snr, max_snr)
-    print(snr)
     # 信号功率
     P_signal = np.sum(abs(wave_data) ** 2) / len(wave_data)
     # 指定信噪比下的噪声功率

@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
-from Dataset.CommonVoice.CommonVoiceUtil import write_noise_audio, make_noise_audio_clips_dirs
+from Dataset.CommonVoice.CommonVoiceUtil import make_noise_audio_clips_dirs, write_noise_audio
 from Dataset.Dataset import Dataset
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
@@ -72,50 +72,49 @@ class CommonVoice(Dataset):
         :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
-        audio = self.clips_path + audio_name
         audio_property = {}
         audio_property['name'] = audio_name
-        audio_property['size'] = str(self.get_duration(audio)) + "秒"
-        audio_property['channel'] = "单" if self.get_channels(audio) == 1 else "双"
-        audio_property['sampleRate'] = str(self.get_sample_rate(audio)) + "Hz"
-        audio_property['bitDepth'] = str(self.get_bit_depth(audio)) + "bit"
+        audio_property['size'] = str(self.get_duration(audio_name)) + "秒"
+        audio_property['channel'] = "单" if self.get_channels(audio_name) == 1 else "双"
+        audio_property['sampleRate'] = str(self.get_sample_rate(audio_name)) + "Hz"
+        audio_property['bitDepth'] = str(self.get_bit_depth(audio_name)) + "bit"
         audio_property['content'] = self.get_audio_clip_content(audio_name)
         return audio_property
 
     def get_sample_rate(self, audio):
         """
         获取音频的采样率
-        :param audio: 音频绝对路径
+        :param audio: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
-        samplingRate = librosa.get_samplerate(audio)
+        samplingRate = librosa.get_samplerate(self.clips_path + audio)
         return samplingRate
 
     def get_duration(self, audio):
         """
         获取音频时长
-        :param audio: 音频绝对路径
+        :param audio: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
-        sig, sr = librosa.load(audio, sr=None)
+        sig, sr = librosa.load(self.clips_path + audio, sr=None)
         return round(librosa.get_duration(sig, sr), 2)
 
     def get_channels(self, audio):
         """
         获取声道
-        :param audio: 音频绝对路径
+        :param audio: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
-        song = AudioSegment.from_mp3(audio)
+        song = AudioSegment.from_mp3(self.clips_path + audio)
         return song.channels
 
     def get_bit_depth(self, audio):
         """
         获取位深
-        :param audio: 音频绝对路径
+        :param audio: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
-        song = AudioSegment.from_mp3(audio)
+        song = AudioSegment.from_mp3(self.clips_path + audio)
         return song.sample_width * 8
 
     def get_waveform_graph(self, audio_name):
@@ -233,10 +232,10 @@ class CommonVoice(Dataset):
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         noise_audio = sig + gaussian_white_noise(sig, snr=5)
-        wave_name = audio_name.replace(".mp3", ".wav")
-        noise_wave_name = add_tag(wave_name, "gaussian_white_noise")
+        noise_wave_name = add_tag(audio_name, "gaussian_white_noise")
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_sound_level(self, audio_name, pattern_type):
         """
@@ -257,10 +256,10 @@ class CommonVoice(Dataset):
             sr = sr * 2
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "sound_level"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+        noise_wave_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
@@ -275,15 +274,15 @@ class CommonVoice(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "natural_sounds"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+        noise_wave_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_animal(self, audio_name, pattern_type):
         """
         添加 animal 扰动
-        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
+        :param audio_name: 音频名称，如 common_voice_zh-CN_18524189.mp3
         :param pattern_type: 扰动类别
         :return:
         """
@@ -294,9 +293,10 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "animal"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+                                  pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
@@ -312,10 +312,10 @@ class CommonVoice(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "sound_of_things"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+        noise_wave_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
@@ -330,10 +330,10 @@ class CommonVoice(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "human_sounds"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+        noise_wave_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_music(self, audio_name, pattern_type):
         """
@@ -348,10 +348,10 @@ class CommonVoice(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "music"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+        noise_wave_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
@@ -367,10 +367,10 @@ class CommonVoice(Dataset):
             noise_audio = add_noise(sig, noise_sig)
         else:
             return "patternType error"
-        noise_wave_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"),
-                                  pattern_type_to_suffix(pattern_type)).replace(".mp3", ".wav")
+        noise_wave_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
         make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
-        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr)
+        write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
+                          self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
     def get_name_and_pattern_tag(self, name):
         """
