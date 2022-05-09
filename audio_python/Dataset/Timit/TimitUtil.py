@@ -58,30 +58,30 @@ def remove_duplicate_audios():
                     os.remove(path + audio_dir + value[x])
 
 
-def get_dr_audio_list(dr, type):
+def get_dr_audio_list(dr, set_type):
     """
     给定地区获取音频列表
     :param dr: 地区DR1,DR2.....
-    :param type: TRAIN/TEST
+    :param set_type: TRAIN/TEST
     :return:
     """
     audio_list = glob.glob(
-        r"D:\AudioSystem\Audio\timit\lisa\data\timit\raw\TIMIT\{type}\{dr}\*\*_n.wav".format(type=type, dr=dr))
+        r"D:\AudioSystem\Audio\timit\lisa\data\timit\raw\TIMIT\{type}\{dr}\*\*_n.wav".format(type=set_type, dr=dr))
     res = []
     for item in audio_list:
         res.append(item.replace("\\", "/").replace(r"D:/AudioSystem/Audio/timit/lisa/data/timit/raw/TIMIT/", ""))
     return res
 
 
-def get_dr_noise_audio_list(dr, type):
+def get_dr_noise_audio_list(dr, set_type):
     """
     给定地区获取扰动音频列表
     :param dr: 地区DR1,DR2.....
-    :param type: TRAIN/TEST
+    :param set_type: TRAIN/TEST
     :return:
     """
     audio_list = glob.glob(
-        r"D:\AudioSystem\NoiseAudio\timit\lisa\data\timit\raw\TIMIT\{type}\{dr}\*\*.wav".format(type=type, dr=dr))
+        r"D:\AudioSystem\NoiseAudio\timit\lisa\data\timit\raw\TIMIT\{type}\{dr}\*\*.wav".format(type=set_type, dr=dr))
     res = []
     for item in audio_list:
         res.append(item.replace("\\", "/").replace(r"D:/AudioSystem/NoiseAudio/timit/lisa/data/timit/raw/TIMIT/", ""))
