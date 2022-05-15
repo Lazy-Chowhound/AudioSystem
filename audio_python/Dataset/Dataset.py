@@ -1,7 +1,7 @@
 import librosa
 import soundfile
 
-from Dataset.DatasetUtil import make_dirs
+from Dataset.DatasetUtil import make_dirs, write_mp3
 from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise
 from Util.AudioUtil import MODEL_PATH, add_tag, pattern_type_to_suffix, get_source_noises_path, pattern_types_dict
 
@@ -17,6 +17,7 @@ class Dataset:
         self.post_text_list = []
         self.clips_path = ""
         self.noise_clips_path = ""
+        self.audio_format = "wav"
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -52,28 +53,28 @@ class Dataset:
         获取音频的采样率
         :param audio: 音频绝对路径
         """
-        pass
+        return 0
 
     def get_duration(self, audio):
         """
         获取音频时长
         :param audio: 音频绝对路径
         """
-        pass
+        return 0
 
     def get_channels(self, audio):
         """
         获取声道
         :param audio: 音频绝对路径
         """
-        pass
+        return 0
 
     def get_bit_depth(self, audio):
         """
         获取位深
         :param audio: 音频绝对路径
         """
-        pass
+        return 0
 
     def get_waveform_graph(self, audio_name):
         """
@@ -140,7 +141,11 @@ class Dataset:
         noise_audio_name = add_tag(audio_name, "gaussian_white_noise")
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_sound_level(self, audio_name, pattern_type):
         """
@@ -165,7 +170,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_natural_sounds(self, audio_name, pattern_type):
         """
@@ -184,7 +193,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_animal(self, audio_name, pattern_type):
         """
@@ -203,7 +216,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "animal"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_sound_of_things(self, audio_name, pattern_type):
         """
@@ -223,7 +240,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_human_sounds(self, audio_name, pattern_type):
         """
@@ -242,7 +263,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_music(self, audio_name, pattern_type):
         """
@@ -261,7 +286,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def add_source_ambiguous_sounds(self, audio_name, pattern_type):
         """
@@ -281,7 +310,11 @@ class Dataset:
         noise_audio_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
         noise_audio_path = self.noise_clips_path + noise_audio_name
         make_dirs(noise_audio_path)
-        soundfile.write(noise_audio_path, noise_audio, sr)
+        if self.audio_format == "mp3":
+            write_mp3(self.noise_clips_path, noise_audio_name, noise_audio, sr,
+                      self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
+        else:
+            soundfile.write(noise_audio_path, noise_audio, sr)
 
     def get_name_and_pattern_tag(self, name):
         """
