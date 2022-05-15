@@ -8,8 +8,9 @@ from matplotlib import pyplot as plt
 from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
-from Dataset.CommonVoice.CommonVoiceUtil import make_noise_audio_clips_dirs, write_noise_audio
+from Dataset.CommonVoice.CommonVoiceUtil import write_noise_audio
 from Dataset.Dataset import Dataset
+from Dataset.DatasetUtil import make_dirs
 from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
 from Validation.Indicator import cer, cer_overall
@@ -233,7 +234,7 @@ class CommonVoice(Dataset):
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
         noise_audio = sig + gaussian_white_noise(sig, snr=5)
         noise_wave_name = add_tag(audio_name, "gaussian_white_noise")
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -257,7 +258,7 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "sound_level"), pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -275,7 +276,7 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "natural_sounds"), pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -294,7 +295,7 @@ class CommonVoice(Dataset):
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "animal"),
                                   pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -313,7 +314,7 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "sound_of_things"), pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -331,7 +332,7 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "human_sounds"), pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -349,7 +350,7 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "music"), pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 
@@ -368,7 +369,7 @@ class CommonVoice(Dataset):
         else:
             return "patternType error"
         noise_wave_name = add_tag(add_tag(audio_name, "source_ambiguous_sounds"), pattern_type_to_suffix(pattern_type))
-        make_noise_audio_clips_dirs(self.noise_clips_path + noise_wave_name)
+        make_dirs(self.noise_clips_path + noise_wave_name)
         write_noise_audio(self.noise_clips_path, noise_wave_name, noise_audio, sr,
                           self.get_bit_depth(audio_name) / 8, self.get_channels(audio_name))
 

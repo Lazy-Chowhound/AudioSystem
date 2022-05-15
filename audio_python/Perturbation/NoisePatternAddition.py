@@ -210,7 +210,7 @@ def add_pattern_randomly(dataset, file):
     :return:
     """
     try:
-        p = random.randint(1, 8)
+        p = random.randint(3, 8)
         if p == 1:
             add_gaussian_noise(dataset, file)
         elif p == 2:
