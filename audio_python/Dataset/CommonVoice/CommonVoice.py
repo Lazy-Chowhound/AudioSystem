@@ -260,10 +260,10 @@ class CommonVoice(Dataset):
         :return:
         """
         testset_path = self.noise_clips_path
-        audio_list = glob.glob(testset_path + "*.mp3")
+        audio_list = glob.glob(testset_path + "*.wav")
         audios = []
         for audio in audio_list:
-            if get_audio_form(audio) == "mp3":
+            if get_audio_form(audio) == "wav":
                 audios.append(audio.replace("\\", "/").replace(self.noise_clips_path, ""))
         return audios
 
