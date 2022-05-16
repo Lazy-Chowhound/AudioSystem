@@ -1,9 +1,8 @@
 import librosa
 import soundfile
 
-from Dataset.DatasetUtil import make_dirs, write_mp3
-from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise, \
-    add_noise_certain_snr
+from Dataset.DatasetUtil import make_dirs
+from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise_certain_snr
 from Util.AudioUtil import MODEL_PATH, add_tag, pattern_type_to_suffix, get_source_noises_path, pattern_types_dict
 
 
@@ -19,6 +18,8 @@ class Dataset:
         self.clips_path = ""
         self.noise_clips_path = ""
         self.audio_format = "wav"
+        self.min_snr = 20
+        self.max_snr = 20
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -184,7 +185,7 @@ class Dataset:
         if pattern_type in pattern_types_dict.get("Natural sounds"):
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Natural Sounds", pattern_type), sr=sr, mono=True)
             # noise_audio = add_noise(sig, noise_sig)
-            noise_audio = add_noise_certain_snr(sig, noise_sig, 30, 30)
+            noise_audio = add_noise_certain_snr(sig, noise_sig, self.min_snr, self.max_snr)
         else:
             print("patternType error")
             return
@@ -206,7 +207,7 @@ class Dataset:
         if pattern_type in pattern_types_dict.get("Animal"):
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Animal", pattern_type), sr=sr, mono=True)
             # noise_audio = add_noise(sig, noise_sig)
-            noise_audio = add_noise_certain_snr(sig, noise_sig, 30, 30)
+            noise_audio = add_noise_certain_snr(sig, noise_sig, self.min_snr, self.max_snr)
         else:
             print("patternType error")
             return
@@ -229,7 +230,7 @@ class Dataset:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Sound of things", pattern_type), sr=sr,
                                                mono=True)
             # noise_audio = add_noise(sig, noise_sig)
-            noise_audio = add_noise_certain_snr(sig, noise_sig, 30, 30)
+            noise_audio = add_noise_certain_snr(sig, noise_sig, self.min_snr, self.max_snr)
         else:
             print("patternType error")
             return
@@ -251,7 +252,7 @@ class Dataset:
         if pattern_type in pattern_types_dict.get("Human sounds"):
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Human sounds", pattern_type), sr=sr, mono=True)
             # noise_audio = add_noise(sig, noise_sig)
-            noise_audio = add_noise_certain_snr(sig, noise_sig, 30, 30)
+            noise_audio = add_noise_certain_snr(sig, noise_sig, self.min_snr, self.max_snr)
         else:
             print("patternType error")
             return
@@ -273,7 +274,7 @@ class Dataset:
         if pattern_type in pattern_types_dict.get("Music"):
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Music", pattern_type), sr=sr, mono=True)
             # noise_audio = add_noise(sig, noise_sig)
-            noise_audio = add_noise_certain_snr(sig, noise_sig, 30, 30)
+            noise_audio = add_noise_certain_snr(sig, noise_sig, self.min_snr, self.max_snr)
         else:
             print("patternType error")
             return
@@ -296,7 +297,7 @@ class Dataset:
             noise_sig, noise_sr = librosa.load(get_source_noises_path("Source-ambiguous sounds", pattern_type), sr=sr,
                                                mono=True)
             # noise_audio = add_noise(sig, noise_sig)
-            noise_audio = add_noise_certain_snr(sig, noise_sig, 30, 30)
+            noise_audio = add_noise_certain_snr(sig, noise_sig, self.min_snr, self.max_snr)
         else:
             print("patternType error")
             return
