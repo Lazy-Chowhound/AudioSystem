@@ -87,8 +87,8 @@ class CommonVoice(Dataset):
         :param audio: 音频名称，如common_voice_zh-CN_18524189.mp3
         :return:
         """
-        samplingRate = librosa.get_samplerate(self.clips_path + audio)
-        return samplingRate
+        sampling_rate = librosa.get_samplerate(self.clips_path + audio)
+        return sampling_rate
 
     def get_duration(self, audio):
         """
