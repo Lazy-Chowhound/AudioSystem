@@ -2,7 +2,8 @@ import librosa
 import soundfile
 
 from Dataset.DatasetUtil import make_dirs
-from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise_certain_snr
+from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, add_noise_certain_snr, \
+    change_speed
 from Util.AudioUtil import MODEL_PATH, add_tag, pattern_type_to_suffix, get_source_noises_path, pattern_types_dict
 
 
@@ -155,7 +156,6 @@ class Dataset:
         :return:
         """
         sig, sr = librosa.load(self.clips_path + audio_name, sr=None)
-        noise_audio = sig
         if pattern_type == "Louder":
             noise_audio = louder(sig)
         elif pattern_type == "Quieter":
@@ -163,7 +163,7 @@ class Dataset:
         elif pattern_type == "Pitch":
             noise_audio = change_pitch(sig, sr)
         elif pattern_type == "Speed":
-            sr = sr * 2
+            noise_audio = change_speed(sig)
         else:
             print("patternType error")
             return

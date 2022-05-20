@@ -32,13 +32,29 @@ def gaussian_white_noise(wave_data, snr):
     return noise * np.sqrt(P_noise).astype(data_type)
 
 
+def volume_augment(wave_data, min_gain_dB, max_gain_dB):
+    """
+    改变音量
+    :param wave_data: numpy数组
+    :param min_gain_dB:
+    :param max_gain_dB:
+    :return:
+    """
+    data_type = wave_data[0].dtype
+    gain = random.uniform(min_gain_dB, max_gain_dB)
+    gain = 10. ** (gain / 20.)
+    wave_data = wave_data * gain
+    wave_data = wave_data.astype(data_type)
+    return wave_data
+
+
 def louder(wave_data):
     """
     提高响度
     :param wave_data: numpy数组
     :return:
     """
-    return wave_data * 5
+    return volume_augment(wave_data, 0, 10)
 
 
 def quieter(wave_data):
@@ -47,7 +63,7 @@ def quieter(wave_data):
     :param wave_data: numpy数组
     :return:
     """
-    return wave_data / 5
+    return volume_augment(wave_data, -10, 0)
 
 
 def change_pitch(wave_data, sr):
@@ -57,9 +73,17 @@ def change_pitch(wave_data, sr):
     :param sr:
     :return:
     """
-    pitch = random.randint(5, 10) * random.randrange(-1, 2, 2)
+    pitch_list = list(range(-5, 6))
+    pitch_list.remove(0)
+    pitch = random.choice(pitch_list)
     noise_audio = librosa.effects.pitch_shift(wave_data, sr, n_steps=float(pitch))
     return noise_audio
+
+
+def change_speed(wave_data):
+    speed = random.uniform(0.9, 1.1)
+    noise_data = librosa.effects.time_stretch(wave_data, speed)
+    return noise_data
 
 
 def add_noise(wave_data, noise_data, amplitude=0.3):
