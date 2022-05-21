@@ -25,19 +25,6 @@ def get_pesq(clean_audio, noise_audio):
     return pseq_score
 
 
-def get_WSS(clean_audio, noise_audio):
-    """
-    计算语音的 WSS 值，值越小越好
-    :param clean_audio: 原音频序列
-    :param noise_audio: 现音频系列
-    :return:
-    """
-    clean_sig, sr1 = librosa.load(clean_audio, sr=None)
-    noise_sig, sr2 = librosa.load(noise_audio, sr=None)
-    wss_score = pysepm.wss(clean_sig, noise_sig, sr1)
-    return wss_score
-
-
 def get_stoi(clean_audio, noise_audio):
     """
     计算语音的 STOI 值，范围[0,1]，值越大，可懂度越高.
@@ -114,13 +101,11 @@ def draw_quality_and_intelligibility_chart():
                     noise_wavs.append(p_t_dict[item][sub_item][0][1])
     pesq_score = []
     stoi_score = []
-    wss_score = []
     ncm_score = []
     x = []
     for i in range(0, len(clean_wavs)):
         pesq_score.append(get_pesq(clean_wavs[i], noise_wavs[i]))
         stoi_score.append(get_stoi(clean_wavs[i], noise_wavs[i]))
-        wss_score.append(get_WSS(clean_wavs[i], noise_wavs[i]))
         ncm_score.append(get_NCM(clean_wavs[i], noise_wavs[i]))
         x.append(i + 1)
 
