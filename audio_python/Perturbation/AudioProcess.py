@@ -81,6 +81,11 @@ def change_pitch(wave_data, sr):
 
 
 def change_speed(wave_data):
+    """
+    变速
+    :param wave_data:
+    :return:
+    """
     speed = random.uniform(0.9, 1.1)
     noise_data = librosa.effects.time_stretch(wave_data, speed)
     return noise_data

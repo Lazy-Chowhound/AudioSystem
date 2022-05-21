@@ -21,7 +21,10 @@ class CommonVoice(Dataset):
         self.clips_path = AUDIO_SETS_PATH + dataset + "/clips/"
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
         self.audio_format = "mp3"
-        self.model_dict = {"wav2vec2.0 Model": ["wav2vec2-large-xlsr-53-chinese-zh-cn"]}
+        self.model_dict = {
+            "wav2vec2.0 Model": ["wav2vec2-large-xlsr-53-chinese-zh-cn0", "wav2vec2-large-xlsr-53-chinese-zh-cn1",
+                                 "wav2vec2-large-xlsr-53-chinese-zh-cn2", "wav2vec2-large-xlsr-53-chinese-zh-cn3",
+                                 "wav2vec2-large-xlsr-53-chinese-zh-cn4"]}
         self.cer_dict = {"wav2vec2-large-xlsr-53-chinese-zh-cn": [0.1636319890171324, 0.43685204973427405]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
@@ -328,13 +331,7 @@ class CommonVoice(Dataset):
         :return:
         """
         audio, rate = librosa.load(self.clips_path + audio_name, sr=16000)
-        if model_name in self.model_dict.get("wav2vec2.0 Model"):
-            inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
-            with torch.no_grad():
-                logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
-            predicted_ids = torch.argmax(logits, dim=-1)
-            predicted_sentences = self.processor.batch_decode(predicted_ids)
-            return self.formalize(predicted_sentences[0])
+        return self.get_transcription_by_models(model_name, audio, rate)
 
     def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
@@ -344,8 +341,18 @@ class CommonVoice(Dataset):
         :return:
         """
         audio, rate = librosa.load(self.noise_clips_path + audio_name, sr=16000)
+        return self.get_transcription_by_models(model_name, audio, rate)
+
+    def get_transcription_by_models(self, model_name, audio, sampling_rate):
+        """
+        由不同模型得出音频识别结果
+        :param audio:
+        :param sampling_rate:
+        :param model_name:
+        :return:
+        """
         if model_name in self.model_dict.get("wav2vec2.0 Model"):
-            inputs = self.processor(audio, sampling_rate=rate, return_tensors="pt", padding=True)
+            inputs = self.processor(audio, sampling_rate=sampling_rate, return_tensors="pt", padding=True)
             with torch.no_grad():
                 logits = self.model(inputs.input_values, attention_mask=inputs.attention_mask).logits
             predicted_ids = torch.argmax(logits, dim=-1)

@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
-from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq
+from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq, Wav2Vec2Processor, HubertForCTC
 
 from Dataset.Dataset import Dataset
 from Util.AudioUtil import *
@@ -22,7 +22,9 @@ class Timit(Dataset):
         self.model_dict = {
             "wav2vec2.0 Model": ["wav2vec2-large-960h", "wav2vec2-large-lv60-timit-asr", "wav2vec2-base-timit-asr"],
             "S2T Model": ["s2t-small-librispeech-asr", "s2t-medium-librispeech-asr", "s2t-large-librispeech-asr",
-                          "s2t-large-librispeech-asr1", "s2t-large-librispeech-asr2"]}
+                          "s2t-large-librispeech-asr1", "s2t-large-librispeech-asr2"],
+            "HuBert Model": ["hubert-large-ls960-ft"],
+            "Data2Vec Model": ["data2vec-audio-base-960h"]}
         self.wer_dict = {"wav2vec2-large-960h": [0.12667034026725443, 0.5199752031960325],
                          "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0.604024533112811],
                          "wav2vec2-base-timit-asr": [0.2555992006064365, 0.7269657501205982],
@@ -341,17 +343,7 @@ class Timit(Dataset):
         :return:
         """
         audio, rate = librosa.load(self.clips_path + audio_name, sr=16000)
-        if model_name in self.model_dict.get("wav2vec2.0 Model"):
-            input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
-            logits = self.model(input_values).logits
-            predicted_ids = torch.argmax(logits, dim=-1)
-            transcription = self.processor.batch_decode(predicted_ids)
-            return self.formalize(transcription[0])
-        elif model_name in self.model_dict.get("S2T Model"):
-            input_features = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_features
-            generated_ids = self.model.generate(input_features=input_features)
-            transcription = self.processor.batch_decode(generated_ids)
-            return self.formalize(transcription[0])
+        return self.get_transcription_by_models(model_name, audio, rate)
 
     def get_noise_audio_clip_transcription(self, audio_name, model_name):
         """
@@ -361,16 +353,38 @@ class Timit(Dataset):
         :return:
         """
         audio, rate = librosa.load(self.noise_clips_path + audio_name, sr=16000)
+        return self.get_transcription_by_models(model_name, audio, rate)
+
+    def get_transcription_by_models(self, model_name, audio, sampling_rate):
+        """
+        由不同模型得出音频识别结果
+        :param audio:
+        :param sampling_rate:
+        :param model_name:
+        :return:
+        """
         if model_name in self.model_dict.get("wav2vec2.0 Model"):
-            input_values = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_values
+            input_values = self.processor(audio, sampling_rate=sampling_rate, return_tensors="pt").input_values
             logits = self.model(input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)
             transcription = self.processor.batch_decode(predicted_ids)
             return self.formalize(transcription[0])
         elif model_name in self.model_dict.get("S2T Model"):
-            input_features = self.processor(audio, sampling_rate=rate, return_tensors="pt").input_features
+            input_features = self.processor(audio, sampling_rate=sampling_rate, return_tensors="pt").input_features
             generated_ids = self.model.generate(input_features=input_features)
             transcription = self.processor.batch_decode(generated_ids)
+            return self.formalize(transcription[0])
+        elif model_name in self.model_dict.get("hubert-large-ls960-ft"):
+            input_values = self.processor(audio, return_tensors="pt").input_values
+            logits = self.model(input_values).logits
+            predicted_ids = torch.argmax(logits, dim=-1)
+            transcription = self.processor.decode(predicted_ids[0])
+            return self.formalize(transcription[0])
+        elif model_name in self.model_dict.get("data2vec-audio-base-960h"):
+            input_values = self.processor(audio, return_tensors="pt", padding="longest").input_values
+            logits = self.model(input_values).logits
+            predicted_ids = torch.argmax(logits, dim=-1)
+            transcription = self.processor.batch_decode(predicted_ids)
             return self.formalize(transcription[0])
 
     def get_dataset_er(self, model_name):
@@ -411,6 +425,12 @@ class Timit(Dataset):
             elif model_name in self.model_dict.get("S2T Model"):
                 self.processor = AutoProcessor.from_pretrained(self.model_path + model_name)
                 self.model = AutoModelForSpeechSeq2Seq.from_pretrained(self.model_path + model_name)
+            elif model_name in self.model_dict.get("hubert-large-ls960-ft"):
+                self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
+                self.model = HubertForCTC.from_pretrained(self.model_path + model_name)
+            elif model_name in self.model_dict.get("data2vec-audio-base-960h"):
+                self.processor = Wav2Vec2Processor.from_pretrained("facebook/data2vec-audio-base-960h")
+                self.model = Data2VecForCTC.from_pretrained("facebook/data2vec-audio-base-960h")
         return True
 
     def get_noise_clip_name(self, audio_name):

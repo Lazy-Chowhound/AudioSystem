@@ -19,7 +19,7 @@ class Dataset:
         self.clips_path = ""
         self.noise_clips_path = ""
         self.audio_format = "wav"
-        self.min_snr = 20
+        self.min_snr = -5
         self.max_snr = 20
 
     def get_audio_clips_properties_by_page(self, page, page_size):
@@ -363,6 +363,16 @@ class Dataset:
         获取扰动音频识别出的内容
         :param audio_name: 音频名
         :param model_name: 模型名
+        """
+        pass
+
+    def get_transcription_by_models(self, model_name, audio, sampling_rate):
+        """
+        由不同模型得出音频识别结果
+        :param audio:
+        :param sampling_rate:
+        :param model_name:
+        :return:
         """
         pass
 
