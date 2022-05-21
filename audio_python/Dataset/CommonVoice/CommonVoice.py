@@ -22,10 +22,8 @@ class CommonVoice(Dataset):
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/clips/"
         self.audio_format = "mp3"
         self.model_dict = {
-            "wav2vec2.0 Model": ["wav2vec2-large-xlsr-53-chinese-zh-cn0", "wav2vec2-large-xlsr-53-chinese-zh-cn1",
-                                 "wav2vec2-large-xlsr-53-chinese-zh-cn2", "wav2vec2-large-xlsr-53-chinese-zh-cn3",
-                                 "wav2vec2-large-xlsr-53-chinese-zh-cn4"]}
-        self.cer_dict = {"wav2vec2-large-xlsr-53-chinese-zh-cn": [0.1636319890171324, 0.43685204973427405]}
+            "wav2vec2.0 Model": ["wav2vec2-large-xlsr-53-chinese-zh-cn"]}
+        self.cer_dict = {"wav2vec2-large-xlsr-53-chinese-zh-cn": [0.16415134370579915, 0.2911951909476662]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """

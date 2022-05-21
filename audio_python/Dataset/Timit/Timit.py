@@ -6,7 +6,8 @@ import numpy as np
 import torch
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
-from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq, Wav2Vec2Processor, HubertForCTC
+from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq, Wav2Vec2Processor, HubertForCTC, \
+    Data2VecAudioForCTC
 
 from Dataset.Dataset import Dataset
 from Util.AudioUtil import *
@@ -429,8 +430,8 @@ class Timit(Dataset):
                 self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
                 self.model = HubertForCTC.from_pretrained(self.model_path + model_name)
             elif model_name in self.model_dict.get("data2vec-audio-base-960h"):
-                self.processor = Wav2Vec2Processor.from_pretrained("facebook/data2vec-audio-base-960h")
-                self.model = Data2VecForCTC.from_pretrained("facebook/data2vec-audio-base-960h")
+                self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
+                self.model = Data2VecAudioForCTC.from_pretrained(self.model_path + model_name)
         return True
 
     def get_noise_clip_name(self, audio_name):
