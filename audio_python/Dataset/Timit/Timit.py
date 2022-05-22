@@ -22,16 +22,20 @@ class Timit(Dataset):
         self.noise_clips_path = NOISE_AUDIO_SETS_PATH + dataset + "/lisa/data/timit/raw/TIMIT/"
         self.model_dict = {
             "wav2vec2.0 Model": ["wav2vec2-large-960h", "wav2vec2-large-lv60-timit-asr", "wav2vec2-base-timit-asr"],
-            "S2T Model": ["s2t-small-librispeech-asr", "s2t-medium-librispeech-asr", "s2t-large-librispeech-asr",
-                          "s2t-large-librispeech-asr1", "s2t-large-librispeech-asr2"],
+            "S2T Model": ["s2t-small-librispeech-asr", "s2t-medium-librispeech-asr", "s2t-large-librispeech-asr"],
             "HuBert Model": ["hubert-large-ls960-ft"],
-            "Data2Vec Model": ["data2vec-audio-base-960h"]}
-        self.wer_dict = {"wav2vec2-large-960h": [0.12667034026725443, 0.5199752031960325],
-                         "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0.604024533112811],
-                         "wav2vec2-base-timit-asr": [0.2555992006064365, 0.7269657501205982],
-                         "s2t-small-librispeech-asr": [0.10778030459651299, 1.0998552821997105],
-                         "s2t-medium-librispeech-asr": [0.11412032251395493, 1.0808352284473848],
-                         "s2t-large-librispeech-asr": [0.10281855144373234, 1.061953001171525]}
+            "Data2Vec Model": ["data2vec-audio-base-960h"],
+            "UniSpeech Model": ["unispeech-large-1500h-cv-timit0", "unispeech-large-1500h-cv-timit1",
+                                "unispeech-large-1500h-cv-timit2", "unispeech-large-1500h-cv-timit3"]}
+        self.wer_dict = {"wav2vec2-large-960h": [0.09985528219971057, 0.23664806009234374],
+                         "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0],
+                         "wav2vec2-base-timit-asr": [0.2555992006064365, 0],
+                         "s2t-small-librispeech-asr": [0.10778030459651299, 0],
+                         "s2t-medium-librispeech-asr": [0.11412032251395493, 0],
+                         "s2t-large-librispeech-asr": [0.10281855144373234, 0.2819929708497002],
+                         "hubert-large-ls960-ft": [0.06594996898904279, 0.15174695058920817],
+                         "data2vec-audio-base-960h": [0.08765763903245813, 0.26951967472951555],
+                         "unispeech-large-1500h-cv-timit": [0.23816415133347116, 0.4294673006684584]}
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -375,18 +379,25 @@ class Timit(Dataset):
             generated_ids = self.model.generate(input_features=input_features)
             transcription = self.processor.batch_decode(generated_ids)
             return self.formalize(transcription[0])
-        elif model_name in self.model_dict.get("hubert-large-ls960-ft"):
-            input_values = self.processor(audio, return_tensors="pt").input_values
+        elif model_name in self.model_dict.get("HuBert Model"):
+            input_values = self.processor(audio, sampling_rate=sampling_rate, return_tensors="pt").input_values
             logits = self.model(input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)
             transcription = self.processor.decode(predicted_ids[0])
-            return self.formalize(transcription[0])
-        elif model_name in self.model_dict.get("data2vec-audio-base-960h"):
-            input_values = self.processor(audio, return_tensors="pt", padding="longest").input_values
+            return self.formalize(transcription)
+        elif model_name in self.model_dict.get("Data2Vec Model"):
+            input_values = self.processor(audio, sampling_rate=sampling_rate, return_tensors="pt",
+                                          padding="longest").input_values
             logits = self.model(input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)
             transcription = self.processor.batch_decode(predicted_ids)
             return self.formalize(transcription[0])
+        elif model_name in self.model_dict.get("UniSpeech Model"):
+            input_values = self.processor(audio, sampling_rate=sampling_rate, return_tensors="pt").input_values
+            logits = self.model(input_values).logits
+            prediction_ids = torch.argmax(logits, dim=-1)
+            transcription = self.processor.batch_decode(prediction_ids)
+            return transcription[0]
 
     def get_dataset_er(self, model_name):
         """
@@ -426,12 +437,15 @@ class Timit(Dataset):
             elif model_name in self.model_dict.get("S2T Model"):
                 self.processor = AutoProcessor.from_pretrained(self.model_path + model_name)
                 self.model = AutoModelForSpeechSeq2Seq.from_pretrained(self.model_path + model_name)
-            elif model_name in self.model_dict.get("hubert-large-ls960-ft"):
+            elif model_name in self.model_dict.get("HuBert Model"):
                 self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
                 self.model = HubertForCTC.from_pretrained(self.model_path + model_name)
-            elif model_name in self.model_dict.get("data2vec-audio-base-960h"):
+            elif model_name in self.model_dict.get("Data2Vec Model"):
                 self.processor = Wav2Vec2Processor.from_pretrained(self.model_path + model_name)
                 self.model = Data2VecAudioForCTC.from_pretrained(self.model_path + model_name)
+            elif model_name in self.model_dict.get("UniSpeech Model"):
+                self.processor = AutoProcessor.from_pretrained(self.model_path + model_name)
+                self.model = AutoModelForCTC.from_pretrained(self.model_path + model_name)
         return True
 
     def get_noise_clip_name(self, audio_name):
