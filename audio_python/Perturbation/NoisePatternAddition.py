@@ -49,15 +49,16 @@ def remove_current_noise_audio_clip(dataset, audio_name, pattern, pattern_type=N
 
 
 @rpcApi
-def add_gaussian_noise(dataset, audio_name):
+def add_gaussian_noise(dataset, audio_name, snr):
     """
     添加高斯白噪声
     :param dataset: 数据集名称
     :param audio_name: 音频名称
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_gaussian_noise(audio_name)
+    dataset_instance.add_gaussian_noise(audio_name, snr)
     return RpcResult.ok("")
 
 
@@ -76,86 +77,92 @@ def add_sound_level(dataset, audio_name, pattern_type):
 
 
 @rpcApi
-def add_natural_sounds(dataset, audio_name, pattern_type):
+def add_natural_sounds(dataset, audio_name, pattern_type, snr):
     """
     添加 natural sound 扰动
     :param dataset: 数据集名称
     :param audio_name: 音频名称
     :param pattern_type: 具体扰动
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_natural_sounds(audio_name, pattern_type)
+    dataset_instance.add_natural_sounds(audio_name, pattern_type, snr)
     return RpcResult.ok("")
 
 
 @rpcApi
-def add_animal(dataset, audio_name, pattern_type):
+def add_animal(dataset, audio_name, pattern_type, snr):
     """
     添加 animal 扰动
     :param dataset: 数据集名称
     :param audio_name: 音频名称
     :param pattern_type: 具体扰动
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_animal(audio_name, pattern_type)
+    dataset_instance.add_animal(audio_name, pattern_type, snr)
     return RpcResult.ok("")
 
 
 @rpcApi
-def add_sound_of_things(dataset, audio_name, pattern_type):
+def add_sound_of_things(dataset, audio_name, pattern_type, snr):
     """
     添加 sound of things 扰动
     :param dataset: 数据集名称
     :param audio_name: 音频名称
     :param pattern_type: 具体扰动
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_sound_of_things(audio_name, pattern_type)
+    dataset_instance.add_sound_of_things(audio_name, pattern_type, snr)
     return RpcResult.ok("")
 
 
 @rpcApi
-def add_human_sounds(dataset, audio_name, pattern_type):
+def add_human_sounds(dataset, audio_name, pattern_type, snr):
     """
     添加 human sounds 扰动
     :param dataset: 数据集名称
     :param audio_name: 音频名称
     :param pattern_type: 具体扰动
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_human_sounds(audio_name, pattern_type)
+    dataset_instance.add_human_sounds(audio_name, pattern_type, snr)
     return RpcResult.ok("")
 
 
 @rpcApi
-def add_music(dataset, audio_name, pattern_type):
+def add_music(dataset, audio_name, pattern_type, snr):
     """
     添加 music 扰动
     :param dataset: 数据集名称
     :param audio_name: 音频名称
     :param pattern_type: 具体扰动
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_music(audio_name, pattern_type)
+    dataset_instance.add_music(audio_name, pattern_type, snr)
     return RpcResult.ok("")
 
 
 @rpcApi
-def add_source_ambiguous_sounds(dataset, audio_name, pattern_type):
+def add_source_ambiguous_sounds(dataset, audio_name, pattern_type, snr):
     """
     添加 source_ambiguous_sounds 扰动
     :param dataset: 数据集名称
     :param audio_name: 音频名称
     :param pattern_type: 具体扰动
+    :param snr: 信噪比
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type)
+    dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type, snr)
     return RpcResult.ok("")
 
 
@@ -202,15 +209,18 @@ def add_pattern_range(dataset, audio_list, start, end):
         add_pattern_randomly(dataset, audio)
 
 
-def add_pattern_randomly(dataset, file):
+def add_pattern_randomly(dataset, file, min_snr=-5, max_snr=20):
     """
     随机加噪声
     :param dataset: 数据集名称
     :param file: 音频名称
+    :param min_snr:
+    :param max_snr:
     :return:
     """
     try:
         p = random.randint(1, 8)
+        snr = random.randint(min_snr, max_snr)
         if p == 1:
             add_gaussian_noise(dataset, file)
         elif p == 2:
@@ -218,22 +228,22 @@ def add_pattern_randomly(dataset, file):
             add_sound_level(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
         elif p == 3:
             ptype = pattern_types_dict["Animal"]
-            add_animal(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_animal(dataset, file, ptype[random.randint(0, len(ptype) - 1)], snr)
         elif p == 4:
             ptype = pattern_types_dict["Sound of things"]
-            add_sound_of_things(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_sound_of_things(dataset, file, ptype[random.randint(0, len(ptype) - 1)], snr)
         elif p == 5:
             ptype = pattern_types_dict["Human sounds"]
-            add_human_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_human_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)], snr)
         elif p == 6:
             ptype = pattern_types_dict["Natural sounds"]
-            add_natural_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_natural_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)], snr)
         elif p == 7:
             ptype = pattern_types_dict["Music"]
-            add_music(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_music(dataset, file, ptype[random.randint(0, len(ptype) - 1)], snr)
         elif p == 8:
             ptype = pattern_types_dict["Source-ambiguous sounds"]
-            add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)])
+            add_source_ambiguous_sounds(dataset, file, ptype[random.randint(0, len(ptype) - 1)], snr)
         print(file + "已加噪")
     except Exception as e:
         print(dataset + ":" + file + " fail ", e)

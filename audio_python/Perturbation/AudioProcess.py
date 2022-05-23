@@ -91,31 +91,15 @@ def change_speed(wave_data):
     return noise_data
 
 
-def add_noise(wave_data, noise_data, amplitude=0.3):
+def add_noise_certain_snr(wave_data, noise_data, snr):
     """
-    音频添加噪声噪声
-    :param wave_data: 原始音频 ndarray
-    :param noise_data: 噪声音频 ndarray
-    :param amplitude: 振幅缩放比
+    添加指定信噪比的噪声
+    :param wave_data:
+    :param noise_data:
+    :param snr:
     :return:
     """
     noise_data = align_audio_length(wave_data, noise_data)
-    wave_data = wave_data * 1.0 / (max(abs(wave_data)))
-    noise_data = noise_data * amplitude / (max(abs(noise_data)))
-    return wave_data + noise_data
-
-
-def add_noise_certain_snr(wave_data, noise_data, min_snr, max_snr):
-    """
-    指定信噪比内添加噪声
-    :param wave_data: 原始音频 ndarray
-    :param noise_data: 噪声音频 ndarray
-    :param min_snr: 最低信噪比
-    :param max_snr: 最高信噪比
-    :return:
-    """
-    noise_data = align_audio_length(wave_data, noise_data)
-    snr = random.randint(min_snr, max_snr)
     # 信号功率
     P_signal = np.sum(abs(wave_data) ** 2) / len(wave_data)
     # 指定信噪比下的噪声功率
