@@ -317,7 +317,8 @@ class CommonVoice(Dataset):
         audio_list = self.get_testset_audio_clips_list()
         pattern_name = pattern_to_name(pattern)
         for audio in audio_list:
-            if pattern_name in audio:
+            noise_audio_name = self.get_noise_clip_name(audio)
+            if pattern_name in noise_audio_name:
                 certain_pattern_audios.append(audio)
 
         pre_overall_wer, post_overall_wer = 0, 0
