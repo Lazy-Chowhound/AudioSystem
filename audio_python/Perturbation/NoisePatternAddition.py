@@ -222,7 +222,7 @@ def add_pattern_randomly(dataset, file, min_snr=-5, max_snr=20):
         p = random.randint(1, 8)
         snr = random.randint(min_snr, max_snr)
         if p == 1:
-            add_gaussian_noise(dataset, file)
+            add_gaussian_noise(dataset, file, snr)
         elif p == 2:
             ptype = pattern_types_dict["Sound level"]
             add_sound_level(dataset, file, ptype[random.randint(0, len(ptype) - 1)])

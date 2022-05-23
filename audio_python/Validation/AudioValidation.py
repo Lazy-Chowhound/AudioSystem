@@ -46,3 +46,25 @@ def get_validation_results_by_page(dataset, model_name, page, page_size):
         return RpcResult.ok(json.dumps(results, ensure_ascii=False))
     except Exception as e:
         return RpcResult.error(e)
+
+
+@rpcApi
+def get_validation_results_by_pattern(dataset, pattern, model_name, page, page_size):
+    """
+    按扰动类别获取验证内容
+    :param dataset: 数据集名称
+    :param pattern: 扰动类别
+    :param model_name: 模型名
+    :param page: 第几页
+    :param page_size: 页大小
+    :return:
+    """
+    try:
+        dataset_instance = get_dataset_instance(dataset)
+        if not dataset_instance.judge_model(model_name):
+            return RpcResult.error("模型不适用于该数据集")
+        dataset_instance.load_model(model_name)
+        results = dataset_instance.get_validation_results_by_pattern(pattern, model_name, page, page_size)
+        return RpcResult.ok(json.dumps(results, ensure_ascii=False))
+    except Exception as e:
+        return RpcResult.error(e)

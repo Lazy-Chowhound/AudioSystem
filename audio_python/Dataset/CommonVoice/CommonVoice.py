@@ -303,6 +303,33 @@ class CommonVoice(Dataset):
             validation_results.append(audio_result)
         return validation_results
 
+    def get_validation_results_by_pattern(self, pattern, model, page, page_size):
+        """
+        具体扰动类别的验证情形
+        :param pattern: 扰动类别
+        :param model: 模型名
+        :param page: 页数
+        :param page_size: 页码
+        :return:
+        """
+        validation_results = []
+        certain_pattern_audios = []
+        audio_list = self.get_testset_audio_clips_list()
+        pattern_name = pattern_to_name(pattern)
+        for audio in audio_list:
+            if pattern_name in audio:
+                certain_pattern_audios.append(audio)
+
+        pre_overall_wer, post_overall_wer = 0, 0
+        validation_results.append({"preOverallER": pre_overall_wer})
+        validation_results.append({"postOverallER": post_overall_wer})
+        for index in range((int(page) - 1) * int(page_size),
+                           min(int(page) * int(page_size), len(certain_pattern_audios))):
+            audio_result = self.get_validation_result(audio_list[index], model)
+            audio_result['key'] = index + 1
+            validation_results.append(audio_result)
+        return validation_results
+
     def get_validation_result(self, audio_name, model_name):
         """
         计算某一音频的所有验证内容
