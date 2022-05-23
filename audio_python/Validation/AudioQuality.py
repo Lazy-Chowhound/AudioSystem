@@ -87,6 +87,7 @@ def draw_quality_and_intelligibility_chart():
     common voice 音频质量和可懂度图
     :return:
     """
+    cvd = CommonVoice("cv-corpus-chinese")
     p_t_dict = get_pattern_types_dict()
     clean_wavs = []
     noise_wavs = []
@@ -104,9 +105,9 @@ def draw_quality_and_intelligibility_chart():
     ncm_score = []
     x = []
     for i in range(0, len(clean_wavs)):
-        pesq_score.append(get_pesq(clean_wavs[i], noise_wavs[i]))
-        stoi_score.append(get_stoi(clean_wavs[i], noise_wavs[i]))
-        ncm_score.append(get_NCM(clean_wavs[i], noise_wavs[i]))
+        pesq_score.append(get_pesq(cvd.clips_path + clean_wavs[i], cvd.noise_clips_path + noise_wavs[i]))
+        stoi_score.append(get_stoi(cvd.clips_path + clean_wavs[i], cvd.noise_clips_path + noise_wavs[i]))
+        ncm_score.append(get_NCM(cvd.clips_path + clean_wavs[i], cvd.noise_clips_path + noise_wavs[i]))
         x.append(i + 1)
 
     plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -120,13 +121,11 @@ def draw_quality_and_intelligibility_chart():
 
 
 def draw_wer_chart():
-    x = ["wav2vec2-\nlarge-960h", "wav2vec2-\nlarge-lv60-\ntimit-asr", "wav2vec2-\nbase-timit-\nasr",
-         "s2t-small-\nlibrispeech-\nasr",
-         "s2t-medium-\nlibrispeech-\nasr", "s2t-large-\nlibrispeech-\nasr"]
-    y1 = [0.12667034026725443, 0.1386534353249259, 0.2555992006064365, 0.10778030459651299, 0.11412032251395493,
-          0.10281855144373234]
-    y2 = [0.5199752031960325, 0.604024533112811, 0.7269657501205982, 1.0998552821997105, 1.0808352284473848,
-          1.061953001171525]
+    x = ["wav2vec2-\nlarge-960h", "s2t-large-\nlibrispeech-\nasr", "hubert-large-\nls960-ft",
+         "data2vec-audio-\nbase-960h",
+         "unispeech-\nlarge-1500h-\ncv-timit"]
+    y1 = [0.09985528219971057, 0.10281855144373234, 0.06594996898904279, 0.08765763903245813, 0.23816415133347116]
+    y2 = [0.23664806009234374, 0.2819929708497002, 0.15174695058920817, 0.26951967472951555, 0.4294673006684584]
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.plot(x, y1, label="原wer")
     plt.plot(x, y2, label="现wer")

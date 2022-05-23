@@ -25,8 +25,7 @@ class Timit(Dataset):
             "S2T Model": ["s2t-small-librispeech-asr", "s2t-medium-librispeech-asr", "s2t-large-librispeech-asr"],
             "HuBert Model": ["hubert-large-ls960-ft"],
             "Data2Vec Model": ["data2vec-audio-base-960h"],
-            "UniSpeech Model": ["unispeech-large-1500h-cv-timit0", "unispeech-large-1500h-cv-timit1",
-                                "unispeech-large-1500h-cv-timit2", "unispeech-large-1500h-cv-timit3"]}
+            "UniSpeech Model": ["unispeech-large-1500h-cv-timit"]}
         self.wer_dict = {"wav2vec2-large-960h": [0.09985528219971057, 0.23664806009234374],
                          "wav2vec2-large-lv60-timit-asr": [0.1386534353249259, 0],
                          "wav2vec2-base-timit-asr": [0.2555992006064365, 0],
