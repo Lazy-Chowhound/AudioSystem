@@ -1,0 +1,1680 @@
+TEST/DR1/FAKS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/FAKS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/FAKS0/SI1573_n.wav His captin was thin and hagered and his beautiful bots were woarn ind shaby
+TEST/DR1/FAKS0/SI2203_n.wav The reasons for the stive seemed folish now
+TEST/DR1/FAKS0/SI943_n.wav Production may fallw far below expectations
+TEST/DR1/FAKS0/SX133_n.wav Peatcserreas are convenient for a quick clanch
+TEST/DR1/FAKS0/SX223_n.wav Put the booutcher black table in me goarash
+TEST/DR1/FAKS0/SX313_n.wav Drop five forms in the boxe before you go out
+TEST/DR1/FAKS0/SX403_n.wav Her wardrob consists of only skirts and blouses
+TEST/DR1/FAKS0/SX43_n.wav Elderly people are often excluded
+TEST/DR1/FDAC1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/FDAC1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/FDAC1/SI1474_n.wav Husky young man he said with mor distase
+TEST/DR1/FDAC1/SI2104_n.wav Ha hay he thought a lusch divorcy at last
+TEST/DR1/FDAC1/SI844_n.wav Thus technical efficiency is achieved at the expencse of vatual experience
+TEST/DR1/FDAC1/SX124_n.wav Objects made of puder are bautiful
+TEST/DR1/FDAC1/SX214_n.wav The morning due on the spaiderweab glistened in the sun
+TEST/DR1/FDAC1/SX304_n.wav Cheep stockings run the firstime theyire born
+TEST/DR1/FDAC1/SX34_n.wav Don't do chily stirty dishers
+TEST/DR1/FDAC1/SX394_n.wav Calsum makes bones and teth strong
+TEST/DR1/FELC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/FELC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/FELC0/SI1386_n.wav Inwrage negociations the industry bargens as a unit with a single union
+TEST/DR1/FELC0/SI2016_n.wav Heave on those roppes the boats come on stuck
+TEST/DR1/FELC0/SI756_n.wav Materials seremic modelin clay red white or bugh
+TEST/DR1/FELC0/SX126_n.wav Arteficial intelligence is for real
+TEST/DR1/FELC0/SX216_n.wav The small boy put the woarm on the hok
+TEST/DR1/FELC0/SX306_n.wav A chosen few will become generals
+TEST/DR1/FELC0/SX36_n.wav Only the most accomplishd artist subtaine popularity
+TEST/DR1/FELC0/SX396_n.wav The fish began to leep frantically on the surface of the small lak
+TEST/DR1/FJEM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/FJEM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/FJEM0/SI1264_n.wav Te ansers alternated with sung or spoken versve
+TEST/DR1/FJEM0/SI1894_n.wav My father ran him of her sixt years ago
+TEST/DR1/FJEM0/SI634_n.wav Here he is quite pereswasively the very embodument of meannes and slineness
+TEST/DR1/FJEM0/SX184_n.wav The cats me ow always herts my ears
+TEST/DR1/FJEM0/SX274_n.wav Cliff was sothed by the loxcurious masage
+TEST/DR1/FJEM0/SX364_n.wav Each untimely income los coinsided with the brak down of a heading system part
+TEST/DR1/FJEM0/SX4_n.wav Jain may earin more money by working the hard
+TEST/DR1/FJEM0/SX94_n.wav Youngsters love comman cande as treets
+TEST/DR1/MDAB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MDAB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/MDAB0/SI1039_n.wav He has never himself don anything for which to be hated which of us has
+TEST/DR1/MDAB0/SI1669_n.wav Be exciteed and don't identify youself
+TEST/DR1/MDAB0/SI2299_n.wav Sometimes he coinside with my father's being at home
+TEST/DR1/MDAB0/SX139_n.wav The bunglow was plesently situated by the shor
+TEST/DR1/MDAB0/SX229_n.wav Are oloking for iemployment
+TEST/DR1/MDAB0/SX319_n.wav A pig goat itily amble to the farmyard
+TEST/DR1/MDAB0/SX409_n.wav Eating spanaged nightly increases strenth moraculously
+TEST/DR1/MDAB0/SX49_n.wav At twiligh toymis walthday ill have shibley
+TEST/DR1/MJSW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MJSW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/MJSW0/SI1010_n.wav The so caled vegetable ive rise the hard andow spurm of the egsized sead
+TEST/DR1/MJSW0/SI1640_n.wav How did one join them
+TEST/DR1/MJSW0/SI2270_n.wav Dogs did something to one's ego
+TEST/DR1/MJSW0/SX110_n.wav The best way to learn us to solve extra problems
+TEST/DR1/MJSW0/SX200_n.wav Ralph control te stop watch from the bleacurs
+TEST/DR1/MJSW0/SX20_n.wav She wore warm fleacy wollan overaills
+TEST/DR1/MJSW0/SX290_n.wav This brousureis particuly informative for a prospective bye
+TEST/DR1/MJSW0/SX380_n.wav Why charge money for such garbage
+TEST/DR1/MREB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MREB0/SA2_n.wav Don't ask me to carry a oily rag like that
+TEST/DR1/MREB0/SI1375_n.wav Often dominent stress simply indicates a senering of attension or emotion
+TEST/DR1/MREB0/SI2005_n.wav He had left her in violente thinking fomiliarity would gentle her in time
+TEST/DR1/MREB0/SI745_n.wav Brighl or toaste is usual
+TEST/DR1/MREB0/SX115_n.wav The amblum dopicks the ecroplus all a glow
+TEST/DR1/MREB0/SX205_n.wav Moitary personal are expected to obey government orders
+TEST/DR1/MREB0/SX25_n.wav Only lawyers loved milianeears
+TEST/DR1/MREB0/SX295_n.wav If carl comes tomorow have a arrange for a meating it to
+TEST/DR1/MREB0/SX385_n.wav His sholder felt as if it were broken
+TEST/DR1/MRJO0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MRJO0/SA2_n.wav Idon't ask me to carry an oily rag like that
+TEST/DR1/MRJO0/SI1364_n.wav But would in that framwor he alloued for as much fuxibilly as possible
+TEST/DR1/MRJO0/SI1624_n.wav We came on as sonas we could
+TEST/DR1/MRJO0/SI734_n.wav If nescsey we place bothaves ungreal seaocuts and a lot extar time
+TEST/DR1/MRJO0/SX104_n.wav He stol the dimed from a begger
+TEST/DR1/MRJO0/SX14_n.wav Before those exam evieow ebby formula
+TEST/DR1/MRJO0/SX194_n.wav They enjoye when i ou dition
+TEST/DR1/MRJO0/SX284_n.wav Jif thought you argued in favear of a senifuded purchase
+TEST/DR1/MRJO0/SX374_n.wav Jown clees shellfish for y living
+TEST/DR1/MSJS1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MSJS1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/MSJS1/SI1899_n.wav He tok me by surprise
+TEST/DR1/MSJS1/SI639_n.wav The heavins refuse to give up their weping
+TEST/DR1/MSJS1/SI869_n.wav The ide aof asental tanquy lines each houss dnightin itself anovelty
+TEST/DR1/MSJS1/SX189_n.wav Destrory e refil related to my audits
+TEST/DR1/MSJS1/SX279_n.wav Alise is ability to work without super vision is notworthy
+TEST/DR1/MSJS1/SX369_n.wav By a papord overliving rom merals
+TEST/DR1/MSJS1/SX99_n.wav Mad evel susity was base d on highe arkies
+TEST/DR1/MSJS1/SX9_n.wav Where were you whil wewereaway
+TEST/DR1/MSTK0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MSTK0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/MSTK0/SI1024_n.wav At the base of the rocky hillside they lift their hoses and climbed on fot
+TEST/DR1/MSTK0/SI2222_n.wav You young men get to be my age you won't take fl so lightly
+TEST/DR1/MSTK0/SI2284_n.wav A woman met a famous author ad a literary tea
+TEST/DR1/MSTK0/SX124_n.wav Objects made of puter are beautiful
+TEST/DR1/MSTK0/SX214_n.wav The morning ju on the spiteowebs glistened in the sun
+TEST/DR1/MSTK0/SX304_n.wav Cheep stockings rune the first time the'e a worn
+TEST/DR1/MSTK0/SX34_n.wav Don't do chaly's dirty dishes
+TEST/DR1/MSTK0/SX394_n.wav Calseum makes spones and teth strong
+TEST/DR1/MWBT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR1/MWBT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR1/MWBT0/SI1553_n.wav However the litter remained argamented by several dousen lunch rom suppers
+TEST/DR1/MWBT0/SI2183_n.wav Boksouf ash shnoks
+TEST/DR1/MWBT0/SI923_n.wav To many experts this trained was inevidable
+TEST/DR1/MWBT0/SX113_n.wav A muskqular aptimen is god for you back
+TEST/DR1/MWBT0/SX203_n.wav The causway endered abbruptly aut the shor
+TEST/DR1/MWBT0/SX23_n.wav Those musicians harmonized morvelously
+TEST/DR1/MWBT0/SX293_n.wav Please take this dirty table cloth to the cquweaners for me
+TEST/DR1/MWBT0/SX383_n.wav The copit cleaners shampoed ir oriental rug
+TEST/DR2/FCMR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FCMR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FCMR0/SI1105_n.wav What obsessions had she picked up during these long nights of talk
+TEST/DR2/FCMR0/SI1735_n.wav And posessed himself how
+TEST/DR2/FCMR0/SI475_n.wav They will take a weding triplater
+TEST/DR2/FCMR0/SX115_n.wav The emblum depicxs the aecroplas all aglow
+TEST/DR2/FCMR0/SX205_n.wav Military personall ar expected to obey governmant orders
+TEST/DR2/FCMR0/SX25_n.wav Only larryers love milianeears
+TEST/DR2/FCMR0/SX295_n.wav If carol comes tomorow have a arange for meeting at toub
+TEST/DR2/FCMR0/SX385_n.wav His sholder felt as if it were broken
+TEST/DR2/FDRD1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FDRD1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FDRD1/SI1544_n.wav He had plunged into the darkwoods beyond
+TEST/DR2/FDRD1/SI1566_n.wav One had to believe in finall events or one was stranded in he abis of nothing
+TEST/DR2/FDRD1/SI2149_n.wav Let's be fined superior people of great dignity he said as if he were joking
+TEST/DR2/FDRD1/SX104_n.wav He stoll a dime from a begger
+TEST/DR2/FDRD1/SX14_n.wav Befor thirsed days exam review every formula
+TEST/DR2/FDRD1/SX194_n.wav They enjoy it when i aubdition
+TEST/DR2/FDRD1/SX284_n.wav Jif thought you argued in faver of a sentrafuge purchase
+TEST/DR2/FDRD1/SX374_n.wav Jown clean's shellfish for a living
+TEST/DR2/FJAS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FJAS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FJAS0/SI1400_n.wav Now that this is at auds with our meaning may be showne as follows
+TEST/DR2/FJAS0/SI2030_n.wav Our boy didn't chickan out no ser
+TEST/DR2/FJAS0/SI770_n.wav Vases make same essaltin pepershakers wleaving off top peaces
+TEST/DR2/FJAS0/SX140_n.wav Agrecultural prodects are unevenly distributed
+TEST/DR2/FJAS0/SX230_n.wav Alaw leaway here but rasctionalize all erors
+TEST/DR2/FJAS0/SX320_n.wav The nearest cynegog may not be within walking distance
+TEST/DR2/FJAS0/SX410_n.wav Grag bies fresh milk each weeak day morning
+TEST/DR2/FJAS0/SX50_n.wav Catestrowfic aconomic cutbacks and mniglectd the por
+TEST/DR2/FJRE0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FJRE0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FJRE0/SI1116_n.wav Each is still glorified as anational herow
+TEST/DR2/FJRE0/SI1587_n.wav The jgated amorist conjered up pictures of the blaskfamus rites with relish
+TEST/DR2/FJRE0/SI1746_n.wav His salaery had reached the ten thousand meark
+TEST/DR2/FJRE0/SX126_n.wav Art eficial intelligence is for real
+TEST/DR2/FJRE0/SX216_n.wav The small boy put the woarm on the hook
+TEST/DR2/FJRE0/SX306_n.wav A chosen few will become generals
+TEST/DR2/FJRE0/SX36_n.wav Only the most accomplishe artists obtained popularity
+TEST/DR2/FJRE0/SX396_n.wav The fish began to lep franticaly on the surface of the small lake
+TEST/DR2/FJWB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FJWB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FJWB0/SI1265_n.wav Balades were used an uper from its begining
+TEST/DR2/FJWB0/SI635_n.wav He is a man of major talent but a man of solitary unseartan impulses
+TEST/DR2/FJWB0/SI992_n.wav They were a vagabond lot and considered to be shady and undesirable caracters
+TEST/DR2/FJWB0/SX185_n.wav Did you buy any quoarteroy overalls
+TEST/DR2/FJWB0/SX275_n.wav Steve wore a bright  red case mear switter
+TEST/DR2/FJWB0/SX365_n.wav The gunman kept his victom cornered at gunpoint for three hours
+TEST/DR2/FJWB0/SX5_n.wav She is thiner than i ame
+TEST/DR2/FJWB0/SX95_n.wav Agwanas and alegators are tropical reptiles
+TEST/DR2/FPAS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FPAS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FPAS0/SI1272_n.wav Plabratary astral physicqs
+TEST/DR2/FPAS0/SI2204_n.wav Prity son a women came along carrin a folded am broulowas a walking stick
+TEST/DR2/FPAS0/SI944_n.wav If the farm is rented the rentmust be paye
+TEST/DR2/FPAS0/SX134_n.wav Disember in genuary or nice months to spend in my ammey
+TEST/DR2/FPAS0/SX224_n.wav How good is your eindurance
+TEST/DR2/FPAS0/SX314_n.wav If people were more generous threwould be no need for wealthfhare
+TEST/DR2/FPAS0/SX404_n.wav Barb burned paper and leaves and a big bomb fire
+TEST/DR2/FPAS0/SX44_n.wav Baskibal can be an entertaining sport
+TEST/DR2/FRAM1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FRAM1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FRAM1/SI1360_n.wav It provides a fram for the sampling senses
+TEST/DR2/FRAM1/SI522_n.wav Progres is being made to an improving motoris acts as to many turnpikes
+TEST/DR2/FRAM1/SI730_n.wav Another memo for sighte sears bring yor cammer along to museums
+TEST/DR2/FRAM1/SX100_n.wav Project development was proceeding to slowly
+TEST/DR2/FRAM1/SX10_n.wav Are your great higher lower than nancies
+TEST/DR2/FRAM1/SX190_n.wav Serve the coalselaw after i add the oil
+TEST/DR2/FRAM1/SX280_n.wav The oacis was a marage
+TEST/DR2/FRAM1/SX370_n.wav That noyise problem growes moreanoying each day
+TEST/DR2/FSLB1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/FSLB1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/FSLB1/SI1904_n.wav When suitably ligted what would it lok like
+TEST/DR2/FSLB1/SI644_n.wav All are well riten and ar overriten
+TEST/DR2/FSLB1/SI891_n.wav It was applied with a compolished shreder made from a converdted manur spreader
+TEST/DR2/FSLB1/SX104_n.wav He stoll a dime from a begger
+TEST/DR2/FSLB1/SX14_n.wav Before thirset days exam review every formula
+TEST/DR2/FSLB1/SX194_n.wav They enjoy it when i aurdition
+TEST/DR2/FSLB1/SX284_n.wav Jif thought you argued in faver of a senterpudge purchase
+TEST/DR2/FSLB1/SX374_n.wav Jown cleaned shellfish for a living
+TEST/DR2/MABW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MABW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MABW0/SI1230_n.wav Princses and factions clashed in the open street and died on the open scafuld
+TEST/DR2/MABW0/SI1664_n.wav There were other farm houses near by
+TEST/DR2/MABW0/SI2294_n.wav Just long enough to make you feel important
+TEST/DR2/MABW0/SX134_n.wav Desember an january ar nice months to spend in my amme
+TEST/DR2/MABW0/SX224_n.wav How god is your injurance
+TEST/DR2/MABW0/SX314_n.wav If people were more generous ther woud be no need for wealfhare
+TEST/DR2/MABW0/SX404_n.wav Barburn paper and leaves an a big bon fire
+TEST/DR2/MABW0/SX44_n.wav Baskeball can be an intertaining spork
+TEST/DR2/MBJK0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MBJK0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MBJK0/SI1175_n.wav Diversity of perseption yes diversity of fact yes
+TEST/DR2/MBJK0/SI2128_n.wav Some of them ignoredthe texed and had apparaently memorized the words long ago
+TEST/DR2/MBJK0/SI545_n.wav But how little love we give him
+TEST/DR2/MBJK0/SX185_n.wav Did you buy any corteroy overails
+TEST/DR2/MBJK0/SX275_n.wav Steve wore a bright red cashmer sweater
+TEST/DR2/MBJK0/SX365_n.wav The gunman kept his victom cornered a gunpoint for three ours
+TEST/DR2/MBJK0/SX5_n.wav She is sthioner than niamp
+TEST/DR2/MBJK0/SX95_n.wav Equanaos and alegators are tropical reptiles
+TEST/DR2/MCCS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MCCS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MCCS0/SI1469_n.wav This can be don to a high degree of aucracy by existing surveying techniques
+TEST/DR2/MCCS0/SI2099_n.wav But she suffered in her oft duty hours
+TEST/DR2/MCCS0/SI839_n.wav Practically all for cas menchion new an exciding protects on the horison
+TEST/DR2/MCCS0/SX119_n.wav The misquate was retracted with anopology
+TEST/DR2/MCCS0/SX209_n.wav Myco colored the bedrom wall with crans
+TEST/DR2/MCCS0/SX299_n.wav Shavin cream is a popular itm on hallowen
+TEST/DR2/MCCS0/SX29_n.wav Help grag to pick a pack a patatoes
+TEST/DR2/MCCS0/SX389_n.wav They owned a big house in the romoat contryside
+TEST/DR2/MCEM0/SA1_n.wav She had your dark suit in greasy wash wather all year
+TEST/DR2/MCEM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MCEM0/SI1398_n.wav Do they make clas by us dicisions
+TEST/DR2/MCEM0/SI2028_n.wav He tok his mass from his fourade aind throug it unexpectidly acros the deck
+TEST/DR2/MCEM0/SI768_n.wav Make let for sugerbol the same as jarly its ameathing designe disk
+TEST/DR2/MCEM0/SX138_n.wav The clumbsy costimer speiled some expensive perfume
+TEST/DR2/MCEM0/SX228_n.wav The vieuw point overlooked the ocean
+TEST/DR2/MCEM0/SX318_n.wav Please dig my patadthoes up before frost
+TEST/DR2/MCEM0/SX408_n.wav I'd ride the subway but i haven't enough change
+TEST/DR2/MCEM0/SX48_n.wav Gram mother algrow her upbringing in petecoates
+TEST/DR2/MDBB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MDBB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MDBB0/SI1195_n.wav Pasing dogs were greeated with a corgdeual bark
+TEST/DR2/MDBB0/SI1825_n.wav He wasn't ligkly to come down with hot chills and pusling striped fever
+TEST/DR2/MDBB0/SI565_n.wav Stacked hels are also popular on dressy or tilared shoes
+TEST/DR2/MDBB0/SX115_n.wav The emblum depicts the ecropulas all a glow
+TEST/DR2/MDBB0/SX205_n.wav Military personall are expected to obey government orders
+TEST/DR2/MDBB0/SX25_n.wav Only lawyers loved milianars
+TEST/DR2/MDBB0/SX295_n.wav If carl comes tomorrow have her arrange for a meeting at to
+TEST/DR2/MDBB0/SX385_n.wav His sholder felt as if it were broken
+TEST/DR2/MDLD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MDLD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MDLD0/SI1543_n.wav Then he then what
+TEST/DR2/MDLD0/SI2173_n.wav He waded his swetshert into a ball and strip downto his swiming trunks
+TEST/DR2/MDLD0/SI913_n.wav Do you love to run up a him so on butens make neets butnhols
+TEST/DR2/MDLD0/SX103_n.wav Calling ambulance for metical assistance
+TEST/DR2/MDLD0/SX13_n.wav Swing your arm as high as you can
+TEST/DR2/MDLD0/SX193_n.wav Why by oil when you always use moine
+TEST/DR2/MDLD0/SX283_n.wav Planed parantod organizations premoate birth control
+TEST/DR2/MDLD0/SX373_n.wav A boring novel is a superb sleping pil
+TEST/DR2/MGWT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MGWT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MGWT0/SI1539_n.wav Ffists pumbled him as he staggered forward
+TEST/DR2/MGWT0/SI2169_n.wav Up stars bisy feet showering like raindraps pattered around her rom
+TEST/DR2/MGWT0/SI909_n.wav Compolsury retirement at sixty five lums on our horison
+TEST/DR2/MGWT0/SX189_n.wav Destroy every file related to my ardtice
+TEST/DR2/MGWT0/SX279_n.wav Alis is ability to work without supervisionis note worthy
+TEST/DR2/MGWT0/SX369_n.wav Bob papered over the living rom yerlds
+TEST/DR2/MGWT0/SX99_n.wav Medeivel susity was based on higher rarkes
+TEST/DR2/MGWT0/SX9_n.wav Where were you while webure away
+TEST/DR2/MJAR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MJAR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MJAR0/SI1988_n.wav How's its strike you a faul or faire
+TEST/DR2/MJAR0/SI2247_n.wav Weekeness and leadership
+TEST/DR2/MJAR0/SI728_n.wav Poarch the apples in this serup for tweve minetes drain them and coil
+TEST/DR2/MJAR0/SX188_n.wav Who outhorise the inlimited expens acount
+TEST/DR2/MJAR0/SX278_n.wav To firther his prestege he occasionally reds a wallstryh journal
+TEST/DR2/MJAR0/SX368_n.wav Loryes costum needed black loths to be compleetely elegent
+TEST/DR2/MJAR0/SX8_n.wav Why yelor wharry over cilly itums
+TEST/DR2/MJAR0/SX98_n.wav Ges the question from the answer
+TEST/DR2/MMDB1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MMDB1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MMDB1/SI1625_n.wav He makes me uncomfartable
+TEST/DR2/MMDB1/SI2255_n.wav He swung around eyes toward the bedrom some fiften feet away
+TEST/DR2/MMDB1/SI995_n.wav At differen times he served as clea club an quaire leader and his organist
+TEST/DR2/MMDB1/SX185_n.wav Did you buy any cordoy overalls
+TEST/DR2/MMDB1/SX275_n.wav Steef world bright red cash mear sweatter
+TEST/DR2/MMDB1/SX365_n.wav The gunman kept tis victom corner dack gunpoint for three ours
+TEST/DR2/MMDB1/SX5_n.wav She is thiner than i ame
+TEST/DR2/MMDB1/SX95_n.wav Eguanas and alegataers are tropical reptiles
+TEST/DR2/MMDM2/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MMDM2/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MMDM2/SI1452_n.wav Poltery results of iradiation tests with poltery have bn quite sucsessful
+TEST/DR2/MMDM2/SI1555_n.wav A sleepy voice ansered
+TEST/DR2/MMDM2/SI2082_n.wav Yeo'r boiling milk ain't you
+TEST/DR2/MMDM2/SX102_n.wav Special taskforses reskue hostages from kidnappers
+TEST/DR2/MMDM2/SX12_n.wav Will robin wheare a yellow lilly
+TEST/DR2/MMDM2/SX192_n.wav Straw hats are out of fasion this year
+TEST/DR2/MMDM2/SX282_n.wav The tothfvery forgot to come when rodgjer's toth fell out
+TEST/DR2/MMDM2/SX372_n.wav That diagram makes sens only after much study
+TEST/DR2/MPDF0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MPDF0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MPDF0/SI1542_n.wav The feet wore army showes in obvious disrepare
+TEST/DR2/MPDF0/SI2172_n.wav Strenth began to zip upand down his chest
+TEST/DR2/MPDF0/SI912_n.wav You may ammase yourself and aquire a real knack for it
+TEST/DR2/MPDF0/SX102_n.wav Sspecial task forces reskue hosteages from kidnappers
+TEST/DR2/MPDF0/SX12_n.wav Well roben whear a yellow lilly
+TEST/DR2/MPDF0/SX192_n.wav Straw hats are auda fasion this year
+TEST/DR2/MPDF0/SX282_n.wav The tothfery forgot to come when rodger's tothfell out
+TEST/DR2/MPDF0/SX372_n.wav That diagram makes sense only after much study
+TEST/DR2/MPGL0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MPGL0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MPGL0/SI1099_n.wav This does not allow the mistery to invade us
+TEST/DR2/MPGL0/SI1729_n.wav Shrugs met that from brom clerks from bellhops
+TEST/DR2/MPGL0/SI469_n.wav In fact our hole yeffensive unit did a god job
+TEST/DR2/MPGL0/SX109_n.wav She slipped and sprained her angore on the steep slop
+TEST/DR2/MPGL0/SX199_n.wav Young children shoul avoid exposure to contageous diseases
+TEST/DR2/MPGL0/SX19_n.wav Alluminum slverware can often be flimsy
+TEST/DR2/MPGL0/SX289_n.wav Wheather prof callashes are very useful in sieandl
+TEST/DR2/MPGL0/SX379_n.wav Pam gives driving lessons on thiarsed days
+TEST/DR2/MRCZ0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MRCZ0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MRCZ0/SI1541_n.wav It gave the ruber isced fabric a dol gleam like metle
+TEST/DR2/MRCZ0/SI2171_n.wav How long would it be acupie
+TEST/DR2/MRCZ0/SI911_n.wav This is followed by a bom in compferances
+TEST/DR2/MRCZ0/SX101_n.wav Kenac garden children decorate their clas roms for all holidays
+TEST/DR2/MRCZ0/SX11_n.wav He will allow a rare lige
+TEST/DR2/MRCZ0/SX191_n.wav Withdraw all forny acusations at once
+TEST/DR2/MRCZ0/SX281_n.wav Cory and trish played tag with beach balls for ours
+TEST/DR2/MRCZ0/SX371_n.wav Right now may not be the best time for bisnes mergers
+TEST/DR2/MRGG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MRGG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MRGG0/SI1199_n.wav They clothed sometimes after eight
+TEST/DR2/MRGG0/SI1829_n.wav His body processes only slow down enough for him to dispell fateged poisons
+TEST/DR2/MRGG0/SI569_n.wav Most of us brush our teeth by hand
+TEST/DR2/MRGG0/SX119_n.wav The misquoate was retracted with an oppoloegy
+TEST/DR2/MRGG0/SX209_n.wav Myko colored the bedrom wall with crayons
+TEST/DR2/MRGG0/SX299_n.wav Shaving cream is a popular item on hollowen
+TEST/DR2/MRGG0/SX29_n.wav Help grig to pick a picke of petadoes
+TEST/DR2/MRGG0/SX389_n.wav They own a big house in the remoat countryside
+TEST/DR2/MTAS1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MTAS1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MTAS1/SI1473_n.wav You don't eat enough honney
+TEST/DR2/MTAS1/SI2098_n.wav He gave a short hard lah and looked at her nowingly
+TEST/DR2/MTAS1/SI838_n.wav Increasing teymple of new prodect development
+TEST/DR2/MTAS1/SX118_n.wav Combigne all the ingredieantces in a large boawl
+TEST/DR2/MTAS1/SX208_n.wav Rob sat by the poned and scetched the strayguase
+TEST/DR2/MTAS1/SX28_n.wav Beg that gard for one galomp of gas
+TEST/DR2/MTAS1/SX298_n.wav I'd rather not buy thes shoes then be overcharged
+TEST/DR2/MTAS1/SX388_n.wav Her right hand akes when ever the barametric presuer changes
+TEST/DR2/MTMR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MTMR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MTMR0/SI1303_n.wav A detailed study of this ladder fonominone was not atempted in nhis paper
+TEST/DR2/MTMR0/SI1933_n.wav Beat me to death in front of a hundred people
+TEST/DR2/MTMR0/SI673_n.wav Sychologicaly the reseption should be the climacts following the sermon
+TEST/DR2/MTMR0/SX133_n.wav Peacs a reyas are conveniant for a quick lonch
+TEST/DR2/MTMR0/SX223_n.wav But the boutour black table in the goarage
+TEST/DR2/MTMR0/SX313_n.wav Drop five forms in the baks before you go out
+TEST/DR2/MTMR0/SX403_n.wav Her wad rob consiste of only skirts and blouses
+TEST/DR2/MTMR0/SX43_n.wav Elderly people are often excluded
+TEST/DR2/MWEW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MWEW0/SA2_n.wav Don't ask me to carry a oily rag like that
+TEST/DR2/MWEW0/SI1361_n.wav But in this one secion we welcome to auditears
+TEST/DR2/MWEW0/SI1991_n.wav Loude of people will rolm the streets and costums and masks and having a ball
+TEST/DR2/MWEW0/SI731_n.wav A few years later the dom fell him
+TEST/DR2/MWEW0/SX101_n.wav Cinder garden children decloerate their clas roms for all holidays
+TEST/DR2/MWEW0/SX11_n.wav He will allow a brare ligh
+TEST/DR2/MWEW0/SX191_n.wav With drawl forny acusations at once
+TEST/DR2/MWEW0/SX281_n.wav Cory and trish played tag with beach balls for ours
+TEST/DR2/MWEW0/SX371_n.wav Right now maynot be the best time for bisones mergers
+TEST/DR2/MWVW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR2/MWVW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR2/MWVW0/SI1476_n.wav Or does he get exercise
+TEST/DR2/MWVW0/SI2106_n.wav Are kas selmen are in appliancis and cosmetics
+TEST/DR2/MWVW0/SI846_n.wav Thisprings us to the question of a credidation of art sqhols in general
+TEST/DR2/MWVW0/SX126_n.wav Artoficial intelligence is for real
+TEST/DR2/MWVW0/SX216_n.wav The small boy put the worm on the hook
+TEST/DR2/MWVW0/SX306_n.wav A chosen few will become generals
+TEST/DR2/MWVW0/SX36_n.wav Only the most accomplish artists obtained popularity
+TEST/DR2/MWVW0/SX396_n.wav The fish began to leep franticaly on the surface of the small lak
+TEST/DR3/FCMH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/FCMH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/FCMH0/SI1454_n.wav Originally the maintipes used were various compositions of polygesters
+TEST/DR3/FCMH0/SI2084_n.wav What about a tyrom then
+TEST/DR3/FCMH0/SI824_n.wav Several firms are murchant dizing insine preperation through feed manufacturers
+TEST/DR3/FCMH0/SX104_n.wav He stole a dime from a beger
+TEST/DR3/FCMH0/SX14_n.wav Before thirstdays exam review every formula
+TEST/DR3/FCMH0/SX194_n.wav They enjoy it when i audition
+TEST/DR3/FCMH0/SX284_n.wav Jaf thought you argued in faver of a senterafuge purchase
+TEST/DR3/FCMH0/SX374_n.wav Jown cleans shellfish for a living
+TEST/DR3/FKMS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/FKMS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/FKMS0/SI1490_n.wav Perhaps it was right perhaps it was just
+TEST/DR3/FKMS0/SI2120_n.wav He pauszed then added everything on ha ship is a wepon
+TEST/DR3/FKMS0/SI860_n.wav These enclude leaves of absencesillyscsis and layogfhs
+TEST/DR3/FKMS0/SX140_n.wav Agrecultural prodects are unevenly distributed
+TEST/DR3/FKMS0/SX230_n.wav Allow leway here but rascionalizes all errs
+TEST/DR3/FKMS0/SX320_n.wav The nearest synegog may not be within walking distance
+TEST/DR3/FKMS0/SX410_n.wav Greg buizes fresh milk each weeak day morning
+TEST/DR3/FKMS0/SX50_n.wav Catestroffic economic cutbacks neglected the por
+TEST/DR3/FPKT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/FPKT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/FPKT0/SI1538_n.wav A carrage crunhed by its dim light filtering through the glume
+TEST/DR3/FPKT0/SI2168_n.wav They make us conform us look good
+TEST/DR3/FPKT0/SI908_n.wav We always thought we oul die with our botsun
+TEST/DR3/FPKT0/SX188_n.wav Who out thorise the inlimited expens account
+TEST/DR3/FPKT0/SX278_n.wav To firther his pestege he occasionaly reads the wallstreht journal
+TEST/DR3/FPKT0/SX368_n.wav Lories costum meted black globes to be completely eleigent
+TEST/DR3/FPKT0/SX8_n.wav Why yellawr worriy over silly itums
+TEST/DR3/FPKT0/SX98_n.wav Gets the question from the answer
+TEST/DR3/MBDG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MBDG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MBDG0/SI1463_n.wav We can however maximize its expected value
+TEST/DR3/MBDG0/SI2093_n.wav He then offered his own estimte of he wheather which was unenthusiastic
+TEST/DR3/MBDG0/SI833_n.wav Less personal salsmanship
+TEST/DR3/MBDG0/SX113_n.wav A muskqular abptimant is good for your back
+TEST/DR3/MBDG0/SX203_n.wav The causway ended abruptly at the shor
+TEST/DR3/MBDG0/SX23_n.wav Those musicians harmonize marvilesly
+TEST/DR3/MBDG0/SX293_n.wav Polece take this dirty table closth of the cleanears for me
+TEST/DR3/MBDG0/SX383_n.wav The carpetcleaner shampod our orientle rubg
+TEST/DR3/MBWM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MBWM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MBWM0/SI1304_n.wav It was exposed to a high volosity gas yet
+TEST/DR3/MBWM0/SI1934_n.wav Waite alitla while
+TEST/DR3/MBWM0/SI674_n.wav This is no spectater typexperience everyone is to be a participent
+TEST/DR3/MBWM0/SX134_n.wav Tdisember and january ar nice months toespend in my amy
+TEST/DR3/MBWM0/SX224_n.wav How god is sour indurance
+TEST/DR3/MBWM0/SX314_n.wav Tepeople were more generous therewuld be no need for wealfare
+TEST/DR3/MBWM0/SX404_n.wav Barb burned paper and leaves and a big bond fire
+TEST/DR3/MBWM0/SX44_n.wav Basket pal can be an intertaining sport
+TEST/DR3/MCSH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MCSH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MCSH0/SI1549_n.wav Yallh should have let me do it
+TEST/DR3/MCSH0/SI2179_n.wav My mother never waops me
+TEST/DR3/MCSH0/SI919_n.wav Obviously the brihtle pair has many ajustments to make to their new situation
+TEST/DR3/MCSH0/SX109_n.wav She slipped an spraine her ankle on the steep slop
+TEST/DR3/MCSH0/SX199_n.wav Young children should avoid exposure to contagious diseases
+TEST/DR3/MCSH0/SX19_n.wav Illuminom silver where can often be flimsy
+TEST/DR3/MCSH0/SX289_n.wav Whedther prof galashaes are very useful in sey addle
+TEST/DR3/MCSH0/SX379_n.wav Pam gives driving lessons on tharsdaes
+TEST/DR3/MCTW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MCTW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MCTW0/SI1373_n.wav Each form represented by the dicionary is looked up in the text form list
+TEST/DR3/MCTW0/SI2003_n.wav In a way he couldn't blam her
+TEST/DR3/MCTW0/SI743_n.wav Do by all purpased mugs or cups
+TEST/DR3/MCTW0/SX113_n.wav A musqular aptiment is god foryour back
+TEST/DR3/MCTW0/SX203_n.wav The causeway ended abruptly at the shor
+TEST/DR3/MCTW0/SX23_n.wav Those musicians harmonize marveilously
+TEST/DR3/MCTW0/SX293_n.wav Please take this dirty table cloth to the cleaners for me
+TEST/DR3/MCTW0/SX383_n.wav The carpet cleaners shampot ar oriental rug
+TEST/DR3/MGJF0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MGJF0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MGJF0/SI1901_n.wav A warm breease played acrost it moving it like waves
+TEST/DR3/MGJF0/SI641_n.wav Clever light songs were overly oiy tragic songs a little to mellajramatic
+TEST/DR3/MGJF0/SI776_n.wav Do not draw yoarn to tight
+TEST/DR3/MGJF0/SX101_n.wav Kunergarden children decorate their clashroms for all holidays
+TEST/DR3/MGJF0/SX11_n.wav He wul allow a rare ligh
+TEST/DR3/MGJF0/SX191_n.wav Withdraw all fpony acusations at once
+TEST/DR3/MGJF0/SX281_n.wav Cory and trish played tag with beach balls for ours
+TEST/DR3/MGJF0/SX371_n.wav Right now maynot be the best time for bisnes mergers
+TEST/DR3/MGLB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MGLB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MGLB0/SI1534_n.wav It's a because of my lovingliness that hair grows on my face
+TEST/DR3/MGLB0/SI2164_n.wav Take car of yourself then
+TEST/DR3/MGLB0/SI904_n.wav He pered ahead and grand as a ralrowd traxs came interview again below
+TEST/DR3/MGLB0/SX184_n.wav The cats meyo ol waysearts my ears
+TEST/DR3/MGLB0/SX274_n.wav Cliffh was sothd by the loegurious masage
+TEST/DR3/MGLB0/SX364_n.wav Each untimely income los coincided with a break down of a heating system part
+TEST/DR3/MGLB0/SX4_n.wav Jain may arn more money by working hard
+TEST/DR3/MGLB0/SX94_n.wav Youngsters love common candieas treats
+TEST/DR3/MHPG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MHPG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MHPG0/SI1090_n.wav But of somewhat more detaild analyisis of this process may be illuminating
+TEST/DR3/MHPG0/SI1720_n.wav They took it away overalls or something
+TEST/DR3/MHPG0/SI460_n.wav Nothing has bee don yet to take advanage of the enabling legislation
+TEST/DR3/MHPG0/SX100_n.wav Project development was proceeding to slowly
+TEST/DR3/MHPG0/SX10_n.wav Are your grades higher or lower then nancies
+TEST/DR3/MHPG0/SX190_n.wav Serve the coasthlaw after i add the oil
+TEST/DR3/MHPG0/SX280_n.wav The oascis was a marage
+TEST/DR3/MHPG0/SX370_n.wav That noyse problem growes more anoying each day
+TEST/DR3/MJBR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MJBR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MJBR0/SI1001_n.wav O he'll be a plemer came the answer
+TEST/DR3/MJBR0/SI1631_n.wav Her legs hung down long and thin as she sat on the high stole
+TEST/DR3/MJBR0/SI2261_n.wav We're here a transact buisness
+TEST/DR3/MJBR0/SX101_n.wav Kinder garden children decloerate thir clash roms for all holidays
+TEST/DR3/MJBR0/SX11_n.wav He will allow a rare ligh
+TEST/DR3/MJBR0/SX191_n.wav Withdraw aol fony acusations at once
+TEST/DR3/MJBR0/SX281_n.wav Cory and trish played tag with beach balls for oures
+TEST/DR3/MJBR0/SX371_n.wav Right now may not be the best time for bisness mergers
+TEST/DR3/MJES0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MJES0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MJES0/SI1384_n.wav There need be no squemishness about admiding this
+TEST/DR3/MJES0/SI2014_n.wav Sowfer oil and copera make the coind of tinder any fire bug dreams of
+TEST/DR3/MJES0/SI754_n.wav Instructions for preparing clay drawying glazing and firing ar not givin
+TEST/DR3/MJES0/SX124_n.wav Objects made of puter are beautiful
+TEST/DR3/MJES0/SX214_n.wav The morning be on the spiter web glistened in the sun
+TEST/DR3/MJES0/SX304_n.wav Cheep stockings run the first time thei'r warn
+TEST/DR3/MJES0/SX34_n.wav Don't do charles dirty dishes
+TEST/DR3/MJES0/SX394_n.wav Calsum makes bons an tefh strong
+TEST/DR3/MJJG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MJJG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MJJG0/SI1003_n.wav Seeds of soybean caoten corn sessimey and rap yeld seymy driying oils
+TEST/DR3/MJJG0/SI1633_n.wav Sai you wore yourself out an cleaning all these empty roms
+TEST/DR3/MJJG0/SI2263_n.wav Nobody else showed pleasure
+TEST/DR3/MJJG0/SX103_n.wav Call an ambulance for metical assistance
+TEST/DR3/MJJG0/SX13_n.wav Swing your arms as high as you can
+TEST/DR3/MJJG0/SX193_n.wav Why by oil when you always use mine
+TEST/DR3/MJJG0/SX283_n.wav Planed parantold organizations premote birth control
+TEST/DR3/MJJG0/SX373_n.wav A boring novel is a superb sleping pil
+TEST/DR3/MJMP0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MJMP0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MJMP0/SI1535_n.wav He trembled lest his pece should fail
+TEST/DR3/MJMP0/SI1791_n.wav Now the man was not drunk he wondered how he got tiged up with this stranger
+TEST/DR3/MJMP0/SI905_n.wav His work  began just six days after the flud
+TEST/DR3/MJMP0/SX185_n.wav Did you buy any corteroy over alls
+TEST/DR3/MJMP0/SX275_n.wav Ste vore a bright red cas mear sweatter
+TEST/DR3/MJMP0/SX365_n.wav The gunman kept his victom cornered at cunpoint for three ours
+TEST/DR3/MJMP0/SX5_n.wav She is thiner than i ame
+TEST/DR3/MJMP0/SX95_n.wav Uganas and aligatoars are tropical reptiles
+TEST/DR3/MJVW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MJVW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MJVW0/SI1733_n.wav He also reminded himself that he had an unusual number of posibilities
+TEST/DR3/MJVW0/SI1758_n.wav Widow nice sort of woman
+TEST/DR3/MJVW0/SI473_n.wav Yet he remains the fearcist of compettitors
+TEST/DR3/MJVW0/SX113_n.wav A muskqular aptiment is god for your back
+TEST/DR3/MJVW0/SX203_n.wav The causway endered abruptly at the shor
+TEST/DR3/MJVW0/SX23_n.wav Those musicians harmonize marveileusly
+TEST/DR3/MJVW0/SX293_n.wav Please take this dirty table cloth to the queners for me
+TEST/DR3/MJVW0/SX383_n.wav The  carpeit clooners shampoed our orientale rug
+TEST/DR3/MKCH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MKCH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MKCH0/SI1378_n.wav Morfofanemic rules may be thought of as joining sertan points in the system
+TEST/DR3/MKCH0/SI1425_n.wav They were both very fluient
+TEST/DR3/MKCH0/SI2008_n.wav He swung up over the whel
+TEST/DR3/MKCH0/SX118_n.wav Combine althe ingrediance an a large bowl
+TEST/DR3/MKCH0/SX208_n.wav Robs set by the pine and scetched the strayh gase
+TEST/DR3/MKCH0/SX28_n.wav Begd that gard for one galon of gas
+TEST/DR3/MKCH0/SX298_n.wav Aildrather not  buy thes shoes then be overcharged
+TEST/DR3/MKCH0/SX388_n.wav Her righ handakes when ever the barametric presur changes
+TEST/DR3/MLNT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MLNT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MLNT0/SI1574_n.wav Fly swarmed around the boll of lentols in which he moped thick black bread
+TEST/DR3/MLNT0/SI1902_n.wav The polsein glow of a cigaret
+TEST/DR3/MLNT0/SI642_n.wav Their propes were two step ladders a chair and a pom fan
+TEST/DR3/MLNT0/SX102_n.wav Special task forces reskue hostages from kitnappers
+TEST/DR3/MLNT0/SX12_n.wav We'll robin whar a yellow lilly
+TEST/DR3/MLNT0/SX192_n.wav Strawg hats are outder fashion this year
+TEST/DR3/MLNT0/SX282_n.wav The tothvery forgot to come when roger's toth fell out
+TEST/DR3/MLNT0/SX372_n.wav That diagram makes sens only after much study
+TEST/DR3/MMAB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MMAB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MMAB0/SI1362_n.wav After that we begin to get visiters to clas
+TEST/DR3/MMAB0/SI1992_n.wav Or more rithmiclythe swarthy whiches are laffhing
+TEST/DR3/MMAB0/SI732_n.wav Do line burbacue firabule with heavy foil to reflect heat
+TEST/DR3/MMAB0/SX102_n.wav Special task forces reskue hosteages from kidnappers
+TEST/DR3/MMAB0/SX12_n.wav We'll robin wheare a yellow lilly
+TEST/DR3/MMAB0/SX192_n.wav Strawg hats are out of fashion this year
+TEST/DR3/MMAB0/SX282_n.wav The tothfeary forgot to come when roger's toth fell out
+TEST/DR3/MMAB0/SX372_n.wav That digram maks sens only after much study
+TEST/DR3/MMDH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MMDH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MMDH0/SI1656_n.wav She blew her knose on a tishue and opend the coak botl
+TEST/DR3/MMDH0/SI2118_n.wav There is not space to hold or force to gard any increased number of prisoners
+TEST/DR3/MMDH0/SI2286_n.wav Yes ser she said is that definit
+TEST/DR3/MMDH0/SX126_n.wav Art efficial intelligence is for real
+TEST/DR3/MMDH0/SX216_n.wav The small boy put the warm on the hook
+TEST/DR3/MMDH0/SX306_n.wav A chosen few will become generals
+TEST/DR3/MMDH0/SX36_n.wav Only the most accomplishe artists obtained popularity
+TEST/DR3/MMDH0/SX396_n.wav The fish began to leep franically on the surface of the small leak
+TEST/DR3/MMJR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MMJR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MMJR0/SI1648_n.wav It was a pfearely marden motel with quite a bit of illectrical display in front
+TEST/DR3/MMJR0/SI2166_n.wav Look sweet hart some ful was
+TEST/DR3/MMJR0/SI2278_n.wav View takes in five countes two bedroms
+TEST/DR3/MMJR0/SX118_n.wav Tombin oaithe ingreedieance an a large ball
+TEST/DR3/MMJR0/SX208_n.wav Robs satt by the pond and scetched the strayg guase
+TEST/DR3/MMJR0/SX28_n.wav Beg that gard for one galon of gas
+TEST/DR3/MMJR0/SX298_n.wav I'd rather nop buy thes shoes then be overcharged
+TEST/DR3/MMJR0/SX388_n.wav Her righte handakes whenever the barametri copppressuor changes
+TEST/DR3/MMWH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MMWH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MMWH0/SI1089_n.wav Perhaps things were even wors then
+TEST/DR3/MMWH0/SI1301_n.wav Deans conform an important briadge between the president and the faculty
+TEST/DR3/MMWH0/SI459_n.wav He firther preposed grants of an unspesified some for experimental hospitles
+TEST/DR3/MMWH0/SX189_n.wav Destroy every fil related to my audics
+TEST/DR3/MMWH0/SX279_n.wav Alisis ability to work without supervision is notworthy
+TEST/DR3/MMWH0/SX369_n.wav Bobd papered over the living rom yerls
+TEST/DR3/MMWH0/SX99_n.wav Mid eval susity was based on highrarkies
+TEST/DR3/MMWH0/SX9_n.wav Where were you while we were away
+TEST/DR3/MRTK0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MRTK0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MRTK0/SI1093_n.wav What elements of our behavior are desisive
+TEST/DR3/MRTK0/SI1723_n.wav A new idea drifted in from nowhere
+TEST/DR3/MRTK0/SI1750_n.wav Coul the ambasader himself be the man on this side the priminister feered
+TEST/DR3/MRTK0/SX103_n.wav Call in ambulance for metical assistance
+TEST/DR3/MRTK0/SX13_n.wav Swing your arm as highs you can
+TEST/DR3/MRTK0/SX193_n.wav Why by oil when you always use mine
+TEST/DR3/MRTK0/SX283_n.wav Plan paranthod organizations premot birth control
+TEST/DR3/MRTK0/SX373_n.wav Himboring novel is a superb sleping pil
+TEST/DR3/MTAA0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MTAA0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MTAA0/SI1285_n.wav Family rasioning probly will be necessary
+TEST/DR3/MTAA0/SI1915_n.wav It was there that she would have to enact her renunciationbeg forgivenes
+TEST/DR3/MTAA0/SI596_n.wav On theese they feel they can relly
+TEST/DR3/MTAA0/SX115_n.wav The ellem de piks the croples all a glow
+TEST/DR3/MTAA0/SX205_n.wav Military personalre expected to abey government orders
+TEST/DR3/MTAA0/SX25_n.wav Only lawyers love milianars
+TEST/DR3/MTAA0/SX295_n.wav If carowl comes tomorow have a arange for a meeting et to
+TEST/DR3/MTAA0/SX385_n.wav Hits sholder felt as if it were broken
+TEST/DR3/MTDT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MTDT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MTDT0/SI1994_n.wav So if all these bears was to get me in bed man you'd just spend a lot of money
+TEST/DR3/MTDT0/SI2254_n.wav Quietly he determind to foil her
+TEST/DR3/MTDT0/SI994_n.wav Her study of history was persistantly persued
+TEST/DR3/MTDT0/SX184_n.wav The cats meyow always herts my ears
+TEST/DR3/MTDT0/SX274_n.wav Cliff was sothed by the lugurious masage
+TEST/DR3/MTDT0/SX364_n.wav Each untimely income los coincided with the break down of a heating system part
+TEST/DR3/MTDT0/SX4_n.wav Jain may earn more money by working hard
+TEST/DR3/MTDT0/SX94_n.wav Youngsters love common candieas treats
+TEST/DR3/MTHC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MTHC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MTHC0/SI1015_n.wav Hey and pasture are the other chef sources of lifestock fed
+TEST/DR3/MTHC0/SI1645_n.wav Such optimism was completely unjustifyied
+TEST/DR3/MTHC0/SI2275_n.wav It all did lok very eficient an shipshap
+TEST/DR3/MTHC0/SX115_n.wav The emblin depicxs the acroplus all a glow
+TEST/DR3/MTHC0/SX205_n.wav Military personel are expective to obey government orders
+TEST/DR3/MTHC0/SX25_n.wav Only laryers love miliaon ars
+TEST/DR3/MTHC0/SX295_n.wav If carl comes tomorow have her arrange for meting at to
+TEST/DR3/MTHC0/SX385_n.wav His sholder felt as if it were broken
+TEST/DR3/MWJG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR3/MWJG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR3/MWJG0/SI1124_n.wav Let me quoate him even more fully for his analysis is important to my theme
+TEST/DR3/MWJG0/SI1754_n.wav He said the crasy fol half alloud
+TEST/DR3/MWJG0/SI494_n.wav Bake slowly at least one halfh our longer
+TEST/DR3/MWJG0/SX134_n.wav Be sember ind january are nice months to spend in my ammy
+TEST/DR3/MWJG0/SX224_n.wav How good is your indurance
+TEST/DR3/MWJG0/SX314_n.wav If people were more generous there would be no need for wealfar
+TEST/DR3/MWJG0/SX404_n.wav Barb burned paper and leaves an a big bon fire
+TEST/DR3/MWJG0/SX44_n.wav Basketball can be an inutaining sport
+TEST/DR4/FADG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FADG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FADG0/SI1279_n.wav Bricks are an alternaitive
+TEST/DR4/FADG0/SI1909_n.wav Fat showed in lose roles beneath the shert
+TEST/DR4/FADG0/SI649_n.wav Its sufferes from a lack of unity of purpase and respect for herowic leadership
+TEST/DR4/FADG0/SX109_n.wav She slipped in spraing her ankle on the steep slope
+TEST/DR4/FADG0/SX199_n.wav Young children should avoid exposure to contageous diseases
+TEST/DR4/FADG0/SX19_n.wav Illuminum sioverwear can often be flimsy
+TEST/DR4/FADG0/SX289_n.wav Whedther prof challashes are very useful in sy idle
+TEST/DR4/FADG0/SX379_n.wav Pam gives striving lessons on thirse days
+TEST/DR4/FCFT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FCFT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FCFT0/SI1178_n.wav Many selections are themselves convincing contributions to thisappraizl
+TEST/DR4/FCFT0/SI1808_n.wav They went down stars loterd a tray lavishly
+TEST/DR4/FCFT0/SI548_n.wav Ne've yo'r happy ariin my lif
+TEST/DR4/FCFT0/SX188_n.wav Who authorises the inlimited expense account
+TEST/DR4/FCFT0/SX278_n.wav To firther his perstedge he occasionally reads the wailstreet journl
+TEST/DR4/FCFT0/SX368_n.wav Lorys costum needed black gloves to be compleetely eleigent
+TEST/DR4/FCFT0/SX8_n.wav Whighd yaeullar worryd over seilly itums
+TEST/DR4/FCFT0/SX98_n.wav Ges the question from the answer
+TEST/DR4/FCRH0/SA1_n.wav She had your dark suitin greasy wash water all year
+TEST/DR4/FCRH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FCRH0/SI1088_n.wav One wonders abouit is apcability to people
+TEST/DR4/FCRH0/SI1718_n.wav Do you kow what they think of me
+TEST/DR4/FCRH0/SI458_n.wav Thes is not a program of socalized medisin
+TEST/DR4/FCRH0/SX188_n.wav Who aught tho rise the unlimited expense account
+TEST/DR4/FCRH0/SX278_n.wav To farther his perstege he occasionally reachs the wallstry journal
+TEST/DR4/FCRH0/SX368_n.wav Lorys costume needed black loves to be completely eleiguent
+TEST/DR4/FCRH0/SX8_n.wav Why yell ar wearry oversilly itums
+TEST/DR4/FCRH0/SX98_n.wav Gets the question from the answer
+TEST/DR4/FDMS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FDMS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FDMS0/SI1218_n.wav Poetes moreover dwell on human pations
+TEST/DR4/FDMS0/SI1502_n.wav It was not exactly panic they gave way to but they could not just sit there
+TEST/DR4/FDMS0/SI1848_n.wav We can dige to we can dielike real people
+TEST/DR4/FDMS0/SX138_n.wav The clumsy custimers spild some expensive perfume
+TEST/DR4/FDMS0/SX228_n.wav The view point overlooked the ocean
+TEST/DR4/FDMS0/SX318_n.wav Please dig my patatos up before frost
+TEST/DR4/FDMS0/SX408_n.wav I'd raide the subwayd but i havent enough change
+TEST/DR4/FDMS0/SX48_n.wav Grand mother outgrow her upbringing in petaecoats
+TEST/DR4/FEDW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FEDW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FEDW0/SI1084_n.wav The ttheimg may be the formation of a shape from which other shapes evolve
+TEST/DR4/FEDW0/SI1653_n.wav He spoke suthingly
+TEST/DR4/FEDW0/SI1714_n.wav Churs woere a louck would normilly step in
+TEST/DR4/FEDW0/SX184_n.wav The cats me yall always herts my ears
+TEST/DR4/FEDW0/SX274_n.wav Clifh was soted by the loegurious masage
+TEST/DR4/FEDW0/SX364_n.wav Each untimely income los coinsided with the break down of a heating system port
+TEST/DR4/FEDW0/SX4_n.wav Jam may earn more money by working hoard
+TEST/DR4/FEDW0/SX94_n.wav Youngsters love common candy as treats
+TEST/DR4/FGJD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FGJD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FGJD0/SI1179_n.wav What shall these effects be
+TEST/DR4/FGJD0/SI549_n.wav These programs emphasized the exceptance of biy racial cqlas roms pecsbully
+TEST/DR4/FGJD0/SI818_n.wav Bones and cartlage transmite porly antend to reflect the alterysonic signeals
+TEST/DR4/FGJD0/SX189_n.wav Destroy every file related to my audits
+TEST/DR4/FGJD0/SX279_n.wav Alysis ability to work without supervision is no worthy
+TEST/DR4/FGJD0/SX369_n.wav Bobd papered over the living rom merals
+TEST/DR4/FGJD0/SX99_n.wav Madible susity was based on highr arkies
+TEST/DR4/FGJD0/SX9_n.wav Wwhere were you while we were away
+TEST/DR4/FJLM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FJLM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FJLM0/SI1043_n.wav Not surprisingly this approach did not work
+TEST/DR4/FJLM0/SI1673_n.wav One thing he thought nobody knows about it yet
+TEST/DR4/FJLM0/SI2303_n.wav In short and to baro an arboral frase slash timber
+TEST/DR4/FJLM0/SX143_n.wav The sound of junifirsed bugl scared the analop
+TEST/DR4/FJLM0/SX233_n.wav Haghway and freway mean the same thing
+TEST/DR4/FJLM0/SX323_n.wav The fawg prevented them from ariving on tom
+TEST/DR4/FJLM0/SX413_n.wav Dafpfhinys swdish needl point scarf matched her skirt
+TEST/DR4/FJLM0/SX53_n.wav Even a simple vocabulary contained symbls
+TEST/DR4/FJMG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FJMG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FJMG0/SI1181_n.wav Properly use the present bok is an exculent instrument of inlitenment
+TEST/DR4/FJMG0/SI1811_n.wav Presdently his water brother said brethlesly
+TEST/DR4/FJMG0/SI551_n.wav Is the mother of an artistic child at fault
+TEST/DR4/FJMG0/SX101_n.wav Kinder garden children decorate their clasroms for all holidays
+TEST/DR4/FJMG0/SX11_n.wav He will allow a rare lah
+TEST/DR4/FJMG0/SX191_n.wav Withdraw all pony acusations at once
+TEST/DR4/FJMG0/SX281_n.wav Cory and trish played tag with beach balls for oures
+TEST/DR4/FJMG0/SX371_n.wav Right now may not be the best time for bisnes mergers
+TEST/DR4/FLBW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FLBW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FLBW0/SI1219_n.wav Students choises of ideal educational gols are not arbitry or whymsical
+TEST/DR4/FLBW0/SI1849_n.wav He remembered them well from his happy period
+TEST/DR4/FLBW0/SI2253_n.wav More he could take at leaser
+TEST/DR4/FLBW0/SX139_n.wav The bungelow was pleasently situated near the shor
+TEST/DR4/FLBW0/SX229_n.wav Are you loking for employment
+TEST/DR4/FLBW0/SX319_n.wav A big goat idely ambled through the farmyard
+TEST/DR4/FLBW0/SX409_n.wav Eating spanasghed nightly increases strength moraculously
+TEST/DR4/FLBW0/SX49_n.wav At twilight on the twelfth day will have shible
+TEST/DR4/FLKD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FLKD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FLKD0/SI1369_n.wav He admitted his behavior and deffended it
+TEST/DR4/FLKD0/SI739_n.wav Keep the deserts symple fruit does nicely
+TEST/DR4/FLKD0/SI894_n.wav New ideas for improving nutritian came with the study of soil tratment
+TEST/DR4/FLKD0/SX109_n.wav She slipped and spraind her ankle on the steep slop
+TEST/DR4/FLKD0/SX199_n.wav Young children should avoid exposure to contageus diseases
+TEST/DR4/FLKD0/SX19_n.wav Illuminim soverware can often be flimsy
+TEST/DR4/FLKD0/SX289_n.wav Whether prof challashes are very useful in syadl
+TEST/DR4/FLKD0/SX379_n.wav Pam gives driving lessons on thirse days
+TEST/DR4/FMAF0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FMAF0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FMAF0/SI1459_n.wav This is espesially trueh for neded fabrics
+TEST/DR4/FMAF0/SI2089_n.wav If who ever did such a thing again she dive shaime
+TEST/DR4/FMAF0/SI829_n.wav What it does stimulate to ruman activity
+TEST/DR4/FMAF0/SX109_n.wav She slipped and sprained her ankcle on the steep slope
+TEST/DR4/FMAF0/SX199_n.wav Young children should avvoid exposure to contageous diseases
+TEST/DR4/FMAF0/SX19_n.wav Allominim siverwere can often be flimsy
+TEST/DR4/FMAF0/SX289_n.wav Wherther prof callasheaes are very useful in seyadl
+TEST/DR4/FMAF0/SX379_n.wav Pam gives striving lessons on thirs days
+TEST/DR4/FMCM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FMCM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FMCM0/SI1180_n.wav What factors condition the degree of realization at various times in places
+TEST/DR4/FMCM0/SI1810_n.wav Tha't 'l be plenty to eat buy
+TEST/DR4/FMCM0/SI550_n.wav You certnly cant expect the infeald to do any beter than it did last year
+TEST/DR4/FMCM0/SX100_n.wav Project development was preceding toslowly
+TEST/DR4/FMCM0/SX10_n.wav Ar your grades higher or lower than nancies
+TEST/DR4/FMCM0/SX190_n.wav Serve the colslaw after i ad the oil
+TEST/DR4/FMCM0/SX280_n.wav The owacist was a marage
+TEST/DR4/FMCM0/SX370_n.wav That noyse problem grows more innoying each day
+TEST/DR4/FNMR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FNMR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FNMR0/SI1399_n.wav De susity really exist as an entity overnd above the eclumeration of men
+TEST/DR4/FNMR0/SI2029_n.wav A note of all came into his voice
+TEST/DR4/FNMR0/SI769_n.wav Set aside to driy with lit on shugerball
+TEST/DR4/FNMR0/SX139_n.wav The bunglow was plesently situated near the shor
+TEST/DR4/FNMR0/SX229_n.wav Are you looking for employment
+TEST/DR4/FNMR0/SX319_n.wav A big goat ideilly ambled through the farmyard
+TEST/DR4/FNMR0/SX409_n.wav Eating spanage nightly increased his strength moraculously
+TEST/DR4/FNMR0/SX49_n.wav A twilight on the twelfth day we'll halve shuble
+TEST/DR4/FREW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FREW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FREW0/SI1030_n.wav Bring me the firecrackers
+TEST/DR4/FREW0/SI1280_n.wav The shelter shon would provided almost absolute fait out protection
+TEST/DR4/FREW0/SI1910_n.wav He lived in breeted for the mining company
+TEST/DR4/FREW0/SX110_n.wav The best way to learn is to solvevextra problems
+TEST/DR4/FREW0/SX200_n.wav Ralpfh controled the stopwatch from the bleachers
+TEST/DR4/FREW0/SX20_n.wav She wore warm fleacy wullin overils
+TEST/DR4/FREW0/SX290_n.wav This prosure is particularly informative fora prospective bye
+TEST/DR4/FREW0/SX380_n.wav Why charge many for such garbage
+TEST/DR4/FRNG0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FRNG0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FRNG0/SI1355_n.wav Regulative norms governings sub groups and ruls
+TEST/DR4/FRNG0/SI1985_n.wav Eyes like hot hany eyes that sisled
+TEST/DR4/FRNG0/SI725_n.wav A spring trap for solid mounting an a regular hand trap are also available
+TEST/DR4/FRNG0/SX185_n.wav Did you buy any corter roy of eralls
+TEST/DR4/FRNG0/SX275_n.wav Stev for a bright red cas mear sweater
+TEST/DR4/FRNG0/SX365_n.wav The gunman kept his victom cornered at gunpoint for three ouurs
+TEST/DR4/FRNG0/SX5_n.wav She is thiner than i ame
+TEST/DR4/FRNG0/SX95_n.wav Eguantais analegaters are tropical raptiles
+TEST/DR4/FSEM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/FSEM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/FSEM0/SI1198_n.wav It is auht inspiring
+TEST/DR4/FSEM0/SI1828_n.wav Actually they said he did slep but so sortlly an fitfully that he forgot
+TEST/DR4/FSEM0/SI568_n.wav At right is tha casual style and a crushed unline whighte leather
+TEST/DR4/FSEM0/SX118_n.wav Combuin allthe ingreidiantce in a large boall
+TEST/DR4/FSEM0/SX208_n.wav Rob set by the ponaint sketch te stray gease
+TEST/DR4/FSEM0/SX28_n.wav Beg bege gared for one galan of gas
+TEST/DR4/FSEM0/SX298_n.wav I'd rather not buy these shoes than be overcharged
+TEST/DR4/FSEM0/SX388_n.wav Her righte hand akues when ever the barametric presur changes
+TEST/DR4/MBNS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MBNS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MBNS0/SI1220_n.wav They also want money proestge and security
+TEST/DR4/MBNS0/SI1850_n.wav A god morow to you my boy
+TEST/DR4/MBNS0/SI590_n.wav Briges tonales and farries are the most common methods of river crosings
+TEST/DR4/MBNS0/SX140_n.wav Agrecultural prodects are unevenly distributed
+TEST/DR4/MBNS0/SX230_n.wav Allow leway here but rashionallizves all erors
+TEST/DR4/MBNS0/SX320_n.wav The nearest cynegog may not be within walking distance
+TEST/DR4/MBNS0/SX410_n.wav Greig buiyes fresh milk each week day morning
+TEST/DR4/MBNS0/SX50_n.wav Catestrowffic economic cupbacks niglicked the por
+TEST/DR4/MDLS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MDLS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MDLS0/SI1628_n.wav This is my hindledjur he informed him in an aobsorbed way
+TEST/DR4/MDLS0/SI2258_n.wav You in a hurry warn't you
+TEST/DR4/MDLS0/SI998_n.wav Yet they thrived on it
+TEST/DR4/MDLS0/SX188_n.wav Who authorized the unlimited expense account
+TEST/DR4/MDLS0/SX278_n.wav To firther his prestege he occasionally reads the wall street journal
+TEST/DR4/MDLS0/SX368_n.wav Loriyes costume needed black gloves to be completely elegent
+TEST/DR4/MDLS0/SX8_n.wav Why yell or worrye over silly itums
+TEST/DR4/MDLS0/SX98_n.wav Gets the question from the answer
+TEST/DR4/MDRM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MDRM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MDRM0/SI1013_n.wav Scerial grains have ben used for senturies to preppare fermented bevearages
+TEST/DR4/MDRM0/SI1643_n.wav Nere is training her doesn't cost any thing
+TEST/DR4/MDRM0/SI2273_n.wav It all seemed rather hopeles
+TEST/DR4/MDRM0/SX113_n.wav A muskqular abpbdimant its god for your back
+TEST/DR4/MDRM0/SX203_n.wav The calzsway inded abruptly at the shor
+TEST/DR4/MDRM0/SX23_n.wav Those musicians harmonized marvelesly
+TEST/DR4/MDRM0/SX293_n.wav Please take this dirty tabl cloth to the cleaners for me
+TEST/DR4/MDRM0/SX383_n.wav The carpet cleaners shampoed our oriental rog
+TEST/DR4/MGMM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MGMM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MGMM0/SI1129_n.wav This croup is secularist and their program tens to be technological
+TEST/DR4/MGMM0/SI1759_n.wav Got a heck of a buy on this dert cheep
+TEST/DR4/MGMM0/SI499_n.wav The scaliped edge use particularly appeeling
+TEST/DR4/MGMM0/SX139_n.wav The bunglue was plesntly situated near the shor
+TEST/DR4/MGMM0/SX229_n.wav Ware you oking for employment
+TEST/DR4/MGMM0/SX319_n.wav A big goat idely ambled through the farmyard
+TEST/DR4/MGMM0/SX409_n.wav Eating spanage nightly increases strength moraculously
+TEST/DR4/MGMM0/SX49_n.wav At twilight on the twelfth day we'll have shiple
+TEST/DR4/MJDM1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MJDM1/SA2_n.wav Don't ask me to carry an old rag like that
+TEST/DR4/MJDM1/SI1085_n.wav He may tos coins he may take slips paper from a grab bag
+TEST/DR4/MJDM1/SI1715_n.wav Within this framwork what followed was strained even ha caba
+TEST/DR4/MJDM1/SI455_n.wav One validated acts of school distrects
+TEST/DR4/MJDM1/SX185_n.wav Djyoubuy an a corteoroy overalls
+TEST/DR4/MJDM1/SX275_n.wav Stev wore a bright red cas mear swiater
+TEST/DR4/MJDM1/SX365_n.wav The gunbman kept is victom cornerd a gunpoint three hours
+TEST/DR4/MJDM1/SX5_n.wav She is thin or then kniame
+TEST/DR4/MJDM1/SX95_n.wav Hegoanas naligates atropical reptiles
+TEST/DR4/MJRF0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MJRF0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MJRF0/SI1114_n.wav Why should this be so
+TEST/DR4/MJRF0/SI2081_n.wav Allo while she sat there her sinuy arms swirled befor her chest
+TEST/DR4/MJRF0/SI821_n.wav The target chark quickly and briefly tells yo which aditives do what
+TEST/DR4/MJRF0/SX101_n.wav Cinder garden children decoerate their clasroms for all holidays
+TEST/DR4/MJRF0/SX11_n.wav He will allow a rare lighe
+TEST/DR4/MJRF0/SX191_n.wav Withdraw all pony acusations at once
+TEST/DR4/MJRF0/SX281_n.wav Cory and trish played tag with beach balls for ours
+TEST/DR4/MJRF0/SX371_n.wav Right now may not be the best time for bisones mergers
+TEST/DR4/MKCL0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MKCL0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MKCL0/SI1091_n.wav Soler activities could presumibly bring long periodes of fludered rout
+TEST/DR4/MKCL0/SI1721_n.wav Come home right away
+TEST/DR4/MKCL0/SI461_n.wav Day after day some new eppisote is reported
+TEST/DR4/MKCL0/SX101_n.wav Cinder garden children decorate their clas roms woere all holidays
+TEST/DR4/MKCL0/SX11_n.wav He will allow a rar ligh
+TEST/DR4/MKCL0/SX191_n.wav Withdraw allfony acusations at once
+TEST/DR4/MKCL0/SX281_n.wav Tcory and trish played tag with beach balls for hours
+TEST/DR4/MKCL0/SX371_n.wav Right now may not be the best time for bisnes mergers
+TEST/DR4/MLJB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MLJB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MLJB0/SI1310_n.wav Many scowing powders now also containe falsfites
+TEST/DR4/MLJB0/SI1940_n.wav He was only vagily aweare of the flusing rain
+TEST/DR4/MLJB0/SI680_n.wav No political order or echonomic system is so clearly contrary to nature
+TEST/DR4/MLJB0/SX140_n.wav Agricculstural prolects are unevily distributed
+TEST/DR4/MLJB0/SX230_n.wav Lowd leaway here but rashianalizes all earths
+TEST/DR4/MLJB0/SX320_n.wav The nearest tynagoud may not be within walkeng distance
+TEST/DR4/MLJB0/SX410_n.wav Grig byus fresh milk each week buy morning
+TEST/DR4/MLJB0/SX50_n.wav Catstropfic economic cut backs in a glate bepore
+TEST/DR4/MLLL0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MLLL0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MLLL0/SI1363_n.wav Some these peculations ma of some meritothers are some what ambiguous
+TEST/DR4/MLLL0/SI1993_n.wav Should she wake him
+TEST/DR4/MLLL0/SI733_n.wav Do avoid puncurin ore cutting into meets to test them
+TEST/DR4/MLLL0/SX103_n.wav Colliny abulance fo metical assistance
+TEST/DR4/MLLL0/SX13_n.wav Swing your arm as high as you can
+TEST/DR4/MLLL0/SX193_n.wav Why by oil when you always use mine
+TEST/DR4/MLLL0/SX283_n.wav Planed parandhod organizations premote birth control
+TEST/DR4/MLLL0/SX373_n.wav A boring novel is a superb sleeping pil
+TEST/DR4/MPCS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MPCS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MPCS0/SI1359_n.wav In short sientific sampling was interduced in place of subjective sampling
+TEST/DR4/MPCS0/SI1989_n.wav Acident murder suiside take yor pick
+TEST/DR4/MPCS0/SI729_n.wav Best sullution is to find an area that is predomintely sunlighter shade
+TEST/DR4/MPCS0/SX189_n.wav Destroy every fowlerelated to mwd its
+TEST/DR4/MPCS0/SX279_n.wav Alisis ability tho work without supervision is no worthy
+TEST/DR4/MPCS0/SX369_n.wav Bob papered over the living rom mearls
+TEST/DR4/MPCS0/SX99_n.wav Mid evl susity was based on higharkies
+TEST/DR4/MPCS0/SX9_n.wav Where were you while we were away
+TEST/DR4/MPLB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MPLB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MPLB0/SI1394_n.wav The ramifications of the ise are inormous
+TEST/DR4/MPLB0/SI2024_n.wav They don't go for bolike muscle as a rul
+TEST/DR4/MPLB0/SI764_n.wav Trim excsess clayh from around lip of mold and set aside while a symbling lid
+TEST/DR4/MPLB0/SX134_n.wav Diesember and jenuary are nice months to spend in my ammey
+TEST/DR4/MPLB0/SX224_n.wav How god is your indurance
+TEST/DR4/MPLB0/SX314_n.wav If people were more generous there would be no need for wealfhare
+TEST/DR4/MPLB0/SX404_n.wav Barb burnd paper and leaves in a big ban fire
+TEST/DR4/MPLB0/SX44_n.wav Basket ball can be an ientertaining sport
+TEST/DR4/MPWM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MPWM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MPWM0/SI1127_n.wav We of the liberal led world got all set for pec an reabilitation
+TEST/DR4/MPWM0/SI1757_n.wav His sarcasm was followed by a stupid grin of his thick mouth and bad teth
+TEST/DR4/MPWM0/SI2279_n.wav Officials meet on rubish
+TEST/DR4/MPWM0/SX137_n.wav Tradition requires parental proval for under age marrage
+TEST/DR4/MPWM0/SX227_n.wav It's healthy or to cook without shugar
+TEST/DR4/MPWM0/SX317_n.wav The cranberry balg gets very prity an autum
+TEST/DR4/MPWM0/SX407_n.wav Lafh danse and sing a fortun smiles uppon you
+TEST/DR4/MPWM0/SX47_n.wav Momstrongly dislikes apetisers
+TEST/DR4/MRKO0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MRKO0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MRKO0/SI1397_n.wav Tthe playenough ind scholdeas segregation cases
+TEST/DR4/MRKO0/SI2027_n.wav They came appon cheedl dear at woodland pols
+TEST/DR4/MRKO0/SI767_n.wav Trimorway axcess clay ran forche seam with a coil of clay
+TEST/DR4/MRKO0/SX137_n.wav Tradition requires parental oapproval for under age marrage
+TEST/DR4/MRKO0/SX227_n.wav It's healthy or to cok without shuger
+TEST/DR4/MRKO0/SX317_n.wav The cranbarry balg gets very perty and autum
+TEST/DR4/MRKO0/SX407_n.wav Lafh danse and sing af fortunet smiles appon you
+TEST/DR4/MRKO0/SX47_n.wav Mom strongly dislikes apetisers
+TEST/DR4/MROA0/SA1_n.wav She had your dark suit in greasy wash water all yeor
+TEST/DR4/MROA0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MROA0/SI1307_n.wav This is kown as confirmation or interopy
+TEST/DR4/MROA0/SI1970_n.wav The clearly i dentifiable enemy contiuued on as if noone else were around
+TEST/DR4/MROA0/SI677_n.wav Compariable trins can be noted elsewhere
+TEST/DR4/MROA0/SX137_n.wav Tradition requires prin ao approval for underage marrage
+TEST/DR4/MROA0/SX227_n.wav It's healthyur to cook without shuger
+TEST/DR4/MROA0/SX317_n.wav The cramberry ball gets very prity an autum
+TEST/DR4/MROA0/SX407_n.wav Length danse and sing a fortun smilles appon you
+TEST/DR4/MROA0/SX47_n.wav Moms strongly dislikes apatisers
+TEST/DR4/MTEB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MTEB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR4/MTEB0/SI1133_n.wav It can purject long range gols for itself
+TEST/DR4/MTEB0/SI2064_n.wav He was gifted with animal mangnitism and apotant aler for woman of any rac
+TEST/DR4/MTEB0/SI503_n.wav Beurry aoster yet racy
+TEST/DR4/MTEB0/SX143_n.wav The sound of genifirset bugle scared the antailop
+TEST/DR4/MTEB0/SX233_n.wav Highway and freeway meean the same thing
+TEST/DR4/MTEB0/SX323_n.wav The fog preventing them from ariving on time
+TEST/DR4/MTEB0/SX413_n.wav Dafhiney sweedish needle point scarfh matched her skirt
+TEST/DR4/MTEB0/SX53_n.wav Even a symple vocabulary containes symbls
+TEST/DR4/MTLS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR4/MTLS0/SA2_n.wav Don't ask me tocarry an oily rag like that
+TEST/DR4/MTLS0/SI1370_n.wav We may say that his problem was diagnosed but that he refused treatment
+TEST/DR4/MTLS0/SI2000_n.wav We can get it if we big he said patciently
+TEST/DR4/MTLS0/SI740_n.wav Do without fancsy table qualliths
+TEST/DR4/MTLS0/SX110_n.wav The best way to learn is to solve extra problems
+TEST/DR4/MTLS0/SX200_n.wav Ralph controved the stop watch from the peachuers
+TEST/DR4/MTLS0/SX20_n.wav She wore warm fuleacsy wooull an overals
+TEST/DR4/MTLS0/SX290_n.wav This profsure is prtectdbly informd tive for proespective bue
+TEST/DR4/MTLS0/SX380_n.wav Why charge money for such garbage
+TEST/DR5/FASW0/SA1_n.wav She had your dark suit in greas sy wash water all year
+TEST/DR5/FASW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FASW0/SI1550_n.wav Maybe today you'll be a god news day
+TEST/DR5/FASW0/SI2180_n.wav She spouted a mouthfull of water into the air
+TEST/DR5/FASW0/SI920_n.wav To many new things are hapening for it to be a complete erodic fulfillment
+TEST/DR5/FASW0/SX110_n.wav The best way to learn is to solve extra problems
+TEST/DR5/FASW0/SX200_n.wav Ralph controle thes top watch from the bleachers
+TEST/DR5/FASW0/SX20_n.wav She wore warm plesy willaon over alls
+TEST/DR5/FASW0/SX290_n.wav This bro sure is particularly informative for a prospective byere
+TEST/DR5/FASW0/SX380_n.wav Why charge money for such dobage
+TEST/DR5/FAWF0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FAWF0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FAWF0/SI1000_n.wav Son the officse work clamed all her tom
+TEST/DR5/FAWF0/SI1630_n.wav Nexst the hind was nested and all seemed well
+TEST/DR5/FAWF0/SI2260_n.wav Hevy industery slanted toards in exostable government coffers attracted him
+TEST/DR5/FAWF0/SX100_n.wav Project development was proceding to slowly
+TEST/DR5/FAWF0/SX10_n.wav Are your grades higher or lower than nancies
+TEST/DR5/FAWF0/SX190_n.wav Serve the colstlaw after i add the oil
+TEST/DR5/FAWF0/SX280_n.wav The owacis was a marage
+TEST/DR5/FAWF0/SX370_n.wav That noise problem grows more anoying each day
+TEST/DR5/FCAL1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FCAL1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FCAL1/SI1403_n.wav In what ways then do the patient sycrical blindnes manifest itself
+TEST/DR5/FCAL1/SI2033_n.wav Iwould be a colosal shame to throw away a story like this
+TEST/DR5/FCAL1/SI773_n.wav Let all projects triy slowly for several days
+TEST/DR5/FCAL1/SX143_n.wav The sound o jinifers budgale scared the antailop
+TEST/DR5/FCAL1/SX233_n.wav Highway and freway meen the same thing
+TEST/DR5/FCAL1/SX323_n.wav The faog proveted them from a riving on time
+TEST/DR5/FCAL1/SX413_n.wav Dafhnees swedish nedle point skarf matched her skirt
+TEST/DR5/FCAL1/SX53_n.wav Even a symple vocabulary contains symbles
+TEST/DR5/FGMD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FGMD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FGMD0/SI1943_n.wav For the unsen goslighe wifman amed a little highe the third time
+TEST/DR5/FGMD0/SI2107_n.wav Its sounded silly why go on
+TEST/DR5/FGMD0/SI683_n.wav An artoally anadums nowlat as see wher this power comes from
+TEST/DR5/FGMD0/SX143_n.wav The sound of ginnifirse bugle scared the anilape
+TEST/DR5/FGMD0/SX233_n.wav Highway and freeway meen the same thing
+TEST/DR5/FGMD0/SX323_n.wav The falw prevented them from ariving ontime
+TEST/DR5/FGMD0/SX413_n.wav Dafhineys sweedish needle point skarfh matched her skirt
+TEST/DR5/FGMD0/SX53_n.wav Even is simple vorcabuary containes symbles
+TEST/DR5/FHES0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FHES0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FHES0/SI1109_n.wav A whel squeek down a hub was stil and squeked again
+TEST/DR5/FHES0/SI1739_n.wav O the time of death
+TEST/DR5/FHES0/SI479_n.wav The structures housing the appartments are of masenary and framed construction
+TEST/DR5/FHES0/SX119_n.wav The misquarte was retracted with an oppoloagy
+TEST/DR5/FHES0/SX209_n.wav Myikle colored the bed romwhall with craons
+TEST/DR5/FHES0/SX299_n.wav Shaving cream is a popular itimone shallow weam
+TEST/DR5/FHES0/SX29_n.wav Help grag to pick a pick of patatos
+TEST/DR5/FHES0/SX389_n.wav They owne a big house in the remot countryside
+TEST/DR5/FHEW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FHEW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FHEW0/SI2023_n.wav Now days we talk as though the blits were just a short skurmish
+TEST/DR5/FHEW0/SI690_n.wav Proprity was synanomous with ritual observance the mark of the true gentilmen
+TEST/DR5/FHEW0/SI763_n.wav Jars are simbled in bol of buttermold
+TEST/DR5/FHEW0/SX133_n.wav Peto reaos are convinient for a quick lanch
+TEST/DR5/FHEW0/SX223_n.wav But the bouter block table in the garadge
+TEST/DR5/FHEW0/SX313_n.wav Drop five forms in the boxe before you go out
+TEST/DR5/FHEW0/SX403_n.wav Her warjo consesed of only skirts and blouses
+TEST/DR5/FHEW0/SX43_n.wav Ealderly people are often excluded
+TEST/DR5/FJCS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FJCS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FJCS0/SI1309_n.wav The better quality products in both of these lines contained fostfate builders
+TEST/DR5/FJCS0/SI1833_n.wav Why pick me for your patcy
+TEST/DR5/FJCS0/SI1939_n.wav Put on his old brown corteroy coat an it was already soaked
+TEST/DR5/FJCS0/SX139_n.wav The bunglow was plesently situated near the shor
+TEST/DR5/FJCS0/SX229_n.wav Are you looking for employment
+TEST/DR5/FJCS0/SX319_n.wav A big goat idly ambled through the farmyard
+TEST/DR5/FJCS0/SX409_n.wav Eating spanaghed nightly increases strength moraculously
+TEST/DR5/FJCS0/SX49_n.wav Out twilight on the twelfth day we'll have shibbley
+TEST/DR5/FJSA0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FJSA0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FJSA0/SI1379_n.wav You would drive us into shame he declared
+TEST/DR5/FJSA0/SI2009_n.wav The clouds bulged downward and burst suddenly into a great black funnl
+TEST/DR5/FJSA0/SI749_n.wav Fold into whiped cream and added dash of sault and sprinkling of peporeka
+TEST/DR5/FJSA0/SX119_n.wav The misquate was retracted with an impology
+TEST/DR5/FJSA0/SX209_n.wav Myickle colloared the bederon wall with crowns
+TEST/DR5/FJSA0/SX299_n.wav Shavin cream is a popular item on hallowen
+TEST/DR5/FJSA0/SX29_n.wav Help grag to pick a pack of patatoes
+TEST/DR5/FJSA0/SX389_n.wav They ond a big house in the remot countryside
+TEST/DR5/FMAH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FMAH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FMAH0/SI1289_n.wav Tha flame would use up air
+TEST/DR5/FMAH0/SI1919_n.wav Every movement she made seemed unecesarily noizy
+TEST/DR5/FMAH0/SI659_n.wav His history is his alone yet each man must recognize his own history in it
+TEST/DR5/FMAH0/SX119_n.wav The misquart was retractored with an oppology
+TEST/DR5/FMAH0/SX209_n.wav Myikle colored the bed rum wall with crayons
+TEST/DR5/FMAH0/SX299_n.wav Shaving cream is a popular it amon hallowen
+TEST/DR5/FMAH0/SX29_n.wav Help grabe to pick a pick of patatoes
+TEST/DR5/FMAH0/SX389_n.wav They owned a big house in the remot countryside
+TEST/DR5/FNLP0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FNLP0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FNLP0/SI1308_n.wav Indeed it is possible to seperate electan paramangnetic from neuclear aeffects
+TEST/DR5/FNLP0/SI1938_n.wav Lighted windowes glowed jule bright through the damppor
+TEST/DR5/FNLP0/SI678_n.wav Salevation reconsidered
+TEST/DR5/FNLP0/SX138_n.wav The clumsy custimers spuild some expensive perfum
+TEST/DR5/FNLP0/SX228_n.wav The view point overluked the ocean
+TEST/DR5/FNLP0/SX318_n.wav Please dig mumpoatatos up before frost
+TEST/DR5/FNLP0/SX408_n.wav I'd robd the subway but i havean't enough change
+TEST/DR5/FNLP0/SX48_n.wav Gram mother outgrow her upbranging an peticoates
+TEST/DR5/FUTB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/FUTB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/FUTB0/SI1204_n.wav The purcisers rejected the auhter and two letters riten in vigaorous terms
+TEST/DR5/FUTB0/SI1330_n.wav The lower portion provides a rading at any stage between impfancy and adoulthod
+TEST/DR5/FUTB0/SI1834_n.wav Why occuses a ship mate of beaing behind this
+TEST/DR5/FUTB0/SX124_n.wav Objects meade of puter are beautiful
+TEST/DR5/FUTB0/SX214_n.wav The morning duw on the spiter whab glistened in the sunm
+TEST/DR5/FUTB0/SX304_n.wav Cheep stockinge rune the first time they're worn
+TEST/DR5/FUTB0/SX34_n.wav Don't do chawlys dirty dishes
+TEST/DR5/FUTB0/SX394_n.wav Cawsum makes bons and teach strong
+TEST/DR5/MAHH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MAHH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MAHH0/SI1294_n.wav If you are a life tenent you diducked allowable tepreciation and de pleasion
+TEST/DR5/MAHH0/SI1924_n.wav Gedving the bals ratlesmake to help you
+TEST/DR5/MAHH0/SI664_n.wav Look at the things we do to exscap our fhears and to forget our wories
+TEST/DR5/MAHH0/SX124_n.wav Objects made of puder are beautiful
+TEST/DR5/MAHH0/SX214_n.wav The morning bdut on the spiter wilbd glistened in the sun
+TEST/DR5/MAHH0/SX304_n.wav Chepstockings run the first time they'are worn
+TEST/DR5/MAHH0/SX34_n.wav Don't do chaylys dirty dishes
+TEST/DR5/MAHH0/SX394_n.wav Cowsum makes bons and tef strong
+TEST/DR5/MBPM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MBPM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MBPM0/SI1577_n.wav Brown eyes eybrous mustash
+TEST/DR5/MBPM0/SI1584_n.wav Recter was often curious often tempted to ask questions but he never did
+TEST/DR5/MBPM0/SI947_n.wav Few rolariers are protected by zoning
+TEST/DR5/MBPM0/SX137_n.wav Tradition requires parental opproval for under age marrage
+TEST/DR5/MBPM0/SX227_n.wav It's healthyer to cook without shuger
+TEST/DR5/MBPM0/SX317_n.wav The cranberry bug gets very prity an autum
+TEST/DR5/MBPM0/SX407_n.wav Lafhedansing sing a fortunet smiles uppon you
+TEST/DR5/MBPM0/SX47_n.wav Mom strongly dislike apaetisers
+TEST/DR5/MCMB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MCMB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MCMB0/SI1268_n.wav The shudder consiste of two parts a fast opening part and a fast closing part
+TEST/DR5/MCMB0/SI1898_n.wav You've got no bisnes up here
+TEST/DR5/MCMB0/SI638_n.wav This theory eventually proved in exact
+TEST/DR5/MCMB0/SX188_n.wav Who arthorised the unlimited expense account
+TEST/DR5/MCMB0/SX278_n.wav To father his pestege he occasionally reaches the walld street journal
+TEST/DR5/MCMB0/SX368_n.wav Laries cost him needed black glibes to be completely eleigquent
+TEST/DR5/MCMB0/SX8_n.wav While yeall are worriyd over silly itums
+TEST/DR5/MCMB0/SX98_n.wav Gets the question from the answer
+TEST/DR5/MCRC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MCRC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MCRC0/SI1092_n.wav Yet we no longer feel uneasy
+TEST/DR5/MCRC0/SI1722_n.wav He drove and the road wobled foamiliear sens crept pashd on e if sid
+TEST/DR5/MCRC0/SI462_n.wav It also provides for funs to clear slumbs and help collagers build dormantoariyes
+TEST/DR5/MCRC0/SX102_n.wav Special task forces reskue hostages from kitneppers
+TEST/DR5/MCRC0/SX12_n.wav We'll robin ware a yellow lilly
+TEST/DR5/MCRC0/SX192_n.wav Straw hats around a fasion missyear
+TEST/DR5/MCRC0/SX282_n.wav The tothfeary forgot to come when rodjere's tothfell out
+TEST/DR5/MCRC0/SX372_n.wav That diagram makes sens only after much study
+TEST/DR5/MCTT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MCTT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MCTT0/SI1144_n.wav We would astablish no sensearship
+TEST/DR5/MCTT0/SI2188_n.wav He sas ye'l be here on the one aoclock plane
+TEST/DR5/MCTT0/SI928_n.wav Asked why he replied primly because that's no activity for a gentilmen
+TEST/DR5/MCTT0/SX118_n.wav Combigne allthe ingrediance in a large bowl
+TEST/DR5/MCTT0/SX208_n.wav Robs set by the pone and scetched the strayguease
+TEST/DR5/MCTT0/SX28_n.wav Beg thatgt garde for one gown of gas
+TEST/DR5/MCTT0/SX298_n.wav I'd rather not buy these shoes han be overcharged
+TEST/DR5/MCTT0/SX388_n.wav Her right hand akes when ever the bar ametric presor changes
+TEST/DR5/MDAC2/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MDAC2/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MDAC2/SI2259_n.wav The tale he thought would become les gay
+TEST/DR5/MDAC2/SI560_n.wav Where only one club existed befor he sas two a flourish hens forth
+TEST/DR5/MDAC2/SI999_n.wav Now the scoole was inded berift
+TEST/DR5/MDAC2/SX189_n.wav Destroy every fil related to my audice
+TEST/DR5/MDAC2/SX279_n.wav Alics is ability to work without supervision is notworthy
+TEST/DR5/MDAC2/SX369_n.wav Bob papered over the living rom yerals
+TEST/DR5/MDAC2/SX99_n.wav Mnd eveal susity was based on high arckies
+TEST/DR5/MDAC2/SX9_n.wav Where were you while we were away
+TEST/DR5/MDRB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MDRB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MDRB0/SI1174_n.wav It had ateining ambalo tihe to his rist
+TEST/DR5/MDRB0/SI2109_n.wav She looed crisfalling as if het had some how disapointed to hold human race
+TEST/DR5/MDRB0/SI544_n.wav There is is a sacrifitial life by earthily standards
+TEST/DR5/MDRB0/SX184_n.wav The cask me now always herts my ears
+TEST/DR5/MDRB0/SX274_n.wav Cliffh wars sothed by a lejurious masage
+TEST/DR5/MDRB0/SX364_n.wav Each in timly income lowset coin saded with ha break down of a heating system part
+TEST/DR5/MDRB0/SX4_n.wav Jam may earn mere money by working hard
+TEST/DR5/MDRB0/SX94_n.wav Young sders love commoan candeest treets
+TEST/DR5/MDWA0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MDWA0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MDWA0/SI1146_n.wav We knew that it was as reasurance thea a runing fouit of a deeply moral nature
+TEST/DR5/MDWA0/SI1445_n.wav Tubrage of primary literature will follow
+TEST/DR5/MDWA0/SI519_n.wav That added traffic means rising strams of dimes and quarters at togates
+TEST/DR5/MDWA0/SX185_n.wav Did you buy any quarter oy ofeor alls
+TEST/DR5/MDWA0/SX275_n.wav Steve wore a bright bred cason near swater
+TEST/DR5/MDWA0/SX365_n.wav The gunman kept his victom cornered at gunpoint for three hours
+TEST/DR5/MDWA0/SX5_n.wav She is thinher than iame
+TEST/DR5/MDWA0/SX95_n.wav Iguandas and alegators are tropical reptiles
+TEST/DR5/MDWK0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MDWK0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MDWK0/SI1540_n.wav He wondered if it wore the old ansity or the old toaughtstoicism
+TEST/DR5/MDWK0/SI2170_n.wav His dark brows which had ben lored and anger smothe
+TEST/DR5/MDWK0/SI910_n.wav To put it blanthly youre getting out moded
+TEST/DR5/MDWK0/SX100_n.wav Project development was perceding to slowly
+TEST/DR5/MDWK0/SX10_n.wav Oar your grads highe or lower then nancies
+TEST/DR5/MDWK0/SX190_n.wav Serve the coaslaw after i add the oil
+TEST/DR5/MDWK0/SX280_n.wav The oasis was a marage
+TEST/DR5/MDWK0/SX370_n.wav That noyse problem grows more anoying each day
+TEST/DR5/MFGK0/SA1_n.wav She had your dark suit in greasy bash water all year
+TEST/DR5/MFGK0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MFGK0/SI1451_n.wav To date  the one met showing faverable results at starilization doases is pork
+TEST/DR5/MFGK0/SI1744_n.wav Old people have their idiocincricies
+TEST/DR5/MFGK0/SI484_n.wav The family requests that flowers be omited
+TEST/DR5/MFGK0/SX124_n.wav Objects made of puler or bautiful
+TEST/DR5/MFGK0/SX214_n.wav The morning due on the spiter web glistened in the sun
+TEST/DR5/MFGK0/SX304_n.wav Cheep stockings run the first time they're worn
+TEST/DR5/MFGK0/SX34_n.wav Don't do chawly's dirty dishes
+TEST/DR5/MFGK0/SX394_n.wav Cousiim makes bones and teth strong
+TEST/DR5/MKLT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MKLT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MKLT0/SI1213_n.wav My own experance is followed simplaer lines
+TEST/DR5/MKLT0/SI1843_n.wav She was ready for her great abdventures an the riveal of her moval partner
+TEST/DR5/MKLT0/SI583_n.wav This we can simpoathetically understand
+TEST/DR5/MKLT0/SX133_n.wav Peeats the readres ar conveniant for a quike lonch
+TEST/DR5/MKLT0/SX223_n.wav Put the butcher block table in the garadge
+TEST/DR5/MKLT0/SX313_n.wav Drop five forms in the boxe before you go out
+TEST/DR5/MKLT0/SX403_n.wav Her waydrob consists of only skirts and blouses
+TEST/DR5/MKLT0/SX43_n.wav Eldarly people are often excluded
+TEST/DR5/MLIH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MLIH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MLIH0/SI1183_n.wav It is the obverse of triviality shalownes emotional anastesia
+TEST/DR5/MLIH0/SI1813_n.wav You to wores topid jack as untol you poisone me
+TEST/DR5/MLIH0/SI553_n.wav As a rule the artistic child doesn't enjoy physical contact with others
+TEST/DR5/MLIH0/SX103_n.wav Call in ambulance for a medical assistance
+TEST/DR5/MLIH0/SX13_n.wav Swing your arms as highas you can
+TEST/DR5/MLIH0/SX193_n.wav Why by oil when you always use moy
+TEST/DR5/MLIH0/SX283_n.wav Plane paranhod oarganizations promoate birth control
+TEST/DR5/MLIH0/SX373_n.wav A boryng novel is as a buirb sleeping peal
+TEST/DR5/MRJM3/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MRJM3/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MRJM3/SI1448_n.wav It will however inhibit the sprowding of patadoes andnother rouit vegetables
+TEST/DR5/MRJM3/SI1809_n.wav Ocay take the tray
+TEST/DR5/MRJM3/SI2078_n.wav Are the bay of femal dogs and heat
+TEST/DR5/MRJM3/SX188_n.wav Who authorised the unlimited expense account
+TEST/DR5/MRJM3/SX278_n.wav To firther hispresteage he occasionally reachesd the walls street journal
+TEST/DR5/MRJM3/SX368_n.wav Laryzs costume needed black gcloves to be completely elegent
+TEST/DR5/MRJM3/SX8_n.wav Why yell or worrior wart silly itums
+TEST/DR5/MRJM3/SX98_n.wav Ges the question from the answer
+TEST/DR5/MRPP0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MRPP0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MRPP0/SI1184_n.wav There ae results i study of lidderature freed from the terany of the contemperary
+TEST/DR5/MRPP0/SI1814_n.wav After woards you did well enough
+TEST/DR5/MRPP0/SI554_n.wav Or a serten words or richuls that child and a dol go throough may do the trick
+TEST/DR5/MRPP0/SX104_n.wav He stole a dime from a begger
+TEST/DR5/MRPP0/SX14_n.wav Before thirst ach exam review every formula
+TEST/DR5/MRPP0/SX194_n.wav They enjoy it when i addition
+TEST/DR5/MRPP0/SX284_n.wav Jeuf thoughts you argued in faver of a sentralfuge purchase
+TEST/DR5/MRPP0/SX374_n.wav Jown cleans shellfish for a living
+TEST/DR5/MRRK0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MRRK0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MRRK0/SI1288_n.wav Aportable ellectric heator is advisable for shelters and coald climates
+TEST/DR5/MRRK0/SI1716_n.wav He drew a deep breath
+TEST/DR5/MRRK0/SI1918_n.wav Its surcler theyes exploring with its icsy tenicales
+TEST/DR5/MRRK0/SX118_n.wav Themanoly ingrevdiante an a large bowl
+TEST/DR5/MRRK0/SX208_n.wav Rob sat by the pone and sketch the straygease
+TEST/DR5/MRRK0/SX28_n.wav Beg that gard for one galon of gas
+TEST/DR5/MRRK0/SX298_n.wav And retounut by thes shoes and be overcharged
+TEST/DR5/MRRK0/SX388_n.wav Her right hand akes when eveer the barametric presur changes
+TEST/DR5/MRWS1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MRWS1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MRWS1/SI1130_n.wav Should the exelerating grouth of technology then warne us
+TEST/DR5/MRWS1/SI1496_n.wav After that violence was exoultenteily easy
+TEST/DR5/MRWS1/SI500_n.wav Ther are more obvious nimpfom many acts on any privite eye series
+TEST/DR5/MRWS1/SX140_n.wav Agrecultural prodects are un evenly distributed
+TEST/DR5/MRWS1/SX230_n.wav Allow aly way here but raschionalizes all erers
+TEST/DR5/MRWS1/SX320_n.wav The nearest cynegog may not be within walking distance
+TEST/DR5/MRWS1/SX410_n.wav Grag buyis fresh milk each week day morning
+TEST/DR5/MRWS1/SX50_n.wav Catestroffic ecanomic cut baxs negleced the por
+TEST/DR5/MSFH1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR5/MSFH1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR5/MSFH1/SI1270_n.wav Vapor presure method
+TEST/DR5/MSFH1/SI1900_n.wav Ther would still be plenty of moments so regret and sadness and gulty relief
+TEST/DR5/MSFH1/SI640_n.wav Por what has been hapening recently might be described as creeping manerism
+TEST/DR5/MSFH1/SX100_n.wav Progject development was proceeding to slowhly
+TEST/DR5/MSFH1/SX10_n.wav Are your grase highe or lowerd in nancies
+TEST/DR5/MSFH1/SX190_n.wav Serve a coastlaw after i ad the yo
+TEST/DR5/MSFH1/SX280_n.wav The oracis was a marage
+TEST/DR5/MSFH1/SX370_n.wav That noyise problem goes more innoring each day
+TEST/DR6/FDRW0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/FDRW0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/FDRW0/SI1283_n.wav Living in the shelter the radio activrity of fall out to cas rapidly at first
+TEST/DR6/FDRW0/SI1423_n.wav About don he got up to blow
+TEST/DR6/FDRW0/SI653_n.wav Shurely this is a reality weaollic nolage
+TEST/DR6/FDRW0/SX113_n.wav A muskular aptiment it's god for your back
+TEST/DR6/FDRW0/SX203_n.wav The causway ended abruptly at the shoure
+TEST/DR6/FDRW0/SX23_n.wav Those musician tormanize marvealously
+TEST/DR6/FDRW0/SX293_n.wav Please take this dirty tablclauth to the cleanos fom me
+TEST/DR6/FDRW0/SX383_n.wav The coper clenis shampod aure oringentl rug
+TEST/DR6/FLNH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/FLNH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/FLNH0/SI1214_n.wav Religion nust becomes integrated with life
+TEST/DR6/FLNH0/SI584_n.wav This is taxation without representation
+TEST/DR6/FLNH0/SI941_n.wav The farmers life must be aranged to meet the demands of crops and livestock
+TEST/DR6/FLNH0/SX134_n.wav Disember in januory yor nice months tospended my aemy
+TEST/DR6/FLNH0/SX224_n.wav How good is your indurance
+TEST/DR6/FLNH0/SX314_n.wav If people were more generous there would be no need for wealtfhare
+TEST/DR6/FLNH0/SX404_n.wav Barb burned paper and leaves an a big bon fire
+TEST/DR6/FLNH0/SX44_n.wav Basket ball can be an intertaining spport
+TEST/DR6/FMGD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/FMGD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/FMGD0/SI1564_n.wav Husbandry was bounded by snak rail fenses and theire were grasing cattle
+TEST/DR6/FMGD0/SI2194_n.wav He had follen into a soft job and now the job was gone and he was stranded
+TEST/DR6/FMGD0/SI934_n.wav Authority say that old sters are a prime target
+TEST/DR6/FMGD0/SX124_n.wav Objects made of putder are beautiful
+TEST/DR6/FMGD0/SX214_n.wav The morning de on the spiter wheab glistened in the sun
+TEST/DR6/FMGD0/SX304_n.wav Cheep stockings run the first time their worn
+TEST/DR6/FMGD0/SX34_n.wav Don't do charly stirty dishes
+TEST/DR6/FMGD0/SX394_n.wav Calscin makes bpones and teth strong
+TEST/DR6/MCMJ0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MCMJ0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MCMJ0/SI1094_n.wav Merican nespaper revewerves like to call his payzse neolistic
+TEST/DR6/MCMJ0/SI464_n.wav The prospect of cutting back spending isan unplesent one for any governer
+TEST/DR6/MCMJ0/SI602_n.wav But the shipsare very slow now and we don't get somemany sailers any more
+TEST/DR6/MCMJ0/SX104_n.wav He stoll a dimed from a begger
+TEST/DR6/MCMJ0/SX14_n.wav Before thorse these exami review evey formula
+TEST/DR6/MCMJ0/SX194_n.wav They enjoy it when i ardition
+TEST/DR6/MCMJ0/SX284_n.wav Jaf thought you argued in faver of a sentralpuge purchase
+TEST/DR6/MCMJ0/SX374_n.wav Jawn cleans shellfish for eliving
+TEST/DR6/MDSC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MDSC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MDSC0/SI1038_n.wav The court yard is magnifficantely decoerated
+TEST/DR6/MDSC0/SI2298_n.wav As a result he was perswaded out to dinner
+TEST/DR6/MDSC0/SI967_n.wav He not only new soljuring but mathematics history and literature as well
+TEST/DR6/MDSC0/SX138_n.wav The clumbsy custimers spild some expensive perfume
+TEST/DR6/MDSC0/SX228_n.wav The view point overlooked the ocean
+TEST/DR6/MDSC0/SX318_n.wav Please dig my patatoes up  before frost
+TEST/DR6/MDSC0/SX408_n.wav I'd raide the subway but i havent enough change
+TEST/DR6/MDSC0/SX48_n.wav Grand mother outgrow her upbringing in pettecoats
+TEST/DR6/MESD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MESD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MESD0/SI1002_n.wav We poduce peineoil but to a much greater extent we eat the entire seed
+TEST/DR6/MESD0/SI1632_n.wav Fus fus old man
+TEST/DR6/MESD0/SI2262_n.wav We'ealledben rich and spoiled long enough to hate the mashine age
+TEST/DR6/MESD0/SX102_n.wav Sspecial task forces reskue hosteages from kidnoppers
+TEST/DR6/MESD0/SX12_n.wav Will robin where a yellow lily
+TEST/DR6/MESD0/SX192_n.wav Straw hats are out of fasion this year
+TEST/DR6/MESD0/SX282_n.wav The tothfarry forgot to come when roagjer's tothfell out
+TEST/DR6/MESD0/SX372_n.wav That tdiagram makes sense only after much study
+TEST/DR6/MJDH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MJDH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MJDH0/SI1354_n.wav Withinthe larger social system are thei structural an functuonal subsystems
+TEST/DR6/MJDH0/SI1984_n.wav In what eyes they were
+TEST/DR6/MJDH0/SI724_n.wav It's a stream line riful fast and well made
+TEST/DR6/MJDH0/SX184_n.wav The cats me now alys seirts my years
+TEST/DR6/MJDH0/SX274_n.wav Cliff was sothed by the loxurious masach
+TEST/DR6/MJDH0/SX364_n.wav Each untimely income los coincided with the brak down of a heating system part
+TEST/DR6/MJDH0/SX4_n.wav Jain may orand more money by working hard
+TEST/DR6/MJDH0/SX94_n.wav Young steres love common candies treats
+TEST/DR6/MJFC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MJFC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MJFC0/SI1033_n.wav If dark came they would lose her
+TEST/DR6/MJFC0/SI1663_n.wav He thought he saw a pail face out a window
+TEST/DR6/MJFC0/SI2293_n.wav Those were espescially the ones at all other grown up slaphed at loudest
+TEST/DR6/MJFC0/SX133_n.wav Peatcsoreas are convieniant for a quick lonch
+TEST/DR6/MJFC0/SX223_n.wav Put the bout your block table in the garage
+TEST/DR6/MJFC0/SX313_n.wav Drop five forms in the boxe before you go out
+TEST/DR6/MJFC0/SX403_n.wav Her wardrup consists of only skirts and blouses
+TEST/DR6/MJFC0/SX43_n.wav Elderly people are often excluded
+TEST/DR6/MPAM1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MPAM1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MPAM1/SI1029_n.wav Her tail nolong a lashed
+TEST/DR6/MPAM1/SI1836_n.wav Ther's still such a thing as mental ilness
+TEST/DR6/MPAM1/SI576_n.wav But even mother's loving attitude will not always prevent misbehavior
+TEST/DR6/MPAM1/SX126_n.wav Artifficial intelligence is for real
+TEST/DR6/MPAM1/SX216_n.wav The small boy put the warm on the hok
+TEST/DR6/MPAM1/SX306_n.wav A chosen few will become general
+TEST/DR6/MPAM1/SX36_n.wav Only the most accomplished artists obtaine popularity
+TEST/DR6/MPAM1/SX396_n.wav The fish began to leep frantically on the surfacs of the small lak
+TEST/DR6/MRJR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MRJR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MRJR0/SI1182_n.wav Let us diferenciate a few of these ideas
+TEST/DR6/MRJR0/SI1812_n.wav Eternity is no time for recriminations
+TEST/DR6/MRJR0/SI2313_n.wav Well junior didn't he heat only one and misteor hendry didn't even do that whell
+TEST/DR6/MRJR0/SX102_n.wav Special task forces reskue hostages from kitnappers
+TEST/DR6/MRJR0/SX12_n.wav We'll robin where a yellow lilly
+TEST/DR6/MRJR0/SX192_n.wav Straw hats are out of fashion this year
+TEST/DR6/MRJR0/SX282_n.wav The tothvearry forgot to come when roger's toth fell out
+TEST/DR6/MRJR0/SX372_n.wav That diagram makes sense only after much study
+TEST/DR6/MRJS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR6/MRJS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR6/MRJS0/SI1444_n.wav Substances aall cristoine substances another solid state materials
+TEST/DR6/MRJS0/SI1523_n.wav Thoroughly wizsed at
+TEST/DR6/MRJS0/SI2074_n.wav Ha'wl come your riding the rides kid's like you
+TEST/DR6/MRJS0/SX184_n.wav The cats meyeo always hearts my years
+TEST/DR6/MRJS0/SX274_n.wav Clofh was sothd vitalexzurious moasarge
+TEST/DR6/MRJS0/SX364_n.wav Each untimely income los coincideo ip the break down of a heating systeme part
+TEST/DR6/MRJS0/SX4_n.wav Jin may yearn more money by working hard
+TEST/DR6/MRJS0/SX94_n.wav Younster's love com an candy as treeats
+TEST/DR7/FCAU0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FCAU0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FCAU0/SI1037_n.wav The revized proscedur was acclaimed as a long overdu reform
+TEST/DR7/FCAU0/SI1667_n.wav He held his arms close to his sides and made himself as small as possible
+TEST/DR7/FCAU0/SI2297_n.wav One could hear a very faint lady like siy of relief
+TEST/DR7/FCAU0/SX137_n.wav Tradition requires perrental ap proveal for underage marrage
+TEST/DR7/FCAU0/SX227_n.wav It's healthyer to cook without shuger
+TEST/DR7/FCAU0/SX317_n.wav The cramberry bug gets very prity an autum
+TEST/DR7/FCAU0/SX407_n.wav Lafh danse an seing ar fortuon smiles appon you
+TEST/DR7/FCAU0/SX47_n.wav Mom strongly dislikes apetisers
+TEST/DR7/FDHC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FDHC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FDHC0/SI1559_n.wav Visually these approximated what he was feeling within himself
+TEST/DR7/FDHC0/SI2189_n.wav You saw them always together those years
+TEST/DR7/FDHC0/SI929_n.wav But such cases were in the past unusual
+TEST/DR7/FDHC0/SX119_n.wav The misquart was retracted with an oppoloagy
+TEST/DR7/FDHC0/SX209_n.wav Myko colared the bedrom wall with crayons
+TEST/DR7/FDHC0/SX299_n.wav Shavin cream is a popular itam on hollowen
+TEST/DR7/FDHC0/SX29_n.wav Help grag to picke a picke of patatoes
+TEST/DR7/FDHC0/SX389_n.wav They on a big house in the remoat countryside
+TEST/DR7/FGWR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FGWR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FGWR0/SI1578_n.wav Ovel face without an exppresion in the world
+TEST/DR7/FGWR0/SI2208_n.wav Yes becase you didn't run off to use that new tothbrush
+TEST/DR7/FGWR0/SI948_n.wav How much will it cost to do any necesary modernizing and redecoerating
+TEST/DR7/FGWR0/SX138_n.wav The clumsy custimers spuld some expensive perfume
+TEST/DR7/FGWR0/SX228_n.wav The view point overloked the ocean
+TEST/DR7/FGWR0/SX318_n.wav Please dig my poatatos up before frost
+TEST/DR7/FGWR0/SX408_n.wav I'd ride the suboay but i have nt enough change
+TEST/DR7/FGWR0/SX48_n.wav Grondmother alcro her upburnging and pettycoats
+TEST/DR7/FISB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FISB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FISB0/SI1579_n.wav Axs boyfriend met axs husband
+TEST/DR7/FISB0/SI2209_n.wav A bollet she answered
+TEST/DR7/FISB0/SI949_n.wav It may be hard to descide whout this laber is worth but charge some thing for it
+TEST/DR7/FISB0/SX139_n.wav The bungllo was plesently situated near the shor
+TEST/DR7/FISB0/SX229_n.wav Are you looking for employment
+TEST/DR7/FISB0/SX319_n.wav A big goat idely ambled throughthe farm yard
+TEST/DR7/FISB0/SX409_n.wav Eating spanage nightly increases strength miraculously
+TEST/DR7/FISB0/SX49_n.wav At twilight on the twelfth day we'll have shable
+TEST/DR7/FLAS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FLAS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FLAS0/SI1026_n.wav Careful don't destearbe her
+TEST/DR7/FLAS0/SI1488_n.wav Poverty amposes a cind of chastity on the ambisious
+TEST/DR7/FLAS0/SI858_n.wav Chese carefully betwen contributory or norn contributory penchion plans
+TEST/DR7/FLAS0/SX138_n.wav The clumsy custimers spiled some expensive  perfum
+TEST/DR7/FLAS0/SX228_n.wav The view point overlookd the ocean
+TEST/DR7/FLAS0/SX318_n.wav Please dig my petatoes zat before frost
+TEST/DR7/FLAS0/SX408_n.wav I'd ride the subway but i haven't enough change
+TEST/DR7/FLAS0/SX48_n.wav Ground mother out grow her upbringing im pettecoats
+TEST/DR7/FMML0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FMML0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FMML0/SI1040_n.wav Northerners indeulge in an extreamly dangerous luxury
+TEST/DR7/FMML0/SI1670_n.wav Got no bistness overhere on a stak out anyway
+TEST/DR7/FMML0/SI2300_n.wav My mother was besaide herself with curiosity
+TEST/DR7/FMML0/SX140_n.wav Agrcultural prodects are unevenly a distributed
+TEST/DR7/FMML0/SX230_n.wav Allow leaway here but rascionalize all erers
+TEST/DR7/FMML0/SX320_n.wav The nearest cynogog may not be within walking distance
+TEST/DR7/FMML0/SX410_n.wav Grag buizes fresh milk each week day morning
+TEST/DR7/FMML0/SX50_n.wav Catestrowffic economic  cutbacks negleced the por
+TEST/DR7/FSXA0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FSXA0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FSXA0/SI1108_n.wav One looks down on a sey of leaves a braking wave of flower
+TEST/DR7/FSXA0/SI1846_n.wav The many boddyed girl lay near him
+TEST/DR7/FSXA0/SI478_n.wav The job also covers a number of other itums
+TEST/DR7/FSXA0/SX118_n.wav Combigne all the ingrediants an a large bol
+TEST/DR7/FSXA0/SX208_n.wav Robs sat by the pond and scetched the strayg gease
+TEST/DR7/FSXA0/SX28_n.wav Begd that gard for one galon of gas
+TEST/DR7/FSXA0/SX298_n.wav I'd rather not buy these shoes then be overcharged
+TEST/DR7/FSXA0/SX388_n.wav Her right hand akes when ever the barametric presur changes
+TEST/DR7/FTLH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/FTLH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/FTLH0/SI1009_n.wav All nut ceurnals are rich in protene
+TEST/DR7/FTLH0/SI1390_n.wav It is not a plesent or easy position but one we have indevered to maintain
+TEST/DR7/FTLH0/SI1639_n.wav Lovey you make me feel naked
+TEST/DR7/FTLH0/SX109_n.wav She slipped in sprained her ankle on the steep slop
+TEST/DR7/FTLH0/SX199_n.wav Young children should avoid exposure to contageous diseases
+TEST/DR7/FTLH0/SX19_n.wav Illumina silverwar can often be flimsy
+TEST/DR7/FTLH0/SX289_n.wav Whether prof challashes are very useful in seyadl
+TEST/DR7/FTLH0/SX379_n.wav Pam gives driving lessons on thirsed days
+TEST/DR7/MCHH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MCHH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MCHH0/SI1004_n.wav Pomoil protects us survicses of steel sheets before they are plated with tin
+TEST/DR7/MCHH0/SI1634_n.wav She sounded as though they already existed
+TEST/DR7/MCHH0/SI530_n.wav His election on the otherhand would unquestianably strengthen the regulars
+TEST/DR7/MCHH0/SX104_n.wav He still a dime from a begger
+TEST/DR7/MCHH0/SX14_n.wav Befor thorsedays exami review every formuala
+TEST/DR7/MCHH0/SX194_n.wav They enjoy it when iaudition
+TEST/DR7/MCHH0/SX284_n.wav Jef thought you argue in faver of this entrefuge purchase
+TEST/DR7/MCHH0/SX374_n.wav Jon queen's shellfish for a living
+TEST/DR7/MDLF0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MDLF0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MDLF0/SI1583_n.wav For onece radticalism was a recomendation
+TEST/DR7/MDLF0/SI2213_n.wav Somebody with no vices
+TEST/DR7/MDLF0/SI953_n.wav Historins have had two reasons for porsisting so long in their investigations
+TEST/DR7/MDLF0/SX143_n.wav The sound of jinifer's bugle scared the antilop
+TEST/DR7/MDLF0/SX233_n.wav High way and for you i mean the same thing
+TEST/DR7/MDLF0/SX323_n.wav The fog prevented them from ariving on time
+TEST/DR7/MDLF0/SX413_n.wav Dapfhinys sweedish needl points skarf matched her skirt
+TEST/DR7/MDLF0/SX53_n.wav Even a symple vo cabulary contains symbles
+TEST/DR7/MDVC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MDVC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MDVC0/SI2174_n.wav Ayw shut up he said
+TEST/DR7/MDVC0/SI2196_n.wav Ha profesion that brought me as god an incom as mine wasn't to be snezed at
+TEST/DR7/MDVC0/SI936_n.wav A lining all the tests may take a year ar more
+TEST/DR7/MDVC0/SX126_n.wav Art eficial intelligence is for real
+TEST/DR7/MDVC0/SX216_n.wav The small boy put the woarm on the hook
+TEST/DR7/MDVC0/SX306_n.wav A chosen few will become generals
+TEST/DR7/MDVC0/SX36_n.wav Only the most accomplishe artists obtained popularity
+TEST/DR7/MDVC0/SX396_n.wav The fish began to lep frantically on the surface of the small lak
+TEST/DR7/MERS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MERS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MERS0/SI1019_n.wav Them new to the contry were refered to as pilgrams
+TEST/DR7/MERS0/SI1649_n.wav It's a formality you know
+TEST/DR7/MERS0/SI497_n.wav Displaye is lamps the publics delight the children and ar decorit ive axent
+TEST/DR7/MERS0/SX119_n.wav The misquate was retracted with an oppoloegy
+TEST/DR7/MERS0/SX209_n.wav Miyco coloared the bedrom wall with craowns
+TEST/DR7/MERS0/SX299_n.wav Shavin cream is a popular item on hallowen
+TEST/DR7/MERS0/SX29_n.wav Help grag to pick a packe oup  patatoes
+TEST/DR7/MERS0/SX389_n.wav They own a big house in the reamoat  cuntryside
+TEST/DR7/MGRT0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MGRT0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MGRT0/SI1450_n.wav Meats the radiation processing of met has receved extensive investigation
+TEST/DR7/MGRT0/SI2080_n.wav He would not carry a brief case
+TEST/DR7/MGRT0/SI820_n.wav By that one feels that magnitic forces are as general as electrical forces
+TEST/DR7/MGRT0/SX100_n.wav Project development was proceeding to slowly
+TEST/DR7/MGRT0/SX10_n.wav Are your grades highe or lower than nancies
+TEST/DR7/MGRT0/SX190_n.wav Serve the coastlaw after i add the oil
+TEST/DR7/MGRT0/SX280_n.wav The oasis was a marage
+TEST/DR7/MGRT0/SX370_n.wav That noyse problem grows more anoying each day
+TEST/DR7/MKDR0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MKDR0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MKDR0/SI1273_n.wav Selected bibliographies and tables of available data are now in preperation
+TEST/DR7/MKDR0/SI1903_n.wav When he saw me coming he turned his radioff
+TEST/DR7/MKDR0/SI643_n.wav The harmchar travelar preserves his ellusions
+TEST/DR7/MKDR0/SX103_n.wav Collin ambulance for metical assistence
+TEST/DR7/MKDR0/SX13_n.wav Swing your arm as highes you can
+TEST/DR7/MKDR0/SX193_n.wav Why by oil when you alys use mine
+TEST/DR7/MKDR0/SX283_n.wav Plan perantid organizations promote  birth control
+TEST/DR7/MKDR0/SX373_n.wav A boring novel is a suburbe asleeping pil
+TEST/DR7/MKJL0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MKJL0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MKJL0/SI1100_n.wav As she goes she herself will be illuminated
+TEST/DR7/MKJL0/SI1730_n.wav Noboding is right mined punishes a quorter sentury ol dererilection
+TEST/DR7/MKJL0/SI470_n.wav A quick touch down resulted
+TEST/DR7/MKJL0/SX110_n.wav The best way to learn is to solve extra problems
+TEST/DR7/MKJL0/SX200_n.wav Ralph controld the stop watch from the bleacers
+TEST/DR7/MKJL0/SX20_n.wav She wore warm fleacsy wellon overalls
+TEST/DR7/MKJL0/SX290_n.wav This brosure is particuarly informative for a prespective bie
+TEST/DR7/MKJL0/SX380_n.wav Why charge money for such garbage
+TEST/DR7/MNJM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MNJM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MNJM0/SI1580_n.wav He always seemed to have money in his pocket
+TEST/DR7/MNJM0/SI2210_n.wav No return adress what soever
+TEST/DR7/MNJM0/SI950_n.wav Ask such it was beyond politics and had no need of justificcation by a mesage
+TEST/DR7/MNJM0/SX140_n.wav Agreicultural products are unevenly distribiuted
+TEST/DR7/MNJM0/SX230_n.wav Allowly way here but ractionalizes all erbs
+TEST/DR7/MNJM0/SX320_n.wav The tnearous synegog may not be within walking distance
+TEST/DR7/MNJM0/SX410_n.wav Grig  bies fresh milk each week day morning
+TEST/DR7/MNJM0/SX50_n.wav Catestrowffic ecanomic cought backs niglacked the por
+TEST/DR7/MNLS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MNLS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MNLS0/SI1483_n.wav Give me your machine gune anmal
+TEST/DR7/MNLS0/SI1610_n.wav For an instant the old ant felt something indefiable flash though her smile
+TEST/DR7/MNLS0/SI853_n.wav Aim to balanc your employ you benefit package
+TEST/DR7/MNLS0/SX133_n.wav Peats o reaas are convinient for a quick lonch
+TEST/DR7/MNLS0/SX223_n.wav But the buthler block table in the garadge
+TEST/DR7/MNLS0/SX313_n.wav Drop five fourwes in the boxe before you go out
+TEST/DR7/MNLS0/SX403_n.wav Her ward ro consists of only skirts and blouses
+TEST/DR7/MNLS0/SX43_n.wav Eldarly people are often excluded
+TEST/DR7/MPAB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MPAB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MPAB0/SI1103_n.wav Their work merers the mentality of the syco path routless and irresponsible
+TEST/DR7/MPAB0/SI1128_n.wav Others invoked technology and common sense
+TEST/DR7/MPAB0/SI498_n.wav To create such a lamp order a wired petistl from any lamp shop
+TEST/DR7/MPAB0/SX138_n.wav The clumsy customer spuild some expensive perfum
+TEST/DR7/MPAB0/SX228_n.wav The view point overlooked the ocean
+TEST/DR7/MPAB0/SX318_n.wav Please dig my patadoes up before frost
+TEST/DR7/MPAB0/SX408_n.wav I'd raide the subway but i haven't ennough change
+TEST/DR7/MPAB0/SX48_n.wav Grand mother out grow her upbringing in petecoates
+TEST/DR7/MRCS0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MRCS0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MRCS0/SI1223_n.wav The red coats ran like wrabits
+TEST/DR7/MRCS0/SI1853_n.wav Thus events occured and victoms changed in appearance and newons arived
+TEST/DR7/MRCS0/SI593_n.wav The galentd half siy is ding on its feet
+TEST/DR7/MRCS0/SX143_n.wav The sound of jenaifer's bugle scared the antalop
+TEST/DR7/MRCS0/SX233_n.wav Highway and freeway meeans the same thing
+TEST/DR7/MRCS0/SX323_n.wav The fog prevented them from ariving ontime
+TEST/DR7/MRCS0/SX413_n.wav The afteneos swedish needle point scarf matched her skirt
+TEST/DR7/MRCS0/SX53_n.wav Even a symple vocabulary containes symbles
+TEST/DR7/MRJM4/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MRJM4/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MRJM4/SI1489_n.wav At lostgo the same
+TEST/DR7/MRJM4/SI2119_n.wav The instinctive disipline has be lost
+TEST/DR7/MRJM4/SI859_n.wav A non contributory plan usely won't pay off for the worker until he retires
+TEST/DR7/MRJM4/SX139_n.wav The bunglow was pusingly situated near the shor
+TEST/DR7/MRJM4/SX229_n.wav Are you loking for empliyment
+TEST/DR7/MRJM4/SX319_n.wav A big goat idly ambled through the farm yard
+TEST/DR7/MRJM4/SX409_n.wav Beating spanaished nightly increases strength moraculously
+TEST/DR7/MRJM4/SX49_n.wav At twilight on the twelthday we'll have shibly
+TEST/DR7/MRMS1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MRMS1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MRMS1/SI1487_n.wav These were he rose nine feet tall to him
+TEST/DR7/MRMS1/SI2117_n.wav He saw the dangeres not the ghories of beeng identified as a move near
+TEST/DR7/MRMS1/SI857_n.wav Otherwise you may be sattled with a god sised milk bill by milk drinkers
+TEST/DR7/MRMS1/SX137_n.wav Tradition requires parrental approval for under age marrage
+TEST/DR7/MRMS1/SX227_n.wav It's healthyer t a coook without shouger
+TEST/DR7/MRMS1/SX317_n.wav The craounberry baug gets very prity an autum
+TEST/DR7/MRMS1/SX407_n.wav Lauffh danse and sing a fortun smiles appon you
+TEST/DR7/MRMS1/SX47_n.wav Momstrongly dislikes apetisers
+TEST/DR7/MRPC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MRPC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MRPC0/SI1753_n.wav He could pick up another pack on his way home if yeu were going home
+TEST/DR7/MRPC0/SI493_n.wav Unfortunately there is stil littl demand for bruckly and cola flower
+TEST/DR7/MRPC0/SI933_n.wav That's ware devise cuacory can led
+TEST/DR7/MRPC0/SX133_n.wav Peats o rheas are convenient for a quick lnch
+TEST/DR7/MRPC0/SX223_n.wav But the butcher block table in the garage
+TEST/DR7/MRPC0/SX313_n.wav Drop five forms in the boxe before you go out
+TEST/DR7/MRPC0/SX403_n.wav He war drobe consists of only skirts and blouses
+TEST/DR7/MRPC0/SX43_n.wav Ealderly people are often exquluded
+TEST/DR7/MTWH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR7/MTWH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR7/MTWH0/SI1190_n.wav Next best to destroying an army is to deprivte of its freedemofe action
+TEST/DR7/MTWH0/SI1629_n.wav Have you got our kease handey
+TEST/DR7/MTWH0/SI1820_n.wav A range of bluffs huged the horison the color of decaing mas
+TEST/DR7/MTWH0/SX110_n.wav The best way to learn is to solve extra problems
+TEST/DR7/MTWH0/SX200_n.wav Ralpfh controld the stop wath from the bleachers
+TEST/DR7/MTWH0/SX20_n.wav She wore warm fleacy woolin overalls
+TEST/DR7/MTWH0/SX290_n.wav This brofsure is particularly informative for a prospective bie
+TEST/DR7/MTWH0/SX380_n.wav Why charge money for such garbage
+TEST/DR8/FCMH1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/FCMH1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/FCMH1/SI1493_n.wav By that time perhaps something better can be done
+TEST/DR8/FCMH1/SI2123_n.wav This tragic lad had forged his own chackles
+TEST/DR8/FCMH1/SI863_n.wav Check your calfiteria location to make sur its convenient for most employs
+TEST/DR8/FCMH1/SX143_n.wav The sound of jeneifr's bugl scared the antilap
+TEST/DR8/FCMH1/SX233_n.wav Highway and freway meansthe same thing
+TEST/DR8/FCMH1/SX323_n.wav The fog prevented them from ariving ontime
+TEST/DR8/FCMH1/SX413_n.wav Dafhineeys sweedish nedl point skarfh matched her skirt
+TEST/DR8/FCMH1/SX53_n.wav Even a simple vocabpulary containes symbles
+TEST/DR8/FJSJ0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/FJSJ0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/FJSJ0/SI1484_n.wav There eare also honest sekers after trouith
+TEST/DR8/FJSJ0/SI2114_n.wav Sta me she said and let me out those deyes
+TEST/DR8/FJSJ0/SI854_n.wav Encourage them to exersize their benefits
+TEST/DR8/FJSJ0/SX134_n.wav Decimpoeaite ganuary your nice munths to spend in my emmy
+TEST/DR8/FJSJ0/SX224_n.wav How goods youran youranes
+TEST/DR8/FJSJ0/SX314_n.wav If people were more generous there would be no need for wealhfhare
+TEST/DR8/FJSJ0/SX404_n.wav Barburne paperand leaves and a big bon fire
+TEST/DR8/FJSJ0/SX44_n.wav Baskiball can be an intertaining sport
+TEST/DR8/FMLD0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/FMLD0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/FMLD0/SI2185_n.wav She said sharkes have no bons and shrimp swam backward
+TEST/DR8/FMLD0/SI822_n.wav Milk production may be increased by the anty anfective propertyies of thistrug
+TEST/DR8/FMLD0/SI925_n.wav Whil he was incostedy is wife diborsed him
+TEST/DR8/FMLD0/SX115_n.wav The imblum depixks the ecroplaus all aglow
+TEST/DR8/FMLD0/SX205_n.wav Bilitary personallar expected to obey government orders
+TEST/DR8/FMLD0/SX25_n.wav Only lawryers love milianears
+TEST/DR8/FMLD0/SX295_n.wav If carow comes tomorow habbhier arange for a meting it to
+TEST/DR8/FMLD0/SX385_n.wav His sholder felt as if it were broken
+TEST/DR8/MAJC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MAJC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MAJC0/SI1946_n.wav The rusling problem was by no means solved
+TEST/DR8/MAJC0/SI2095_n.wav My dad did it in he lived to a great age
+TEST/DR8/MAJC0/SI835_n.wav Sailsman ship is still necessary but it's a differnt brand of sailsman ship
+TEST/DR8/MAJC0/SX115_n.wav The emblem depickts the ocropolis all a glow
+TEST/DR8/MAJC0/SX205_n.wav Military personall are expected to obey goverment orders
+TEST/DR8/MAJC0/SX25_n.wav Only lawyers loved milianears
+TEST/DR8/MAJC0/SX295_n.wav If carolw comes tomorow have a arange for meating it to
+TEST/DR8/MAJC0/SX385_n.wav His sholder felt as if it were broken
+TEST/DR8/MDAW1/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MDAW1/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MDAW1/SI1453_n.wav Yourphaine foam as an insulater is also coming in for a god deal of attension
+TEST/DR8/MDAW1/SI2083_n.wav Above him slid the avasive shadow of a stormn cloud
+TEST/DR8/MDAW1/SI823_n.wav The drug is also incorperated in suplements
+TEST/DR8/MDAW1/SX103_n.wav Coand ambulance fo metical assustance
+TEST/DR8/MDAW1/SX13_n.wav Swing your arms as high as you can
+TEST/DR8/MDAW1/SX193_n.wav Why by oil when you always use min
+TEST/DR8/MDAW1/SX283_n.wav Planed paran houd organizations promote birth control
+TEST/DR8/MDAW1/SX373_n.wav A boring novel is a superb sleping pill
+TEST/DR8/MJLN0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MJLN0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MJLN0/SI1449_n.wav Chief interest in radiosterilization resides in the military services
+TEST/DR8/MJLN0/SI2079_n.wav They had slapd their theyes
+TEST/DR8/MJLN0/SI819_n.wav There forcses a more latent than inilectrisity and less than in magnitism
+TEST/DR8/MJLN0/SX189_n.wav Destroy every fil related to my audticts
+TEST/DR8/MJLN0/SX279_n.wav Alis is ability to work without supervision is notworsy
+TEST/DR8/MJLN0/SX369_n.wav Bob papered over the living rom merals
+TEST/DR8/MJLN0/SX99_n.wav Madbeval susity was based on higher arkies
+TEST/DR8/MJLN0/SX9_n.wav Where were you while we were away
+TEST/DR8/MJTC0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MJTC0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MJTC0/SI1460_n.wav The ellectronoptical systm may be ither ay magnetic or ellectristatic one
+TEST/DR8/MJTC0/SI2090_n.wav He swung in through his own wide gaightway
+TEST/DR8/MJTC0/SI830_n.wav No one material is best for all situations
+TEST/DR8/MJTC0/SX110_n.wav The best wey to learn is to solve extra problems
+TEST/DR8/MJTC0/SX200_n.wav Ralph controled this stopwhach from the bleaceres
+TEST/DR8/MJTC0/SX20_n.wav She wore warm fleasy woolin overalls
+TEST/DR8/MJTC0/SX290_n.wav This brush sure is particularly informative ffor a proespective bire
+TEST/DR8/MJTC0/SX380_n.wav Why charge money for such garbage
+TEST/DR8/MJTH0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MJTH0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MJTH0/SI1296_n.wav Firther resarch we beleve will develop important comercial applications
+TEST/DR8/MJTH0/SI1926_n.wav Why single me out on this permnent deeal
+TEST/DR8/MJTH0/SI666_n.wav Our enemy is also thretening to devower us
+TEST/DR8/MJTH0/SX126_n.wav Art eficial intelligence is for real
+TEST/DR8/MJTH0/SX216_n.wav The small boy put the woarm on the hok
+TEST/DR8/MJTH0/SX306_n.wav A chosen few will become generals
+TEST/DR8/MJTH0/SX36_n.wav Only the most accomplishe artists obtained popularity
+TEST/DR8/MJTH0/SX396_n.wav The fish began to leep franically on the surface of the small lake
+TEST/DR8/MPAM0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MPAM0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MPAM0/SI1189_n.wav Eight fel guns were captured in position
+TEST/DR8/MPAM0/SI1819_n.wav He rubed his eyes sleepily with one huge poal
+TEST/DR8/MPAM0/SI1961_n.wav A seckend twiched his shirtsleafe andhe felt a brief burnd on his uper arm
+TEST/DR8/MPAM0/SX109_n.wav She slipped in sprained her ankle on the steep slop
+TEST/DR8/MPAM0/SX199_n.wav Young children should avoid exposure to contageus diseases
+TEST/DR8/MPAM0/SX19_n.wav Illuminin silverware can often be flimsy
+TEST/DR8/MPAM0/SX289_n.wav Whedther prof callashes are very useful in syiadl
+TEST/DR8/MPAM0/SX379_n.wav Pam gives driving lessons on tirset days
+TEST/DR8/MRES0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MRES0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MRES0/SI1217_n.wav Only those story tillaers will remain who can imvitate the style the virtuous
+TEST/DR8/MRES0/SI1847_n.wav She radiated warm'th an god fellow ship
+TEST/DR8/MRES0/SI587_n.wav Maybe he will help to turn our fear sity into a gostown
+TEST/DR8/MRES0/SX137_n.wav Tradition requires parental approval for under age marrage
+TEST/DR8/MRES0/SX227_n.wav It's healthy ered a cok without shuger
+TEST/DR8/MRES0/SX317_n.wav The cranberry boug gets very pritty an autum
+TEST/DR8/MRES0/SX407_n.wav Lah danses and sing if fortcuon smiles appon you
+TEST/DR8/MRES0/SX47_n.wav Mom strongly dislikes apetizers
+TEST/DR8/MSLB0/SA1_n.wav She had your dark suit in greasy wash water all year
+TEST/DR8/MSLB0/SA2_n.wav Don't ask me to carry an oily rag like that
+TEST/DR8/MSLB0/SI1193_n.wav Hehad coloared one of his generals and public
+TEST/DR8/MSLB0/SI1823_n.wav Sonic aelectronicgalvanic aplank
+TEST/DR8/MSLB0/SI563_n.wav Helds place emphasis som wong liged tcilleete
+TEST/DR8/MSLB0/SX113_n.wav A muskqular aptimant is god for your back
+TEST/DR8/MSLB0/SX203_n.wav The carsway ended abruptly at the shor
+TEST/DR8/MSLB0/SX23_n.wav Those musicians harmonize marvelusly
+TEST/DR8/MSLB0/SX293_n.wav Please take this dtirty table cloth to the cquleaners for me
+TEST/DR8/MSLB0/SX383_n.wav The carpet cleaners shampoved our oriental rug
