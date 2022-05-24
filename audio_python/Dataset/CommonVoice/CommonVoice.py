@@ -8,6 +8,7 @@ from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
 from Dataset.Dataset import Dataset
+from Perturbation.AudioProcess import calculate_SNR
 from Util.AudioUtil import *
 from Validation.Indicator import cer, cer_overall
 
@@ -173,6 +174,11 @@ class CommonVoice(Dataset):
             key += 1
             pattern_info["name"], pattern_tag = self.get_name_and_pattern_tag(clip)
             pattern_info["pattern"], pattern_info["patternType"] = get_pattern_info_from_pattern_tag(pattern_tag)
+            if pattern_info["pattern"] != "Sound level":
+                pattern_info["snr"] = round(
+                    calculate_SNR(self.clips_path + pattern_info["name"], self.noise_clips_path + clip), 2)
+            else:
+                pattern_info["snr"] = "无信噪比"
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
 

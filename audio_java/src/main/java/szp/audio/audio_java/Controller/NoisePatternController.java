@@ -68,10 +68,11 @@ public class NoisePatternController {
                                         @RequestParam(value = "dataset") String dataset,
                                         @RequestParam(value = "audioName") String audioName,
                                         @RequestParam(value = "currentPattern") String currentPattern,
-                                        @RequestParam(value = "currentPatternType") String currentPatternType) {
+                                        @RequestParam(value = "currentPatternType") String currentPatternType,
+                                        @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
-            JSONObject response = rpcUtil.sendRequest("add_gaussian_noise", dataset, audioName);
+            JSONObject response = rpcUtil.sendRequest("add_gaussian_noise", dataset, audioName,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -127,10 +128,11 @@ public class NoisePatternController {
                                    @RequestParam(value = "audioName") String audioName,
                                    @RequestParam(value = "specificPattern") String specificPattern,
                                    @RequestParam(value = "currentPattern") String currentPattern,
-                                   @RequestParam(value = "currentPatternType", required = false) String currentPatternType) {
+                                   @RequestParam(value = "currentPatternType", required = false) String currentPatternType,
+                                   @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
-            JSONObject response = rpcUtil.sendRequest("add_natural_sounds", dataset, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_natural_sounds", dataset, audioName, specificPattern,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -157,10 +159,11 @@ public class NoisePatternController {
                             @RequestParam(value = "audioName") String audioName,
                             @RequestParam(value = "specificPattern") String specificPattern,
                             @RequestParam(value = "currentPattern") String currentPattern,
-                            @RequestParam(value = "currentPatternType", required = false) String currentPatternType) {
+                            @RequestParam(value = "currentPatternType", required = false) String currentPatternType,
+                            @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
-            JSONObject response = rpcUtil.sendRequest("add_animal", dataset, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_animal", dataset, audioName, specificPattern,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -187,10 +190,11 @@ public class NoisePatternController {
                                    @RequestParam(value = "audioName") String audioName,
                                    @RequestParam(value = "specificPattern") String specificPattern,
                                    @RequestParam(value = "currentPattern") String currentPattern,
-                                   @RequestParam(value = "currentPatternType", required = false) String currentPatternType) {
+                                   @RequestParam(value = "currentPatternType", required = false) String currentPatternType,
+                                   @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
-            JSONObject response = rpcUtil.sendRequest("add_sound_of_things", dataset, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_sound_of_things", dataset, audioName, specificPattern,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -217,10 +221,11 @@ public class NoisePatternController {
                                  @RequestParam(value = "audioName") String audioName,
                                  @RequestParam(value = "specificPattern") String specificPattern,
                                  @RequestParam(value = "currentPattern") String currentPattern,
-                                 @RequestParam(value = "currentPatternType", required = false) String currentPatternType) {
+                                 @RequestParam(value = "currentPatternType", required = false) String currentPatternType,
+                                 @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
-            JSONObject response = rpcUtil.sendRequest("add_human_sounds", dataset, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_human_sounds", dataset, audioName, specificPattern,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -247,10 +252,11 @@ public class NoisePatternController {
                            @RequestParam(value = "audioName") String audioName,
                            @RequestParam(value = "specificPattern") String specificPattern,
                            @RequestParam(value = "currentPattern") String currentPattern,
-                           @RequestParam(value = "currentPatternType", required = false) String currentPatternType) {
+                           @RequestParam(value = "currentPatternType", required = false) String currentPatternType,
+                           @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
-            JSONObject response = rpcUtil.sendRequest("add_music", dataset, audioName, specificPattern);
+            JSONObject response = rpcUtil.sendRequest("add_music", dataset, audioName, specificPattern,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }
@@ -278,11 +284,12 @@ public class NoisePatternController {
                                            @RequestParam(value = "specificPattern") String specificPattern,
                                            @RequestParam(value = "currentPattern") String currentPattern,
                                            @RequestParam(value = "currentPatternType", required = false)
-                                                   String currentPatternType) {
+                                           String currentPatternType,
+                                           @RequestParam(value = "snr") String snr) {
         shiroUtil.verifyUserToken(token);
         try {
             JSONObject response = rpcUtil.sendRequest("add_source_ambiguous_sounds",
-                    dataset, audioName, specificPattern);
+                    dataset, audioName, specificPattern,snr);
             if ((int) response.get(CODE) == StatusCode.FAIL.getCode()) {
                 return Result.fail(StatusCode.FAIL.getStatus(), response.get("data"));
             }

@@ -1,3 +1,5 @@
+import os
+
 import librosa
 import numpy as np
 import soundfile
@@ -92,6 +94,8 @@ class Dataset:
         librosa.display.waveshow(sig, sr=sr)
         plt.ylabel('Amplitude')
         savingPath = WAVEFORM_GRAPH_PATH + audio_name + ".jpg"
+        if not os.path.exists(savingPath[0:savingPath.rfind("/")]):
+            os.makedirs(savingPath[0:savingPath.rfind("/")])
         plt.savefig(savingPath)
         return savingPath
 
@@ -111,6 +115,8 @@ class Dataset:
         plt.title('Mel spectrogram')
         plt.tight_layout()
         savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
+        if not os.path.exists(savingPath[0:savingPath.rfind("/")]):
+            os.makedirs(savingPath[0:savingPath.rfind("/")])
         plt.savefig(savingPath)
         return savingPath
 
