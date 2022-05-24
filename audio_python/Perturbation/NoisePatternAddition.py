@@ -58,7 +58,7 @@ def add_gaussian_noise(dataset, audio_name, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_gaussian_noise(audio_name, snr)
+    dataset_instance.add_gaussian_noise(audio_name, int(snr))
     return RpcResult.ok("")
 
 
@@ -87,7 +87,7 @@ def add_natural_sounds(dataset, audio_name, pattern_type, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_natural_sounds(audio_name, pattern_type, snr)
+    dataset_instance.add_natural_sounds(audio_name, pattern_type, int(snr))
     return RpcResult.ok("")
 
 
@@ -102,7 +102,7 @@ def add_animal(dataset, audio_name, pattern_type, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_animal(audio_name, pattern_type, snr)
+    dataset_instance.add_animal(audio_name, pattern_type, int(snr))
     return RpcResult.ok("")
 
 
@@ -117,7 +117,7 @@ def add_sound_of_things(dataset, audio_name, pattern_type, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_sound_of_things(audio_name, pattern_type, snr)
+    dataset_instance.add_sound_of_things(audio_name, pattern_type, int(snr))
     return RpcResult.ok("")
 
 
@@ -132,7 +132,7 @@ def add_human_sounds(dataset, audio_name, pattern_type, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_human_sounds(audio_name, pattern_type, snr)
+    dataset_instance.add_human_sounds(audio_name, pattern_type, int(snr))
     return RpcResult.ok("")
 
 
@@ -147,7 +147,7 @@ def add_music(dataset, audio_name, pattern_type, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_music(audio_name, pattern_type, snr)
+    dataset_instance.add_music(audio_name, pattern_type, int(snr))
     return RpcResult.ok("")
 
 
@@ -162,7 +162,7 @@ def add_source_ambiguous_sounds(dataset, audio_name, pattern_type, snr):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type, snr)
+    dataset_instance.add_source_ambiguous_sounds(audio_name, pattern_type, int(snr))
     return RpcResult.ok("")
 
 

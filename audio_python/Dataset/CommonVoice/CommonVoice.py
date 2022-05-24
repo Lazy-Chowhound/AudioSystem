@@ -178,7 +178,7 @@ class CommonVoice(Dataset):
                 pattern_info["snr"] = round(
                     calculate_SNR(self.clips_path + pattern_info["name"], self.noise_clips_path + clip), 2)
             else:
-                pattern_info["snr"] = "无信噪比"
+                pattern_info["snr"] = "无"
             audio_set_pattern.append(pattern_info)
         return audio_set_pattern
 
