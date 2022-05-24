@@ -127,6 +127,25 @@ public class AudioController {
         }
     }
 
+    /**
+     * 属性图前后对比
+     */
+    @RequiresAuthentication
+    @RequiresPermissions("A:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER", "VISITOR"}, logical = Logical.OR)
+    @RequestMapping("/propertyContrast")
+    public Result propertyContrast(@RequestHeader("Authorization") String token,
+                                 @RequestParam(value = "audioSet") String audioSet,
+                                 @RequestParam(value = "audioName") String audioName) {
+        shiroUtil.verifyUserToken(token);
+        try {
+            JSONObject jsonObject = rpcUtil.sendRequest("get_contrast_graph", audioSet, audioName);
+            return Result.success(StatusCode.SUCCESS.getStatus(), jsonObject.getString("data"));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
+
     @RequestMapping("/removeImage")
     public Result removeImage(@RequestParam(value = "path") String path) {
         try {

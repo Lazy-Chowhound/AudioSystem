@@ -4,12 +4,10 @@ import os
 import librosa.display
 import pandas as pd
 import torch
-from matplotlib import pyplot as plt
 from pydub import AudioSegment
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 
 from Dataset.Dataset import Dataset
-from Perturbation.AudioProcess import *
 from Util.AudioUtil import *
 from Validation.Indicator import cer, cer_overall
 
@@ -118,40 +116,6 @@ class CommonVoice(Dataset):
         song = AudioSegment.from_mp3(self.clips_path + audio)
         return song.sample_width * 8
 
-    def get_waveform_graph(self, audio_name):
-        """
-        生成波形图
-        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
-        :return:
-        """
-        audio = os.path.join(self.clips_path, audio_name)
-        sig, sr = librosa.load(audio, sr=None)
-        plt.figure(figsize=(8, 5))
-        librosa.display.waveshow(sig, sr=sr)
-        plt.ylabel('Amplitude')
-        savingPath = WAVEFORM_GRAPH_PATH + audio_name + ".jpg"
-        plt.savefig(savingPath)
-        return savingPath
-
-    def get_mel_spectrum(self, audio_name):
-        """
-        生成 Mel频谱图
-        :param audio_name: 音频名称，如common_voice_zh-CN_18524189.mp3
-        :return:
-        """
-        audio = os.path.join(self.clips_path, audio_name)
-        sig, sr = librosa.load(audio, sr=None)
-        S = librosa.feature.melspectrogram(y=sig, sr=sr)
-        plt.figure(figsize=(8, 5))
-        librosa.display.specshow(librosa.amplitude_to_db(S, ref=np.max),
-                                 y_axis='mel', fmax=8000, x_axis='time')
-        plt.colorbar(format='%+2.0f dB')
-        plt.title('Mel spectrogram')
-        plt.tight_layout()
-        savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
-        plt.savefig(savingPath)
-        return savingPath
-
     def get_noise_audio_clips_list(self):
         """
         获取扰动音频列表
@@ -228,7 +192,7 @@ class CommonVoice(Dataset):
     def get_name_and_pattern_tag(self, name):
         """
         从扰动名字中获取原本的名字和扰动标签
-        :param name: 扰动音频名称，如common_voice_zh-CN_18524189_gaussian_white_noise.mp3
+        :param name: 扰动音频名称，如common_voice_zh-CN_18524189_gaussian_white_noise.wav
         :return: common_voice_zh-CN_18524189.mp3,gaussian_white_noise
         """
         num = re.findall("\\d+", name)[0]
@@ -426,7 +390,7 @@ class CommonVoice(Dataset):
     def get_noise_clip_name(self, audio_name):
         """
         获取原音频对应的扰动音频名称
-        :param audio_name: 音频名称，如common_voice_zh-CN_18524189_sound_level_pitch.mp3
+        :param audio_name: 音频名称，如 common_voice_zh-CN_18524189.mp3
         :return:
         """
         for file in os.listdir(self.noise_clips_path):

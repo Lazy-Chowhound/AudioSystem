@@ -2,9 +2,7 @@ import glob
 import os
 
 import librosa.display
-import numpy as np
 import torch
-from matplotlib import pyplot as plt
 from pydub import AudioSegment
 from transformers import AutoProcessor, AutoModelForCTC, AutoModelForSpeechSeq2Seq, Wav2Vec2Processor, HubertForCTC, \
     Data2VecAudioForCTC
@@ -128,44 +126,6 @@ class Timit(Dataset):
         """
         song = AudioSegment.from_wav(audio)
         return song.sample_width * 8
-
-    def get_waveform_graph(self, audio_name):
-        """
-        生成波形图
-        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
-        :return:
-        """
-        audio = os.path.join(self.clips_path, audio_name)
-        sig, sr = librosa.load(audio, sr=None)
-        plt.figure(figsize=(8, 5))
-        librosa.display.waveshow(sig, sr=sr)
-        plt.ylabel('Amplitude')
-        savingPath = WAVEFORM_GRAPH_PATH + audio_name + ".jpg"
-        if not os.path.exists(savingPath[0:savingPath.rfind("/")]):
-            os.makedirs(savingPath[0:savingPath.rfind("/")])
-        plt.savefig(savingPath)
-        return savingPath
-
-    def get_mel_spectrum(self, audio_name):
-        """
-        生成 Mel频谱图
-        :param audio_name: 音频名称，如 TRAIN/DR1/FCJF0/SA1_n.wav
-        :return:
-        """
-        audio = os.path.join(self.clips_path, audio_name)
-        sig, sr = librosa.load(audio, sr=None)
-        S = librosa.feature.melspectrogram(y=sig, sr=sr)
-        plt.figure(figsize=(8, 5))
-        librosa.display.specshow(librosa.amplitude_to_db(S, ref=np.max),
-                                 y_axis='mel', fmax=8000, x_axis='time')
-        plt.colorbar(format='%+2.0f dB')
-        plt.title('Mel spectrogram')
-        plt.tight_layout()
-        savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
-        if not os.path.exists(savingPath[0:savingPath.rfind("/")]):
-            os.makedirs(savingPath[0:savingPath.rfind("/")])
-        plt.savefig(savingPath)
-        return savingPath
 
     def get_noise_audio_clips_list(self):
         """

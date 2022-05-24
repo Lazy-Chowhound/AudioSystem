@@ -29,7 +29,7 @@ def get_waveform_graph(dataset, audio_name):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    savingPath = dataset_instance.get_waveform_graph(audio_name)
+    savingPath = dataset_instance.get_waveform_graph(dataset_instance.clips_path + audio_name, audio_name)
     return RpcResult.ok(savingPath)
 
 
@@ -42,8 +42,27 @@ def get_mel_spectrum(dataset, audio_name):
     :return:
     """
     dataset_instance = get_dataset_instance(dataset)
-    savingPath = dataset_instance.get_mel_spectrum(audio_name)
+    savingPath = dataset_instance.get_mel_spectrum(dataset_instance.clips_path + audio_name, audio_name)
     return RpcResult.ok(savingPath)
+
+
+@rpcApi
+def get_contrast_graph(dataset, audio_name):
+    """
+    获取扰动前后对比属性图
+    :param dataset:
+    :param audio_name:
+    :return:
+    """
+    dataset_instance = get_dataset_instance(dataset)
+    noise_audio_name = dataset_instance.get_noise_clip_name(audio_name)
+    before_waveform = dataset_instance.get_waveform_graph(dataset_instance.clips_path + audio_name, audio_name)
+    after_waveform = dataset_instance.get_waveform_graph(dataset_instance.noise_clips_path + noise_audio_name,
+                                                         noise_audio_name)
+    before_mel = dataset_instance.get_mel_spectrum(dataset_instance.clips_path + audio_name, audio_name)
+    after_mel = dataset_instance.get_mel_spectrum(dataset_instance.noise_clips_path + noise_audio_name,
+                                                  noise_audio_name)
+    return RpcResult.ok(json.dumps([before_waveform, after_waveform, before_mel, after_mel]))
 
 
 @rpcApi
@@ -55,7 +74,3 @@ def remove_image(path):
     """
     os.remove(path)
     return RpcResult.ok("Image removed")
-
-
-if __name__ == '__main__':
-    pass

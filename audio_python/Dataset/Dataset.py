@@ -1,10 +1,13 @@
 import librosa
+import numpy as np
 import soundfile
-
+from matplotlib import pyplot as plt
+import librosa.display
 from Dataset.DatasetUtil import make_dirs
 from Perturbation.AudioProcess import gaussian_white_noise, louder, quieter, change_pitch, change_speed, \
     add_noise_certain_snr
-from Util.AudioUtil import MODEL_PATH, add_tag, pattern_type_to_suffix, get_source_noises_path, pattern_types_dict
+from Util.AudioUtil import MODEL_PATH, add_tag, pattern_type_to_suffix, get_source_noises_path, pattern_types_dict, \
+    WAVEFORM_GRAPH_PATH, MEL_SPECTRUM_PATH
 
 
 class Dataset:
@@ -77,20 +80,39 @@ class Dataset:
         """
         return 0
 
-    def get_waveform_graph(self, audio_name):
+    def get_waveform_graph(self, audio, audio_name):
         """
         生成波形图
-        :param audio_name: 音频名称
-        """
-        pass
-
-    def get_mel_spectrum(self, audio_name):
-        """
-        生成 Mel频谱图
-        :param audio_name: 音频名称
+        :param audio: 音频路径
+        :param audio_name: 音频名
         :return:
         """
-        pass
+        sig, sr = librosa.load(audio, sr=None)
+        plt.figure(figsize=(8, 5))
+        librosa.display.waveshow(sig, sr=sr)
+        plt.ylabel('Amplitude')
+        savingPath = WAVEFORM_GRAPH_PATH + audio_name + ".jpg"
+        plt.savefig(savingPath)
+        return savingPath
+
+    def get_mel_spectrum(self, audio, audio_name):
+        """
+        生成 Mel频谱图
+        :param audio: 音频路径
+        :param audio_name: 音频名
+        :return:
+        """
+        sig, sr = librosa.load(audio, sr=None)
+        S = librosa.feature.melspectrogram(y=sig, sr=sr)
+        plt.figure(figsize=(8, 5))
+        librosa.display.specshow(librosa.amplitude_to_db(S, ref=np.max),
+                                 y_axis='mel', fmax=8000, x_axis='time')
+        plt.colorbar(format='%+2.0f dB')
+        plt.title('Mel spectrogram')
+        plt.tight_layout()
+        savingPath = MEL_SPECTRUM_PATH + audio_name + ".jpg"
+        plt.savefig(savingPath)
+        return savingPath
 
     def get_noise_audio_clips_list(self):
         """
