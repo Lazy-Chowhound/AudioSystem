@@ -34,6 +34,14 @@ class Timit(Dataset):
                          "hubert-large-ls960-ft": [0.06594996898904279, 0.15174695058920817],
                          "data2vec-audio-base-960h": [0.08765763903245813, 0.26951967472951555],
                          "unispeech-large-1500h-cv-timit": [0.23816415133347116, 0.4294673006684584]}
+        self.wer_type = {
+            "wav2vec2-large-960h": {"Animal": [0.08252818035426732, 0.27334943639291465],
+                                    "Natural sounds": [0.0948782535684299, 0.22628043660789252],
+                                    "Sound of things": [0.11092851273623665, 0.27074774034511095],
+                                    "Human sounds": [0.10191347753743761, 0.2579034941763727],
+                                    "Music": [0.10653222270933801, 0.1863217886891714],
+                                    "Source-ambiguous sounds": [0.1025844930417495, 0.20318091451292247]}
+        }
 
     def get_audio_clips_properties_by_page(self, page, page_size):
         """
@@ -276,7 +284,7 @@ class Timit(Dataset):
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
         # 实时计算 由于时间太长这里就直接写死
-        # pre_overall_wer, post_overall_wer = self.get_dataset_er()
+        # pre_overall_wer, post_overall_wer = self.get_dataset_er(model)
         pre_overall_wer, post_overall_wer = round(self.wer_dict.get(model)[0], 3), round(
             self.wer_dict.get(model)[1], 3)
         validation_results.append({"preOverallER": pre_overall_wer})
@@ -299,18 +307,22 @@ class Timit(Dataset):
         validation_results = []
         certain_pattern_audios = []
         audio_list = self.get_testset_audio_clips_list()
-        pattern_name = pattern_to_name(pattern)
+        pattern_name = pattern_to_name.get(pattern)
         for audio in audio_list:
             noise_audio_name = self.get_noise_clip_name(audio)
             if pattern_name in noise_audio_name:
                 certain_pattern_audios.append(audio)
 
-        pre_overall_wer, post_overall_wer = 0, 0
+        validation_results.append({"total": len(certain_pattern_audios)})
+        # 实时计算 由于时间太长这里就直接写死
+        # pre_overall_wer, post_overall_wer = self.get_certain_pattern_er(model,pattern)
+        pre_overall_wer, post_overall_wer = round(self.wer_type.get(model).get(pattern)[0], 2), round(
+            self.wer_type.get(model).get(pattern)[1], 2)
         validation_results.append({"preOverallER": pre_overall_wer})
         validation_results.append({"postOverallER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size),
                            min(int(page) * int(page_size), len(certain_pattern_audios))):
-            audio_result = self.get_validation_result(audio_list[index], model)
+            audio_result = self.get_validation_result(certain_pattern_audios[index], model)
             audio_result['key'] = index + 1
             validation_results.append(audio_result)
         return validation_results
@@ -398,22 +410,38 @@ class Timit(Dataset):
         :param model_name: 模型名
         :return:
         """
-        if len(self.real_text_list) == 0 or len(self.previous_text_list) == 0 or len(self.post_text_list) == 0:
-            self.get_dataset_texts(model_name)
-        return wer_overall(self.real_text_list, self.previous_text_list), wer_overall(self.real_text_list,
-                                                                                      self.post_text_list)
-
-    def get_dataset_texts(self, model_name):
-        """
-        :param model_name: 模型名
-        :return:
-        """
+        real, previous, post = [], [], []
         audio_list = self.get_testset_audio_clips_list()
         for audio in audio_list:
-            self.real_text_list.append(self.get_audio_clip_content(audio))
-            self.previous_text_list.append(self.get_audio_clip_transcription(audio, model_name))
+            real.append(self.formalize(self.get_audio_clip_content(audio)))
+            previous.append(self.get_audio_clip_transcription(audio, model_name))
             noise_audio = self.get_noise_clip_name(audio)
-            self.post_text_list.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
+            post.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
+        return wer_overall(real, previous), wer_overall(real, post)
+
+    def get_certain_pattern_er(self, model_name, pattern):
+        """
+        获取某一类别扰动的错误率
+        :param model_name:
+        :param pattern:
+        :return:
+        """
+        real, previous, post = [], [], []
+        certain_pattern_audios = []
+        audio_list = self.get_testset_audio_clips_list()
+        pattern_name = pattern_to_name.get(pattern)
+        for audio in audio_list:
+            noise_audio_name = self.get_noise_clip_name(audio)
+            if pattern_name in noise_audio_name:
+                certain_pattern_audios.append(audio)
+
+        for audio in certain_pattern_audios:
+            real.append(self.formalize(self.get_audio_clip_content(audio)))
+            previous.append(self.get_audio_clip_transcription(audio, model_name))
+            noise_audio = self.get_noise_clip_name(audio)
+            post.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
+            print(audio + "已完成")
+        return wer_overall(real, previous), wer_overall(real, post)
 
     def load_model(self, model_name):
         """

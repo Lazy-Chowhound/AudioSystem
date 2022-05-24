@@ -6,6 +6,7 @@ import {formatTime, getAudioSet, getAudioUrl, getNoiseAudioUrl} from "../Util/Au
 import {sendFile, sendGet} from "../Util/axios";
 import {CheckOutlined, InboxOutlined, UploadOutlined} from "@ant-design/icons";
 import Dragger from "antd/es/upload/Dragger";
+import "../css/Validation.css"
 
 
 class Validation extends React.Component {
@@ -30,6 +31,7 @@ class Validation extends React.Component {
             hasSelected: false,
             drawerVisible: false,
             modelName: null,
+            selectedPattern: null,
         }
     }
 
@@ -111,48 +113,96 @@ class Validation extends React.Component {
             message.error("未选择数据集").then()
             return
         }
+        if (this.state.selectedPattern === null) {
+            message.error("未选择类别").then()
+            return
+        }
         this.setState({
             loading: true
         })
-        sendGet("/validationResultsByPage", {
-                params: {
-                    audioSet: this.state.dataset,
-                    model: this.state.currentModel,
-                    page: this.state.currentPage,
-                    pageSize: this.state.pageSize
+        if (this.state.selectedPattern === "All") {
+            sendGet("/validationResultsByPage", {
+                    params: {
+                        audioSet: this.state.dataset,
+                        model: this.state.currentModel,
+                        page: this.state.currentPage,
+                        pageSize: this.state.pageSize
+                    }
                 }
-            }
-        ).then(res => {
-            if (res.data.code === 400) {
-                message.error(res.data.data).then()
-                this.setState({
-                    loading: false
-                })
-            } else {
-                const data = JSON.parse(res.data.data)
-                const totalLen = data.shift().total
-                const preOverallER = data.shift().preOverallER
-                const postOverallER = data.shift().postOverallER
-                this.setState({
-                    dataSource: data,
-                    total: totalLen,
-                    preOverallER: preOverallER,
-                    postOverallER: postOverallER,
-                    loading: false
-                })
-            }
-        }).catch(error => {
-                message.error(error).then()
-                this.setState({
-                    loading: false
-                })
-            }
-        )
+            ).then(res => {
+                if (res.data.code === 400) {
+                    message.error(res.data.data).then()
+                    this.setState({
+                        loading: false
+                    })
+                } else {
+                    const data = JSON.parse(res.data.data)
+                    const totalLen = data.shift().total
+                    const preOverallER = data.shift().preOverallER
+                    const postOverallER = data.shift().postOverallER
+                    this.setState({
+                        dataSource: data,
+                        total: totalLen,
+                        preOverallER: preOverallER,
+                        postOverallER: postOverallER,
+                        loading: false
+                    })
+                }
+            }).catch(error => {
+                    message.error(error).then()
+                    this.setState({
+                        loading: false
+                    })
+                }
+            )
+        } else {
+            sendGet("/validationResultsByPattern", {
+                    params: {
+                        audioSet: this.state.dataset,
+                        pattern: this.state.selectedPattern,
+                        model: this.state.currentModel,
+                        page: this.state.currentPage,
+                        pageSize: this.state.pageSize
+                    }
+                }
+            ).then(res => {
+                if (res.data.code === 400) {
+                    message.error(res.data.data).then()
+                    this.setState({
+                        loading: false
+                    })
+                } else {
+                    const data = JSON.parse(res.data.data)
+                    const totalLen = data.shift().total
+                    const preOverallER = data.shift().preOverallER
+                    const postOverallER = data.shift().postOverallER
+                    this.setState({
+                        dataSource: data,
+                        total: totalLen,
+                        preOverallER: preOverallER,
+                        postOverallER: postOverallER,
+                        loading: false
+                    })
+                }
+            }).catch(error => {
+                    message.error(error).then()
+                    this.setState({
+                        loading: false
+                    })
+                }
+            )
+        }
     }
 
     datasetChange = (e) => {
         this.setState({
             dataset: e
+        })
+    }
+
+    patternChange = (e) => {
+        this.setState({
+            selectedPattern: e
         })
     }
 
@@ -370,6 +420,19 @@ class Validation extends React.Component {
                                 onChange={this.datasetChange}>
                             {this.state.options.map(val => <Select.Option key={val} value={val}/>)}
                         </Select>
+                        <span>扰动类别:</span>
+                        <Select placeholder="选择扰动类别" value={this.state.selectedPattern} bordered={false}
+                                onChange={this.patternChange}>
+                            <Select.Option key={"All"} value={"All"}/>
+                            <Select.Option key={"Gaussian noise"} value={"Gaussian noise"}/>
+                            <Select.Option key={"Sound level"} value={"Sound level"}/>
+                            <Select.Option key={"Animal"} value={"Animal"}/>
+                            <Select.Option key={"Source-ambiguous sounds"} value={"Source-ambiguous sounds"}/>
+                            <Select.Option key={"Natural sounds"} value={"Natural sounds"}/>
+                            <Select.Option key={"Sound of things"} value={"Sound of things"}/>
+                            <Select.Option key={"Human sounds"} value={"Human sounds"}/>
+                            <Select.Option key={"Music"} value={"Music"}/>
+                        </Select>
                     </div>
                     <Button icon={<UploadOutlined/>} onClick={() => {
                         this.setState({modalVisible: true})
@@ -382,7 +445,14 @@ class Validation extends React.Component {
                         </Select>
                     </div>
                 </div>
-                <Table loading={this.state.loading} columns={this.columns} dataSource={this.state.dataSource}
+                <Table rowClassName={(record) => {
+                    if (parseFloat(record.postER) - parseFloat(record.preER) > 0) {
+                        return "wrong_row"
+                    } else {
+                        return "right_row"
+                    }
+                }}
+                       loading={this.state.loading} columns={this.columns} dataSource={this.state.dataSource}
                        pagination={{
                            pageSize: this.state.pageSize, total: this.state.total,
                            showSizeChanger: false

@@ -263,7 +263,7 @@ class CommonVoice(Dataset):
         audio_list = self.get_testset_audio_clips_list()
         validation_results.append({"total": len(audio_list)})
         # 实时计算 由于时间太长这里就直接写死
-        # pre_overall_cer, post_overall_cer = self.get_dataset_er()
+        # pre_overall_wer, post_overall_wer = self.get_dataset_er(model)
         pre_overall_cer, post_overall_cer = round(self.cer_dict.get(model)[0], 3), round(self.cer_dict.get(model)[1], 3)
         validation_results.append({"preOverallER": pre_overall_cer})
         validation_results.append({"postOverallER": post_overall_cer})
@@ -285,18 +285,21 @@ class CommonVoice(Dataset):
         validation_results = []
         certain_pattern_audios = []
         audio_list = self.get_testset_audio_clips_list()
-        pattern_name = pattern_to_name(pattern)
+        pattern_name = pattern_to_name.get(pattern)
         for audio in audio_list:
             noise_audio_name = self.get_noise_clip_name(audio)
             if pattern_name in noise_audio_name:
                 certain_pattern_audios.append(audio)
 
+        validation_results.append({"total": len(certain_pattern_audios)})
+        # 实时计算 由于时间太长这里就直接写死
+        # pre_overall_wer, post_overall_wer = self.get_certain_pattern_er(model,pattern)
         pre_overall_wer, post_overall_wer = 0, 0
         validation_results.append({"preOverallER": pre_overall_wer})
         validation_results.append({"postOverallER": post_overall_wer})
         for index in range((int(page) - 1) * int(page_size),
                            min(int(page) * int(page_size), len(certain_pattern_audios))):
-            audio_result = self.get_validation_result(audio_list[index], model)
+            audio_result = self.get_validation_result(certain_pattern_audios[index], model)
             audio_result['key'] = index + 1
             validation_results.append(audio_result)
         return validation_results
@@ -361,23 +364,37 @@ class CommonVoice(Dataset):
         :param model_name: 模型名
         :return:
         """
-        if len(self.real_text_list) == 0 or len(self.previous_text_list) == 0 or len(self.post_text_list) == 0:
-            self.get_dataset_texts(model_name)
-        return cer_overall(self.real_text_list, self.previous_text_list), cer_overall(self.real_text_list,
-                                                                                      self.post_text_list)
-
-    def get_dataset_texts(self, model_name):
-        """
-        获取训练集上所欲音频的前后文本
-        :param model_name: 模型名
-        :return:
-        """
+        real, previous, post = [], [], []
         audio_list = self.get_testset_audio_clips_list()
         for audio in audio_list:
-            self.real_text_list.append(self.get_audio_clip_content(audio))
-            self.previous_text_list.append(self.get_audio_clip_transcription(audio, model_name))
+            real.append(self.formalize(self.get_audio_clip_content(audio)))
+            previous.append(self.get_audio_clip_transcription(audio, model_name))
             noise_audio = self.get_noise_clip_name(audio)
-            self.post_text_list.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
+            post.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
+        return cer_overall(real, previous), cer_overall(real, post)
+
+    def get_certain_pattern_er(self, model_name, pattern):
+        """
+        获取某一类别扰动的错误率
+        :param model_name:
+        :param pattern:
+        :return:
+        """
+        real, previous, post = [], [], []
+        certain_pattern_audios = []
+        audio_list = self.get_testset_audio_clips_list()
+        pattern_name = pattern_to_name.get(pattern)
+        for audio in audio_list:
+            noise_audio_name = self.get_noise_clip_name(audio)
+            if pattern_name in noise_audio_name:
+                certain_pattern_audios.append(audio)
+
+        for audio in certain_pattern_audios:
+            real.append(self.formalize(self.get_audio_clip_content(audio)))
+            previous.append(self.get_audio_clip_transcription(audio, model_name))
+            noise_audio = self.get_noise_clip_name(audio)
+            post.append(self.get_noise_audio_clip_transcription(noise_audio, model_name))
+        return cer_overall(real, previous), cer_overall(real, post)
 
     def load_model(self, model_name):
         """

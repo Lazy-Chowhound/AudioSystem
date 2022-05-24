@@ -19,9 +19,10 @@ import {
     QuestionCircleOutlined, SyncOutlined,
 } from "@ant-design/icons";
 import {sendGet} from "../Util/axios";
-import {formatTime, formatTimeStamp, getAudioSet, getNoiseAudioUrl} from "../Util/AudioUtil";
+import {formatTime, formatTimeStamp, getAudioSet, getImageUrl, getNoiseAudioUrl} from "../Util/AudioUtil";
 import AudioPlay from "../AudioList/AudioPlay";
 import PatternDrawer from "./PatternDrawer";
+import ImageDisplay from "../AudioList/ImageDisplay";
 
 class PerturbationAttach extends React.Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class PerturbationAttach extends React.Component {
             selectedRowKeys: [],
             dataSource: [],
             patternChoices: {},
+            snrChoices: {},
             percent: 0,
             visible: false,
             operationDone: false,
@@ -47,6 +49,11 @@ class PerturbationAttach extends React.Component {
             operationHistory: [],
             clipsNum: 0,
             noiseClipsNum: 0,
+            contrastGraphVisible: false,
+            contrastWaveform: [],
+            contrastMelGraph: [],
+            contrastWaveformUrl: [],
+            contrastMelGraphUrl: [],
         };
     }
 
@@ -104,7 +111,19 @@ class PerturbationAttach extends React.Component {
         },
         {
             title: "更改扰动",
-            render: (item) => <PatternDisplay parent={this} row={item.key}/>,
+            render: (text, record, index) => <div style={{marginTop: "5"}}>
+                <PatternDisplay parent={this} row={index}/>
+                <div>当前信噪比：{record.snr} 信噪比：<input onChange={this.changeSnr.bind(this, index)}></input>
+                </div>
+            </div>,
+            align: "center"
+        },
+        {
+            title: "属性比对",
+            render: (text, record) =>
+                <Button type={"link"} onClick={() => {
+                    this.propertyContrast(record.name)
+                }}>属性比对</Button>,
             align: "center"
         }];
 
@@ -118,13 +137,54 @@ class PerturbationAttach extends React.Component {
         })
     }
 
+    propertyContrast = (audioName) => {
+        sendGet("/propertyContrast", {
+            params: {
+                audioSet: this.state.dataset,
+                audioName: audioName
+            }
+        }).then(res => {
+                if (res.data.code === 400) {
+                    message.error(res.data.data).then()
+                } else {
+                    const data = JSON.parse(res.data.data)
+                    let temp_waveform = [data[0], data[1]]
+                    let temp_mel = [data[2], data[3]]
+                    let temp_waveform_url = [getImageUrl(data[0]), getImageUrl(data[1])]
+                    let temp_mel_url = [getImageUrl(data[2]), getImageUrl(data[3])]
+                    this.setState({
+                        contrastGraphVisible: true,
+                        contrastWaveform: temp_waveform,
+                        contrastMelGraph: temp_mel,
+                        contrastWaveformUrl: temp_waveform_url,
+                        contrastMelGraphUrl: temp_mel_url
+                    })
+                }
+            }
+        ).catch(err => {
+            message.error(err).then()
+            this.setState({
+                loading: false
+            })
+        })
+    }
+
+    changeSnr = (index, e) => {
+        let snr_list = this.state.snrChoices
+        snr_list[index] = e.target.value
+        this.setState({
+            snrChoices: snr_list
+        })
+    }
+
     getAudioName = (record) => {
         let name = record.name, pattern = record.pattern, patternType = record.patternType
+        let audioFormat = name.substring(name.indexOf(".")) === ".mp3" ? ".wav" : name.substring(name.indexOf("."))
         name = name.substring(0, name.indexOf(".")) + "_"
-            + this.patternToName[pattern] + name.substring(name.indexOf("."))
+            + this.patternToName[pattern] + audioFormat
         if (pattern !== "Gaussian noise") {
             patternType = patternType.replaceAll(" ", "_").toLowerCase()
-            name = name.substring(0, name.indexOf(".")) + "_" + patternType + name.substring(name.indexOf("."))
+            name = name.substring(0, name.indexOf(".")) + "_" + patternType + audioFormat
         }
         return name
     }
@@ -168,6 +228,7 @@ class PerturbationAttach extends React.Component {
                     let errorMsg = null
                     const info = this.getSelectedRowParam(selectedKeys[i])
                     let flag = true, url = info[0], parameters = info[1]
+                    console.log(parameters)
                     await sendGet(url, {
                         params: parameters
                     }).then((res) => {
@@ -276,6 +337,7 @@ class PerturbationAttach extends React.Component {
         if (pattern[0] !== "Gaussian noise") {
             params["specificPattern"] = pattern[1]
         }
+        params["snr"] = this.state.snrChoices[key]
         return [urls[pattern[0]], params]
     }
 
@@ -464,6 +526,27 @@ class PerturbationAttach extends React.Component {
         }
     }
 
+    handleCancel = () => {
+        this.setState({
+            contrastGraphVisible: false
+        })
+        let delete_list = [this.state.contrastWaveform[0], this.state.contrastWaveform[1],
+            this.state.contrastMelGraph[0], this.state.contrastMelGraph[1]]
+        this.setState({
+            contrastWaveform: [],
+            contrastMelGraph: []
+        })
+        for (let i = 0; i < delete_list.length; i++) {
+            sendGet("/removeImage", {
+                params: {
+                    path: delete_list[i]
+                }
+            }).catch(error => {
+                message.error(error).then()
+            })
+        }
+    }
+
     render() {
         const {selectedRowKeys} = this.state;
         const locales = {selectionAll: "全选", selectNone: "清空所有", filterConfirm: '确定', filterReset: '重置'}
@@ -563,6 +646,17 @@ class PerturbationAttach extends React.Component {
                                 <Button style={{width: 100}} type={"primary"} disabled={this.state.disabled}
                                         onClick={this.showResult}>确认</Button>
                             </div>
+                        </div>
+                    </Modal>
+                    <Modal style={{marginTop: 0}} title={"属性比对"} visible={this.state.contrastGraphVisible}
+                           footer={null} onCancel={this.handleCancel} width={1200}>
+                        <div>
+                            <ImageDisplay src={this.state.contrastWaveformUrl[0]}/>
+                            <ImageDisplay src={this.state.contrastMelGraphUrl[0]}/>
+                        </div>
+                        <div>
+                            <ImageDisplay src={this.state.contrastWaveformUrl[1]}/>
+                            <ImageDisplay src={this.state.contrastMelGraphUrl[1]}/>
                         </div>
                     </Modal>
                     <Drawer title={drawerTitle} placement="right" onClose={this.closeHistory}

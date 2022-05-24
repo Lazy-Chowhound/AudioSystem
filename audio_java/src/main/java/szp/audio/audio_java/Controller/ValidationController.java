@@ -74,4 +74,31 @@ public class ValidationController {
             return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
         }
     }
+
+    /**
+     * 按类型获取验证结果
+     */
+    @RequiresAuthentication
+    @RequiresPermissions("C:SELECT")
+    @RequiresRoles(value = {"ROOT", "USER"}, logical = Logical.OR)
+    @RequestMapping("/validationResultsByPattern")
+    public Result getValidationResultsByPattern(@RequestHeader("Authorization") String token,
+                                                @RequestParam(value = "audioSet") String dataset,
+                                                @RequestParam(value = "pattern") String pattern,
+                                                @RequestParam(value = "model") String modelName,
+                                                @RequestParam(value = "page") String page,
+                                                @RequestParam(value = "pageSize") String pageSize) {
+        shiroUtil.verifyUserToken(token);
+        try {
+            JSONObject jsonObject = rpcUtil.sendRequest("get_validation_results_by_pattern",
+                    dataset, pattern, modelName, page, pageSize);
+            if (jsonObject.getString("code").equals("400")) {
+                return Result.fail(StatusCode.FAIL.getStatus(), "模型不适用于该数据集");
+            }
+            return Result.success(StatusCode.SUCCESS.getStatus(),
+                    JSONObject.toJSONString(jsonObject.getJSONArray("data")));
+        } catch (XmlRpcException xmlRpcException) {
+            return Result.fail(StatusCode.FAIL.getStatus(), xmlRpcException.getMessage());
+        }
+    }
 }

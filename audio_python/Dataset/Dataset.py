@@ -18,9 +18,6 @@ class Dataset:
         self.model = None
         self.processor = None
         self.model_path = MODEL_PATH
-        self.real_text_list = []
-        self.previous_text_list = []
-        self.post_text_list = []
         self.clips_path = ""
         self.noise_clips_path = ""
         self.audio_format = "wav"
@@ -410,9 +407,11 @@ class Dataset:
         """
         pass
 
-    def get_dataset_texts(self, model_name):
+    def get_certain_pattern_er(self, model_name, pattern):
         """
-        :param model_name: 模型名
+        获取某一类别扰动的错误率
+        :param model_name:
+        :param pattern:
         :return:
         """
         pass
@@ -423,6 +422,11 @@ class Dataset:
         :param model_name: 模型名
         """
         pass
+
+    def close_model(self):
+        """清除模型"""
+        self.processor = None
+        self.model = None
 
     def get_noise_clip_name(self, audio_name):
         """

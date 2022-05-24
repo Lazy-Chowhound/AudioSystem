@@ -43,6 +43,7 @@ def get_validation_results_by_page(dataset, model_name, page, page_size):
             return RpcResult.error("模型不适用于该数据集")
         dataset_instance.load_model(model_name)
         results = dataset_instance.get_validation_results_by_page(model_name, page, page_size)
+        dataset_instance.close_model()
         return RpcResult.ok(json.dumps(results, ensure_ascii=False))
     except Exception as e:
         return RpcResult.error(e)
@@ -65,6 +66,7 @@ def get_validation_results_by_pattern(dataset, pattern, model_name, page, page_s
             return RpcResult.error("模型不适用于该数据集")
         dataset_instance.load_model(model_name)
         results = dataset_instance.get_validation_results_by_pattern(pattern, model_name, page, page_size)
+        dataset_instance.close_model()
         return RpcResult.ok(json.dumps(results, ensure_ascii=False))
     except Exception as e:
         return RpcResult.error(e)
